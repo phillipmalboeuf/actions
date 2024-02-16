@@ -1,0 +1,29 @@
+// SIZES
+$base: 18px;
+$scale: 1.22222222;
+$gap: $base * $scale;
+
+$mobile: 888px;
+$mobile_base: 14px;
+$mobile_scale: 1.25;
+$mobile_gap: $mobile_base * $mobile_scale;
+
+$number_of_columns: 12;
+
+// FONTS
+$display: 'Marguerite Grotesk', sans-serif;
+$text: 'Cofo Sans', sans-serif;
+$alt: sans-serif;
+$alt_display: sans-serif;
+
+// COLORS
+$black: #0D0D0D;
+$black-light: #212121;
+$white: #FFFFFF;
+$grey: #717171;
+$grey-light: #E4E4E4;
+$grey-dark: #2F2F2F;
+
+$beige: #FCFAF2;
+$yellow: #FFF49F;
+$brown: #57221E;

@@ -1,0 +1,210 @@
+:root {
+	--foreground: #{$brown};
+	--background: #{$beige};
+	--foreground-inverse: #{$white};
+	--background-inverse: #{$black};
+
+	font-family: $text;
+	color: var(--foreground);
+	background-color: var(--background);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-size: $base;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: $mobile) {
+    font-size: $mobile_base;
+    line-height: $mobile_scale;
+  }
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3 {
+	font-family: $display;
+	font-weight: normal;
+}
+
+h1,
+.h1 {
+	font-size: $base * $scale * 3;
+}
+
+h2,
+.h2 {
+	font-size: $base * $scale * 2;
+}
+
+h3,
+.h3 {
+	font-size: $base * $scale * 1;
+}
+
+h4,
+.h4 {
+	font-size: $base;
+}
+
+h5,
+.h5 {
+	font-size: $base;
+}
+
+h6,
+.h6 {
+	font-size: $base;
+	font-weight: bold;
+	letter-spacing: 0.1;
+}
+
+p {
+	line-height: $scale;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+input,
+button {
+	font-size: inherit;
+	font-family: inherit;
+}
+
+button:focus:not(:focus-visible) {
+	outline: none;
+}
+
+button,
+.button {
+	cursor: pointer;
+	display: inline-block;
+	padding: ($base * $scale * 0.125) ($base * $scale * 0.333);
+	border-radius: $base;
+	// background: transparent;
+	// border: 1px solid;
+	line-height: 1;
+	border: 1px solid transparent;
+	background-color: $grey-light;
+}
+
+svg {
+	path:not([stroke]) {
+		fill: currentColor;
+	}
+
+	line {
+		stroke: currentColor;
+	} 
+}
+
+table {
+	border-collapse: separate;
+  border-spacing: ($base * $scale) 0;
+	margin: 0 ($base * -$scale);
+
+	td,
+	th {
+		white-space: pre-line;
+		border-top: 1px solid;
+		padding: $base 0;
+	}
+}
+
+.ta-center {
+	text-align: center;
+}
+
+.visually-hidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: auto;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	white-space: nowrap;
+}
+
+[id] {
+	scroll-margin-top: $base;
+}
+
+// #GRID
+
+.flex {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  --gap: 0px;
+  gap: var(--gap);
+
+  &.flex--gapped {
+    --gap: #{$base};
+
+    @media (max-width: $mobile) {
+      --gap: #{$base/2};
+    }
+  }
+
+  &.flex--thick_gapped {
+    --gap: #{$base*2};
+  }
+
+  &.flex--tight_gapped {
+    --gap: #{$base/2};
+    @media (max-width: $mobile) {
+      --gap: #{$base/3};
+    }
+  }
+
+  &.flex--tight_guttered_on_phone {
+    @media (max-width: $mobile) {
+      --gap: #{$base/3};
+    }
+  }
+}
+
+  .col {
+    @for $i from 1 through $number_of_columns { 
+      &.col--#{$i}of#{$number_of_columns} {
+        $width: (100% / $number_of_columns * $i);
+        $adjust: calc(var(--gap) / #{$number_of_columns / $i});
+        width: calc(#{$width} - var(--gap) + #{$adjust});
+       }
+
+			@media (max-width: $mobile) {
+				&.col--mobile--#{$i}of#{$number_of_columns} {
+					$width: (100% / $number_of_columns * $i);
+					$adjust: calc(var(--gap) / #{$number_of_columns / $i});
+					width: calc(#{$width} - var(--gap) + #{$adjust});
+				}
+			}
+    }
+
+    @for $i from 1 through 3 { 
+      &.col--#{$i}of#{3} {
+        $width: (100% / 3 * $i);
+        $adjust: calc(var(--gap) / #{3 / $i});
+        width: calc(#{$width} - var(--gap) + #{$adjust});
+       }
+    }
+  }
