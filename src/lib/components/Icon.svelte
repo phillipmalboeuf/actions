@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let i: "arrow" | "back" | "maj" | "mnc" | "view" | "download"
+  export let i: "arrow" | "back" | "maj" | "mnc" | "view" | "download" | "close" | "plus" | "minus"
   export let label: string
 </script>
 
@@ -22,6 +22,19 @@
 <svg aria-label={label} width="47" height="31" viewBox="0 0 31.8 34.9" xmlns="http://www.w3.org/2000/svg">
 <path d="M1.1,17.7V16C7,16,12.3,19.4,15,24.4V0.3h1.8v24.2c2.6-5.1,8-8.5,13.9-8.5v1.7c-6.5,0-12.2,4.6-13.6,11
 	l-0.1,0.7h-2.1l-0.1-0.7C13.3,22.3,7.6,17.7,1.1,17.7z M29.7,27.3v5.6H2v-5.6H0.2v7.4h31.2v-7.4H29.7z"/>
+</svg>
+{:else if i === "close"}
+<svg aria-label={label} width="28" height="30" viewBox="0 0 28.9 30" xmlns="http://www.w3.org/2000/svg">
+	<path d="M28.5,29.6h-2c0-7.5-5.4-13.7-12.1-13.7S2.4,22,2.4,29.6h-2c0-6.7,3.8-12.4,9.2-14.7C4.2,12.7,0.4,7,0.4,0.2h2
+	c0,7.5,5.4,13.7,12.1,13.7S26.5,7.8,26.5,0.2h2c0,6.7-3.8,12.4-9.2,14.7C24.6,17.1,28.5,22.9,28.5,29.6z"/>
+</svg>
+{:else if i === "plus"}
+<svg aria-label={label} width="25" height="25" viewBox="0 0 25.4 25.4" xmlns="http://www.w3.org/2000/svg">
+	<path d="M25.2,13.7H13.7v11.5h-2V13.7H0.2v-2h11.5V0.2h2v11.5h11.5V13.7z"/>
+</svg>
+{:else if i === "minus"}
+<svg aria-label={label} width="25" height="25" viewBox="0 0 26 3" xmlns="http://www.w3.org/2000/svg">
+	<rect x="0.5" y="0.5" width="25" height="2"/>
 </svg>
 {:else if i === "mnc"}
 <svg aria-label={label} width="144" height="50" viewBox="0 0 144 50" fill="none" xmlns="http://www.w3.org/2000/svg">

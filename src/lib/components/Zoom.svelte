@@ -2,6 +2,7 @@
   import type { LeafletEvent, LeafletEventHandlerFn, Map } from 'leaflet'
   import { onMount } from 'svelte'
   import "leaflet/dist/leaflet.css"
+  import Icon from './Icon.svelte';
   
 
   export let file: {
@@ -17,6 +18,8 @@
   let bounds: {
     top: number
     left: number
+    bottom: number
+    right: number
     width: number
     height: number
   }
@@ -33,11 +36,17 @@
     bounds = {
       top: (-b.getNorth()) / file.height * 100,
       left: (b.getWest()) / file.width * 100,
+      bottom: (-b.getSouth()) / file.height * 100,
+      right: (b.getEast()) / file.width * 100,
       height: (b.getNorth() - b.getSouth()) / file.height * 100,
       width: (b.getEast() - b.getWest()) / file.width * 100,
     }
 
     // console.log(bounds)
+  }
+
+  const reset = () => {
+    map.setView([-file.height / 2, file.width / 2], maxZoom * -1)
   }
 
   onMount(async () => {
@@ -70,7 +79,7 @@
       noWrap: true
     }).addTo(map)
 
-    map.setView([-file.height / 2, file.width / 2], -2)
+    reset()
 
     update({ target: map } as LeafletEvent)
     map.on('move', update)
@@ -91,23 +100,38 @@
 <main on:pointerup={() => dragging = false}>
   <figure bind:this={element}></figure>
 
-  <aside
+  <aside>
+    <figure class:dragging on:pointerdown={() => dragging = true}
       on:pointermove={(e) => {
         if (dragging) {
-          map.panTo({ lng: (e.offsetX / e.target.offsetWidth) * file.width, lat: (e.offsetY / e.target.offsetHeight) * -file.height })
+          map.panTo({ lng: (e.offsetX / e.currentTarget.offsetWidth) * file.width, lat: (e.offsetY / e.currentTarget.offsetHeight) * -file.height })
         }
       }}>
-    <figure class:dragging on:pointerdown={() => dragging = true}>
       {#if bounds}<button style="top: {bounds.top}%; left: {bounds.left}%; height: {bounds.height}%; width: {bounds.width}%"></button>{/if}
       <img src="https://gloomy.b-cdn.net/{file.url}?width={200}" alt="Controls" draggable="false" />
+      {#if bounds}<img style="clip-path: polygon({bounds.left}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top + bounds.height}%, {bounds.left}% {bounds.top + bounds.height}%);" src="https://gloomy.b-cdn.net/{file.url}?width={200}" alt="Zoom area" draggable="false" />{/if}
     </figure>
+
+    <nav>
+      <button on:click={() => map.zoomIn()}><Icon i="plus" label="Plus zoom" /></button>
+      <button on:click={() => map.zoomOut()}><Icon i="minus" label="Minus zoom" /></button>
+      <button on:click={reset}>Réinitialiser</button>
+    </nav>
+
+    <p>
+      Lilias Torrance Newton<br>
+      Portrait d’entant<br>
+      1940<br>
+      Huile sur toile
+    </p>
   </aside>
 </main>
 
 <style lang="scss">
   main {
     display: flex;
-    align-items: flex-start;
+    // align-items: flex-start;
+    justify-content: space-between;
 
     > figure {
       height: 88vh;
@@ -133,9 +157,13 @@
     }
 
     aside {
-      width: 50%;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      // justify-content: center;
+
+      p {
+        margin-top: auto;
+      }
 
       figure {
         cursor: grab;
@@ -145,17 +173,52 @@
           cursor: grabbing;
         }
 
-        button {
+        > button {
           position: absolute;
           z-index: 2;
           padding: 0;
-          border: 2px solid black;
-          border-radius: 2px;
-          background: fade-out($color: #000000, $amount: 0.5);
+          border: none;
+          border-radius: $base * 0.5;
+          background: transparent;
           pointer-events: none;
         }
 
         img {
+          display: block;
+          width: 15vw;
+
+          &:nth-last-child(2) {
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.5;
+          }
+
+          &:last-child {
+            // clip-path: inset(10px 20px 30px 40px);
+          }
+        }
+      }
+    }
+
+    nav {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      gap: $base * 0.5;
+      margin-top: $base;
+
+      button {
+        font-size: 0.88em;
+        color: currentColor;
+        background-color: transparent;
+        padding: 0;
+
+        &:last-child {
+          margin-left: auto;
         }
       }
     }

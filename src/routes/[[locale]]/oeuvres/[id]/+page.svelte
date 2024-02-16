@@ -1,18 +1,25 @@
 <script lang="ts">
   import Media from '$lib/components/Media.svelte'
   import Document from '$lib/components/document/index.svelte'
+  import Icon from '$lib/components/Icon.svelte'
   import Video from '$lib/components/Video.svelte'
   import { year } from '$lib/formatters'
 
   import { page } from '$app/stores'
 
   import type { PageData } from './$types' 
-  import Icon from '$lib/components/Icon.svelte';
   export let data: PageData
+
+  export let retour = false
 </script>
 
 <section style="background-color: {data.oeuvre.fields.couleur};" class="flex flex--gapped">
   <header>
+    {#if !retour}
+    <a href="/">Retour</a>
+    {:else}
+    <span></span>
+    {/if}
     <h1>{data.oeuvre.fields.annee}</h1>
   </header>
 
@@ -101,7 +108,15 @@
     header {
       position: absolute;
       top: 0;
-      right: 10vw;
+      left: 0;
+      right: 0;
+
+      display: flex;
+      justify-content: space-between;
+
+      > a {
+        padding: $base;
+      }
     }
 
     main {

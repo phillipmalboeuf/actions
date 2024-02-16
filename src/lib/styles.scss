@@ -106,7 +106,8 @@ button,
 }
 
 svg {
-	path:not([stroke]) {
+	path:not([stroke]),
+	rect {
 		fill: currentColor;
 	}
 
