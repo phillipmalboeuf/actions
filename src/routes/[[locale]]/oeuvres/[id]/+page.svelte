@@ -1,9 +1,14 @@
 <script lang="ts">
+  import { fade } from 'svelte/transition'
   import Media from '$lib/components/Media.svelte'
   import Document from '$lib/components/document/index.svelte'
   import Icon from '$lib/components/Icon.svelte'
   import Video from '$lib/components/Video.svelte'
+  import ZoomPage from './zoom/+page.svelte'
+
   import { year } from '$lib/formatters'
+  import { openDialog } from '$lib/helpers'
+  import { pushState } from '$app/navigation'
 
   import { page } from '$app/stores'
 
@@ -31,7 +36,7 @@
         Musée d’art de Joliette<br />
         © Anne Kahane
       </small>
-      <a href="/oeuvres/{data.oeuvre.fields.id}/zoom"><Icon i="view" label="Zoom" /></a>
+      <a href="/oeuvres/{data.oeuvre.fields.id}/zoom" on:click={openDialog}><Icon i="view" label="Zoom" /></a>
       <a href="https://{data.oeuvre.fields.vignette.fields.file.url}" download="{data.oeuvre.fields.annee}-{data.oeuvre.fields.titre.replaceAll(' ', '-')}.png" target="_blank" rel="external"><Icon i="download" label="Téléchargement" /></a>
     </figcaption>
   </figure>
@@ -92,7 +97,6 @@
     </table>
   </main>
 </section>
-
 
 
 <style lang="scss">

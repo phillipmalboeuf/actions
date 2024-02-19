@@ -3,11 +3,12 @@
   import { page } from '$app/stores'
 
   import OeuvrePage from '../../routes/[[locale]]/oeuvres/[id]/+page.svelte'
+  import ZoomPage from '../../routes/[[locale]]/oeuvres/[id]/zoom/+page.svelte'
   import Icon from './Icon.svelte'
   // import ContactPage from '../../routes/[[locale]]/contact/+page.svelte'
 </script>
 
-{#if $page.state.open}
+{#if $page.state.type && $page.state.open}
 <dialog transition:fly={{ opacity: 1, x: '100%', duration: 666 }}>
 
   {#if $page.state.type === 'oeuvre'}
@@ -21,6 +22,12 @@
 <button class="close" transition:fly={{ opacity: 1, x: '100vw', duration: 666 }} on:click={() => history.back()}>
   <Icon i="back" label="Retour" />
 </button>
+{/if}
+
+{#if $page.state.zoom}
+<ZoomPage data={$page.state.zoom} onClose={() => {
+  history.back()
+}} />
 {/if}
 
 <style lang="scss">

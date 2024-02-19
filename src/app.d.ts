@@ -8,6 +8,7 @@ declare global {
 		interface PageState {
 			type?: 'oeuvre' | 'page'
 			open?: any
+			zoom?: any
 		}
 		// interface Platform {}
 	}
