@@ -13,8 +13,8 @@
 
 <main>
   <figure style="--scroll: {!innerHeight ? 0 : scrollY > innerHeight ? 1 : scrollY / innerHeight}">
-    <Logo />
     <figcaption>Actions collectives. Regards féministes sur la collection.</figcaption>
+    <Logo />
   </figure>
 
   <Content content={data.page.fields.contenu} />
@@ -32,12 +32,20 @@
       left: 0;
       padding: $gap;
 
+      figcaption {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+      }
+
       :global(svg) {
-        padding: $gap;
+        // padding: $gap;
         width: auto;
-        height: 100vh;
+        height: calc(100vh - ($gap * 2));
         overflow: visible;
         object-position: left top;
+        background-color: var(--background);
 
         :global(g) {
           will-change: transform;
