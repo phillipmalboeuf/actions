@@ -59,6 +59,7 @@
     background: fade-out($color: $black, $amount: 0.66);
     border-radius: 0;
     padding: 0;
+    border: none;
   }
 
   .close {
@@ -68,5 +69,12 @@
     z-index: 2001;
     background: none;
     padding: 0;
+    border: none;
+    transition: transform 333ms;
+
+    &:hover,
+    &:focus {
+      transform: translateX(20%);
+    }
   }
 </style>

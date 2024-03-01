@@ -7,6 +7,8 @@
   import { openDialog } from '$lib/helpers'
 
   export let content: Entry<TypeGallerieSkeleton | TypeTextSkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>[]
+
+  export let scrolled = false
 </script>
 
 <ol>
@@ -14,7 +16,7 @@
   {#if isTypeGallerie(item)}
   <li class="gallerie" id={item.fields.id}>
     {#if i < content.length - 1}
-    <a href="#{content[i + 1].fields.id}" class="down"><Icon i="arrow" label="Plus bas" /></a>
+    <a href="#{content[i + 1].fields.id}" class:scrolled class="down"><Icon i="arrow" label="Plus bas" /></a>
     {/if}
 
     {#if item.fields.oeuvres?.length}
@@ -69,6 +71,11 @@
           position: sticky;
           top: calc(100% + #{$gap});
           transform: translateY($gap * - 4);
+          transition: opacity 666ms;
+
+          &.scrolled {
+            opacity: 0;
+          }
         }
 
         ul {
@@ -108,6 +115,8 @@
 
             position: sticky;
             bottom: $base;
+
+            font-size: $mobile_base;
           }
         }
 
@@ -123,7 +132,7 @@
 
       &.text {
         background-color: var(--background);
-        padding: ($gap * 2) $gap;
+        padding: ($gap * 6) $gap;
 
         display: flex;
         flex-direction: column;
@@ -135,10 +144,15 @@
           max-width: 644px;
         }
 
+        > :global(p) {
+          font-size: $base + 2px;
+        }
+
         .split {
           font-size: 8vw;
           position: sticky;
-          top: $gap;
+          top: 50%;
+          transform: translateY(-50%);
 
           display: flex;
           justify-content: space-between;

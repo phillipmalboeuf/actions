@@ -101,9 +101,9 @@
 
 <style lang="scss">
   section {
-    padding: 10vw;
+    padding: ($gap * 2) ($gap * 2);
     min-height: 100vh;
-    justify-content: space-around;
+    // justify-content: space-around;
 
     @media (max-width: $mobile) {
       padding: $mobile_base;
@@ -121,15 +121,29 @@
       > a {
         padding: $base;
       }
+
+      h1 {
+        font-size: $base * 8;
+        width: 50%;
+        text-align: center;
+        margin-right: ($gap * 2);
+      }
     }
 
     main {
       display: flex;
       flex-direction: column;
       gap: $base;
+      margin: auto;
+
+      margin-top: ($gap * 10);
     }
 
     figure {
+      align-self: flex-start;
+      position: sticky;
+      top: 50%;
+      transform: translateY(-50%);
       
       :global(img),
       :global(video) {

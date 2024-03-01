@@ -26,6 +26,21 @@ export function isTypeGallerie<Modifiers extends ChainModifiers, Locales extends
     return entry.sys.contentType.sys.id === 'gallerie'
 }
 
+export interface TypeLigneFields {
+    titre?: EntryFieldTypes.Symbol;
+    id: EntryFieldTypes.Symbol;
+    logotype?: EntryFieldTypes.AssetLink;
+    couleur?: EntryFieldTypes.Symbol;
+    oeuvres?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeOeuvreSkeleton>>;
+}
+
+export type TypeLigneSkeleton = EntrySkeletonType<TypeLigneFields, "ligne">;
+export type TypeLigne<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeLigneSkeleton, Modifiers, Locales>;
+
+export function isTypeLigne<Modifiers extends ChainModifiers, Locales extends LocaleCode>(entry: Entry<EntrySkeletonType, Modifiers, Locales>): entry is TypeLigne<Modifiers, Locales> {
+    return entry.sys.contentType.sys.id === 'ligne'
+}
+
 export interface TypeOeuvreFields {
     titre?: EntryFieldTypes.Symbol;
     id: EntryFieldTypes.Symbol;
@@ -33,10 +48,10 @@ export interface TypeOeuvreFields {
     description?: EntryFieldTypes.Text;
     artiste?: EntryFieldTypes.EntryLink<TypeArtisteSkeleton>;
     couleur?: EntryFieldTypes.Symbol;
-    dimensions?: EntryFieldTypes.Symbol;
     vignette?: EntryFieldTypes.AssetLink;
     media?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
     annee: EntryFieldTypes.Integer;
+    dimensions?: EntryFieldTypes.Symbol;
     medium?: EntryFieldTypes.Symbol;
     mention?: EntryFieldTypes.Text;
     corps?: EntryFieldTypes.RichText;

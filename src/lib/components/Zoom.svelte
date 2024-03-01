@@ -98,7 +98,7 @@
 </script>
 
 <main on:pointerup={() => dragging = false}>
-  <figure bind:this={element}></figure>
+  <figure style="aspect-ratio: {file.width} / {file.height};" bind:this={element}></figure>
 
   <aside>
     <figure class:dragging on:pointerdown={() => dragging = true}
@@ -120,7 +120,7 @@
 
     <p>
       Lilias Torrance Newton<br>
-      Portrait d’entant<br>
+      <em>Portrait d’enfant</em><br>
       1940<br>
       Huile sur toile
     </p>
@@ -134,8 +134,8 @@
     justify-content: space-between;
 
     > figure {
-      height: 88vh;
-      width: 50%;
+      height: calc(100vh - ($gap * 6));
+      // width: 50%;
       background-color: transparent !important;
 
       :global(img) {
@@ -208,7 +208,7 @@
       position: relative;
       z-index: 3;
       display: flex;
-      gap: $base * 0.5;
+      gap: $base;
       margin-top: $base;
 
       button {
@@ -216,6 +216,7 @@
         color: currentColor;
         background-color: transparent;
         padding: 0;
+        border: none;
 
         &:last-child {
           margin-left: auto;

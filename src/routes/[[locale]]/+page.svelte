@@ -1,5 +1,6 @@
 <script lang="ts">
   import Content from '$lib/components/Content.svelte'
+  import Icon from '$lib/components/Icon.svelte';
   import Logo from '$lib/components/Logo.svelte'
 
   import type { PageData } from './$types'
@@ -17,7 +18,14 @@
     <Logo />
   </figure>
 
-  <Content content={data.page.fields.contenu} />
+  <Content content={data.page.fields.contenu} scrolled={scrollY > 100} />
+
+  <nav>
+    <h6>Sélectionner une ligne du temps pour débuter votre visite</h6>
+    {#each data.lignes as ligne}
+    <a class="button button--w_icon" href="/lignes/{ligne.fields.id}"><Icon i="back" label="Retour" /> {ligne.fields.titre}</a>
+    {/each}
+  </nav>
 </main>
 
 <style lang="scss">
@@ -73,6 +81,26 @@
 
       &:first-of-type {
         margin-top: 100vh;
+      }
+    }
+
+    nav {
+      position: relative;
+      z-index: 1;
+      padding: ($gap * 4) $gap ($gap * 8);
+      background-color: var(--background);
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $base * 0.5;
+
+      h6 {
+        margin-bottom: $gap * 2;
+      }
+
+      a {
+        min-width: $base * 26.11111111;
       }
     }
   }

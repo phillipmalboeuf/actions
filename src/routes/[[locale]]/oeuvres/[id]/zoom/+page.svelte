@@ -11,17 +11,15 @@
   let ready = false
 </script>
 
-<dialog transition:fly={{ opacity: 1, y: '-100%', duration: 666 }} on:introend={() => ready = true}>
+<dialog transition:fly={{ opacity: 1, y: '-100%', duration: 666 }}>
   <a href="/oeuvres/{data.oeuvre.fields.id}" on:click={(e) => onClose(e)}><Icon i="close" label="Fermer" /></a>
-  {#if ready}
-  <div transition:fade={{ duration: 333 }}>
+  <div>
     <Zoom file={{
       url: `/examples/25.png`,
       width: 3582,
       height: 6571
     }} />
   </div>
-  {/if}
 </dialog>
 
 <style lang="scss">
