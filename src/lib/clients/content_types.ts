@@ -26,9 +26,24 @@ export function isTypeGallerie<Modifiers extends ChainModifiers, Locales extends
     return entry.sys.contentType.sys.id === 'gallerie'
 }
 
+export interface TypeLienFields {
+    titre?: EntryFieldTypes.Symbol;
+    route?: EntryFieldTypes.Symbol;
+    externe?: EntryFieldTypes.Boolean;
+    sousLiens?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeLienSkeleton>>;
+}
+
+export type TypeLienSkeleton = EntrySkeletonType<TypeLienFields, "lien">;
+export type TypeLien<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeLienSkeleton, Modifiers, Locales>;
+
+export function isTypeLien<Modifiers extends ChainModifiers, Locales extends LocaleCode>(entry: Entry<EntrySkeletonType, Modifiers, Locales>): entry is TypeLien<Modifiers, Locales> {
+    return entry.sys.contentType.sys.id === 'lien'
+}
+
 export interface TypeLigneFields {
     titre?: EntryFieldTypes.Symbol;
     id: EntryFieldTypes.Symbol;
+    description?: EntryFieldTypes.Text;
     logotype?: EntryFieldTypes.AssetLink;
     couleur?: EntryFieldTypes.Symbol;
     oeuvres?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeOeuvreSkeleton>>;
@@ -39,6 +54,19 @@ export type TypeLigne<Modifiers extends ChainModifiers, Locales extends LocaleCo
 
 export function isTypeLigne<Modifiers extends ChainModifiers, Locales extends LocaleCode>(entry: Entry<EntrySkeletonType, Modifiers, Locales>): entry is TypeLigne<Modifiers, Locales> {
     return entry.sys.contentType.sys.id === 'ligne'
+}
+
+export interface TypeNavigationFields {
+    titre?: EntryFieldTypes.Symbol;
+    id: EntryFieldTypes.Symbol;
+    liens?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeLienSkeleton>>;
+}
+
+export type TypeNavigationSkeleton = EntrySkeletonType<TypeNavigationFields, "navigation">;
+export type TypeNavigation<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeNavigationSkeleton, Modifiers, Locales>;
+
+export function isTypeNavigation<Modifiers extends ChainModifiers, Locales extends LocaleCode>(entry: Entry<EntrySkeletonType, Modifiers, Locales>): entry is TypeNavigation<Modifiers, Locales> {
+    return entry.sys.contentType.sys.id === 'navigation'
 }
 
 export interface TypeOeuvreFields {

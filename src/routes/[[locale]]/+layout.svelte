@@ -3,8 +3,8 @@
 
   import { page } from '$app/stores'
 
+  import Header from '$lib/components/Header.svelte'
 	import Footer from '$lib/components/Footer.svelte'
-  // import Header from '$lib/components/Header.svelte'
   import Dialog from '$lib/components/Dialog.svelte'
 
   import type { LayoutData } from './$types'
@@ -17,7 +17,7 @@
   {/if}
 </svelte:head>
 
-<!-- <Header header={data.header}  /> -->
+<Header header={data.header} />
 
 <main class={$page.route.id.replace('/[[locale]]/', '').replace('/[id]', '')}>
   <slot />

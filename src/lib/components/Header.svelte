@@ -4,222 +4,165 @@
   import { fade, fly } from 'svelte/transition'
   import { goto, preloadData, pushState } from '$app/navigation'
 
-  import type { TypeLooseTextSkeleton, TypeNavigationSkeleton } from '$lib/clients/content_types'
+  import type { TypeNavigationSkeleton } from '$lib/clients/content_types'
   import type { Entry } from 'contentful'
-  import { api } from '$lib/api';
+  
+  import Icon from './Icon.svelte'
+  import Logo from './Logo.svelte'
   
   export let header: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
-
-  let visible = false
-  let about: Entry<TypeLooseTextSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> = undefined
 </script>
 
-<header class:visible on:pointerleave={() => visible = false}>
-  <nav style="--length: {header.fields.links.length}">
-    {#each header.fields.links as link}
-    <div>
-      <a href={link.fields.link} {...link.fields.external && { rel: "external", target: "_blank" }}
-        class:active={$page.url.pathname !== '/' && link.fields.link !== '/' && $page.url.pathname.startsWith(link.fields.link)}
-        on:click={async (e) => {
-          if (link.fields.link !== '/contact') return;
-          if (e.metaKey) return;
+<header>
+  <button class="button--none"><Icon i="search" label="Recherche" /></button>
 
-          e.preventDefault()
-          const { href } = e.currentTarget
-          const result = await preloadData(href)
+  <input type="checkbox" name="menu" id="menu" />
+  <label for="menu"><Icon i="menu" label="Menu" /></label>
 
-          if (result.type === 'loaded' && result.status === 200) {
-            pushState(href, { type: 'contact', open: result.data })
-          } else {
-            goto(href)
-          }
-        }}
-        on:pointerenter={async () => {
-          visible = true
+  <nav class="flex">
+    <figure class="col col--6of12"><Logo /></figure>
+    <ol class="col col--4of12">
+      {#if header}
+      {#each header.fields.liens as lien}
+      <li>
+        <a href="{lien.fields.route}"><Icon i="back" label="Naviguer vers" /> {lien.fields.titre} {#if $page.url.pathname === lien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
 
-          if (link.fields.link === "/about") {
-            // @ts-ignore
-            about = await api.get("/about")
-          }
-        }}
-        on:pointerleave={() => about = undefined}>{link.fields.label}</a>
-
-      {#if $page.data.films && link.fields.link === "/films"}
-      <ol>
-        {#each $page.data.films as film}
-        <li><a href="/films/{film.fields.identifier}">{film.fields.title}</a></li>
-        {/each}
-      </ol>
+        {#if lien.fields.sousLiens}
+        <ol>
+          {#each lien.fields.sousLiens as souslien}
+          <li>
+            <a href="{souslien.fields.route}"><Icon i="back" label="Naviguer vers" /> {souslien.fields.titre} {#if $page.url.pathname === souslien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
+          </li>
+          {/each}
+        </ol>
+        {/if}
+      </li>
+      {/each}
       {/if}
 
-      {#if $page.data.directors && link.fields.link === "/directors"}
-      <ol>
-        {#each $page.data.directors as director}
-        <li><a href="/directors/{director.fields.tagIdentifier}">{director.fields.name}</a></li>
-        {/each}
-      </ol>
-      {/if}
-
-      {#if about && link.fields.link === "/about"}
-      <aside transition:fade={{ duration: 333 }}><Document body={about.fields.body} /></aside>
-      {/if}
-    </div>
-   
-    {/each}
-    <div><button on:click={()=> visible = !visible}>{#if visible}Fermer{:else}Menu{/if}</button></div>
+      <li>
+        <aside>
+          <a href="/" class="button">Français</a>
+          <a href="/en" class="button">English</a>
+        </aside>
+      </li>
+    </ol>
   </nav>
 </header>
 
 <style lang="scss">
   header {
     position: fixed;
-    z-index: 1000;
+    z-index: 3000;
     top: 0;
-    left: 0;
-    width: 100vw;
-    padding: $base 0;
-    background-color: fade-out($white, 1);
-    transition: height 666ms, background-color 666ms;
-    pointer-events: none;
+    right: 0;
+    padding: $base * $scale;
 
-    &:not(.visible) {
-      @supports (mix-blend-mode: exclusion) {
-        color: white;
-        mix-blend-mode: exclusion;
-      }
-    }
+    display: flex;
+    align-items: center;
+    gap: $base;
 
     nav {
-      display: flex;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: auto;
+      height: 100vh;
+      overflow-y: auto;
+      width: calc(100vw - $base);
+      z-index: -1;
+      border: none;
+      border-top-left-radius: $base * $scale;
+      border-bottom-left-radius: $base * $scale;
+      background-color: $yellow;
+      padding: $base * $scale;
+      box-shadow: 0px 0px 6px fade-out($color: $black, $amount: 0.85);
 
-      &:has(a.active) a:not(.active) {
-        opacity: 0.4;
+      transition: transform 666ms;
+      transform: translateX(100%);
 
-        &:hover,
-        &:focus {
-          opacity: 1;
+      justify-content: space-between;
+
+      figure {
+        
+        :global(svg) {
+          height: 100%;
+          width: auto;
         }
       }
+      
+      ol {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: $base;
+        padding: ($base * $scale) 0;
 
-      &:not(:has(a.active)) a {
-        opacity: 1 !important;
-
-        &:hover,
-        &:focus {
-          opacity: 0.4 !important;
-        }
-      }
-
-      a, button {
-        pointer-events: auto;
-      }
-
-      a {
-        transition: opacity 333ms;
-
-        &.active {
-          opacity: 1 !important;
-
-          &:hover,
-          &:focus {
-            opacity: 0.4 !important;
+        li {
+          font-size: $base * $scale * 1.5;
+          &:last-child {
+            font-size: $base;
+            margin-top: auto;
           }
 
-          + ol {
-            a {
-              opacity: 1 !important;
+          :global(svg) {
+            vertical-align: top;
+            height: 1em;
+            width: 1em;
+            opacity: 0;
+            margin-left: -1.2em;
 
-              &:hover,
-              &:focus {
-                opacity: 0.4 !important;
-              }
+            transition: opacity 333ms, margin-left 333ms;
+          }
+
+          a:hover,
+          a:focus {
+            :global(svg) {
+              opacity: 1;
+              margin-left: 0;
+            }
+
+            + ol {
+              height: auto;
+              padding: ($base * $scale) 0;
+            }
+          }
+
+          aside {
+            display: flex;
+            gap: $base;
+          }
+
+          ol {
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+            margin-left: 1.2em;
+
+            li {
+              font-size: $base;
+            }
+
+            &:hover,
+            &:has(a:focus) {
+              height: auto;
+              padding: ($base * $scale) 0;
             }
           }
         }
       }
-
-      ol,
-      aside {
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 666ms;
-
-        margin-top: $gap * 1.5;
-        list-style: none;
-        
-        li {
-          margin-bottom: $base * 0.5;
-        }
-      }
-
-      div {
-        width: calc(100% / var(--length));
-        transition: border-color 666ms;
-        padding: 0 ($base * 0.75);
-        
-        &:not(:first-child):not(:last-child) {
-          border-left: 1px solid transparent;
-        }
-
-        aside {
-          width: 175%;
-        }
-
-        &:nth-child(4) {
-          // margin-left: calc(50% / var(--length));
-        }
-
-        &:nth-last-child(2) {
-          border-color: transparent !important;
-        }
-
-        &:nth-child(n + 4) a {
-          visibility: hidden;
-          opacity: 0;
-        }
-
-        &:last-child {
-          position: absolute;
-          width: auto;
-          top: $base * 0.83333333;
-          right: 0;
-        }
-      }
-
-      // div {
-      //   position: absolute;
-      //   top: $base - ($base * $scale * 0.125);
-      //   right: $base - ($base * $scale * 0.333);
-      // }
     }
 
-    &.visible {
-      background-color: fade-out($white, 0.5);
-      -webkit-backdrop-filter: blur(20px);
-      backdrop-filter: blur(20px);
-      pointer-events: auto;
+    input[type="checkbox"] {
+      display: none;
 
-      :global(html:has(.films)) & {
-        background-color: fade-out($black-light, 0.5);
+      + label {
+        cursor: pointer;
       }
 
-      ol,
-      aside {
-        opacity: 1;
-        visibility: visible;
-      }
-
-      nav div {
-        &:not(:first-child) {
-          border-color: fade-out($color: $black, $amount: 0.75);
-
-          :global(html:has(.films)) & {
-            border-color: fade-out($color: $white, $amount: 0.75);
-          }
-        }
-
-        &:nth-child(n + 4) a {
-          visibility: visible;
+      &:checked  {
+        ~ nav {
+          transform: translateX(0%);
         }
       }
     }
