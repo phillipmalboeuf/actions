@@ -41,7 +41,7 @@
     </figcaption>
   </figure>
   <main class="col col--5of12">
-    <h2>{data.oeuvre.fields.description}</h2>
+    <h5>{data.oeuvre.fields.description}</h5>
     <aside>
       {data.oeuvre.fields.artiste.fields.nom}<br />
       {data.oeuvre.fields.titre}<br />
@@ -53,7 +53,7 @@
     <Document body={data.oeuvre.fields.corps} />
     {/if}
 
-    <h2>Détails techniques de l’œuvre</h2>
+    <h3>Détails techniques de l’œuvre</h3>
     <table>
       <tr>
         <td colspan="2">
@@ -133,10 +133,26 @@
     main {
       display: flex;
       flex-direction: column;
-      gap: $base;
+      gap: $gap;
       margin: auto;
 
       margin-top: ($gap * 10);
+
+      aside {
+        line-height: 1.333;
+        margin-bottom: $gap * 2;
+      }
+
+      h3 {
+        margin-top: $gap * 2;
+      }
+
+      table {
+
+        h6 {
+          margin-bottom: $base * 0.33;
+        }
+      }
     }
 
     figure {

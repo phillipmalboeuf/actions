@@ -149,7 +149,7 @@
         }
 
         .split {
-          font-size: 8vw;
+          font-size: 9vw;
           position: sticky;
           top: 50%;
           transform: translateY(-50%);

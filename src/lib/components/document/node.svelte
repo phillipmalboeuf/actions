@@ -38,7 +38,7 @@
   <blockquote>{#each node.content as code}<svelte:self node={code} />{/each}</blockquote>
 
 {:else if node.nodeType === 'embedded-asset-block'}
-<Media media={node.data.target} />
+  <figure><Media media={node.data.target} /></figure>
 {:else if node.nodeType === 'embedded-entry-block'}
   <!-- {#if node.data.target.sys.contentType.sys.id === 'collaboratorSlider'}
   {#if !$page.data.isMobile}
@@ -63,3 +63,10 @@
   {/if}
   {/if} -->
 {/if}
+
+
+<style lang="scss">
+  figure {
+    margin: ($gap * 2) 0;
+  }
+</style>
