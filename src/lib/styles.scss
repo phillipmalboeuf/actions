@@ -13,6 +13,10 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+
+	&:focus {
+		outline: 2px solid currentColor;
+	}
 }
 
 html {
@@ -105,6 +109,7 @@ button:focus:not(:focus-visible) {
 
 button,
 .button {
+	font-size: inherit;
 	cursor: pointer;
 	display: inline-block;
 	text-align: center;
@@ -119,6 +124,12 @@ button,
 	&.button--none {
 		padding: 0;
 		border: none;
+	}
+
+	&.button--inverse {
+		color: $white;
+		background-color: $brown;
+		border-color: $brown;
 	}
 
 	&.button--w_icon {
@@ -160,15 +171,58 @@ svg {
 }
 
 table {
-	border-collapse: separate;
-  border-spacing: ($base * $scale) 0;
-	margin: 0 ($base * -$scale);
+	width: 100%;
+	border-collapse: collapse;
 
 	td,
 	th {
+		text-align: left;
 		white-space: pre-line;
+		padding: ($base * 0.5) 0;
+	}
+
+	td {
+		border: none;
 		border-top: 1px solid;
-		padding: $base 0;
+	}
+
+	tr, a {
+
+		&:last-child {
+			td {
+				border-bottom: 1px solid;
+			}
+		}
+	}
+}
+
+form {
+
+	input[type="text"],
+	input[type="search"],
+	select {
+		font-size: inherit;
+		appearance: none;
+		width: 100%;
+		border: none;
+		color: currentColor;
+		background-color: $beige-dark;
+		padding: $base;
+		border-radius: $base * 2;
+
+		&::placeholder {
+			color: currentColor;
+		}
+	}
+
+	select {
+		padding: ($base * $scale * 0.5) $base;
+		background-color: transparent;
+		border: 1px solid;
+	}
+
+	fieldset {
+		border: none;
 	}
 }
 

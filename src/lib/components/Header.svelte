@@ -1,20 +1,24 @@
 <script lang="ts">
   import { page } from '$app/stores'
-  import Document from '$lib/components/document/index.svelte'
-  import { fade, fly } from 'svelte/transition'
-  import { goto, preloadData, pushState } from '$app/navigation'
 
   import type { TypeNavigationSkeleton } from '$lib/clients/content_types'
   import type { Entry } from 'contentful'
   
   import Icon from './Icon.svelte'
   import Logo from './Logo.svelte'
+  import Search from './Search.svelte'
   
   export let header: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
+  let searching = false
 </script>
 
 <header>
-  <button class="button--none"><Icon i="search" label="Recherche" /></button>
+  <input type="checkbox" name="search" id="search" bind:checked={searching} />
+  <label for="search"><Icon i="search" label="Recherche" /></label>
+
+  <nav class="search">
+    <Search visible={searching} />
+  </nav>
 
   <input type="checkbox" name="menu" id="menu" />
   <label for="menu"><Icon i="menu" label="Menu" /></label>
@@ -79,9 +83,14 @@
       box-shadow: 0px 0px 6px fade-out($color: $black, $amount: 0.85);
 
       transition: transform 666ms;
+      will-change: transform;
       transform: translateX(100%);
 
       justify-content: space-between;
+
+      &.search {
+        background-color: $beige;
+      }
 
       figure {
         
@@ -161,7 +170,7 @@
       }
 
       &:checked  {
-        ~ nav {
+        + label + nav {
           transform: translateX(0%);
         }
       }

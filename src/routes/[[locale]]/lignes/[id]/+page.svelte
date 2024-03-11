@@ -12,22 +12,35 @@
 
   import type { PageData } from './$types' 
   import Slider from '$lib/components/Slider.svelte';
+  import Tableau from '$lib/components/Tableau.svelte';
+  import Lignes from '$lib/components/Lignes.svelte';
   export let data: PageData
 
   export let retour = false
 </script>
 
-<section class="flex flex--gapped">
-  <header>
+<section class="flex flex--thick_gapped">
+  <header class="col col--12of12">
     {#if !retour}
-    <a href="/">Retour</a>
+    <a href="/">Accueil</a>
     {:else}
     <span></span>
     {/if}
     <h1>{data.ligne.fields.titre}</h1>
   </header>
 
-  <Slider>
+  <nav class="col col--6of12">
+    <Lignes current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} />
+  </nav>
+  <nav class="col col--6of12">
+
+  </nav>
+
+  <main class="col col--12of12">
+    <Tableau ligne={data.ligne} oeuvres={data.ligne.fields.oeuvres} />
+  </main>
+
+  <!-- <Slider>
     <ol class="slider__container">
     {#each data.ligne.fields.oeuvres as oeuvre}
       <li class="slide">
@@ -39,18 +52,21 @@
       </li>
     {/each}
     </ol>
-  </Slider>
+  </Slider> -->
 </section>
 
 
 <style lang="scss">
   section {
-    padding: 10vw;
-    min-height: 100vh;
-    justify-content: space-around;
+    padding: $gap;
+    // justify-content: space-around;
 
-    ol {
-      list-style: none;
+    // ol {
+    //   list-style: none;
+    // }
+
+    nav {
+      // margin: ($gap * 2) 0;
     }
   }
 </style>
