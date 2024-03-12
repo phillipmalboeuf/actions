@@ -4,12 +4,13 @@
 
   export let current: number
   export let lignes: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">[]
+  export let format: string = undefined
 </script>
 
 <ul style:--current={current} style:--current-color={lignes[current].fields.couleur} style:--length={lignes.length}>
   {#each lignes as ligne, i}
   <li class:current={current === i}>
-    <a href="/lignes/{ligne.fields.id}">{ligne.fields.titre}</a>
+    <a href="/lignes/{ligne.fields.id}{format ? `?format=${format}` : ""}">{ligne.fields.titre}</a>
   </li>
   {/each}
 </ul>

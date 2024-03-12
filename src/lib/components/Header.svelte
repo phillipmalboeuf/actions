@@ -10,6 +10,12 @@
   
   export let header: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
   let searching = false
+  let menu = false
+
+  const click = () => {
+    searching = false
+    menu = false
+  }
 </script>
 
 <header>
@@ -20,7 +26,7 @@
     <Search visible={searching} />
   </nav>
 
-  <input type="checkbox" name="menu" id="menu" />
+  <input type="checkbox" name="menu" id="menu" bind:checked={menu} />
   <label for="menu"><Icon i="menu" label="Menu" /></label>
 
   <nav class="flex">
@@ -29,13 +35,13 @@
       {#if header}
       {#each header.fields.liens as lien}
       <li>
-        <a href="{lien.fields.route}"><Icon i="back" label="Naviguer vers" /> {lien.fields.titre} {#if $page.url.pathname === lien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
+        <a on:click={click} href="{lien.fields.route}"><Icon i="back" label="Naviguer vers" /> {lien.fields.titre} {#if $page.url.pathname === lien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
 
         {#if lien.fields.sousLiens}
         <ol>
           {#each lien.fields.sousLiens as souslien}
           <li>
-            <a href="{souslien.fields.route}"><Icon i="back" label="Naviguer vers" /> {souslien.fields.titre} {#if $page.url.pathname === souslien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
+            <a on:click={click} href="{souslien.fields.route}"><Icon i="back" label="Naviguer vers" /> {souslien.fields.titre} {#if $page.url.pathname === souslien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
           </li>
           {/each}
         </ol>
@@ -66,6 +72,11 @@
     align-items: center;
     gap: $base;
 
+    label[for="search"] {
+      position: relative;
+      z-index: -2;
+    }
+
     nav {
       position: absolute;
       top: 0;
@@ -90,6 +101,7 @@
 
       &.search {
         background-color: $beige;
+        z-index: -3;
       }
 
       figure {

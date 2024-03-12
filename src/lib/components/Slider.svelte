@@ -5,12 +5,18 @@
   import Autoheight from 'embla-carousel-auto-height'
   import { onDestroy, onMount } from 'svelte'
 
+  export let loop = true
   export let disabled = false
   export let buttons = true
+  export let autoplay = true
+  export let autoheight = true
   export let dots: number = undefined
 
-  let options: EmblaOptionsType = { loop: true }
-  let plugins = [Autoplay({ stopOnFocusIn: true }), Autoheight()]
+  let options: EmblaOptionsType = { loop }
+  let plugins = [
+    ...autoplay ? [Autoplay({ stopOnFocusIn: true })] : [],
+    ...autoheight ? [Autoheight()] : [],
+  ]
 
   let slider: EmblaCarouselType
   let active = 0
@@ -54,8 +60,8 @@
 
 <style lang="scss">
 .slider {
-  overflow: hidden;
-  cursor: ew-resize;
+  // overflow: hidden;
+  // cursor: ew-resize;
   position: relative;
 
   :global(.slider__container) {
