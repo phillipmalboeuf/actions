@@ -29,7 +29,7 @@
   </header>
 
   <figure class="col col--6of12">
-    <Media media={data.oeuvre.fields.vignette} />
+    <Media media={data.oeuvre.fields.vignette} eager />
 
     <figcaption>
       <small>

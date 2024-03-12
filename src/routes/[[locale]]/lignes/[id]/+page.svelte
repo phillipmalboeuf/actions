@@ -49,6 +49,7 @@
       <ol class="slider__container">
       {#each data.ligne.fields.oeuvres as oeuvre, i}
         <li class="slide">
+          <a href="/oeuvres/{oeuvre.fields.id}" on:click={openDialog}>
           <figure>
             <div></div>
             <Media media={oeuvre.fields.vignette} />
@@ -63,6 +64,7 @@
             </figcaption>
             <figcaption class="annee"><h2 class="h1">{oeuvre.fields.annee}</h2></figcaption>
           </figure>
+          </a>
         </li>
       {/each}
       </ol>
