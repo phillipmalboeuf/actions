@@ -11,8 +11,12 @@
 
 {#if node.nodeType === 'heading-2'}
   <h2>{#each node.content as mark}<Mark mark={mark} />{/each}</h2>
+{:else if node.nodeType === 'heading-3'}
+  <h3>{#each node.content as mark}<Mark mark={mark} />{/each}</h3>
 {:else if node.nodeType === 'heading-4'}
   <h4>{#each node.content as mark}<Mark mark={mark} />{/each}</h4>
+{:else if node.nodeType === 'heading-5'}
+  <h5>{#each node.content as mark}<Mark mark={mark} />{/each}</h5>
 {:else if node.nodeType === 'heading-6'}
   <h6>{#each node.content as mark}<Mark mark={mark} />{/each}</h6>
 {:else if node.nodeType === 'paragraph'}
@@ -38,7 +42,12 @@
   <blockquote>{#each node.content as code}<svelte:self node={code} />{/each}</blockquote>
 
 {:else if node.nodeType === 'embedded-asset-block'}
-  <figure><Media media={node.data.target} /></figure>
+  <figure>
+    <Media media={node.data.target} />
+    {#if node.data.target.fields.description}
+    <figcaption>{node.data.target.fields.description}</figcaption>
+    {/if}
+  </figure>
 {:else if node.nodeType === 'embedded-entry-block'}
   <!-- {#if node.data.target.sys.contentType.sys.id === 'collaboratorSlider'}
   {#if !$page.data.isMobile}

@@ -42,10 +42,12 @@
   </li>
   {:else if isTypeText(item)}
   <li class="text" id={item.fields.id}>
+    {#if item.fields.titre}
     {#if item.fields.titre.includes('|')}
     <h2 class="split">{#each item.fields.titre.split(' | ') as t}<span>{t}</span>{/each}</h2>
     {:else}
     <h2>{item.fields.titre}</h2>
+    {/if}
     {/if}
     <Document body={item.fields.corps} />
   </li>
@@ -137,15 +139,75 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: $base;
+        gap: $gap;
 
         > :global(*) {
+          width: 100%;
+          max-width: 1180px;
+        }
+
+        &:has(.split) > :global(*) {
           width: 50vw;
           max-width: 644px;
         }
 
-        > :global(p) {
+        &:has(.split) > :global(p) {
           font-size: $base + 2px;
+        }
+
+        > :global(figure) {
+          display: flex;
+          width: calc(100vw - ($gap * 4));
+          max-width: none;
+          gap: $gap;
+          align-items: flex-end;
+
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+
+          :global(img),
+          :global(video) {
+            width: auto;
+            height: 50vw;
+            object-fit: contain;
+          }
+
+          :global(figcaption) {
+            width: $gap * 10;
+          }
+
+          &:nth-of-type(2n) {
+            :global(figcaption) {
+              order: -1;
+            }
+          }
+        }
+
+        > :global(h3),
+        > :global(h4),
+        > :global(h5) {
+          margin: ($gap) 0 ($gap * 0.5);
+        }
+
+        > :global(table) {
+          :global(td) {
+            border: none;
+            width: 50%;
+            vertical-align: top;
+            padding: ($gap) 0;
+
+            > :global(p) {
+              margin-bottom: $base;
+
+              > :global(em) {
+                display: inline-block;
+                font-size: $base * $scale;
+                font-style: normal;
+                margin-bottom: $base * 0.25;
+              }
+            }
+          }
         }
 
         .split {

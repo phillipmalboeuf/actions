@@ -59,10 +59,6 @@
     alt="{media.fields.title}" loading={eager ? "eager" : "lazy"} />
   {/if}
 </picture>
-
-<!-- {#if !noDescription && media.caption}
-<small><Rich text={media.caption} /></small>
-{/if} -->
 {/if}
 {:else}
 <picture>
