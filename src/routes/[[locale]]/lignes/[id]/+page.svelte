@@ -22,11 +22,11 @@
 <section class="flex flex--thick_gapped {data.format || "images"}">
   <header class="col col--12of12">
     {#if !retour}
-    <a href="/">Accueil</a>
+    <a href="/" class="h2">accueil</a>
     {:else}
     <span></span>
     {/if}
-    <h1>{data.ligne.fields.titre}</h1>
+    <!-- <h1>{data.ligne.fields.titre}</h1> -->
   </header>
 
   <nav class="col col--6of12">
@@ -44,14 +44,20 @@
   </main>
   {:else}
   <main class="col col--12of12">
-    <Slider loop={false} buttons={false} autoplay={false} autoheight={false}>
+    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={1.15}>
       {#key data.ligne.fields.id}
       <ol class="slider__container">
-      {#each data.ligne.fields.oeuvres as oeuvre, i}
+        <li class="slide">
+          <Document body={data.ligne.fields.contexte} />
+          <figure>
+            <Media media={data.ligne.fields.logotype} />
+          </figure>
+        </li>
+        {#each data.ligne.fields.oeuvres as oeuvre, i}
         <li class="slide">
           <a href="/oeuvres/{oeuvre.fields.id}" on:click={openDialog}>
           <figure>
-            <div></div>
+            <!-- <div></div> -->
             <Media media={oeuvre.fields.vignette} />
             <figcaption>
               <h5>{oeuvre.fields.description}</h5>
@@ -62,11 +68,11 @@
                 {oeuvre.fields.medium}
               </p>
             </figcaption>
-            <figcaption class="annee"><h2 class="h1">{oeuvre.fields.annee}</h2></figcaption>
+            <!-- <figcaption class="annee"><h2 class="h1">{oeuvre.fields.annee}</h2></figcaption> -->
           </figure>
           </a>
         </li>
-      {/each}
+        {/each}
       </ol>
       {/key}
     </Slider>
@@ -89,6 +95,7 @@
       }
 
       main {
+        width: calc(100% + ($gap * 2));
         margin: 0 ($gap * -1);
       }
 
@@ -99,13 +106,15 @@
             display: flex;
             gap: $gap;
             justify-content: center;
-            height: calc(100vh - ($gap * 13));
+            height: calc(100vh - ($gap * 11));
 
             :global(img),
             :global(video) {
               width: auto;
               height: 100%;
               object-fit: contain;
+              -webkit-user-select: none;
+              user-select: none;
             }
 
             div {
@@ -129,6 +138,28 @@
                 .h1 {
                   font-size: 13vh;
                 }
+              }
+            }
+          }
+
+          &:first-child {
+            padding: $gap;
+            display: flex;
+            gap: $base;
+            flex-direction: column;
+
+            :global(p) {
+              max-width: 572px;
+            }
+
+            figure {
+              height: auto;
+              margin-top: auto;
+              justify-content: flex-start;
+
+              :global(img) {
+                width: 50vw;
+                background-color: transparent;
               }
             }
           }

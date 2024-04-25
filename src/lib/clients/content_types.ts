@@ -46,6 +46,9 @@ export interface TypeLigneFields {
     description?: EntryFieldTypes.Text;
     logotype?: EntryFieldTypes.AssetLink;
     couleur?: EntryFieldTypes.Symbol;
+    vignette?: EntryFieldTypes.AssetLink;
+    lienVimeo?: EntryFieldTypes.Symbol;
+    contexte?: EntryFieldTypes.RichText;
     oeuvres?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeOeuvreSkeleton>>;
 }
 

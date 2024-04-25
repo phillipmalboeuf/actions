@@ -30,8 +30,8 @@
 
 <style lang="scss">
   main {
-    --background: #{$yellow};
-    background-color: var(--background);
+    // --background: #{$yellow};
+    // background-color: var(--background);
     min-height: 200vh;
 
     figure {

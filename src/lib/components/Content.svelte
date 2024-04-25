@@ -25,7 +25,7 @@
       <li>
         <a href="/oeuvres/{oeuvre.fields.id}" on:click={openDialog}>
           <figure>
-            <Media media={oeuvre.fields.vignette} small />
+            <Media media={oeuvre.fields.vignette} />
             <figcaption>
               <p>{oeuvre.fields.artiste?.fields.nom}, {oeuvre.fields.titre}</p>
               <p>{oeuvre.fields.annee}, {oeuvre.fields.medium},<br />{oeuvre.fields.dimensions}</p>
@@ -81,7 +81,8 @@
         }
 
         ul {
-          align-items: center;
+          // align-self: flex-end;
+          gap: $gap * 8;
           padding: $gap ($gap * 2);
 
           li {
@@ -89,7 +90,7 @@
               align-self: flex-start;
             }
 
-            &:nth-child(3n) {
+            &:nth-child(2n + 1) {
               align-self: flex-end;
             }
           }
@@ -103,10 +104,11 @@
 
           :global(img),
           :global(video) {
-            height: auto;
-            max-height: 88vh;
+            // height: auto;
+            // flex: 1;
+            max-height: 66vh;
             width: auto;
-            max-width: 50vw;
+            max-width: 66vw;
             object-fit: contain;
           }
 
@@ -142,16 +144,11 @@
         gap: $gap;
 
         > :global(*) {
-          width: 100%;
-          max-width: 1180px;
-        }
-
-        &:has(.split) > :global(*) {
           width: 50vw;
           max-width: 644px;
         }
-
-        &:has(.split) > :global(p) {
+        
+        > :global(p) {
           font-size: $base + 2px;
         }
 
