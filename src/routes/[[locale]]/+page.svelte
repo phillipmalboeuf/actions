@@ -1,7 +1,9 @@
 <script lang="ts">
   import Content from '$lib/components/Content.svelte'
-  import Icon from '$lib/components/Icon.svelte';
+  import Icon from '$lib/components/Icon.svelte'
   import Logo from '$lib/components/Logo.svelte'
+  import Media from '$lib/components/Media.svelte'
+  import { onMount } from 'svelte'
 
   import type { PageData } from './$types'
   export let data: PageData
@@ -21,10 +23,19 @@
   <Content content={data.page.fields.contenu} scrolled={scrollY > 100} />
 
   <nav>
-    <h6>Sélectionner une ligne du temps pour débuter votre visite</h6>
-    {#each data.lignes as ligne}
-    <a class="button button--w_icon" href="/lignes/{ligne.fields.id}"><Icon i="back" label="Retour" /> {ligne.fields.titre}</a>
-    {/each}
+    <h6>Sélectionner une ligne du temps<br>pour débuter votre visite</h6>
+    <h2 class="flex flex--spaced"><Icon i="tip" label="À partir de " /><span>1942</span> <Icon i="tip" label="Jusqu'à" /><span>2022</span></h2>
+    <hr>
+    <ul class="list--nostyle">
+      {#each data.lignes as ligne}
+      <li class="flex flex--spaced flex--middle flex--gapped">
+        <a href="/lignes/{ligne.fields.id}" class=""><Media media={ligne.fields.logotype} /></a>
+        <a href="/lignes/{ligne.fields.id}/video" class="col col--4of12"><Icon i="play" label="Visionner vidéo" /> <Media media={ligne.fields.vignette} small /></a>
+        <a class="button" href="/lignes/{ligne.fields.id}">Visiter</a>
+        <hr>
+      </li>
+      {/each}
+    </ul>
   </nav>
 </main>
 
@@ -95,12 +106,82 @@
       align-items: center;
       gap: $base * 0.5;
 
-      h6 {
-        margin-bottom: $gap * 2;
+      > * {
+        max-width: 1280px;
       }
 
-      a {
-        min-width: $base * 26.11111111;
+      hr {
+        width: 100%;
+        height: 1.5px;
+      }
+
+      h6 {
+        margin-bottom: $gap * -1;
+        text-align: center;
+      }
+
+      h2 {
+        position: relative;
+        margin-bottom: $gap;
+
+        :global(svg) {
+          position: absolute;
+          left: $gap * -1.5;
+          top: 100%;
+
+          :global(path):last-child {
+            fill: transparent;
+          } 
+
+          &:last-of-type {
+            left: auto;
+            right: $gap * -1.5;
+            top: calc(100% - 1px);
+            transform: rotate(180deg);
+          }
+        }
+
+        + hr {
+          margin: 0 ($gap * -1.5);
+          width: calc(100% + ($gap * 3));
+          max-width: calc(1280px + ($gap * 3));
+        }
+      }
+
+      ul {
+        width: 100%;
+
+        li {
+          padding-top: $gap;
+          width: 100%;
+
+          a:first-child {
+            :global(img) {
+              background-color: transparent;
+              width: auto;
+              height: $base * 6.66;
+              object-fit: contain;
+              object-position: left;
+            }
+          }
+
+          a {
+            position: relative;
+
+            :global(svg) {
+              position: absolute;
+              top: $base;
+              left: $base;
+              color: var(--foreground-inverse);
+            }
+          }
+
+          &:nth-child(2n) {
+            a:last-of-type {
+              order: -1;
+            }
+          }
+        }
       }
     }
   }

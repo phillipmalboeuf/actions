@@ -78,6 +78,7 @@ h6,
 	font-family: $text;
 	font-weight: bold;
 	letter-spacing: 0.1;
+	line-height: 1.33333333;
 }
 
 p {
@@ -170,6 +171,14 @@ svg {
 	} 
 }
 
+hr {
+	color: currentColor;
+	border: none;
+	height: 1px;
+	background-color: currentColor;
+	margin: 0;
+}
+
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -254,6 +263,18 @@ form {
   flex-wrap: wrap;
   --gap: 0px;
   gap: var(--gap);
+
+	&.flex--end {
+		justify-content: flex-end;
+	}
+
+	&.flex--spaced {
+		justify-content: space-between;
+	}
+
+	&.flex--middle {
+		align-items: center;
+	}
 
   &.flex--gapped {
     --gap: #{$base};
