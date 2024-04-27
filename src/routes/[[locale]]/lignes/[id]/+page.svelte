@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { type EmblaCarouselType } from 'embla-carousel'
+
   // import { fade } from 'svelte/transition'
   import Media from '$lib/components/Media.svelte'
   import Document from '$lib/components/document/index.svelte'
@@ -17,9 +19,12 @@
   export let data: PageData
 
   export let retour = false
+
+  let slider: EmblaCarouselType
+  let active = 0
 </script>
 
-<section class="flex flex--thick_gapped {data.format || "images"}">
+<section class="flex flex--thick_gapped {data.format || "images"}" class:slid={active > 0}>
   <header class="col col--12of12">
     {#if !retour}
     <a href="/" class="h2">accueil</a>
@@ -44,7 +49,7 @@
   </main>
   {:else}
   <main class="col col--12of12">
-    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={1.15}>
+    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={1.15} bind:slider bind:active>
       {#key data.ligne.fields.id}
       <ol class="slider__container">
         <li class="slide">
@@ -55,7 +60,14 @@
         </li>
         {#each data.ligne.fields.oeuvres as oeuvre, i}
         <li class="slide">
-          <a href="/oeuvres/{oeuvre.fields.id}" on:click={openDialog}>
+          <a href="/oeuvres/{oeuvre.fields.id}" on:click|preventDefault={e => {
+            console.log(i, active)
+            if (i !== active - 1) {
+              slider.scrollTo(i + 1)
+            } else {
+              openDialog(e)
+            }
+          }}>
           <figure>
             <!-- <div></div> -->
             <Media media={oeuvre.fields.vignette} />
@@ -77,6 +89,7 @@
       {/key}
     </Slider>
   </main>
+  <h1 class="annee">{active > 0 ? data.ligne.fields.oeuvres[active - 1].fields.annee : ''}</h1>
   {/if}
 </section>
 
@@ -90,8 +103,26 @@
     }
 
     &.images {
-      nav {
+      nav,
+      .annee {
         order: 99;
+
+        margin-top: $base * -8;
+        opacity: 0;
+        transform: translateY(100%);
+        transition: transform 666ms, opacity 666ms;
+      }
+
+      &.slid {
+        nav {
+          opacity: 1;
+          transform: translateY(0%);
+        }
+
+        .annee {
+          opacity: 1;
+          transform: translate(-50%, 0%);
+        }
       }
 
       main {
@@ -99,14 +130,24 @@
         margin: 0 ($gap * -1);
       }
 
+      .annee {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 100%);
+        font-size: 13vh;
+      }
+
       ol {
         li {
+          // padding-bottom: 10vh;
+
           figure {
             position: relative;
             display: flex;
             gap: $gap;
             justify-content: center;
-            height: calc(100vh - ($gap * 11));
+            height: calc(100vh - ($base * 13));
 
             :global(img),
             :global(video) {
@@ -115,6 +156,10 @@
               object-fit: contain;
               -webkit-user-select: none;
               user-select: none;
+              
+              padding: 5vh;
+              padding-right: 0;
+              object-position: right;
             }
 
             div {
@@ -129,21 +174,22 @@
                 margin-bottom: $base;
               }
 
-              &.annee {
-                position: absolute;
-                top: calc(100% + ($gap));
-                left: 50%;
-                transform: translateX(-50%);
+              // &.annee {
+              //   position: absolute;
+              //   top: calc(100% + ($gap));
+              //   left: 50%;
+              //   transform: translateX(-50%);
 
-                .h1 {
-                  font-size: 13vh;
-                }
-              }
+              //   .h1 {
+              //     font-size: 13vh;
+              //   }
+              // }
             }
           }
 
           &:first-child {
             padding: $gap;
+            height: calc(100vh - ($base * 5));
             display: flex;
             gap: $base;
             flex-direction: column;
@@ -156,10 +202,12 @@
               height: auto;
               margin-top: auto;
               justify-content: flex-start;
+              margin-bottom: $base;
 
               :global(img) {
                 width: 50vw;
                 background-color: transparent;
+                padding: 0;
               }
             }
           }

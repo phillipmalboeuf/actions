@@ -20,7 +20,7 @@
     display: block;
     width: 100%;
     object-fit: cover;
-    background-color: var(--background-inverse);
+    // background-color: var(--background-inverse);
   }
 
   video {
