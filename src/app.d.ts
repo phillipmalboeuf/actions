@@ -6,7 +6,7 @@ declare global {
 		// interface Locals {}
 		// interface PageData {}
 		interface PageState {
-			type?: 'oeuvre' | 'page'
+			type?: 'oeuvre' | 'page' | 'contexte'
 			open?: any
 			zoom?: any
 			search?: any

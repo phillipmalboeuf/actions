@@ -3,23 +3,23 @@
   import { page } from '$app/stores'
 
   import OeuvrePage from '../../routes/[[locale]]/oeuvres/[id]/+page.svelte'
+  import ContextePage from '../../routes/[[locale]]/lignes/[id]/contexte/+page.svelte'
   import ZoomPage from '../../routes/[[locale]]/oeuvres/[id]/zoom/+page.svelte'
   import Icon from './Icon.svelte'
   // import ContactPage from '../../routes/[[locale]]/contact/+page.svelte'
 </script>
 
 {#if $page.state.type && $page.state.open}
-<dialog transition:fly={{ opacity: 1, x: '100%', duration: 666 }}>
-
+<dialog transition:fly={{ opacity: 1, x: '100%', duration: 666 }} class:half={$page.state.type === 'contexte'}>
   {#if $page.state.type === 'oeuvre'}
   <OeuvrePage data={$page.state.open} retour />
-  <!-- {:else if $page.state.type === 'page'}
-  <Page data={$page.state.open} /> -->
+  {:else if $page.state.type === 'contexte'}
+  <ContextePage data={$page.state.open} retour />
   {/if}
 </dialog>
 <button class="back" transition:fade={{ duration: 666 }} on:click={() => history.back()}>
 </button>
-<button class="close" transition:fly={{ opacity: 1, x: '100vw', duration: 666 }} on:click={() => history.back()}>
+<button class="close" class:half={$page.state.type === 'contexte'} transition:fly={{ opacity: 1, x: '100vw', duration: 666 }} on:click={() => history.back()}>
   <Icon i="back" label="Retour" />
 </button>
 {/if}
@@ -47,6 +47,10 @@
 
     // color: var(--color);
     background-color: transparent;
+
+    &.half {
+      width: 50vw;
+    }
   }
 
   .back {
@@ -71,6 +75,10 @@
     padding: 0;
     border: none;
     transition: transform 333ms;
+
+    &.half {
+      left: calc(50vw + ($base * $scale));
+    }
 
     &:hover,
     &:focus {

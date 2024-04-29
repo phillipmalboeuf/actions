@@ -6,6 +6,9 @@
   import Document from '$lib/components/document/index.svelte'
   import Icon from '$lib/components/Icon.svelte'
   import Video from '$lib/components/Video.svelte'
+  import Slider from '$lib/components/Slider.svelte'
+  import Tableau from '$lib/components/Tableau.svelte'
+  import Lignes from '$lib/components/Lignes.svelte'
 
   import { year } from '$lib/formatters'
   import { openDialog } from '$lib/helpers'
@@ -13,18 +16,16 @@
   import { page } from '$app/stores'
 
   import type { PageData } from './$types' 
-  import Slider from '$lib/components/Slider.svelte'
-  import Tableau from '$lib/components/Tableau.svelte'
-  import Lignes from '$lib/components/Lignes.svelte'
   export let data: PageData
 
   export let retour = false
 
   let slider: EmblaCarouselType
-  let active = 0
+  let active: number = 0
 </script>
 
-<section class="flex flex--thick_gapped {data.format || "images"}" class:slid={active > 0}>
+{#key data.format}
+<section class="flex flex--thick_gapped {data.format || "gallerie"}" class:first={active === 0}>
   <header class="col col--12of12">
     {#if !retour}
     <a href="/" class="h2">accueil</a>
@@ -38,12 +39,15 @@
     <Lignes current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} format={data.format} />
   </nav>
   <nav class="col formats" style:--current-color={data.ligne.fields.couleur}>
-    <a href="/lignes/{data.ligne.fields.id}?format=images">Images</a>
-    <div class:right={data.format === "liste"}></div>
-    <a href="/lignes/{data.ligne.fields.id}?format=liste">Liste</a>
+    {#if data.format === "index"}
+    <a href="/lignes/{data.ligne.fields.id}?format=gallerie" class="button">Gallerie</a>
+    {:else}
+    <a href="/lignes/{data.ligne.fields.id}?format=index" on:click={() => active = 0} class="button">Index</a>
+    {/if}
+    <a href="/lignes/{data.ligne.fields.id}/contexte" on:click={openDialog} class="button">Contexte</a>
   </nav>
 
-  {#if data.format === "liste"}
+  {#if data.format === "index"}
   <main class="col col--12of12">
     <Tableau ligne={data.ligne} oeuvres={data.ligne.fields.oeuvres} />
   </main>
@@ -92,7 +96,7 @@
   <h1 class="annee">{active > 0 ? data.ligne.fields.oeuvres[active - 1].fields.annee : ''}</h1>
   {/if}
 </section>
-
+{/key}
 
 <style lang="scss">
   section {
@@ -102,18 +106,17 @@
       list-style: none;
     }
 
-    &.images {
+    &.gallerie {
       nav,
       .annee {
         order: 99;
-
-        margin-top: $base * -8;
+        margin-top: $base * -9;
         opacity: 0;
         transform: translateY(100%);
         transition: transform 666ms, opacity 666ms;
       }
 
-      &.slid {
+      &:not(.first) {
         nav {
           opacity: 1;
           transform: translateY(0%);
@@ -218,37 +221,39 @@
 
     nav {
       &.formats {
+        z-index: 20;
         display: flex;
+        flex-direction: column;
         gap: $base * 0.5;
         margin-left: auto;
-        align-self: center;
+        align-self: top;
 
-        > div {
-          position: relative;
-          width: $gap * 2.5;
-          height: $base;
-          border: 1.5px solid;
-          border-radius: $base;
+        // > div {
+        //   position: relative;
+        //   width: $gap * 2.5;
+        //   height: $base;
+        //   border: 1.5px solid;
+        //   border-radius: $base;
 
-          &:before {
-            content: "";
-            background-color: var(--current-color);
-            border-radius: 50%;
-            width: $gap * 0.5;
-            height: $gap * 0.5;
-            margin: $gap * 0.1;
-            position: absolute;
-            left: 0;
-            top: 0;
-          }
+        //   &:before {
+        //     content: "";
+        //     background-color: var(--current-color);
+        //     border-radius: 50%;
+        //     width: $gap * 0.5;
+        //     height: $gap * 0.5;
+        //     margin: $gap * 0.1;
+        //     position: absolute;
+        //     left: 0;
+        //     top: 0;
+        //   }
 
-          &.right {
-            &:before {
-              left: auto;
-              right: 0;
-            }
-          }
-        }
+        //   &.right {
+        //     &:before {
+        //       left: auto;
+        //       right: 0;
+        //     }
+        //   }
+        // }
       }
     }
   }
