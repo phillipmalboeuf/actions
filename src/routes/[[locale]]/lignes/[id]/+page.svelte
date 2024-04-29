@@ -53,7 +53,7 @@
   </main>
   {:else}
   <main class="col col--12of12">
-    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={1.15} bind:slider bind:active>
+    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={1.25} bind:slider bind:active>
       {#key data.ligne.fields.id}
       <ol class="slider__container">
         <li class="slide">
