@@ -208,7 +208,7 @@
               margin-bottom: $base;
 
               :global(img) {
-                width: 50vw;
+                height: 30vh;
                 background-color: transparent;
                 padding: 0;
               }

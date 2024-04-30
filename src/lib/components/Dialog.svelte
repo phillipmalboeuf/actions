@@ -45,7 +45,8 @@
     border-top-left-radius: $base * $scale;
     border-bottom-left-radius: $base * $scale;
 
-    // color: var(--color);
+    color: currentColor;
+    border: none;
     background-color: transparent;
 
     &.half {
