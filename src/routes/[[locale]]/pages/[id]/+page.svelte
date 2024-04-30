@@ -34,6 +34,8 @@
     padding: ($gap * 2) ($gap * 2);
     min-height: 100vh;
     // justify-content: space-around;
+    --background: #{$yellow};
+    background-color: var(--background);
 
     @media (max-width: $mobile) {
       padding: $mobile_base;
