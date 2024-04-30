@@ -5,18 +5,31 @@
   import Document from './document/index.svelte'
   import Icon from './Icon.svelte';
   import { openDialog } from '$lib/helpers'
+  import Logo from './Logo.svelte';
 
   export let content: Entry<TypeGallerieSkeleton | TypeTextSkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>[]
 
-  export let scrolled = false
+  let scrollY = 0
+  let innerHeight: number
 </script>
+
+<svelte:window bind:scrollY bind:innerHeight />
 
 <ol>
 {#each content as item, i}
   {#if isTypeGallerie(item)}
   <li class="gallerie" id={item.fields.id}>
+    {#if i === 0}
+    <figure class="logo" style:--scroll={!innerHeight ? 0 : scrollY > innerHeight ? 1 : scrollY / innerHeight}>
+      <figcaption>Actions collectives. Regards féministes sur la collection.</figcaption>
+      <Logo />
+    </figure>
+    <figure class="maj">
+      <Icon i="maj" label="Musée d'art de Joliette" />
+    </figure>
+    {/if}
     {#if i < content.length - 1}
-    <a href="#{content[i + 1].fields.id}" class:scrolled class="down"><Icon i="arrow" label="Plus bas" /></a>
+    <a href="#{content[i + 1].fields.id}" class:scrolled={scrollY > 100} class="down"><Icon i="arrow" label="Plus bas" /></a>
     {/if}
 
     {#if item.fields.oeuvres?.length}
@@ -63,6 +76,56 @@
     flex-direction: column;
     gap: $gap * 4;
 
+    figure.logo {
+      position: sticky;
+      top: $gap;
+      left: 0;
+      // padding: $gap;
+      z-index: -1;
+
+      figcaption {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+      }
+
+      :global(svg) {
+        // padding: $gap;
+        width: auto;
+        height: calc(100vh - ($gap * 2));
+        overflow: visible;
+        object-position: left top;
+        background-color: var(--background);
+
+        :global(g) {
+          will-change: transform;
+
+          &:nth-child(2) {
+            transform: translateX(calc((1 - var(--scroll, 0)) * 10vw / 6));
+          }
+
+          &:nth-child(4) {
+            transform: translateX(calc((1 - var(--scroll, 0)) * 30vw / 6));
+          }
+
+          &:nth-child(6) {
+            transform: translateX(calc((1 - var(--scroll, 0)) * 5vw / 6));
+          }
+        }
+      }
+
+      ~ ul {
+        margin-top: calc(-100vh + ($gap * 4));
+      }
+    }
+
+    figure.maj {
+      position: absolute;
+      top: calc(100% + ($gap * 2));
+      right: $gap * 2;
+    }
+
     li {
       // width: 50%;
 
@@ -93,34 +156,33 @@
             &:nth-child(2n + 1) {
               align-self: flex-end;
             }
-          }
-        }
-        
 
-        figure {
-          display: flex;
-          gap: $base;
-          align-items: flex-end;
+            figure {
+              display: flex;
+              gap: $base;
+              align-items: flex-end;
 
-          :global(img),
-          :global(video) {
-            // height: auto;
-            // flex: 1;
-            max-height: 66vh;
-            width: auto;
-            max-width: 66vw;
-            object-fit: contain;
-          }
+              :global(img),
+              :global(video) {
+                // height: auto;
+                // flex: 1;
+                max-height: 66vh;
+                width: auto;
+                max-width: 66vw;
+                object-fit: contain;
+              }
 
-          figcaption {
-            width: 210px;
-            opacity: 0;
-            transition: opacity 333ms;
+              figcaption {
+                width: 210px;
+                opacity: 0;
+                transition: opacity 333ms;
 
-            position: sticky;
-            bottom: $base;
+                position: sticky;
+                bottom: $base;
 
-            font-size: $mobile_base;
+                font-size: $mobile_base;
+              }
+            }
           }
         }
 

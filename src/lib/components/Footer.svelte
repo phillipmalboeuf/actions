@@ -23,7 +23,7 @@
     z-index: 999;
     // color: var(--foreground-inverse);
     background-color: var(--background);
-    padding: $base;
+    padding: $gap ($gap * 2);
 
     display: flex;
     justify-content: space-between;
