@@ -139,6 +139,7 @@
           transition: opacity 666ms;
 
           &.scrolled {
+            pointer-events: none;
             opacity: 0;
           }
         }
