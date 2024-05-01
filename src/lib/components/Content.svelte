@@ -36,18 +36,18 @@
     <ul>
     {#each item.fields.oeuvres as oeuvre}
       <li>
-        <a href="/oeuvres/{oeuvre.fields.id}" on:click={openDialog}>
-          <figure>
-            <Media media={oeuvre.fields.vignette} />
-            <figcaption>
-              <p>{oeuvre.fields.artiste?.fields.nom}, {oeuvre.fields.titre}</p>
-              <p>{oeuvre.fields.annee}, {oeuvre.fields.medium},<br />{oeuvre.fields.dimensions}</p>
-              <p>Collection du Musée d’art 
-              de Joliette ({oeuvre.fields.numero}),<br />
-              {oeuvre.fields.mention}.</p>
-            </figcaption>
-          </figure>
-        </a>
+        <!-- <a href="/oeuvres/{oeuvre.fields.id}" on:click={openDialog}></a> -->
+        <figure>
+          <Media media={oeuvre.fields.vignette} />
+          <figcaption>
+            <p>{oeuvre.fields.artiste?.fields.nom}, {oeuvre.fields.titre}</p>
+            <p>{oeuvre.fields.annee}, {oeuvre.fields.medium},<br />{oeuvre.fields.dimensions}</p>
+            <p>Collection du Musée d’art 
+            de Joliette ({oeuvre.fields.numero}),<br />
+            {oeuvre.fields.mention}</p>
+          </figcaption>
+        </figure>
+        
       </li>
     {/each}
     </ul>
@@ -158,6 +158,13 @@
               align-self: flex-end;
             }
 
+            &:hover,
+            &:focus {
+              figcaption {
+                opacity: 1;
+              }
+            }
+
             figure {
               display: flex;
               gap: $base;
@@ -183,15 +190,6 @@
 
                 font-size: $mobile_base;
               }
-            }
-          }
-        }
-
-        a {
-          &:hover,
-          &:focus {
-            figcaption {
-              opacity: 1;
             }
           }
         }

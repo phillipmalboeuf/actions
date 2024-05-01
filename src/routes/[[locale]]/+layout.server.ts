@@ -5,7 +5,7 @@ export const load = async ({ locals, params, url }) => {
   const [header, footer, lignes] = await Promise.all([
     content.getEntries<TypeNavigationSkeleton>({ content_type: "navigation", "fields.id": "principale", include: 2, locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
     content.getEntries<TypeNavigationSkeleton>({ content_type: "navigation", "fields.id": "secondaire", include: 2, locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
-    content.getEntries<TypeLigneSkeleton>({ content_type: "ligne", select: ['sys.id', 'fields.titre', 'fields.id', 'fields.couleur'], order: ["fields.titre"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
+    content.getEntries<TypeLigneSkeleton>({ content_type: "ligne", select: ['sys.id', 'fields.titre', 'fields.id', 'fields.couleur'], order: ["fields.id"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
   ])
   
   return {
