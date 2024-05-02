@@ -11,7 +11,7 @@
   export let autoplay = true
   export let autoheight = true
   export let dots: number = undefined
-  export let slidesPerView = 1
+  export let slidesPerView: number | "auto" = 1
 
   let options: EmblaOptionsType = { loop }
   let plugins = [
@@ -28,7 +28,7 @@
 </script>
 
 {#if !disabled}
-<figure class="slider" style:--view={`${100 / slidesPerView}%`} on:emblaInit={(event) => {
+<figure class="slider" style:--view={slidesPerView === "auto" ? "auto" : `${100 / slidesPerView}%`} on:emblaInit={(event) => {
   // @ts-ignore
   slider = event.detail
   slider.on("select", () => active = slider.selectedScrollSnap())
@@ -75,6 +75,7 @@
     :global(.slide) {
       flex: 0 0 var(--view);
       min-width: 0;
+      max-width: 100%;
     }
 } 
 

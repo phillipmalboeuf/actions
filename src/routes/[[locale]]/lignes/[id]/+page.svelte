@@ -40,11 +40,11 @@
   </nav>
   <nav class="col formats" style:--current-color={data.ligne.fields.couleur}>
     {#if data.format === "index"}
-    <a href="/lignes/{data.ligne.fields.id}?format=gallerie" class="button">Gallerie</a>
+    <a href="/lignes/{data.ligne.fields.id}?format=gallerie" class="button" style:--color={data.ligne.fields.couleur}>Gallerie</a>
     {:else}
-    <a href="/lignes/{data.ligne.fields.id}?format=index" on:click={() => active = 0} class="button">Index</a>
+    <a href="/lignes/{data.ligne.fields.id}?format=index" on:click={() => active = 0} class="button" style:--color={data.ligne.fields.couleur}>Index</a>
     {/if}
-    <a href="/lignes/{data.ligne.fields.id}/contexte" on:click={openDialog} class="button">Contexte</a>
+    <a href="/lignes/{data.ligne.fields.id}/contexte" on:click={openDialog} class="button" style:--color={data.ligne.fields.couleur}>Contexte</a>
   </nav>
 
   {#if data.format === "index"}
@@ -53,7 +53,7 @@
   </main>
   {:else}
   <main class="col col--12of12">
-    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={1.25} bind:slider bind:active>
+    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={1} bind:slider bind:active>
       {#key data.ligne.fields.id}
       <ol class="slider__container">
         <li class="slide">
@@ -63,9 +63,8 @@
           </figure>
         </li>
         {#each data.ligne.fields.oeuvres as oeuvre, i}
-        <li class="slide">
+        <li class="slide" class:left={active < i + 1} class:right={active > i + 1}>
           <a href="/oeuvres/{oeuvre.fields.id}" on:click|preventDefault={e => {
-            console.log(i, active)
             if (i !== active - 1) {
               slider.scrollTo(i + 1)
             } else {
@@ -73,7 +72,7 @@
             }
           }}>
           <figure>
-            <!-- <div></div> -->
+            <div></div>
             <Media media={oeuvre.fields.vignette} />
             <figcaption>
               <h5>{oeuvre.fields.description}</h5>
@@ -84,7 +83,6 @@
                 {oeuvre.fields.medium}
               </p>
             </figcaption>
-            <!-- <figcaption class="annee"><h2 class="h1">{oeuvre.fields.annee}</h2></figcaption> -->
           </figure>
           </a>
         </li>
@@ -93,14 +91,14 @@
       {/key}
     </Slider>
   </main>
-  <h1 class="annee">{active > 0 ? data.ligne.fields.oeuvres[active - 1].fields.annee : ''}</h1>
+  <h1 class="annee">{active > 0 ? data.ligne.fields.oeuvres[active - 1].fields.annee : data.ligne.fields.oeuvres[0].fields.annee}</h1>
   {/if}
 </section>
 {/key}
 
 <style lang="scss">
   section {
-    padding: ($gap * 4) ($gap) ($gap);
+    padding: ($gap * 4) ($gap * 2) ($gap);
 
     ol {
       list-style: none;
@@ -109,11 +107,21 @@
     &.gallerie {
       nav,
       .annee {
+        z-index: 2;
         order: 99;
         margin-top: $base * -9;
         opacity: 0;
         transform: translateY(100%);
         transition: transform 666ms, opacity 666ms;
+      }
+
+      .annee {
+        position: absolute;
+        bottom: $base * -1;
+        left: 50%;
+        transform: translate(-50%, 100%);
+        font-size: $base * 10;
+        letter-spacing: -0.01em;
       }
 
       &:not(.first) {
@@ -129,28 +137,29 @@
       }
 
       main {
-        width: calc(100% + ($gap * 2));
-        margin: 0 ($gap * -1);
-      }
-
-      .annee {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translate(-50%, 100%);
-        font-size: 13vh;
+        width: calc(100% + ($gap * 4));
+        margin-left: ($gap * -2);
       }
 
       ol {
         li {
-          // padding-bottom: 10vh;
+          // padding: 0 10vw;
+          transition: transform 666ms;
+          &.left { transform: translateX(-25%); }
+          &.right { transform: translateX(25%); }
+
+          &.left, &.right {
+            figcaption {
+              opacity: 0;
+            }
+          }
 
           figure {
             position: relative;
             display: flex;
             gap: $gap;
             justify-content: center;
-            height: calc(100vh - ($base * 13));
+            height: calc(100vh - ($base * 15));
 
             :global(img),
             :global(video) {
@@ -159,10 +168,6 @@
               object-fit: contain;
               -webkit-user-select: none;
               user-select: none;
-              
-              padding: 5vh;
-              padding-right: 0;
-              object-position: right;
             }
 
             div {
@@ -173,25 +178,17 @@
               align-self: center;
               width: 15%;
 
+              transition: opacity 333ms;
+
               h5 {
                 margin-bottom: $base;
               }
-
-              // &.annee {
-              //   position: absolute;
-              //   top: calc(100% + ($gap));
-              //   left: 50%;
-              //   transform: translateX(-50%);
-
-              //   .h1 {
-              //     font-size: 13vh;
-              //   }
-              // }
             }
           }
 
           &:first-child {
-            padding: $gap ($gap * 2);
+            flex: 0 0 80%;
+            padding: ($gap * 3) ($gap * 2) $gap;
             height: calc(100vh - ($base * 5));
             display: flex;
             gap: $base;
@@ -208,7 +205,7 @@
               margin-bottom: $base;
 
               :global(img) {
-                height: 30vh;
+                height: $base * 13.33;
                 background-color: transparent;
                 padding: 0;
               }
