@@ -202,7 +202,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: $gap;
+        gap: $gap + 2px;
 
         > :global(*) {
           width: 50vw;
@@ -211,6 +211,10 @@
         
         > :global(p) {
           font-size: $base + 2px;
+        }
+        
+        > :global(table ~ p) {
+          font-size: $base;
         }
 
         > :global(figure) {
@@ -258,9 +262,13 @@
             > :global(p) {
               margin-bottom: $base;
 
+              &:has(+ p > em:first-child) {
+                margin-bottom: $base * 1.666;
+              }
+
               > :global(em) {
                 display: inline-block;
-                font-size: $base * $scale;
+                font-size: $base + 2px;
                 font-style: normal;
                 margin-bottom: $base * 0.25;
               }

@@ -19,7 +19,7 @@
 
 <Header header={data.header} />
 
-<main class={$page.route.id.replace('/[[locale]]/', '').replace('/[id]', '')}>
+<main class="{$page.route.id.replaceAll('/', '-').replaceAll('[', '').replaceAll(']', '')} {$page.url.pathname.replaceAll('/', '-')}">
   <slot />
 </main>
 

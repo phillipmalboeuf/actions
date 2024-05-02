@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let i: "arrow" | "tip" | "back" | "maj" | "mnc" | "view" | "download" | "close" | "plus" | "minus" | "menu" | "search" | "play"
+  export let i: "arrow" | "tip" | "back" | "maj" | "mnc" | "view" | "download" | "close" | "plus" | "minus" | "menu" | "menu-close" | "search" | "play"
   export let label: string
 </script>
 
@@ -17,8 +17,12 @@
 <path d="M46.8 16.2008V18.4008L46 18.6008C39.5 19.8008 34.8 24.9008 34.8 30.7008H32.8C32.8 25.5008 36 20.9008 40.8 18.3008H9.30005C4.30005 18.3008 0.300049 14.3008 0.300049 9.30078C0.300049 4.30078 4.30005 0.300781 9.30005 0.300781H20.9V2.30078H9.30005C5.40005 2.30078 2.30005 5.40078 2.30005 9.30078C2.30005 13.2008 5.40005 16.3008 9.30005 16.3008H40.8C36 13.8008 32.8 9.10078 32.8 3.90078H34.8C34.8 9.70078 39.5 14.8008 46 16.0008L46.8 16.2008Z" />
 </svg>
 {:else if i === "menu"}
-<svg aria-label={label} width="37" height="15" viewBox="0 0 37 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label={label} width="36" height="15" viewBox="0 0 37 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M36.7001 0.5V2.5H0.600098V0.5H36.7001ZM0.600098 14.9H36.7001V12.9H0.600098V14.9Z"/>
+</svg>
+{:else if i === "menu-close"}
+<svg aria-label={label} width="36" height="15" viewBox="0 0 36 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M36 0H0V2H36V0Z" />
 </svg>
 {:else if i === "search"}
 <svg  aria-label={label} width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">

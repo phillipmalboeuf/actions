@@ -34,8 +34,12 @@
     padding: ($gap * 2) ($gap * 2);
     min-height: 100vh;
     // justify-content: space-around;
-    --background: #{$yellow};
-    background-color: var(--background);
+
+    :global(.-pages-credits) &,
+    :global(.-pages-bibliographie) & {
+      --background: #{$yellow};
+      background-color: var(--background);
+    }
 
     @media (max-width: $mobile) {
       padding: $mobile_base;
@@ -63,8 +67,9 @@
       h1 {
         font-size: $base * 8;
         width: 50%;
-        text-align: center;
-        margin-right: ($gap * 2);
+        text-align: right;
+        margin-right: ($gap * 8);
+        margin-top: ($gap * -1) - 5px;
       }
     }
 

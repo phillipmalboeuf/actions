@@ -7,7 +7,7 @@
   // export let footer: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
 </script>
 
-<footer>
+<!-- <footer>
   <nav></nav>
  
   <nav>
@@ -15,7 +15,7 @@
     <a href=""><Icon i="mnc" label="Musées numériques Canada" /></a>
   </nav>
   
-</footer>
+</footer> -->
 
 <style lang="scss">
   footer {

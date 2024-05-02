@@ -22,7 +22,7 @@
       <li class="flex flex--spaced flex--middle flex--gapped">
         <a href="/lignes/{ligne.fields.id}" class=""><Media media={ligne.fields.logotype} /></a>
         <a href="/lignes/{ligne.fields.id}/video" class="col col--4of12"><Icon i="play" label="Visionner vidéo" /> <Media media={ligne.fields.vignette} small /></a>
-        <a class="button" href="/lignes/{ligne.fields.id}">Visiter</a>
+        <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur}>Visiter</a>
         <hr>
       </li>
       {/each}
@@ -50,7 +50,7 @@
     nav {
       position: relative;
       z-index: 1;
-      padding: ($gap * 4) $gap ($gap * 8);
+      padding: ($gap * 4) ($gap * 2) ($gap * 8);
       background-color: var(--background);
 
       display: flex;
@@ -59,7 +59,7 @@
       gap: $base * 0.5;
 
       > * {
-        max-width: 1280px;
+        max-width: 1560px;
       }
 
       hr {
@@ -75,6 +75,7 @@
       h2 {
         position: relative;
         margin-bottom: $gap;
+        font-size: $base * $scale * 3;
 
         :global(svg) {
           position: absolute;
@@ -96,7 +97,7 @@
         + hr {
           margin: 0 ($gap * -1.5);
           width: calc(100% + ($gap * 3));
-          max-width: calc(1280px + ($gap * 3));
+          max-width: calc(1560px + ($gap * 3));
         }
       }
 
@@ -114,6 +115,14 @@
               height: $base * 6.66;
               object-fit: contain;
               object-position: left;
+            }
+          }
+
+          &:nth-child(2) {
+            a:first-child {
+              :global(img) {
+                height: $base * 7.5;
+              }
             }
           }
 

@@ -19,15 +19,15 @@
 </script>
 
 <header>
-  <input type="checkbox" name="search" id="search" bind:checked={searching} />
+  <input type="checkbox" name="search" id="search" bind:checked={searching} on:input={() => menu = false} />
   <label for="search"><Icon i="search" label="Recherche" /></label>
 
   <nav class="search">
     <Search visible={searching} />
   </nav>
 
-  <input type="checkbox" name="menu" id="menu" bind:checked={menu} />
-  <label for="menu"><Icon i="menu" label="Menu" /></label>
+  <input type="checkbox" name="menu" id="menu" bind:checked={menu} on:input={() => searching = false} />
+  <label for="menu"><Icon i={menu ? "menu-close" : "menu"} label="Menu" /></label>
 
   <nav class="flex">
     <figure class="col col--6of12"><Logo /></figure>
@@ -50,7 +50,7 @@
       {/each}
       {/if}
 
-      <li>
+      <li class="buttons">
         <aside>
           <a href="/" class="button">Français</a>
           <a href="/en" class="button">English</a>
@@ -74,7 +74,7 @@
 
     label[for="search"] {
       position: relative;
-      z-index: -2;
+      // z-index: -2;
     }
 
     nav {
@@ -101,10 +101,11 @@
 
       &.search {
         background-color: $beige;
-        z-index: -3;
+        // z-index: 3;
       }
 
       figure {
+        padding: $gap;
         
         :global(svg) {
           height: 100%;
@@ -121,9 +122,23 @@
 
         li {
           font-size: $base * $scale * 1.5;
-          &:last-child {
+
+          small {
+            font-size: $base;
+            margin-left: 0.5em;
+          }
+          
+          &.buttons {
             font-size: $base;
             margin-top: auto;
+
+            .button {
+              &:hover,
+              &:focus {
+                color: $white;
+                background-color: $brown;
+              }
+            }
           }
 
           :global(svg) {
@@ -161,7 +176,7 @@
             margin-left: 1.2em;
 
             li {
-              font-size: $base;
+              font-size: $base * $scale;
             }
 
             &:hover,

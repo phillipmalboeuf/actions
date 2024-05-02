@@ -77,5 +77,9 @@
 <style lang="scss">
   figure {
     margin: ($gap * 2) 0;
+
+    figcaption {
+      font-size: $base * 0.9;
+    }
   }
 </style>
