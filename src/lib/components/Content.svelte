@@ -263,6 +263,8 @@
         }
 
         > :global(table) {
+          display: block;
+
           :global(td) {
             border: none;
             width: 50%;
@@ -272,7 +274,8 @@
             > :global(p) {
               margin-bottom: $base;
 
-              &:has(+ p > em:first-child) {
+              &:has(+ p > em:first-child),
+              &:has(+ p > a) {
                 margin-bottom: $base * 1.666;
               }
 
@@ -297,6 +300,15 @@
           width: 100%;
           max-width: none;
           margin-bottom: -8vw;
+        }
+      }
+    }
+
+    &.Medium {
+      li.text {
+        > :global(*:not(figure)) {
+          width: 90vw;
+          max-width: 840px;
         }
       }
     }

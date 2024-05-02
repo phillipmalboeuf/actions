@@ -22,6 +22,10 @@
 
 html {
 	scroll-behavior: smooth;
+
+	&.noscroll {
+    overflow: hidden;
+  }
 }
 
 body {
@@ -201,7 +205,7 @@ table {
 	th {
 		text-align: left;
 		white-space: pre-line;
-		padding: ($base * 0.5) 0;
+		padding: ($base * 0.75) 0;
 	}
 
 	td {

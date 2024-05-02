@@ -36,7 +36,7 @@
 	c-4.1,0-7.4,3.3-7.4,7.3s3.3,7.4,7.4,7.4s7.4-3.3,7.4-7.4S28.7,8.3,24.6,8.3z"/>
 </svg>
 {:else if i === "download"}
-<svg aria-label={label} width="47" height="31" viewBox="0 0 31.8 34.9" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label={label} width="35" height="31" viewBox="0 0 31.8 34.9" xmlns="http://www.w3.org/2000/svg">
 <path d="M1.1,17.7V16C7,16,12.3,19.4,15,24.4V0.3h1.8v24.2c2.6-5.1,8-8.5,13.9-8.5v1.7c-6.5,0-12.2,4.6-13.6,11
 	l-0.1,0.7h-2.1l-0.1-0.7C13.3,22.3,7.6,17.7,1.1,17.7z M29.7,27.3v5.6H2v-5.6H0.2v7.4h31.2v-7.4H29.7z"/>
 </svg>

@@ -6,15 +6,22 @@
   import ContextePage from '../../routes/[[locale]]/lignes/[id]/contexte/+page.svelte'
   import ZoomPage from '../../routes/[[locale]]/oeuvres/[id]/zoom/+page.svelte'
   import Icon from './Icon.svelte'
+  import { browser } from '$app/environment'
   // import ContactPage from '../../routes/[[locale]]/contact/+page.svelte'
+
+  $: {
+    if (browser) {
+      document.documentElement.classList.toggle('noscroll', !!(($page.state.type && $page.state.open) || ($page.state.zoom)))
+    }
+  }
 </script>
 
 {#if $page.state.type && $page.state.open}
 <dialog transition:fly={{ opacity: 1, x: '100%', duration: 666 }} class:half={$page.state.type === 'contexte'}>
   {#if $page.state.type === 'oeuvre'}
-  <OeuvrePage data={$page.state.open} retour />
+  <OeuvrePage data={$page.state.open} />
   {:else if $page.state.type === 'contexte'}
-  <ContextePage data={$page.state.open} retour />
+  <ContextePage data={$page.state.open} />
   {/if}
 </dialog>
 <button class="back" transition:fade={{ duration: 666 }} on:click={() => history.back()}>
@@ -75,6 +82,7 @@
     background: none;
     padding: 0;
     border: none;
+    color: currentColor;
     transition: transform 333ms;
 
     &.half {

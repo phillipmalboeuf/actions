@@ -14,17 +14,15 @@
 
   import type { PageData } from './$types' 
   export let data: PageData
-
-  export let retour = false
 </script>
 
-<header>
+<!-- <header>
   {#if !retour}
   <a href="/lignes/{data.ligne.fields.id}">Retour</a>
   {:else}
   <span></span>
   {/if}
-</header>
+</header> -->
 
 <aside>
   <Media media={data.ligne.fields.logotype} />

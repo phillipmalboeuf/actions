@@ -15,23 +15,24 @@
   import type { PageData } from './$types' 
   export let data: PageData
 
-  export let retour = false
+  // export let retour = false
+  let img: HTMLImageElement
 </script>
 
-<section style="background-color: {data.oeuvre.fields.couleur};" class="flex flex--gapped">
+<section style:--color={data.oeuvre.fields.couleur} class="flex flex--gapped">
   <header>
-    {#if !retour}
+    <!-- {#if !retour}
     <a href="/">Retour</a>
     {:else}
     <span></span>
-    {/if}
+    {/if} -->
     <h1>{data.oeuvre.fields.annee}</h1>
   </header>
 
   <figure class="col col--6of12">
-    <Media media={data.oeuvre.fields.vignette} eager />
+    <Media media={data.oeuvre.fields.vignette} eager bind:img />
 
-    <figcaption>
+    <figcaption style="margin-left: {img?.offsetLeft}px; margin-right: {img?.offsetLeft}px;">
       <small>
         Musée d’art de Joliette<br />
         © Anne Kahane
@@ -44,7 +45,7 @@
     <h5>{data.oeuvre.fields.description}</h5>
     <aside>
       {data.oeuvre.fields.artiste.fields.nom}<br />
-      {data.oeuvre.fields.titre}<br />
+      <em>{data.oeuvre.fields.titre}</em><br />
       {data.oeuvre.fields.annee}<br />
       {data.oeuvre.fields.medium}
     </aside>
@@ -103,6 +104,7 @@
   section {
     padding: ($gap * 2) ($gap * 2);
     min-height: 100vh;
+    background-color: $beige;
     // justify-content: space-around;
 
     @media (max-width: $mobile) {
@@ -116,31 +118,51 @@
       right: 0;
 
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
 
       > a {
         padding: $base;
       }
 
       h1 {
-        font-size: $base * 8;
-        width: 50%;
-        text-align: center;
-        margin-right: ($gap * 2);
+        font-size: $base * 10;
+        letter-spacing: -0.01em;
+        width: calc(50% - ($gap * 2));
+        // text-align: center;
+        // margin-left: ($gap * 2);
+        margin-top: ($gap * -1.666);
       }
     }
 
     main {
       display: flex;
       flex-direction: column;
-      gap: $gap;
+      gap: $gap + 2px;
       margin: auto;
 
       margin-top: ($gap * 10);
 
+      h5 {
+        font-size: ($base * $scale) + 2px;
+      }
+
+      h5,
+      aside {
+        max-width: 400px;
+      }
+
       aside {
         line-height: 1.333;
         margin-bottom: $gap * 2;
+      }
+
+      :global(p) {
+        font-size: $base + 2px;
+      }
+
+      :global(figure figcaption) {
+        margin-top: $base * 0.5;
+        line-height: 1.3;
       }
 
       h3 {
@@ -151,6 +173,10 @@
 
         h6 {
           margin-bottom: $base * 0.33;
+        }
+
+        small {
+          font-size: $base - 2px;
         }
       }
     }
@@ -163,6 +189,9 @@
       
       :global(img),
       :global(video) {
+        width: auto;
+        max-width: 100%;
+        margin: 0 auto;
         max-height: 66vh;
         object-fit: contain;
         background-color: transparent;
