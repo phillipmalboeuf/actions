@@ -1,5 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores'
+  import { browser } from '$app/environment'
+  import { fade, fly } from 'svelte/transition'
 
   import type { TypeNavigationSkeleton } from '$lib/clients/content_types'
   import type { Entry } from 'contentful'
@@ -15,6 +17,12 @@
   let up = true
   let currentScroll = 0
 	let scrollY = 0
+
+  $: {
+    if (browser) {
+      document.documentElement.classList.toggle('noscroll', !!(menu || searching))
+    }
+  }
 
   const click = () => {
     searching = false
@@ -78,6 +86,11 @@
   </nav>
 </header>
 
+{#if menu || searching}
+<button class="back" transition:fade={{ duration: 666 }} on:click={click}>
+</button>
+{/if}
+
 <style lang="scss">
   header {
     position: fixed;
@@ -120,7 +133,7 @@
       left: auto;
       height: 100vh;
       overflow-y: auto;
-      width: calc(100vw - $base);
+      width: 99vw;
       z-index: -1;
       border: none;
       border-top-left-radius: $base * $scale;
@@ -238,5 +251,18 @@
         }
       }
     }
+  }
+
+  .back {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background: fade-out($color: $black, $amount: 0.66);
+    border-radius: 0;
+    padding: 0;
+    border: none;
   }
 </style>
