@@ -24,7 +24,7 @@
 </main>
 
 <Dialog />
-<Footer />
+<Footer footer={data.footer} />
 
 <style lang="scss">
   main {
