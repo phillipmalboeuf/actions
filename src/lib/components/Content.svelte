@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { isTypeGallerie, isTypeText, type TypeGallerieSkeleton, type TypeTextSkeleton } from '$lib/clients/content_types'
+  import { isTypeGallerie, isTypeText, type TypeGallerieSkeleton, type TypePageFields, type TypeTextSkeleton } from '$lib/clients/content_types'
   import type { Entry } from 'contentful'
   import Media from './Media.svelte'
   import Document from './document/index.svelte'
-  import Icon from './Icon.svelte';
-  import { openDialog } from '$lib/helpers'
-  import Logo from './Logo.svelte';
+  import Icon from './Icon.svelte'
+  import Logo from './Logo.svelte'
 
   export let content: Entry<TypeGallerieSkeleton | TypeTextSkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>[]
+  export let format: TypePageFields['format']['values'] = undefined
 
   let scrollY = 0
   let innerHeight: number
@@ -15,7 +15,7 @@
 
 <svelte:window bind:scrollY bind:innerHeight />
 
-<ol>
+<ol class={format}>
 {#each content as item, i}
   {#if isTypeGallerie(item)}
   <li class="gallerie" id={item.fields.id}>
@@ -69,8 +69,14 @@
 </ol>
 
 <style lang="scss">
-  ol,
   ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: $gap * 4;
+  }
+
+  ol {
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -209,7 +215,8 @@
           max-width: 644px;
         }
         
-        > :global(p) {
+        > :global(p),
+        > :global(blockquote > p) {
           font-size: $base + 2px;
         }
         
@@ -219,7 +226,8 @@
 
         > :global(figure) {
           display: flex;
-          width: calc(100vw - ($gap * 4));
+          width: calc(100vw - ($base * 4));
+          margin-left: $base * -1;
           max-width: none;
           gap: $gap;
           align-items: flex-end;
@@ -240,6 +248,8 @@
           }
 
           &:nth-of-type(2n) {
+            justify-content: flex-end;
+
             :global(figcaption) {
               order: -1;
             }
@@ -287,6 +297,15 @@
           width: 100%;
           max-width: none;
           margin-bottom: -8vw;
+        }
+      }
+    }
+
+    &.Large {
+      li.text {
+        > :global(*:not(figure)) {
+          width: 90vw;
+          max-width: 980px;
         }
       }
     }

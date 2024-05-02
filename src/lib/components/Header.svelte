@@ -12,13 +12,31 @@
   let searching = false
   let menu = false
 
+  let up = true
+  let currentScroll = 0
+	let scrollY = 0
+
   const click = () => {
     searching = false
     menu = false
   }
 </script>
 
-<header>
+<svelte:window bind:scrollY on:scroll={e => {
+  if (up && scrollY > 0 && currentScroll < scrollY) {
+		up = false
+	} else if (!up && currentScroll > scrollY) {
+		up = true
+	}
+	
+	currentScroll = scrollY
+}} />
+
+<header class:up>
+  {#if $page.route.id !== '/[[locale]]'}
+  <a href="/" class="h2">Accueil</a>
+  {/if}
+
   <input type="checkbox" name="search" id="search" bind:checked={searching} on:input={() => menu = false} />
   <label for="search"><Icon i="search" label="Recherche" /></label>
 
@@ -63,18 +81,36 @@
 <style lang="scss">
   header {
     position: fixed;
-    z-index: 3000;
+    z-index: 1000;
     top: 0;
     right: 0;
-    padding: $base * $scale;
+    width: 100%;
+    padding: ($gap) ($gap * 2);
 
     display: flex;
     align-items: center;
-    gap: $base;
+    gap: $gap;
+
+    transition: transform 666ms;
+    transform: translateY(-100%);
+
+    &.up {
+      transform: translateY(0%);
+    }
 
     label[for="search"] {
       position: relative;
-      // z-index: -2;
+      margin-left: auto;
+    }
+
+    > a.h2 {
+      position: relative;
+      z-index: -1;
+
+      font-family: $display;
+      font-weight: 300;
+      text-transform: lowercase;
+      line-height: 0;
     }
 
     nav {

@@ -26,14 +26,14 @@
 
 {#key data.format}
 <section class="flex flex--thick_gapped {data.format || "gallerie"}" class:first={active === 0}>
-  <header class="col col--12of12">
+  <!-- <header class="col col--12of12">
     {#if !retour}
     <a href="/" class="h2">accueil</a>
     {:else}
     <span></span>
     {/if}
-    <!-- <h1>{data.ligne.fields.titre}</h1> -->
-  </header>
+    <h1>{data.ligne.fields.titre}</h1>
+  </header> -->
 
   <nav class="col col--6of12">
     <Lignes current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} format={data.format} />
@@ -100,7 +100,7 @@
 
 <style lang="scss">
   section {
-    padding: $gap;
+    padding: ($gap * 4) ($gap) ($gap);
 
     ol {
       list-style: none;
@@ -191,7 +191,7 @@
           }
 
           &:first-child {
-            padding: $gap;
+            padding: $gap ($gap * 2);
             height: calc(100vh - ($base * 5));
             display: flex;
             gap: $base;

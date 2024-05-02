@@ -19,12 +19,12 @@
 
 <section class="flex flex--gapped">
   <header>
-    <a href="/"><h3>Accueil</h3></a>
+    <!-- <a href="/"><h3>Accueil</h3></a> -->
     <h1>{data.page.fields.titre}</h1>
   </header>
 
   <main>
-    <Content content={data.page.fields.contenu} />
+    <Content content={data.page.fields.contenu} format={data.page.fields.format} />
   </main>
 </section>
 
@@ -52,17 +52,17 @@
       right: 0;
 
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       text-transform: lowercase;
 
-      > a {
-        padding: $base;
+      // > a {
+      //   padding: $base;
 
-        h3 {
-          font-family: $display;
-          font-weight: 300;
-        }
-      }
+      //   h3 {
+      //     font-family: $display;
+      //     font-weight: 300;
+      //   }
+      // }
 
       h1 {
         font-size: $base * 8;

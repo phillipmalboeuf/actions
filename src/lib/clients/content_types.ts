@@ -99,6 +99,7 @@ export interface TypePageFields {
     titre?: EntryFieldTypes.Symbol;
     id: EntryFieldTypes.Symbol;
     description?: EntryFieldTypes.Text;
+    format?: EntryFieldTypes.Symbol<"Large" | "Étroit">;
     contenu?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeGallerieSkeleton | TypeTextSkeleton>>;
 }
 

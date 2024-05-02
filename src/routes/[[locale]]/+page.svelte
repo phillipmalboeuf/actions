@@ -11,7 +11,7 @@
 
 
 <main>
-  <Content content={data.page.fields.contenu} />
+  <Content content={data.page.fields.contenu} format={data.page.fields.format} />
 
   <nav>
     <h6>Sélectionner une ligne du temps<br>pour débuter votre visite</h6>
