@@ -45,6 +45,33 @@
   table {
     // margin: ($gap * 2) 0;
 
+    td,
+    th {
+      padding: ($base);
+
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+
+    td:nth-child(3) {
+      width: $gap * 14;
+    }
+
+    td:last-child {
+      border: none;
+      position: relative;
+      width: $gap * 14;
+
+      figure {
+        position: absolute;
+        top: 0;
+        right: 0;
+        opacity: 0;
+        transition: opacity 333ms;
+      }
+    }
+
     a {
       display: table-row;
       vertical-align: middle;
@@ -63,10 +90,14 @@
         h2 {
           background-color: var(--couleur);
         }
+
+        figure {
+          opacity: 1;
+        }
       }
 
       figure {
-        width: $gap * 5;
+        width: $gap * 10;
       }
     }
   }

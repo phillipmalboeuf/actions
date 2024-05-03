@@ -26,14 +26,13 @@
 
 {#key data.format}
 <section class="flex flex--thick_gapped {data.format || "gallerie"}" class:first={active === 0}>
-  <!-- <header class="col col--12of12">
-    {#if !retour}
-    <a href="/" class="h2">accueil</a>
-    {:else}
-    <span></span>
-    {/if}
-    <h1>{data.ligne.fields.titre}</h1>
-  </header> -->
+  {#if data.format === "index"}
+  <header class="col col--12of12">
+    <figure>
+      <Media media={data.ligne.fields.logotype} />
+    </figure>
+  </header>
+  {/if}
 
   <nav class="col col--6of12">
     <Lignes current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} format={data.format} />
@@ -63,7 +62,7 @@
           </figure>
         </li>
         {#each data.ligne.fields.oeuvres as oeuvre, i}
-        <li class="slide" class:left={active < i + 1} class:right={active > i + 1}>
+        <li class="slide {oeuvre.fields.format}" class:left={active < i + 1} class:right={active > i + 1}>
           <a href="/oeuvres/{oeuvre.fields.id}" on:click|preventDefault={e => {
             if (i !== active - 1) {
               slider.scrollTo(i + 1)
@@ -98,10 +97,24 @@
 
 <style lang="scss">
   section {
-    padding: ($gap * 4) ($gap * 2) ($gap);
+    padding: ($gap * 4) ($gap * 2) ($gap * 4);
+
+    header {
+      margin: ($gap * 2) 0;
+      
+      figure :global(img) {
+        width: auto;
+        height: 140px;
+        object-fit: contain;
+      }
+    }
 
     ol {
       list-style: none;
+    }
+
+    &.index {
+      padding-bottom: ($gap * 14);
     }
 
     &.gallerie {
@@ -143,10 +156,12 @@
 
       ol {
         li {
-          // padding: 0 10vw;
-          transition: transform 666ms;
-          &.left { transform: translateX(-25%); }
-          &.right { transform: translateX(25%); }
+          display: flex;
+          flex-direction: column;
+
+          // transition: transform 666ms;
+          // &.left { transform: translateX(-25%); }
+          // &.right { transform: translateX(25%); }
 
           &.left, &.right {
             figcaption {
@@ -186,8 +201,30 @@
             }
           }
 
+          &.Petit,
+          &.Moyen {
+            a {
+              margin: auto 0;
+            }
+            figure {
+              margin-bottom: $base * 10;
+            }
+          }
+
+          &.Petit {
+            figure {
+              height: calc(36.66vh);
+            }
+          }
+
+          &.Moyen {
+            figure {
+              height: calc(55.55vh);
+            }
+          }
+
           &:first-child {
-            flex: 0 0 80%;
+            flex: 0 0 70%;
             padding: ($gap * 3) ($gap * 2) $gap;
             height: calc(100vh - ($base * 5));
             display: flex;
