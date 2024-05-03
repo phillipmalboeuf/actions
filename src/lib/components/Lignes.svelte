@@ -29,11 +29,11 @@
       content: "";
       position: absolute;
       left: 0;
-      top: ($gap * -0.1);
+      top: ($base * -0.2);
       height: 100%;
-      width: $base * 0.8;
+      width: $base;
       border: 1.5px solid;
-      border-radius: $base * 0.5;
+      border-radius: $base * 0.75;
     }
 
     li {
@@ -44,9 +44,9 @@
           content: "";
           background-color: var(--current-color);
           border-radius: 50%;
-          width: $gap * 0.5;
-          height: $gap * 0.5;
-          margin: $gap * 0.15;
+          width: $base - 4px;
+          height: $base - 4px;
+          // margin: $base * 0.3;
           position: absolute;
           right: calc(100% + ($gap * 0.5) - ($gap * 0.15 / 3));
           top: 0;

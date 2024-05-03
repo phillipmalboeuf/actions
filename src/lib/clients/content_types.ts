@@ -82,6 +82,7 @@ export interface TypeOeuvreFields {
     vignette?: EntryFieldTypes.AssetLink;
     media?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
     annee: EntryFieldTypes.Integer;
+    format?: EntryFieldTypes.Symbol<"Large" | "Moyen" | "Petit">;
     dimensions?: EntryFieldTypes.Symbol;
     medium?: EntryFieldTypes.Symbol;
     mention?: EntryFieldTypes.Text;
@@ -99,7 +100,8 @@ export interface TypePageFields {
     titre?: EntryFieldTypes.Symbol;
     id: EntryFieldTypes.Symbol;
     description?: EntryFieldTypes.Text;
-    format?: EntryFieldTypes.Symbol<"Large" | "Étroit">;
+    logotype?: EntryFieldTypes.AssetLink;
+    format?: EntryFieldTypes.Symbol<"Large" | "Medium" | "Étroit">;
     contenu?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeGallerieSkeleton | TypeTextSkeleton>>;
 }
 

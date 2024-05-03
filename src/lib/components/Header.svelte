@@ -42,7 +42,7 @@
 
 <header class:up>
   {#if $page.route.id !== '/[[locale]]'}
-  <a href="/" class="h2">Accueil</a>
+  <a href="/" class="h2"><Icon i="home" label="Accueil" /></a>
   {/if}
 
   <input type="checkbox" name="search" id="search" bind:checked={searching} on:input={() => menu = false} />

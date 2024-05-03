@@ -20,7 +20,13 @@
 <section class="flex flex--gapped">
   <header>
     <!-- <a href="/"><h3>Accueil</h3></a> -->
+    {#if data.page.fields.logotype}
+    <figure>
+      <Media media={data.page.fields.logotype} />
+    </figure>
+    {:else}
     <h1>{data.page.fields.titre}</h1>
+    {/if}
   </header>
 
   <main>
@@ -70,6 +76,19 @@
         text-align: right;
         margin-right: ($gap * 8);
         margin-top: ($gap * -1) - 5px;
+      }
+
+      figure {
+        width: 50%;
+        margin-right: ($gap * 8);
+        margin-top: -5px;
+        max-height: 140px;
+
+        :global(img) {
+          height: 100%;
+          object-fit: contain;
+          object-position: right;
+        }
       }
     }
 
