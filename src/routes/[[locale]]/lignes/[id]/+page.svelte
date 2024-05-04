@@ -71,7 +71,9 @@
             }
           }}>
           <figure>
-            <div></div>
+            <div>
+              <Icon i="plus" label="Découvrez" />
+            </div>
             <Media media={oeuvre.fields.vignette} />
             <figcaption>
               <h5>{oeuvre.fields.description}</h5>
@@ -186,7 +188,23 @@
             }
 
             div {
+              position: relative;
               width: 15%;
+
+              :global(svg) {
+                position: absolute;
+                top: 50%;
+                right: ($base * -2) - 4px;
+                color: $white;
+                background-color: $brown;
+                width: $base * 2;
+                height: $base * 2;
+                padding: $base * 0.5;
+                border-radius: 50%;
+                transform: translateY(-50%);
+                opacity: 0;
+                transition: opacity 333ms;
+              }
             }
 
             figcaption {
@@ -197,6 +215,15 @@
 
               h5 {
                 margin-bottom: $base;
+              }
+            }
+          }
+
+          a:hover,
+          a:focus {
+            div {
+              :global(svg) {
+                opacity: 1;
               }
             }
           }
