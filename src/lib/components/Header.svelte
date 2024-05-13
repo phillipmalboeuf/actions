@@ -9,10 +9,12 @@
   import Icon from './Icon.svelte'
   import Logo from './Logo.svelte'
   import Search from './Search.svelte'
+  import CommentairesPage from '../../routes/[[locale]]/commentaires/+page.svelte'
   
   export let header: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
   let searching = false
   let menu = false
+  let commentaires = false
 
   let up = true
   let currentScroll = 0
@@ -61,7 +63,13 @@
       {#if header}
       {#each header.fields.liens as lien}
       <li>
-        <a on:click={click} href="{lien.fields.route}"><Icon i="back" label="Naviguer vers" /> {lien.fields.titre} {#if $page.url.pathname === lien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
+        <a on:click={click} href="{lien.fields.route}" on:mouseenter={() => {
+          if (lien.fields.route === "/commentaires") {
+            commentaires = true
+          } else {
+            commentaires = false
+          }
+        }}><Icon i="back" label="Naviguer vers" /> {lien.fields.titre} {#if $page.url.pathname === lien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
 
         {#if lien.fields.sousLiens}
         <ol>
@@ -73,6 +81,9 @@
         </ol>
         {/if}
       </li>
+      {#if lien.fields.route === "/commentaires" && commentaires}
+      <li transition:fly={{ y: 100 }}><CommentairesPage /></li>
+      {/if}
       {/each}
       {/if}
 
@@ -170,15 +181,21 @@
         padding: ($base * $scale) 0;
 
         li {
-          font-size: $base * $scale * 1.5;
+          a {
+            font-size: $base * $scale * 1.5;
+          }
 
           small {
             font-size: $base;
             margin-left: 0.5em;
           }
+
+          :global(form) {
+            padding-left: 0;
+          }
           
           &.buttons {
-            font-size: $base;
+            a { font-size: $base; }
             margin-top: auto;
 
             .button {
@@ -224,7 +241,7 @@
             overflow: hidden;
             margin-left: 1.2em;
 
-            li {
+            li a {
               font-size: $base * $scale;
             }
 

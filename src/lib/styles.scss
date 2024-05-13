@@ -226,26 +226,37 @@ table {
 form {
 
 	input[type="text"],
+	input[type="email"],
 	input[type="search"],
+	textarea,
 	select {
 		font-size: inherit;
+		font-family: inherit;
 		appearance: none;
 		width: 100%;
 		border: none;
 		color: currentColor;
 		background-color: $beige-dark;
 		padding: $base;
-		border-radius: $base * 2;
+		border-radius: $base;
 
 		&::placeholder {
 			color: currentColor;
 		}
 	}
 
+	input[type="search"] {
+		border-radius: $base * 2;
+	}
+
 	select {
 		padding: ($base * $scale * 0.5) $base;
 		background-color: transparent;
 		border: 1px solid;
+	}
+
+	textarea {
+		height: 6em;
 	}
 
 	fieldset {
