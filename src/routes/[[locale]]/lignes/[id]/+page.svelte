@@ -51,15 +51,16 @@
     <Tableau ligne={data.ligne} oeuvres={data.ligne.fields.oeuvres} />
   </main>
   {:else}
-  <main class="col col--12of12">
+  <main class="col col--12of12" style:--color={data.ligne.fields.couleur}>
     <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={1} bind:slider bind:active>
       {#key data.ligne.fields.id}
       <ol class="slider__container">
-        <li class="slide">
+        <li class="slide" class:active={active === 0}>
           <Document body={data.ligne.fields.contexte} />
           <figure>
             <Media media={data.ligne.fields.logotype} />
           </figure>
+          <button class="next button--none" on:click={() => slider.scrollNext()}><Icon i="back" label="Prochain" /></button>
         </li>
         {#each data.ligne.fields.oeuvres as oeuvre, i}
         <li class="slide {oeuvre.fields.format}" class:left={active < i + 1} class:right={active > i + 1}>
@@ -92,7 +93,11 @@
       {/key}
     </Slider>
   </main>
-  <h1 class="annee">{active > 0 ? data.ligne.fields.oeuvres[active - 1].fields.annee : data.ligne.fields.oeuvres[0].fields.annee}</h1>
+  <h1 class="annee">
+    <button class="previous button--none" on:click={() => slider.scrollPrev()}><Icon i="tip" label="Retour" /></button>
+    {active > 0 ? data.ligne.fields.oeuvres[active - 1].fields.annee : data.ligne.fields.oeuvres[0].fields.annee}
+    <button class="next button--none" on:click={() => slider.scrollNext()}><Icon i="tip" label="Prochain" /></button>
+  </h1>
   {/if}
 </section>
 {/key}
@@ -137,6 +142,18 @@
         transform: translate(-50%, 100%);
         font-size: $base * 10;
         letter-spacing: -0.01em;
+
+        button {
+          transform: translateY(-$gap);
+          
+          // :global(svg) {
+          //   width: $base * 3;
+          // }
+
+          &.next {
+            transform: translateY(-$gap) scaleX(-1);
+          }
+        }
       }
 
       &:not(.first) {
@@ -260,6 +277,18 @@
 
             :global(p) {
               max-width: 572px;
+            }
+
+            button {
+              position: absolute;
+              bottom: ($base * 10);
+              right: ($base * 10);
+              transition: opacity 333ms;
+              opacity: 1;
+            }
+
+            &:not(.active) button {
+              opacity: 0;
             }
 
             figure {

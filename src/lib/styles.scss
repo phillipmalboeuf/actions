@@ -124,6 +124,7 @@ button,
 .button {
 	font-size: inherit;
 	cursor: pointer;
+	color: currentColor;
 	display: inline-block;
 	text-align: center;
 	padding: ($base * $scale * 0.5) ($base * $scale * 1.5);
@@ -143,6 +144,12 @@ button,
 	&.button--none {
 		padding: 0;
 		border: none;
+
+		&:hover,
+		&:focus {
+			// color: var(--color, $grey);
+			background-color: transparent;
+		}
 	}
 
 	&.button--inverse {

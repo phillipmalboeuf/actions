@@ -180,9 +180,9 @@
               :global(video) {
                 // height: auto;
                 // flex: 1;
-                max-height: 66vh;
+                max-height: 50vh;
                 width: auto;
-                max-width: 66vw;
+                max-width: 50vw;
                 object-fit: contain;
               }
 
@@ -195,6 +195,16 @@
                 bottom: $base;
 
                 font-size: $mobile_base;
+              }
+            }
+
+            &:first-child {
+              figure {
+                flex-direction: column;
+                align-items: flex-start;
+                figcaption {
+                  margin-bottom: $gap * -4;
+                }
               }
             }
           }
