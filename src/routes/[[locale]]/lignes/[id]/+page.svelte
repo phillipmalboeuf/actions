@@ -94,9 +94,9 @@
     </Slider>
   </main>
   <h1 class="annee">
-    <button class="previous button--none" on:click={() => slider.scrollPrev()}><Icon i="tip" label="Retour" /></button>
+    <button class="previous button--none" on:click={() => slider.scrollPrev()}><Icon i="next" label="Retour" /></button>
     {active > 0 ? data.ligne.fields.oeuvres[active - 1].fields.annee : data.ligne.fields.oeuvres[0].fields.annee}
-    <button class="next button--none" on:click={() => slider.scrollNext()}><Icon i="tip" label="Prochain" /></button>
+    <button class="next button--none" on:click={() => slider.scrollNext()}><Icon i="next" label="Prochain" /></button>
   </h1>
   {/if}
 </section>
@@ -144,14 +144,14 @@
         letter-spacing: -0.01em;
 
         button {
-          transform: translateY(-$gap);
+          transform: translateY(-$gap * 2);
           
           // :global(svg) {
           //   width: $base * 3;
           // }
 
-          &.next {
-            transform: translateY(-$gap) scaleX(-1);
+          &.previous {
+            transform: translateY(-$gap * 2) scaleX(-1);
           }
         }
       }

@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let i: "arrow" | "tip" | "back" | "maj" | "mnc" | "view" | "download" | "close" | "plus" | "minus" | "menu" | "menu-close" | "search" | "play" | "home"
+  export let i: "arrow" | "tip" | "back" | "next" | "maj" | "mnc" | "view" | "download" | "close" | "plus" | "minus" | "menu" | "menu-close" | "search" | "play" | "home"
   export let label: string
 </script>
 
@@ -11,6 +11,10 @@
 <svg aria-label={label} width="105" height="65" viewBox="0 0 105 65" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M20.4543 19.397C16.3205 25.0223 10.5097 29.1921 3.857 31.307V32.807C10.5097 34.9219 16.3205 39.0917 20.4543 44.717C24.588 50.3422 26.8317 57.1333 26.863 64.114H25.363C25.3332 56.9533 22.8628 50.0167 18.3595 44.4492C13.8563 38.8816 7.58932 35.0159 0.593 33.49L0 33.363V30.751L0.593 30.624C7.58932 29.0981 13.8563 25.2324 18.3595 19.6648C22.8628 14.0973 25.3332 7.16072 25.363 0H26.863C26.8317 6.98071 24.588 13.7718 20.4543 19.397Z" />
 <path d="M3.85693 31.3066H105V32.8066H3.85693V31.3066Z" />
+</svg>
+{:else if i === "next"}
+<svg aria-label={label} width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.128 15.781V13.722L28.436 13.574C25.335 12.8975 22.5573 11.184 20.5613 8.71623C18.5653 6.24846 17.4703 3.17392 17.457 0L15.707 0C15.7203 2.86491 16.5162 5.67173 18.0086 8.11726C19.501 10.5628 21.6333 12.5541 24.175 13.876H0V15.626H24.175C21.6336 16.9479 19.5017 18.9388 18.0093 21.384C16.5169 23.8291 15.7208 26.6354 15.707 29.5H17.457C17.4708 26.3266 18.566 23.2526 20.562 20.7854C22.558 18.3182 25.3354 16.6052 28.436 15.929L29.128 15.781Z" />
 </svg>
 {:else if i === "back"}
 <svg aria-label={label} width="47" height="31" viewBox="0 0 47 31" fill="none" xmlns="http://www.w3.org/2000/svg">
