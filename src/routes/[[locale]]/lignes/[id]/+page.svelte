@@ -52,7 +52,7 @@
   </main>
   {:else}
   <main class="col col--12of12" style:--color={data.ligne.fields.couleur}>
-    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={1} bind:slider bind:active>
+    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={"auto"} bind:slider bind:active>
       {#key data.ligne.fields.id}
       <ol class="slider__container">
         <li class="slide" class:active={active === 0}>
@@ -80,8 +80,8 @@
               {#if oeuvre.fields.description}<h5>{oeuvre.fields.description}</h5>{/if}
               <p>
                 {oeuvre.fields.artiste.fields.nom}<br />
-                {oeuvre.fields.titre}<br />
-                {oeuvre.fields.annee}<br />
+                <em>{oeuvre.fields.titre}</em><br />
+                {oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}<br />
                 {oeuvre.fields.medium}
               </p>
             </figcaption>
@@ -177,6 +177,7 @@
         li {
           display: flex;
           flex-direction: column;
+          // min-width: 60vw;
 
           // transition: transform 666ms;
           // &.left { transform: translateX(-25%); }
@@ -206,7 +207,7 @@
 
             div {
               position: relative;
-              width: 15%;
+              width: 12vw;
 
               :global(svg) {
                 position: absolute;
@@ -226,7 +227,7 @@
 
             figcaption {
               align-self: center;
-              width: 15%;
+              width: 12vw;
 
               transition: opacity 333ms;
 
@@ -267,8 +268,13 @@
             }
           }
 
+          &:last-child {
+            // flex: 0 0 100%;
+          }
+
           &:first-child {
-            flex: 0 0 70%;
+            flex: 0 0 80%;
+            // min-width: 70vw;
             padding: ($gap * 3) ($gap * 2) $gap;
             height: calc(100vh - ($base * 5));
             display: flex;

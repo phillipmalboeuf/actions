@@ -46,7 +46,7 @@
     <aside>
       {data.oeuvre.fields.artiste.fields.nom}<br />
       <em>{data.oeuvre.fields.titre}</em><br />
-      {data.oeuvre.fields.annee}<br />
+      {data.oeuvre.fields.anneeDeRealisation || data.oeuvre.fields.annee}<br />
       {data.oeuvre.fields.medium}
     </aside>
 
@@ -72,7 +72,7 @@
       <tr>
         <td>
           <h6>Année de réalisation</h6>
-          {data.oeuvre.fields.annee}
+          {data.oeuvre.fields.anneeDeRealisation || data.oeuvre.fields.annee}
         </td>
         <td>
           <h6>Médium</h6>
