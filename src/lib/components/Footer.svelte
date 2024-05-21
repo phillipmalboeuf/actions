@@ -49,6 +49,7 @@
     position: relative;
     z-index: 998;
     // color: var(--foreground-inverse);
+    font-size: $base - 2px;
     background-color: var(--background);
     padding: $gap ($gap * 2) ($gap * 2);
 
@@ -100,28 +101,36 @@
         input {
           background-color: transparent;
           border: 1.5px solid;
-          padding: $base * 0.5;
+          padding: $base * 0.666;
+          border-radius: $base * 1.25;
 
           &:first-of-type {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
+            border-right: none;
           }
 
           &:last-of-type {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
-            border-left: none;
+          }
+
+          &:not(:placeholder-shown) {
+            color: $brown;
+            background-color: $white;
+            border-color: transparent;
           }
         }
 
         button {
           display: flex;
-          padding: $base * 0.5;
+          padding: $base * 0.6;
           // height: $base;
           // width: $base;
           border-radius: 50%;
           border: none;
-          margin-left: $base * -2;
+          margin-left: $base * -2.5;
+          margin-right: $base * -2.5;
         }
       }
     }
