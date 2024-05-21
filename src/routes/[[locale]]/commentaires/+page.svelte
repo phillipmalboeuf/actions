@@ -4,7 +4,7 @@
   let submitting = false
 </script>
 
-<form class="flex flex--gapped" action="/commentaires" method="post" on:submit={e => {
+<form class="flex flex--gapped flex--middle" action="/commentaires" method="post" on:submit={e => {
   if (!submitting) {
     e.preventDefault()
     submitting = true
@@ -28,7 +28,7 @@
   }
 
   form {
-    padding: $base;
+    padding: ($base * 1.25) $base;
     max-width: 620px;
 
     :global(.-commentaires) & {
@@ -40,16 +40,23 @@
     textarea {
       border: 1.5px solid;
       background-color: transparent;
+
+      &:not(:placeholder-shown) {
+        color: $brown;
+        background-color: $beige;
+        border-color: transparent;
+      }
     }
 
     small {
       flex: 1;
+      margin-left: $gap;
     }
 
     button[type=submit] {
       text-transform: lowercase;
-      width: $base * 6;
-      height: $base * 6;
+      width: $base * 5;
+      height: $base * 5;
       padding: 0;
       border-radius: 50%;
 

@@ -63,12 +63,19 @@
       {#if header}
       {#each header.fields.liens as lien}
       <li>
-        <a on:click={click} href="{lien.fields.route}" on:mouseenter={() => {
+        <a on:click={e => {
           if (lien.fields.route === "/commentaires") {
-            commentaires = true
+            e.preventDefault()
+            commentaires = !commentaires
           } else {
-            commentaires = false
+            click()
           }
+        }} href="{lien.fields.route}" on:mouseenter={() => {
+          // if (lien.fields.route === "/commentaires") {
+          //   commentaires = true
+          // } else {
+          //   commentaires = false
+          // }
         }}><Icon i="back" label="Naviguer vers" /> {lien.fields.titre} {#if lien.fields.route !== "/" && $page.url.pathname === lien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
 
         {#if lien.fields.sousLiens}
@@ -201,7 +208,7 @@
             .button {
               &:hover,
               &:focus {
-                color: $white;
+                color: $yellow;
                 background-color: $brown;
               }
             }

@@ -95,6 +95,7 @@ p {
 
 small {
 	font-size: $base - 4px;
+	line-height: 1.25;
 }
 
 a {
@@ -153,7 +154,7 @@ button,
 	}
 
 	&.button--inverse {
-		color: $white;
+		color: $yellow;
 		background-color: $brown;
 		border-color: $brown;
 	}
@@ -245,10 +246,15 @@ form {
 		color: currentColor;
 		background-color: $beige-dark;
 		padding: $base;
-		border-radius: $base;
+		border-radius: $base - 2px;
 
 		&::placeholder {
 			color: currentColor;
+		}
+
+		&:not(:placeholder-shown) {
+			color: $brown;
+			background-color: $beige-dark;
 		}
 	}
 
@@ -263,7 +269,7 @@ form {
 	}
 
 	textarea {
-		height: 6em;
+		height: 8em;
 	}
 
 	fieldset {
