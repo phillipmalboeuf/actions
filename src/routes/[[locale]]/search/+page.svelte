@@ -12,6 +12,7 @@
 <style lang="scss">
   main {
     padding: $gap;
+    padding-top: $gap * 4;
     background-color: $beige;
   }
 </style>

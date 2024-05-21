@@ -154,7 +154,7 @@ button,
 	}
 
 	&.button--inverse {
-		color: $yellow;
+		color: $white;
 		background-color: $brown;
 		border-color: $brown;
 	}
@@ -266,6 +266,7 @@ form {
 		padding: ($base * $scale * 0.5) $base;
 		background-color: transparent;
 		border: 1px solid;
+		border-radius: $base * 1.5;
 	}
 
 	textarea {

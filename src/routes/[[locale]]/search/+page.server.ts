@@ -22,6 +22,7 @@ export const load = (async ({ locals, url, params }) => {
       artists,
       mediums,
       annees,
+      results: await content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre", limit: 200, include: 3, order: ["fields.annee"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' })
     }
   }
 
@@ -31,8 +32,10 @@ export const load = (async ({ locals, url, params }) => {
     "fields.annee": annee ? parseInt(annee) : undefined,
     "fields.medium": medium,
     ...artist ? { links_to_entry: artists.items.find(a => a.fields.id === artist).sys.id } : {},
-    include: 3, locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
+    include: 3, order: ["fields.annee"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
   ])
+
+  console.log(results)
 
   return {
     artists,

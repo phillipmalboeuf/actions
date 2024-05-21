@@ -29,6 +29,7 @@
           annees = result.data.annees
           mediums = result.data.mediums
           lignes = result.data.lignes
+          results = result.data.results
         }
       })
     }
@@ -65,10 +66,20 @@
   <label for="query">Inscrire les termes recherchés</label>
   <input type="search" name="query" id="query" placeholder="Recherche…" bind:value={query}>
 
+  <aside class="col">
+    <label for="artist">Filtres</label>
+  </aside>
+
+  <aside class="col">
+    <a href="/search">Réinitialisé</a>
+  </aside>
+
+  <hr class="col col--12of12">
+
   <fieldset class="col col--6of12">
     <div class="flex flex--tight_gapped">
       {#if artists}
-      <select class="col col--4of12" name="artist" value={artist || ""}>
+      <select class="col col--4of12" id="artist" name="artist" value={artist || ""}>
         <option value={""}>Artiste</option>
         {#each artists.items as artist}
         <option value={artist.fields.id}>{artist.fields.nom}</option>
@@ -88,7 +99,7 @@
       {#if annees}
       <select class="col col--4of12" name="annee" value={annee || ""}>
         <option value={""}>Année de production</option>
-        {#each annees as annee}
+        {#each annees.filter(a => a) as annee}
         <option value={annee.toString()}>{annee}</option>
         {/each}
       </select>
@@ -112,8 +123,24 @@
     align-items: flex-start;
     padding: $gap;
 
+    aside {
+      margin-top: $gap * 2;
+      margin-bottom: $gap * -0.5;
+
+      &:first-of-type {
+        margin-right: auto;
+      }
+    }
+
     fieldset {
       margin-bottom: $gap * 2;
+    }
+
+    input {
+      &:not(:placeholder-shown) {
+        color: $brown;
+        background-color: $beige-dark;
+      }
     }
 
     button {

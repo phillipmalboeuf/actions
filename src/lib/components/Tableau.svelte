@@ -25,18 +25,20 @@
       {oeuvre.fields.description || '-'}
     </td>
     <td>
-      {oeuvre.fields.artiste.fields.nom}
+      {oeuvre.fields.artiste?.fields.nom || '-'}
     </td>
     <td>
-      {oeuvre.fields.titre}<br />
+      <em>{oeuvre.fields.titre}</em><br />
       {oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}<br />
       {oeuvre.fields.medium}<br />
       <!-- {oeuvre.fields.largeur}cm   -->
     </td>
     <td>
+      {#if oeuvre.fields.vignette}
       <figure>
         <Media media={oeuvre.fields.vignette} small />
       </figure>
+      {/if}
     </td>
   </a>
   {/each}
@@ -53,6 +55,14 @@
       &:first-child {
         padding-left: 0;
       }
+    }
+
+    td:nth-child(1) {
+      width: $gap;
+    }
+
+    td:nth-child(2) {
+      width: $gap * 14;
     }
 
     td:nth-child(3) {

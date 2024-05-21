@@ -63,6 +63,7 @@
       transition: --radius 0s;
       --radius: 0;
 
+      color: $yellow;
       border-color: transparent;
       background-origin: border-box;
       background-clip: content-box, border-box;
