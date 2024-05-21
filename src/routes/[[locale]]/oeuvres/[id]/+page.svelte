@@ -42,7 +42,7 @@
     </figcaption>
   </figure>
   <main class="col col--5of12">
-    <h5>{data.oeuvre.fields.description}</h5>
+    {#if data.oeuvre.fields.description}<h5>{data.oeuvre.fields.description}</h5>{/if}
     <aside>
       {data.oeuvre.fields.artiste.fields.nom}<br />
       <em>{data.oeuvre.fields.titre}</em><br />

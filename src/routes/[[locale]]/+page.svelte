@@ -13,7 +13,7 @@
 <main>
   <Content content={data.page.fields.contenu} format={data.page.fields.format} />
 
-  <nav>
+  <nav id="lignes">
     <h6>Sélectionner une ligne du temps<br>pour débuter votre visite</h6>
     <h2 class="flex flex--spaced"><Icon i="tip" label="À partir de " /><span>1942</span> <Icon i="tip" label="Jusqu'à" /><span>2022</span></h2>
     <hr>

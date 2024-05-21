@@ -85,17 +85,20 @@ export interface TypeOeuvreFields {
     couleur?: EntryFieldTypes.Symbol;
     vignette?: EntryFieldTypes.AssetLink;
     media?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
-    annee: EntryFieldTypes.Integer;
+    annee?: EntryFieldTypes.Integer;
     format?: EntryFieldTypes.Symbol<"Large" | "Moyen" | "Petit">;
     dimensions?: EntryFieldTypes.Symbol;
     hauteur?: EntryFieldTypes.Number;
     largeur?: EntryFieldTypes.Number;
     typologie?: EntryFieldTypes.Symbol;
     medium?: EntryFieldTypes.Symbol;
+    anneeDeRealisation?: EntryFieldTypes.Symbol;
     mention?: EntryFieldTypes.Text;
     corps?: EntryFieldTypes.RichText;
     historique?: EntryFieldTypes.RichText;
     publications?: EntryFieldTypes.RichText;
+    historiqueTxt?: EntryFieldTypes.Text;
+    publicationsTxt?: EntryFieldTypes.Text;
 }
 
 export type TypeOeuvreSkeleton = EntrySkeletonType<TypeOeuvreFields, "oeuvre">;

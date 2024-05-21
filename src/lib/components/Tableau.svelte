@@ -22,15 +22,16 @@
       <h2>{oeuvre.fields.annee}</h2>
     </td>
     <td>
-      {oeuvre.fields.description}
+      {oeuvre.fields.description || '-'}
     </td>
     <td>
       {oeuvre.fields.artiste.fields.nom}
     </td>
     <td>
       {oeuvre.fields.titre}<br />
+      {oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}<br />
       {oeuvre.fields.medium}<br />
-      {oeuvre.fields.dimensions}
+      <!-- {oeuvre.fields.largeur}cm   -->
     </td>
     <td>
       <figure>

@@ -77,7 +77,7 @@
             </div>
             <Media media={oeuvre.fields.vignette} />
             <figcaption>
-              <h5>{oeuvre.fields.description}</h5>
+              {#if oeuvre.fields.description}<h5>{oeuvre.fields.description}</h5>{/if}
               <p>
                 {oeuvre.fields.artiste.fields.nom}<br />
                 {oeuvre.fields.titre}<br />
@@ -96,7 +96,7 @@
   <h1 class="annee">
     <button class="previous button--none" on:click={() => slider.scrollPrev()}><Icon i="next" label="Retour" /></button>
     {active > 0 ? data.ligne.fields.oeuvres[active - 1].fields.annee : data.ligne.fields.oeuvres[0].fields.annee}
-    <button class="next button--none" on:click={() => slider.scrollNext()}><Icon i="next" label="Prochain" /></button>
+    {#if active !== data.ligne.fields.oeuvres.length}<button class="next button--none" on:click={() => slider.scrollNext()}><Icon i="next" label="Prochain" /></button>{/if}
   </h1>
   {/if}
 </section>

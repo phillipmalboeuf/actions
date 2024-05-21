@@ -58,7 +58,7 @@
   <label for="menu"><Icon i={menu ? "menu-close" : "menu"} label="Menu" /></label>
 
   <nav class="flex">
-    <figure class="col col--6of12"><Logo /></figure>
+    <figure class="col col--6of12"><a href="/"><Logo /></a></figure>
     <ol class="col col--4of12">
       {#if header}
       {#each header.fields.liens as lien}
@@ -69,7 +69,7 @@
           } else {
             commentaires = false
           }
-        }}><Icon i="back" label="Naviguer vers" /> {lien.fields.titre} {#if $page.url.pathname === lien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
+        }}><Icon i="back" label="Naviguer vers" /> {lien.fields.titre} {#if lien.fields.route !== "/" && $page.url.pathname === lien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
 
         {#if lien.fields.sousLiens}
         <ol>
