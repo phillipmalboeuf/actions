@@ -43,7 +43,7 @@
 
       &:not(:placeholder-shown) {
         color: $brown;
-        background-color: $beige;
+        background-color: $white;
         border-color: transparent;
       }
     }
