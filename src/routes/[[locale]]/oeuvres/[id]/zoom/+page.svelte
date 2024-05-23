@@ -15,7 +15,7 @@
   <a href="/oeuvres/{data.oeuvre.fields.id}" on:click={(e) => onClose(e)}><Icon i="close" label="Fermer" /></a>
   <div>
     <Zoom file={{
-      url: `/hyperzoom/${(data.oeuvre.fields.media[0] || data.oeuvre.fields.vignette).fields.file.fileName}`,
+      url: `${(data.oeuvre.fields.media[0] || data.oeuvre.fields.vignette).fields.file.url.replace('http:', '').replace('https:', '').replace('//downloads.ctfassets.net', '').replace('//images.ctfassets.net', '').replace('/nbfcd3ddu3u4/', '')}`,
       width: (data.oeuvre.fields.media[0] || data.oeuvre.fields.vignette).fields.file.details.image.width,
       height: (data.oeuvre.fields.media[0] || data.oeuvre.fields.vignette).fields.file.details.image.height,
     }} />

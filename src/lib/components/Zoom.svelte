@@ -2,7 +2,8 @@
   import type { LeafletEvent, LeafletEventHandlerFn, Map } from 'leaflet'
   import { onMount } from 'svelte'
   import "leaflet/dist/leaflet.css"
-  import Icon from './Icon.svelte';
+  
+  import Icon from './Icon.svelte'
   
 
   export let file: {
@@ -24,7 +25,7 @@
     height: number
   }
 
-  const maxZoom = 3
+  const maxZoom = 4
   const tileSize = Math.round(file.width / 24)
 
   const update: LeafletEventHandlerFn = (e) => {
@@ -46,7 +47,8 @@
   }
 
   const reset = () => {
-    map.setView([-file.height / 2, file.width / 2], maxZoom * -1)
+    console.log(file.width, element.clientWidth, tileSize, Math.sqrt(file.width / element.clientWidth) * -1)
+    map.setView([-file.height / 2, file.width / 2], Math.sqrt(file.width / element.clientWidth) * -1)
   }
 
   onMount(async () => {
@@ -64,7 +66,7 @@
         const zoom = Math.round(tileSize / Math.pow(2, z))
         // console.log(`${zoom},${zoom},${x * zoom},${y * zoom}`)
         // if (x < 0 || y < 0) return;
-        return `https://maj-actions.b-cdn.net/${file.url}?crop=${zoom},${zoom},${x * zoom},${y * zoom}`
+        return `https://zoom.imgix.net/${file.url}?q=100&auto=forma&rect=${x * zoom},${y * zoom},${zoom},${zoom}&w=${tileSize}&h=${tileSize}`
       },
       getAttribution: function() {
         return "<a href=''>MAJ</a>"
@@ -73,7 +75,7 @@
 
     new Zoom('', {
       maxZoom,
-      minZoom: maxZoom * -1,
+      minZoom: Math.sqrt(file.width / element.clientWidth) * -1,
       tileSize,
       bounds: [[0,0],[-file.height + tileSize, file.width - tileSize]],
       noWrap: true
@@ -108,8 +110,8 @@
         }
       }}>
       {#if bounds}<button style="top: {bounds.top}%; left: {bounds.left}%; height: {bounds.height}%; width: {bounds.width}%"></button>{/if}
-      <img src="https://maj-actions.b-cdn.net/{file.url}?width={200}" alt="Controls" draggable="false" />
-      {#if bounds}<img style="clip-path: polygon({bounds.left}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top + bounds.height}%, {bounds.left}% {bounds.top + bounds.height}%);" src="https://maj-actions.b-cdn.net/{file.url}?width={200}" alt="Zoom area" draggable="false" />{/if}
+      <img src="https://zoom.imgix.net/{file.url}?w={200}&auto=format" alt="Controls" draggable="false" />
+      {#if bounds}<img style="clip-path: polygon({bounds.left}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top + bounds.height}%, {bounds.left}% {bounds.top + bounds.height}%);" src="https://zoom.imgix.net/{file.url}?w={200}&auto=format" alt="Zoom area" draggable="false" />{/if}
     </figure>
 
     <nav>
