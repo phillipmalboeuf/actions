@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte'
   import { page } from '$app/stores'
   import { browser } from '$app/environment'
   import { fade, fly } from 'svelte/transition'
@@ -25,6 +26,14 @@
       document.documentElement.classList.toggle('noscroll', !!(menu || searching))
     }
   }
+
+  onMount(() => {
+    document.body.querySelectorAll("a[href='/commentaires']").forEach(a => a.addEventListener("click", (e) => {
+      e.preventDefault()
+      menu = true
+      commentaires = true
+    }))
+  })
 
   const click = () => {
     searching = false
@@ -58,19 +67,12 @@
   <label for="menu"><Icon i={menu ? "menu-close" : "menu"} label="Menu" /></label>
 
   <nav class="flex">
-    <figure class="col col--6of12"><a href="/"><Logo /></a></figure>
+    <figure class="col col--6of12"><a href="/" on:click={click}><Logo /></a></figure>
     <ol class="col col--4of12">
       {#if header}
       {#each header.fields.liens as lien}
       <li>
-        <a on:click={e => {
-          if (lien.fields.route === "/commentaires") {
-            e.preventDefault()
-            commentaires = !commentaires
-          } else {
-            click()
-          }
-        }} href="{lien.fields.route}" on:mouseenter={() => {
+        <a on:click={click} href="{lien.fields.route}" on:mouseenter={() => {
           // if (lien.fields.route === "/commentaires") {
           //   commentaires = true
           // } else {
