@@ -20,13 +20,14 @@
 </script>
 
 <section style:--color={data.oeuvre.fields.couleur} class="flex flex--gapped">
-  <header>
+  <header class="flex flex--gapped">
     <!-- {#if !retour}
     <a href="/">Retour</a>
     {:else}
     <span></span>
     {/if} -->
-    <h1>{data.oeuvre.fields.annee}</h1>
+    <div class="col col--6of12"></div>
+    <h1 class="col col--5of12">{data.oeuvre.fields.annee}</h1>
   </header>
 
   <figure class="col col--6of12">
@@ -119,10 +120,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      right: 0;
-
-      display: flex;
-      justify-content: flex-end;
+      width: 100%;
+      padding: 0 ($gap * 2);
 
       > a {
         padding: $base;
@@ -131,10 +130,9 @@
       h1 {
         font-size: $base * 10;
         letter-spacing: -0.01em;
-        width: calc(50% - ($gap * 2));
         // text-align: center;
         // margin-left: ($gap * 2);
-        margin-top: ($gap * -1.666);
+        margin: ($gap * -1.666) auto 0;
       }
     }
 
