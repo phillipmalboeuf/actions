@@ -177,7 +177,7 @@
         padding: $gap;
         
         :global(svg) {
-          height: 100%;
+          height: calc(100vh - ($gap * 4));
           width: auto;
         }
       }
