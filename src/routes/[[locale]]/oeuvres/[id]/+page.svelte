@@ -6,7 +6,7 @@
   import Video from '$lib/components/Video.svelte'
   import ZoomPage from './zoom/+page.svelte'
 
-  import { year } from '$lib/formatters'
+  import { imigx, year } from '$lib/formatters'
   import { openDialog } from '$lib/helpers'
   import { pushState } from '$app/navigation'
 
@@ -39,7 +39,7 @@
         © Anne Kahane
       </small>
       <a href="/oeuvres/{data.oeuvre.fields.id}/zoom" on:click={openDialog}><Icon i="view" label="Zoom" /></a>
-      <a href="https://{data.oeuvre.fields.vignette.fields.file.url}" download="{data.oeuvre.fields.annee}-{data.oeuvre.fields.titre.replaceAll(' ', '-')}.png" target="_blank" rel="external"><Icon i="download" label="Téléchargement" /></a>
+      <a href="{imigx(data.oeuvre.fields.vignette.fields.file.url)}?q=100&w=1020&txt={encodeURIComponent([data.oeuvre.fields.artiste.fields.nom, data.oeuvre.fields.titre, data.oeuvre.fields.anneeDeRealisation || data.oeuvre.fields.annee, data.oeuvre.fields.medium].join(' – '))}&txt-clip=end,ellipsis&txt-align=bottom,right&txt-size=20&txt-color=57221E&h=1320&fit=fill&fill=solid&pad=80&fill-color=FAF8EF&bg=FAF8EF&fm=jpg&dl={data.oeuvre.fields.annee}-{data.oeuvre.fields.titre.replaceAll(' ', '-')}.png" download="{data.oeuvre.fields.annee}-{data.oeuvre.fields.titre.replaceAll(' ', '-')}.png" target="_blank" rel="external"><Icon i="download" label="Téléchargement" /></a>
     </figcaption>
   </figure>
   <main class="col col--5of12">

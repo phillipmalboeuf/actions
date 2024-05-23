@@ -66,7 +66,7 @@
         const zoom = Math.round(tileSize / Math.pow(2, z))
         // console.log(`${zoom},${zoom},${x * zoom},${y * zoom}`)
         // if (x < 0 || y < 0) return;
-        return `https://zoom.imgix.net/${file.url}?q=100&auto=forma&rect=${x * zoom},${y * zoom},${zoom},${zoom}&w=${tileSize}&h=${tileSize}`
+        return `${file.url}?q=100&auto=forma&rect=${x * zoom},${y * zoom},${zoom},${zoom}&w=${tileSize}&h=${tileSize}`
       },
       getAttribution: function() {
         return "<a href=''>MAJ</a>"
@@ -110,8 +110,8 @@
         }
       }}>
       {#if bounds}<button style="top: {bounds.top}%; left: {bounds.left}%; height: {bounds.height}%; width: {bounds.width}%"></button>{/if}
-      <img src="https://zoom.imgix.net/{file.url}?w={200}&auto=format" alt="Controls" draggable="false" />
-      {#if bounds}<img style="clip-path: polygon({bounds.left}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top + bounds.height}%, {bounds.left}% {bounds.top + bounds.height}%);" src="https://zoom.imgix.net/{file.url}?w={200}&auto=format" alt="Zoom area" draggable="false" />{/if}
+      <img src="{file.url}?w={200}&auto=format" alt="Controls" draggable="false" />
+      {#if bounds}<img style="clip-path: polygon({bounds.left}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top + bounds.height}%, {bounds.left}% {bounds.top + bounds.height}%);" src="{file.url}?w={200}&auto=format" alt="Zoom area" draggable="false" />{/if}
     </figure>
 
     <nav>

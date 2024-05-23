@@ -4,6 +4,8 @@
   import Zoom from '$lib/components/Zoom.svelte'
   import Icon from '$lib/components/Icon.svelte'
 
+  import { imigx } from '$lib/formatters'
+
   import type { PageData } from './$types' 
   export let data: PageData
 
@@ -15,7 +17,7 @@
   <a href="/oeuvres/{data.oeuvre.fields.id}" on:click={(e) => onClose(e)}><Icon i="close" label="Fermer" /></a>
   <div>
     <Zoom file={{
-      url: `${(data.oeuvre.fields.media[0] || data.oeuvre.fields.vignette).fields.file.url.replace('http:', '').replace('https:', '').replace('//downloads.ctfassets.net', '').replace('//images.ctfassets.net', '').replace('/nbfcd3ddu3u4/', '')}`,
+      url: imigx((data.oeuvre.fields.media[0] || data.oeuvre.fields.vignette).fields.file.url),
       width: (data.oeuvre.fields.media[0] || data.oeuvre.fields.vignette).fields.file.details.image.width,
       height: (data.oeuvre.fields.media[0] || data.oeuvre.fields.vignette).fields.file.details.image.height,
     }} />
