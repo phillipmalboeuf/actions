@@ -80,6 +80,7 @@
 
     figcaption {
       font-size: $base * 0.9;
+      line-height: 1.15;
     }
   }
 </style>

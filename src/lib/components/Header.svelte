@@ -249,7 +249,7 @@
             margin-left: 1.2em;
 
             li a {
-              font-size: $base * $scale;
+              font-size: ($base * $scale) + 2px;
             }
 
             &:hover,
