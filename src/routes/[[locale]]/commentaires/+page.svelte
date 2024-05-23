@@ -41,9 +41,16 @@
       border: 1.5px solid;
       background-color: transparent;
 
-      &:not(:placeholder-shown) {
+      &:not(:placeholder-shown),
+      &:autofill {
         color: $brown;
         background-color: $white;
+        border-color: transparent;
+      }
+
+      &:autofill {
+        color: $brown !important;
+        background-color: $white !important;
         border-color: transparent;
       }
     }
