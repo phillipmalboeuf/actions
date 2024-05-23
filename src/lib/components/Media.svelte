@@ -9,8 +9,7 @@
   export let img: HTMLImageElement = undefined
 
   function cdn(url: string) {
-    // return url.replace('https://images.ctfassets.net/vgc87z7vc7p3', 'https://quebecsolidaire-images.imgix.net')
-    return url
+    return url.replace('//downloads.ctfassets.net', '//images.ctfassets.net')
   }
 </script>
 
@@ -44,19 +43,20 @@
 <!-- svelte-ignore a11y-media-has-caption -->
 <audio src="{cdn(media.fields.file.url)}" controls />
 {:else}
+{@const attribute = media.fields.file.details.image.width > media.fields.file.details.image.height ? 'w' : ar ? 'w' : 'h'}
 <!-- {JSON.stringify(media, null, 2)} -->
 <picture>
   {#if small}
-  <source srcSet="{cdn(media.fields.file.url)}?w=400{ar ? `&fit=crop&h=${Math.round(400 * ar)}` : ''}" media="(max-width: 900px)" />
-  <source srcSet="{cdn(media.fields.file.url)}?w=600{ar ? `&fit=crop&h=${Math.round(600 * ar)}` : ''}" media="(max-width: 1200px)" />
-  <img src="{cdn(media.fields.file.url)}?w=800{ar ? `&fit=crop&h=${Math.round(800 * ar)}` : ''}"
+  <source srcSet="{cdn(media.fields.file.url)}?{attribute}=400{ar ? `&fit=crop&h=${Math.round(400 * ar)}` : ''}" media="(max-width: 900px)" />
+  <source srcSet="{cdn(media.fields.file.url)}?{attribute}=600{ar ? `&fit=crop&h=${Math.round(600 * ar)}` : ''}" media="(max-width: 1200px)" />
+  <img src="{cdn(media.fields.file.url)}?{attribute}=800{ar ? `&fit=crop&h=${Math.round(800 * ar)}` : ''}"
     style={`aspect-ratio: ${ar ? `800 / ${Math.round(ar * 800) + 2}` : `${media.fields.file.details.image.width} / ${media.fields.file.details.image.height}`}`}
     alt="{media.fields.title}" loading={eager ? "eager" : "lazy"} />
   {:else}
-  <source srcSet="{cdn(media.fields.file.url)}?w=900{ar ? `&fit=crop&h=${Math.round(900 * ar)}` : ''}" media="(max-width: 900px)" />
-  <source srcSet="{cdn(media.fields.file.url)}?w=1200{ar ? `&fit=crop&h=${Math.round(1200 * ar)}` : ''}" media="(max-width: 1200px)" />
-  <img bind:this={img} src="{cdn(media.fields.file.url)}?w=1800{ar ? `&fit=crop&h=${Math.round(1800 * ar)}` : ''}"
-    style={`aspect-ratio: ${ar ? `1800 / ${Math.round(ar * 1800) + 2}` : `${media.fields.file.details.image.width} / ${media.fields.file.details.image.height}`}`}
+  <source srcSet="{cdn(media.fields.file.url)}?{attribute}=900{ar ? `&fit=crop&h=${Math.round(900 * ar)}` : ''}" media="(max-width: 900px)" />
+  <source srcSet="{cdn(media.fields.file.url)}?{attribute}=1200{ar ? `&fit=crop&h=${Math.round(1200 * ar)}` : ''}" media="(max-width: 1200px)" />
+  <img bind:this={img} src="{cdn(media.fields.file.url)}?{attribute}=1400{ar ? `&fit=crop&h=${Math.round(1400 * ar)}` : ''}"
+    style={`aspect-ratio: ${ar ? `1400 / ${Math.round(ar * 1400) + 2}` : `${media.fields.file.details.image.width} / ${media.fields.file.details.image.height}`}`}
     alt="{media.fields.title}" loading={eager ? "eager" : "lazy"} />
   {/if}
 </picture>

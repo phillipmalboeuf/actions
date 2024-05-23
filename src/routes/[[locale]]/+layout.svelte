@@ -13,7 +13,7 @@
 
 <svelte:head>
   {#if $page.data.page}
-	<title>{$page.data.page.fields.title}</title>
+	<title>{$page.data.page.fields.titre}</title>
   {/if}
 </svelte:head>
 

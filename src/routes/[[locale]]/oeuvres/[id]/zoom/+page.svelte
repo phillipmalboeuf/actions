@@ -15,9 +15,9 @@
   <a href="/oeuvres/{data.oeuvre.fields.id}" on:click={(e) => onClose(e)}><Icon i="close" label="Fermer" /></a>
   <div>
     <Zoom file={{
-      url: `/examples/25.png`,
-      width: 3582,
-      height: 6571
+      url: `/hyperzoom/${(data.oeuvre.fields.media[0] || data.oeuvre.fields.vignette).fields.file.fileName}`,
+      width: (data.oeuvre.fields.media[0] || data.oeuvre.fields.vignette).fields.file.details.image.width,
+      height: (data.oeuvre.fields.media[0] || data.oeuvre.fields.vignette).fields.file.details.image.height,
     }} />
   </div>
 </dialog>

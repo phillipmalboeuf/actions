@@ -64,7 +64,7 @@
         const zoom = Math.round(tileSize / Math.pow(2, z))
         // console.log(`${zoom},${zoom},${x * zoom},${y * zoom}`)
         // if (x < 0 || y < 0) return;
-        return `https://gloomy.b-cdn.net/${file.url}?crop=${zoom},${zoom},${x * zoom},${y * zoom}`
+        return `https://maj-actions.b-cdn.net/${file.url}?crop=${zoom},${zoom},${x * zoom},${y * zoom}`
       },
       getAttribution: function() {
         return "<a href=''>MAJ</a>"
@@ -108,8 +108,8 @@
         }
       }}>
       {#if bounds}<button style="top: {bounds.top}%; left: {bounds.left}%; height: {bounds.height}%; width: {bounds.width}%"></button>{/if}
-      <img src="https://gloomy.b-cdn.net/{file.url}?width={200}" alt="Controls" draggable="false" />
-      {#if bounds}<img style="clip-path: polygon({bounds.left}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top + bounds.height}%, {bounds.left}% {bounds.top + bounds.height}%);" src="https://gloomy.b-cdn.net/{file.url}?width={200}" alt="Zoom area" draggable="false" />{/if}
+      <img src="https://maj-actions.b-cdn.net/{file.url}?width={200}" alt="Controls" draggable="false" />
+      {#if bounds}<img style="clip-path: polygon({bounds.left}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top + bounds.height}%, {bounds.left}% {bounds.top + bounds.height}%);" src="https://maj-actions.b-cdn.net/{file.url}?width={200}" alt="Zoom area" draggable="false" />{/if}
     </figure>
 
     <nav>
