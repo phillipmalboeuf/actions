@@ -44,10 +44,10 @@
   <main class="col col--5of12">
     {#if data.oeuvre.fields.description}<h5>{data.oeuvre.fields.description}</h5>{/if}
     <aside>
-      {data.oeuvre.fields.artiste.fields.nom}<br />
-      <em>{data.oeuvre.fields.titre}</em><br />
-      {data.oeuvre.fields.anneeDeRealisation || data.oeuvre.fields.annee}<br />
-      {data.oeuvre.fields.medium}
+      <div>{data.oeuvre.fields.artiste.fields.nom}</div>
+      <div><em>{data.oeuvre.fields.titre}</em></div>
+      <div>{data.oeuvre.fields.anneeDeRealisation || data.oeuvre.fields.annee}</div>
+      <div>{data.oeuvre.fields.medium}</div>
     </aside>
 
     {#if data.oeuvre.fields.corps?.content?.length}
@@ -155,8 +155,12 @@
       }
 
       aside {
-        line-height: 1.333;
+        line-height: 1.3;
         margin-bottom: $gap * 2;
+
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
       }
 
       :global(p) {
