@@ -289,7 +289,8 @@
                 margin-bottom: $base * 1.666;
               }
 
-              > :global(em) {
+              > :global(em:first-child),
+              > :global(strong:first-child) {
                 display: inline-block;
                 font-size: $base + 2px;
                 font-style: normal;
