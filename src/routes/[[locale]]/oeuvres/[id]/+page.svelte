@@ -141,7 +141,7 @@
     main {
       display: flex;
       flex-direction: column;
-      gap: $gap + 2px;
+      gap: $gap * 1.5;
       margin: auto;
 
       margin-top: ($gap * 10);
