@@ -21,7 +21,7 @@
   <header>
     <!-- <a href="/"><h3>Accueil</h3></a> -->
     {#if data.page.fields.logotype}
-    <figure>
+    <figure class:bigger={['a-propos', 'bibliographie'].includes(data.page.fields.id)}>
       <Media media={data.page.fields.logotype} />
     </figure>
     {:else}
@@ -79,7 +79,7 @@
       }
 
       figure {
-        width: 50%;
+        // width: 50%;
         margin-right: ($gap * 8);
         margin-top: -5px;
         max-height: 140px;
@@ -88,6 +88,12 @@
           height: 100%;
           object-fit: contain;
           object-position: right;
+        }
+
+        &.bigger {
+          :global(img) {
+            height: 125%;
+          }
         }
       }
     }
