@@ -62,8 +62,9 @@
       <tr>
         <td colspan="2">
           <h6>Nom de l’artiste</h6>
-          {data.oeuvre.fields.artiste.fields.nom}<br>
-          <small>{data.oeuvre.fields.artiste.fields.description}</small>
+          <div>{data.oeuvre.fields.artiste.fields.nom}</div>
+          {#if data.oeuvre.fields.artiste.fields.description}<small>{data.oeuvre.fields.artiste.fields.description}</small>{/if}
+          <small>{data.oeuvre.fields.artiste.fields.lieuDeNaissance}, {data.oeuvre.fields.artiste.fields.anneeDeNaissance} {#if data.oeuvre.fields.artiste.fields.lieuDeDeces}– {data.oeuvre.fields.artiste.fields.lieuDeDeces}, {data.oeuvre.fields.artiste.fields.anneDeDeces}{/if}</small>
         </td>
       </tr>
       <tr>
@@ -85,7 +86,7 @@
       <tr>
         <td>
           <h6>Dimensions</h6>
-          {data.oeuvre.fields.dimensions}
+          {#if data.oeuvre.fields.dimensions}{data.oeuvre.fields.dimensions}{:else}{data.oeuvre.fields.largeur} x {data.oeuvre.fields.hauteur} cm{/if}
         </td>
         <td>
           <h6>Numéro d’accession</h6>
@@ -178,7 +179,8 @@
 
       table {
 
-        h6 {
+        h6,
+        div {
           margin-bottom: $base * 0.33;
         }
 
