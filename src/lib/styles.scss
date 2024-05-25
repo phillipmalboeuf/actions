@@ -236,6 +236,7 @@ form {
 	input[type="text"],
 	input[type="email"],
 	input[type="search"],
+	label:has(> input[type=checkbox]),
 	textarea,
 	select {
 		font-size: inherit;
@@ -263,11 +264,21 @@ form {
 		border-radius: $base * 2;
 	}
 
-	select {
+	select,
+	label:has(> input[type=checkbox]) {
+		cursor: pointer;
 		padding: ($base * $scale * 0.5) $base;
 		background-color: transparent;
 		border: 1px solid;
 		border-radius: $base * 1.5;
+
+		& + svg {
+			position: absolute;
+			top: 50%;
+			right: 0;
+			pointer-events: none;
+			transform: translate(-50%, -40%);
+		}
 	}
 
 	textarea {
@@ -276,6 +287,26 @@ form {
 
 	fieldset {
 		border: none;
+
+		:has(> select + svg) {
+			position: relative;
+		}
+	}
+
+	input[type = "radio"],
+	input[type = "checkbox"] {
+		cursor: pointer;
+		appearance: none;
+		width: auto;
+		padding: ($base * 0.5);
+
+		color: currentColor;
+		background-color: transparent;
+		border: 1px solid;
+
+		&:checked {
+			background-color: currentColor;
+		}
 	}
 }
 

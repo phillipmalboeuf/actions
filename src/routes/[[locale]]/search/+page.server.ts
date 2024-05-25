@@ -1,13 +1,14 @@
 // import { error } from '@sveltejs/kit'
 
-import type { TypeArtisteSkeleton, TypeOeuvreSkeleton } from '$lib/clients/content_types'
+import type { TypeArtisteSkeleton, TypeLigneSkeleton, TypeOeuvreSkeleton } from '$lib/clients/content_types'
 import { content } from '$lib/clients/contentful'
 import type { Entry } from 'contentful'
 
-export const load = (async ({ locals, url, params }) => {
-  const [artists, oeuvres] = await Promise.all([
+export const load = (async ({ locals, url, params, parent }) => {
+  const [artists, oeuvres, lignes] = await Promise.all([
     content.getEntries<TypeArtisteSkeleton>({ "content_type": "artiste", order: ["fields.nom"], select: ["fields.nom", "fields.id", "sys.id"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
     content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre", select: ["fields.annee", "fields.medium"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
+    content.getEntries<TypeLigneSkeleton>({ "content_type": "ligne", select: ["fields.oeuvres", "fields.id", "fields.couleur"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
   ])
 
   const annees = [...new Set(oeuvres.items.map(oeuvre => oeuvre.fields.annee))].sort()
@@ -17,12 +18,16 @@ export const load = (async ({ locals, url, params }) => {
   const artist = url.searchParams.get("artist")
   const annee = url.searchParams.get("annee")
   const medium = url.searchParams.get("medium")
-  if (!query && !artist && !annee && !medium) {
+  const lignesFilter = url.searchParams.get("lignes")
+  if (!query && !artist && !annee && !medium && !lignesFilter) {
     return {
       artists,
       mediums,
       annees,
-      results: await content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre", limit: 200, include: 3, order: ["fields.annee"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' })
+      results: (await content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre", limit: 200, include: 3, order: ["fields.annee"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' })).items.map(oeuvre => ({
+        ...oeuvre,
+        ligne: lignes.items.find(l => l.fields.oeuvres.find(o => oeuvre.sys.id === o.sys.id))
+      }))
     }
   }
 
@@ -35,8 +40,6 @@ export const load = (async ({ locals, url, params }) => {
     include: 3, order: ["fields.annee"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
   ])
 
-  console.log(results)
-
   return {
     artists,
     mediums,
@@ -45,6 +48,9 @@ export const load = (async ({ locals, url, params }) => {
     artist,
     annee,
     medium,
-    results,
+    results: results.items.map(oeuvre => ({
+      ...oeuvre,
+      ligne: lignes.items.find(l => l.fields.oeuvres.find(o => oeuvre.sys.id === o.sys.id))
+    })),
   }
 })

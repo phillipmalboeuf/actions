@@ -1,14 +1,14 @@
 <script lang="ts">
   import type { TypeLigneSkeleton, TypeOeuvreSkeleton } from '$lib/clients/content_types'
   import type { Entry } from 'contentful'
-  import Media from './Media.svelte';
-  import { year } from '$lib/formatters';
+  import Media from './Media.svelte'
 
-  export let oeuvres: Entry<TypeOeuvreSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">[]
+  export let oeuvres: (Entry<TypeOeuvreSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> & { ligne?: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> })[]
   export let ligne: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> = undefined
+  export let lignes: { [id: string]: boolean } = {}
 </script>
 
-<table>
+<table class:lignes>
   <tr>
     <th>Événement</th>
     <th></th>
@@ -16,8 +16,8 @@
     <th>Oeuvre</th>
     <th></th>
   </tr>
-  {#each oeuvres as oeuvre}
-  <a href="/oeuvres/{oeuvre.fields.id}" style:--couleur={ligne?.fields.couleur || oeuvre.fields.couleur}>
+  {#each oeuvres.filter(o => (lignes) ? lignes[o.ligne?.fields.id] : true) as oeuvre}
+  <a href="/oeuvres/{oeuvre.fields.id}" style:--couleur={ligne?.fields.couleur || oeuvre.ligne?.fields.couleur || oeuvre.fields.couleur}>
     <td>
       <h2>{oeuvre.fields.annee}</h2>
     </td>
@@ -109,6 +109,12 @@
 
       figure {
         width: $gap * 10;
+      }
+    }
+
+    &.lignes {
+      h2 {
+        background-color: var(--couleur);
       }
     }
   }
