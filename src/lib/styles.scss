@@ -237,6 +237,7 @@ form {
 	input[type="email"],
 	input[type="search"],
 	label:has(> input[type=checkbox]),
+	.dropdown,
 	textarea,
 	select {
 		font-size: inherit;
@@ -264,21 +265,28 @@ form {
 		border-radius: $base * 2;
 	}
 
-	select,
-	label:has(> input[type=checkbox]) {
+	label {
 		cursor: pointer;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	select,
+	.dropdown,
+	label:has(> input[type=checkbox]) {
 		padding: ($base * $scale * 0.5) $base;
 		background-color: transparent;
 		border: 1px solid;
 		border-radius: $base * 1.5;
 
-		& + svg {
-			position: absolute;
-			top: 50%;
-			right: 0;
-			pointer-events: none;
-			transform: translate(-50%, -40%);
-		}
+		// & + svg {
+		// 	position: absolute;
+		// 	top: 50%;
+		// 	right: 0;
+		// 	pointer-events: none;
+		// 	transform: translate(-50%, -40%);
+		// }
 	}
 
 	textarea {
@@ -287,10 +295,6 @@ form {
 
 	fieldset {
 		border: none;
-
-		:has(> select + svg) {
-			position: relative;
-		}
 	}
 
 	input[type = "radio"],
@@ -303,9 +307,41 @@ form {
 		color: currentColor;
 		background-color: transparent;
 		border: 1px solid;
+		border-radius: 50%;
 
 		&:checked {
-			background-color: currentColor;
+			background-color: currentColor !important;
+		}
+	}
+
+	input[type = "range"] {
+		width: 100%;
+		cursor: pointer;
+		-webkit-appearance: none;
+		appearance: none;
+		margin: ($base * 0.5) 0;
+
+		&::-webkit-slider-runnable-track {
+			height: $base * 0.5;
+			border: 1px solid;
+			border-radius: $base;
+		}
+
+		&::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			border: 1px solid;
+			background-color: $beige;
+			margin-top: ($base * -0.25) - 1px;
+			height: $base;
+			width: $base;
+			border-radius: 50%;
+		}
+
+		& + span {
+			position: relative;
+			left: var(--left);
+			display: inline-block;
+			transform: translateX(-50%);
 		}
 	}
 }

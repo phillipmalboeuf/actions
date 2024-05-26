@@ -7,19 +7,20 @@ import type { Entry } from 'contentful'
 export const load = (async ({ locals, url, params, parent }) => {
   const [artists, oeuvres, lignes] = await Promise.all([
     content.getEntries<TypeArtisteSkeleton>({ "content_type": "artiste", order: ["fields.nom"], select: ["fields.nom", "fields.id", "sys.id"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
-    content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre", select: ["fields.annee", "fields.medium"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
+    content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre", select: ["fields.annee", "fields.medium", "fields.typologie"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
     content.getEntries<TypeLigneSkeleton>({ "content_type": "ligne", select: ["fields.oeuvres", "fields.id", "fields.couleur"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
   ])
 
   const annees = [...new Set(oeuvres.items.map(oeuvre => oeuvre.fields.annee))].sort()
-  const mediums = [...new Set(oeuvres.items.map(oeuvre => oeuvre.fields.medium))].sort()
+  const mediums = [...new Set(oeuvres.items.filter(oeuvre => oeuvre.fields.typologie).map(oeuvre => oeuvre.fields.typologie?.trimEnd()))].sort()
 
   const query = url.searchParams.get("query")
   const artist = url.searchParams.get("artist")
-  const annee = url.searchParams.get("annee")
+  const from = url.searchParams.get("from")
+  const to = url.searchParams.get("to")
   const medium = url.searchParams.get("medium")
   const lignesFilter = url.searchParams.get("lignes")
-  if (!query && !artist && !annee && !medium && !lignesFilter) {
+  if (!query && !artist && !from && !to && !medium && !lignesFilter) {
     return {
       artists,
       mediums,
@@ -34,8 +35,9 @@ export const load = (async ({ locals, url, params, parent }) => {
   const [results] = await Promise.all([
     content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre",
     "query": query,
-    "fields.annee": annee ? parseInt(annee) : undefined,
-    "fields.medium": medium,
+    ...from ? { "fields.annee[gte]": parseInt(from) } : undefined,
+    ...to ? { "fields.annee[lte]": parseInt(to) } : undefined,
+    "fields.typologie": medium,
     ...artist ? { links_to_entry: artists.items.find(a => a.fields.id === artist).sys.id } : {},
     include: 3, order: ["fields.annee"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
   ])
@@ -46,7 +48,8 @@ export const load = (async ({ locals, url, params, parent }) => {
     annees,
     query,
     artist,
-    annee,
+    from,
+    to,
     medium,
     results: results.items.map(oeuvre => ({
       ...oeuvre,
