@@ -133,6 +133,8 @@
         z-index: 2;
         order: 99;
         // margin-top: $base * -9;
+
+        pointer-events: none;
         opacity: 0;
         transform: translateY(100%);
         transition: transform 666ms, opacity 666ms;
@@ -167,11 +169,13 @@
         nav {
           opacity: 1;
           transform: translateY(0%);
+          pointer-events: all;
         }
 
         .annee {
           opacity: 1;
           transform: translate(-50%, 0%);
+          pointer-events: all;
         }
       }
 
