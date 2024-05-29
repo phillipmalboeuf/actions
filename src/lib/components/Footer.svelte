@@ -46,12 +46,15 @@
 
 <style lang="scss">
   footer {
-    position: relative;
-    z-index: 998;
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 0;
+    bottom: 0;
     // color: var(--foreground-inverse);
     font-size: $base - 2px;
     background-color: var(--background);
-    padding: $gap ($gap * 2) ($gap * 2);
+    padding: ($gap * 2) ($gap * 2) ($gap * 2);
+    backface-visibility: hidden;
 
     :global(.-pages-credits) ~ &,
     :global(.-pages-bibliographie) ~ & {

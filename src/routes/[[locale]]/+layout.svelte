@@ -28,6 +28,9 @@
 
 <style lang="scss">
   main {
+    position: relative;
+    z-index: 2;
     min-height: 90vh;
+    background-color: $beige;
   }
 </style>

@@ -104,7 +104,7 @@
 
 <style lang="scss">
   section {
-    padding: ($gap * 4) ($gap * 2) ($gap * 4);
+    padding: ($gap * 4) ($gap * 2) ($gap);
 
     header {
       margin: ($gap * 2) 0;
@@ -127,17 +127,24 @@
     &.gallerie {
       nav,
       .annee {
+        position: absolute;
+        bottom: $gap * 2;
+        left: $gap * 2;
         z-index: 2;
         order: 99;
-        margin-top: $base * -9;
+        // margin-top: $base * -9;
         opacity: 0;
         transform: translateY(100%);
         transition: transform 666ms, opacity 666ms;
       }
 
+      .formats {
+        left: auto;
+        right: $gap * 2;
+      }
+
       .annee {
-        position: absolute;
-        bottom: $base * -1;
+        bottom: 0;
         left: 50%;
         transform: translate(-50%, 100%);
         font-size: $base * 10;
