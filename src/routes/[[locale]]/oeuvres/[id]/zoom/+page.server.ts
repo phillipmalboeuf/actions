@@ -10,5 +10,6 @@ export const load = (async ({ locals, url, params }) => {
 
   return {
     oeuvre: oeuvres.items[0],
+    i: url.searchParams.get('i')
   }
 })

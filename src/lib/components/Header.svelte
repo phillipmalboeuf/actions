@@ -52,7 +52,7 @@
 }} />
 
 <header class:up>
-  {#if $page.route.id !== '/[[locale]]'}
+  {#if $page.route.id !== '/[[locale]]' && $page.route.id !== '/[[locale]]/oeuvres/[id]/zoom'}
   <a href="/" class="h2"><Icon i="home" label="Accueil" /></a>
   {/if}
 

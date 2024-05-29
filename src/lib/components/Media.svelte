@@ -6,7 +6,7 @@
   export let ar: number = undefined
   export let eager = false
   export let video: HTMLVideoElement = undefined
-  export let img: HTMLImageElement = undefined
+  export let img: HTMLElement = undefined
 
   function cdn(url: string) {
     return url.replace('//downloads.ctfassets.net', '//images.ctfassets.net')

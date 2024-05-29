@@ -98,23 +98,24 @@ nav {
     justify-content: center;
     border-radius: 50%;
     padding: $base * 0.5;
+    border-width: 1px;
   }
 
   &.dots {
     top: auto;
-    left: auto;
-    bottom: calc(100% + ($base * 0.5));
-    right: $base * 0.5;
-    transform: none;
+    left: 50%;
+    top: calc(100%);
+    right: auto;
+    transform: translate(-50%, -200%);
 
     gap: $base * 0.333;
 
     button.dot {
       font-size: 0;
-      padding: $base * 0.25;
+      padding: $base * 0.33;
 
       &.active {
-        background-color: $grey;
+        background-color: $brown;
       }
     }
   }

@@ -5,6 +5,7 @@
   import Icon from '$lib/components/Icon.svelte'
   import Video from '$lib/components/Video.svelte'
   import ZoomPage from './zoom/+page.svelte'
+  import Slider from '$lib/components/Slider.svelte'
 
   import { imigx, year } from '$lib/formatters'
   import { openDialog } from '$lib/helpers'
@@ -16,7 +17,8 @@
   export let data: PageData
 
   // export let retour = false
-  let img: HTMLImageElement
+  let img: HTMLElement
+  let active: number
 </script>
 
 <section style:--color={data.oeuvre.fields.couleur} class="flex flex--gapped">
@@ -31,15 +33,25 @@
   </header>
 
   <figure class="col col--6of12">
+    {#if data.oeuvre.fields.media?.length > 1}
+    <Slider autoplay={false} autoheight={false} buttons={false} dots={data.oeuvre.fields.media.length} slidesPerView={1} bind:active>
+      <ol class="slider__container">
+        {#each data.oeuvre.fields.media as media, i}
+        <li class="slide"><Media {media} eager={i === 0} /></li>
+        {/each}
+      </ol>
+    </Slider>
+    {:else}
     <Media media={data.oeuvre.fields.vignette} eager bind:img />
+    {/if}
 
     <figcaption style="margin-left: {img?.offsetLeft}px; margin-right: {img?.offsetLeft}px;">
       <small>
         Musée d’art de Joliette<br />
         © Anne Kahane
       </small>
-      <a href="/oeuvres/{data.oeuvre.fields.id}/zoom" on:click={openDialog}><Icon i="view" label="Zoom" /></a>
-      <a href="{imigx(data.oeuvre.fields.vignette.fields.file.url)}?q=100&w=1020&txt={encodeURIComponent([data.oeuvre.fields.artiste.fields.nom, data.oeuvre.fields.titre, data.oeuvre.fields.anneeDeRealisation || data.oeuvre.fields.annee, data.oeuvre.fields.medium].join(' – '))}&txt-clip=end,ellipsis&txt-align=bottom,right&txt-size=20&txt-color=57221E&h=1320&fit=fill&fill=solid&pad=80&fill-color=FAF8EF&bg=FAF8EF&fm=jpg&dl={data.oeuvre.fields.annee}-{data.oeuvre.fields.titre.replaceAll(' ', '-')}.png" download="{data.oeuvre.fields.annee}-{data.oeuvre.fields.titre.replaceAll(' ', '-')}.png" target="_blank" rel="external"><Icon i="download" label="Téléchargement" /></a>
+      <a href="/oeuvres/{data.oeuvre.fields.id}/zoom{active !== undefined ? `?i=${active}` : ''}" on:click={openDialog}><Icon i="view" label="Zoom" /></a>
+      <a href="{imigx(active !== undefined ? data.oeuvre.fields.media[active].fields.file.url : data.oeuvre.fields.vignette.fields.file.url)}?q=100&w=1020&txt={encodeURIComponent([data.oeuvre.fields.artiste.fields.nom, data.oeuvre.fields.titre, data.oeuvre.fields.anneeDeRealisation || data.oeuvre.fields.annee, data.oeuvre.fields.medium].join(' – '))}&txt-clip=end,ellipsis&txt-align=bottom,right&txt-size=20&txt-color=57221E&h=1320&fit=fill&fill=solid&pad=80&fill-color=FAF8EF&bg=FAF8EF&fm=jpg&dl={data.oeuvre.fields.annee}-{data.oeuvre.fields.titre.replaceAll(' ', '-')}.png" download="{data.oeuvre.fields.annee}-{data.oeuvre.fields.titre.replaceAll(' ', '-')}.png" target="_blank" rel="external"><Icon i="download" label="Téléchargement" /></a>
     </figcaption>
   </figure>
   <main class="col col--5of12">

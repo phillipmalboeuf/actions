@@ -1,5 +1,6 @@
 <script lang="ts">
   import { fly, fade } from 'svelte/transition'
+  import { page } from '$app/stores'
   import type { MouseEventHandler } from 'svelte/elements'
   import Zoom from '$lib/components/Zoom.svelte'
   import Icon from '$lib/components/Icon.svelte'
@@ -17,9 +18,9 @@
   <a href="/oeuvres/{data.oeuvre.fields.id}" on:click={(e) => onClose(e)}><Icon i="close" label="Fermer" /></a>
   <div>
     <Zoom file={{
-      url: imigx((data.oeuvre.fields.media[0] || data.oeuvre.fields.vignette).fields.file.url),
-      width: (data.oeuvre.fields.media[0] || data.oeuvre.fields.vignette).fields.file.details.image.width,
-      height: (data.oeuvre.fields.media[0] || data.oeuvre.fields.vignette).fields.file.details.image.height,
+      url: imigx((data.oeuvre.fields.media[data.i || 0] || data.oeuvre.fields.vignette).fields.file.url),
+      width: (data.oeuvre.fields.media[data.i || 0] || data.oeuvre.fields.vignette).fields.file.details.image.width,
+      height: (data.oeuvre.fields.media[data.i || 0] || data.oeuvre.fields.vignette).fields.file.details.image.height,
     }} />
   </div>
 </dialog>
