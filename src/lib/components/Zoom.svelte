@@ -31,6 +31,8 @@
   const maxZoom = 4
   const tileSize = Math.round(file.width / 24)
 
+  // console.log(file.height / 2, file.width / 2, tileSize)
+
   const update: LeafletEventHandlerFn = (e) => {
     // console.log((e.target as Map).getBounds())
     // console.log('update')
