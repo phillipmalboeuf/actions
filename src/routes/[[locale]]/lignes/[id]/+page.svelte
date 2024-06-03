@@ -16,6 +16,7 @@
   import { page } from '$app/stores'
 
   import type { PageData } from './$types' 
+  import Credit from '$lib/components/Credit.svelte';
   export let data: PageData
 
   export let retour = false
@@ -79,10 +80,7 @@
             <figcaption>
               {#if oeuvre.fields.description}<h5>{oeuvre.fields.description}</h5>{/if}
               <p>
-                {oeuvre.fields.artiste.fields.nom}<br />
-                <em>{oeuvre.fields.titre}</em><br />
-                {oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}<br />
-                {oeuvre.fields.medium}
+                <Credit {oeuvre} />
               </p>
             </figcaption>
           </figure>

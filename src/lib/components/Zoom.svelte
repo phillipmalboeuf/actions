@@ -1,11 +1,14 @@
 <script lang="ts">
+  import type { Entry } from 'contentful'
+  import type { TypeOeuvreSkeleton } from '$lib/clients/content_types'
   import type { LeafletEvent, LeafletEventHandlerFn, Map } from 'leaflet'
   import { onMount } from 'svelte'
   import "leaflet/dist/leaflet.css"
   
   import Icon from './Icon.svelte'
+  import Credit from './Credit.svelte'
   
-
+  export let oeuvre: Entry<TypeOeuvreSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
   export let file: {
     url: string
     width: number
@@ -110,8 +113,8 @@
         }
       }}>
       {#if bounds}<button style="top: {bounds.top}%; left: {bounds.left}%; height: {bounds.height}%; width: {bounds.width}%"></button>{/if}
-      <img src="{file.url}?w={200}&auto=format" alt="Controls" draggable="false" />
-      {#if bounds}<img style="clip-path: polygon({bounds.left}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top + bounds.height}%, {bounds.left}% {bounds.top + bounds.height}%);" src="{file.url}?w={200}&auto=format" alt="Zoom area" draggable="false" />{/if}
+      <img src="{file.url}?w={400}&auto=format" alt="Controls" draggable="false" />
+      {#if bounds}<img style="clip-path: polygon({bounds.left}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top + bounds.height}%, {bounds.left}% {bounds.top + bounds.height}%);" src="{file.url}?w={400}&auto=format" alt="Zoom area" draggable="false" />{/if}
     </figure>
 
     <nav>
@@ -121,10 +124,7 @@
     </nav>
 
     <p>
-      Lilias Torrance Newton<br>
-      <em>Portrait d’enfant</em><br>
-      1940<br>
-      Huile sur toile
+      <Credit {oeuvre} />
     </p>
   </aside>
 </main>

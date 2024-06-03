@@ -133,7 +133,8 @@
               position: absolute;
               top: $base;
               left: $base;
-              color: var(--foreground-inverse);
+              color: $beige;
+              opacity: 0.88;
             }
           }
 
