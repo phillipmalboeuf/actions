@@ -99,14 +99,23 @@
 
   <hr class="col col--12of12">
 
-  <fieldset class="col col--7of12">
+  <fieldset class="col col--8of12">
     <div class="flex flex--gapped">
       {#if artists}
       <fieldset class="col col--4of12 dropdown">
         <label>Artiste <Icon i="down" label="Choix" /></label>
+        <nav class="flex flex--tight_gapped">
+          {#each ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].filter(l => artists.items.find(a => a.fields.nom[0] === l)) as l}
+          <button class="button--none" on:click={() => {
+            const label = document.querySelector(`label[data-letter=${l}]`)
+            // @ts-ignore
+            label.parentElement.scrollTo({ top: label.offsetTop - 125 })
+          }}>{l}</button>
+          {/each}
+        </nav>
         <div>
           {#each artists.items as a}
-          <label>
+          <label data-letter={a.fields.nom[0]}>
             {a.fields.nom}
             <input type="radio" name="artist" value="{a.fields.id}"
               checked={a.fields.id === artist}
@@ -250,15 +259,23 @@
         position: relative;
         z-index: 3000;
 
-        label {
+        > label {
+          margin: 2px 0 ($base * 0.5);
 
           :global(svg) {
             transition: transform 333ms;
             transform: rotate(0);
           }
+        }
 
-          &:first-child {
-            margin: 2px 0 ($base * 0.5);
+        nav {
+          display: none;
+          width: auto;
+          padding: $base $base ($base * 1.5);
+          margin: 0 ($base * -1);
+
+          button {
+            margin-left: 0;
           }
         }
 
@@ -275,8 +292,9 @@
           label {
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
-            padding: ($base * 0.25) 0;
+            align-items: flex-start;
+            gap: $gap;
+            padding: ($base * 0.5) 0;
             border-top: 1px solid;
           }
         }
@@ -292,6 +310,11 @@
             :global(svg) {
               transform: rotate(-180deg);
             }
+          }
+
+          nav {
+            display: flex;
+            background-color: $beige-dark;
           }
 
           div {

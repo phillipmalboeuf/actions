@@ -37,9 +37,9 @@
 
 
 <style lang="scss">
-  header a {
-    padding: $gap;
-  }
+  // header a {
+  //   padding: $gap;
+  // }
 
   aside {
     display: flex;
@@ -50,6 +50,17 @@
 
     :global(> picture) {
       margin-bottom: ($gap * 2);
+
+      &:first-child {
+        display: block;
+        height: 20vh;
+
+        :global(img) {
+          height: 100%;
+          object-fit: contain;
+          object-position: left;
+        }
+      }
     }
 
     :global(> figure) {

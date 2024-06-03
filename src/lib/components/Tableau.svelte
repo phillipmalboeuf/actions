@@ -10,10 +10,10 @@
 
 <table class:lignes>
   <tr>
-    <th>Événement</th>
+    <th><p>Événement</p></th>
     <th></th>
-    <th>Artiste</th>
-    <th>Oeuvre</th>
+    <th><p>Artiste</p></th>
+    <th><p>Oeuvre</p></th>
     <th></th>
   </tr>
   {#each oeuvres.filter(o => (lignes) ? lignes[o.ligne?.fields.id] : true) as oeuvre (oeuvre.fields.id)}
@@ -22,16 +22,18 @@
       <h2>{oeuvre.fields.annee}</h2>
     </td>
     <td>
-      {oeuvre.fields.description || '-'}
+      <p>{oeuvre.fields.description || '-'}</p>
     </td>
     <td>
-      {oeuvre.fields.artiste?.fields.nom || '-'}
+      <p>{oeuvre.fields.artiste?.fields.nom || '-'}</p>
     </td>
     <td>
-      <em>{oeuvre.fields.titre}</em><br />
-      {oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}<br />
-      {oeuvre.fields.medium}<br />
-      <!-- {oeuvre.fields.largeur}cm   -->
+      <p>
+        <em>{oeuvre.fields.titre}</em><br />
+        {oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}<br />
+        {oeuvre.fields.medium}<br />
+        <!-- {oeuvre.fields.largeur}cm   -->
+      </p>
     </td>
     <td>
       {#if oeuvre.fields.vignette}
@@ -51,6 +53,7 @@
     td,
     th {
       padding: ($base);
+      padding-left: ($gap * 2);
 
       &:first-child {
         padding-left: 0;
@@ -86,10 +89,12 @@
     a {
       display: table-row;
       vertical-align: middle;
+      line-height: 1.333;
 
       h2 {
         display: inline-block;
-        padding: ($base * 0.25) ($base * 0.75);
+        font-size: $base * $scale * 1.5;
+        padding: ($base * 0.05) ($base * 1);
         border-radius: 1em;
         // background-color: var(--couleur);
         transition: background-color 333ms;

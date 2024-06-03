@@ -6,7 +6,7 @@
 </script>
 
 <main>
-  <Search query={data.query} annee={data.annee} artist={data.artist} medium={data.medium} results={data.results} annees={data.annees} artists={data.artists} mediums={data.mediums} />
+  <Search query={data.query} from={Number(data.from)} to={Number(data.to)} artist={data.artist} medium={data.medium} results={data.results} annees={data.annees} artists={data.artists} mediums={data.mediums} />
 </main>
 
 <style lang="scss">

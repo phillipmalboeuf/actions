@@ -289,6 +289,14 @@ form {
 		// }
 	}
 
+	.dropdown {
+		div {
+			&::-webkit-scrollbar {
+				display: none;
+			}
+		}
+	}
+
 	textarea {
 		height: 8em;
 		resize: none;
@@ -303,7 +311,7 @@ form {
 		cursor: pointer;
 		appearance: none;
 		width: auto;
-		padding: ($base * 0.5);
+		padding: ($base * 0.5) - 1px;
 
 		color: currentColor;
 		background-color: transparent;

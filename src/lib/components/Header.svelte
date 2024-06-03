@@ -60,6 +60,7 @@
   <label for="search"><Icon i="search" label="Recherche" /></label>
 
   <nav class="search">
+    <button class="button--none" on:click={() => searching = false}><Icon i="back" label="Fermer" /></button>
     <Search visible={searching} />
   </nav>
 
@@ -178,7 +179,15 @@
 
       &.search {
         background-color: $beige;
+        width: 90vw;
+        padding-top: $gap * 6;
         // z-index: 3;
+
+        > .button--none {
+          position: absolute;
+          top: $gap;
+          left: $gap;
+        }
       }
 
       figure {
