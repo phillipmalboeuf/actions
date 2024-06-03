@@ -8,7 +8,7 @@
 </script>
 
 <footer class="flex flex--gapped">
-  <figure class="col col--3of12"><Logo /></figure>
+  <figure class="col col--3of12"><a href="/"><Logo /></a></figure>
 
   <main class="col col--9of12">
     <ol class="list--nostyle flex flex--gapped">

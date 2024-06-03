@@ -15,8 +15,12 @@
 }}>
   <input type="text" name="nom" autocomplete="name" placeholder="Inscrire votre nom">
   <input type="email" name="email" autocomplete="email" placeholder="Inscrire votre courriel">
-  <textarea name="message" autocomplete="off" placeholder="Rédiger votre message" on:input={e => {
-    e.currentTarget.style.height = (e.currentTarget.scrollHeight + (3)) + "px"
+  <textarea name="message" autocomplete="off" placeholder="Rédiger votre message" maxlength="10000" on:input={e => {
+    if (e.currentTarget.value === '') {
+      e.currentTarget.style.height = null
+    } else {
+      e.currentTarget.style.height = (e.currentTarget.scrollHeight + (3)) + "px"
+    }
   }}></textarea>
   <button class:submitting class="button--inverse" type="submit">{#if submitting}Annuler{:else}Envoyer{/if}</button>
   <small>L’Internet est un forum public et l’information électronique peut etre interceptée. Pour des raisons de sécurité et de respect de la vie privée, nous vous demandons de ne pas nous faire parvenir de renseignements personnels ou confidentiels, tels votre numéro d’assurance sociale, l’adresse de votre domicile ou de votre bureau.</small>

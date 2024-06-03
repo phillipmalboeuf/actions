@@ -72,12 +72,15 @@
       {#if header}
       {#each header.fields.liens as lien}
       <li>
-        <a on:click={click} href="{lien.fields.route}" on:mouseenter={() => {
-          // if (lien.fields.route === "/commentaires") {
-          //   commentaires = true
-          // } else {
-          //   commentaires = false
-          // }
+        <a on:click={click} href="{lien.fields.route}" on:click={(e) => {
+          if (lien.fields.route === "/commentaires") {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+            menu = true
+            commentaires = !commentaires
+          } else {
+            commentaires = false
+          }
         }}><Icon i="back" label="Naviguer vers" /> {lien.fields.titre} {#if lien.fields.route !== "/" && $page.url.pathname === lien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
 
         {#if lien.fields.sousLiens}
