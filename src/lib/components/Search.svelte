@@ -15,10 +15,10 @@
   export let visible = false
 
   export let query: string = undefined
-  export let artist: string = undefined
+  export let artist: string[] = []
+  export let medium: string[] = []
   export let from: number = 1930
   export let to: number = 2020
-  export let medium: string = undefined
   export let lignes: { [id: string]: boolean } = $page.data.lignes.reduce((ls, ligne) => ({
     ...ls,
     [ligne.fields.id]: true
@@ -53,7 +53,7 @@
 
     waiting = true
       
-    const path = `/search?query=${e.currentTarget['query'].value}&artist=${e.currentTarget['artist'].value}&from=${e.currentTarget['from'].value}&to=${e.currentTarget['to'].value}&medium=${e.currentTarget['medium'].value}&lignes=${Object.entries(lignes).filter((([id, value]) => !!value)).map(([id, value]) => id)}`
+    const path = `/search?query=${e.currentTarget['query'].value}&artist=${artist.join(',')}&from=${e.currentTarget['from'].value}&to=${e.currentTarget['to'].value}&medium=${medium.join(',')}&lignes=${Object.entries(lignes).filter((([id, value]) => !!value)).map(([id, value]) => id)}`
     const result = await preloadData(path)
 
     if (result.type === 'loaded' && result.status === 200) {
@@ -117,17 +117,19 @@
           {#each artists.items as a}
           <label data-letter={a.fields.nom[0]}>
             {a.fields.nom}
-            <input type="radio" name="artist" value="{a.fields.id}"
-              checked={a.fields.id === artist}
+            <input type="checkbox" bind:group={artist} value="{a.fields.id}"
               on:click={async (e) => {
-                if (a.fields.id === artist) {
-                  artist = undefined
-                  await tick()
-                  form.requestSubmit()
-                }
+                // if (a.fields.id === artist) {
+                //   artist = undefined
+                //   await tick()
+                //   form.requestSubmit()
+                // }
               }}
               on:input={(e) => {
-                form.requestSubmit()
+                clearTimeout(timeout)
+                timeout = setTimeout(() => {
+                  form.requestSubmit()
+                }, 666)
               }}>
           </label>
           {/each}
@@ -148,17 +150,19 @@
           {#each mediums as m}
           <label>
             {capitalize(m)}
-            <input type="radio" name="medium" value="{m}"
-              checked={m === medium}
+            <input type="checkbox" bind:group={medium} value="{m}"
               on:click={async (e) => {
-                if (m === medium) {
-                  medium = undefined
-                  await tick()
-                  form.requestSubmit()
-                }
+                // if (m === medium) {
+                //   medium = undefined
+                //   await tick()
+                //   form.requestSubmit()
+                // }
               }}
               on:input={(e) => {
-                form.requestSubmit()
+                clearTimeout(timeout)
+                timeout = setTimeout(() => {
+                  form.requestSubmit()
+                }, 666)
               }}>
           </label>
           {/each}
@@ -216,6 +220,23 @@
         </label>
       </fieldset>
       {/each}
+
+      <div class="col">
+        <div class="flex flex--tight_gapped">
+          {#each artist as f}
+          <button type="button" class="button--tight" on:click={() => {
+            //@ts-ignore
+            document.querySelector(`input[type=checkbox][value="${f}"]`).click()
+          }}>{artists.items.find(a => a.fields.id === f).fields.nom} X</button>
+          {/each}
+          {#each medium as f}
+          <button type="button" class="button--tight" on:click={() => {
+            //@ts-ignore
+            document.querySelector(`input[type=checkbox][value="${f}"]`).click()
+          }}>{capitalize(f)} X</button>
+          {/each}
+      </div>
+      </div>
     </div>
   </fieldset>
 

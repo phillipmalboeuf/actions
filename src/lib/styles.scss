@@ -153,6 +153,13 @@ button,
 		}
 	}
 
+	&.button--tight {
+		// color: $white;
+		padding: ($base * $scale * 0.25) ($base * $scale * 0.5);
+		background-color: $grey-light;
+		border-color: transparent;
+	}
+
 	&.button--inverse {
 		color: $white;
 		background-color: $brown;
@@ -236,7 +243,6 @@ form {
 	input[type="text"],
 	input[type="email"],
 	input[type="search"],
-	label:has(> input[type=checkbox]),
 	.dropdown,
 	textarea,
 	select {
@@ -273,8 +279,7 @@ form {
 	}
 
 	select,
-	.dropdown,
-	label:has(> input[type=checkbox]) {
+	.dropdown {
 		padding: ($base * $scale * 0.5) $base;
 		background-color: transparent;
 		border: 1px solid;
@@ -306,8 +311,8 @@ form {
 		border: none;
 	}
 
-	input[type = "radio"],
-	input[type = "checkbox"] {
+	input[type="radio"],
+	input[type="checkbox"] {
 		cursor: pointer;
 		appearance: none;
 		width: auto;
@@ -323,7 +328,7 @@ form {
 		}
 	}
 
-	input[type = "range"] {
+	input[type="range"] {
 		width: 100%;
 		cursor: pointer;
 		-webkit-appearance: none;

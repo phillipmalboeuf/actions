@@ -15,11 +15,12 @@ export const load = (async ({ locals, url, params, parent }) => {
   const mediums = [...new Set(oeuvres.items.filter(oeuvre => oeuvre.fields.typologie).map(oeuvre => oeuvre.fields.typologie?.trimEnd()))].sort()
 
   const query = url.searchParams.get("query")
-  const artist = url.searchParams.get("artist")
+  const artist = ((url.searchParams.get("artist") && url.searchParams.get("artist") !== "") ? url.searchParams.get("artist").split(',') : [])
+  const medium = ((url.searchParams.get("medium") && url.searchParams.get("medium") !== "") ? url.searchParams.get("medium").split(',') : [])
   const from = url.searchParams.get("from")
   const to = url.searchParams.get("to")
-  const medium = url.searchParams.get("medium")
   const lignesFilter = url.searchParams.get("lignes")
+
   if (!query && !artist && !from && !to && !medium && !lignesFilter) {
     return {
       artists,
@@ -37,8 +38,11 @@ export const load = (async ({ locals, url, params, parent }) => {
     "query": query,
     ...from ? { "fields.annee[gte]": parseInt(from) } : undefined,
     ...to ? { "fields.annee[lte]": parseInt(to) } : undefined,
-    "fields.typologie": medium,
-    ...artist ? { links_to_entry: artists.items.find(a => a.fields.id === artist).sys.id } : {},
+    ...medium?.length ? { "fields.typologie[in]": medium } : {},
+    ...artist?.length ? {
+      'fields.artiste.sys.contentType.sys.id': 'artiste',
+      'fields.artiste.fields.id[in]': artist
+    } : {},
     include: 3, order: ["fields.annee"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
   ])
 
