@@ -102,7 +102,7 @@
 
 <style lang="scss">
   section {
-    padding: ($gap * 4) ($gap * 2) ($gap);
+    padding: ($gap * 4) ($gap * 2) ($gap * 4);
 
     header {
       margin: ($gap * 2) 0;
@@ -126,7 +126,7 @@
       nav,
       .annee {
         position: absolute;
-        bottom: $gap * 2;
+        bottom: $gap * 6;
         left: $gap * 2;
         z-index: 2;
         order: 99;
@@ -144,7 +144,7 @@
       }
 
       .annee {
-        bottom: 0;
+        bottom: $gap * 3;
         left: 50%;
         transform: translate(-50%, 100%);
         font-size: $base * 10;
@@ -313,7 +313,7 @@
               margin-bottom: $base;
 
               :global(img) {
-                height: $base * 13.33;
+                height: 20vh;
                 background-color: transparent;
                 padding: 0;
               }
