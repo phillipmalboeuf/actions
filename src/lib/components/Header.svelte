@@ -128,9 +128,9 @@
     transition: transform 666ms;
     transform: translateY(-100%);
 
-    // a, label, input, nav {
-    //   pointer-events: all;
-    // }
+    a, label, input, nav {
+      pointer-events: all;
+    }
 
     &.up {
       transform: translateY(0%);
