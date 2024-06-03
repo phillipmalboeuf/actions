@@ -145,7 +145,8 @@
 
       :global(img.leaflet-tile) {
         object-fit: cover;
-        mix-blend-mode: normal;
+        // mix-blend-mode: plus-lighter;
+        // pointer-events: all;
 
         // &:after {
         //   content: attr(src);
