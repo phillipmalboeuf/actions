@@ -6,6 +6,7 @@
   export let oeuvres: (Entry<TypeOeuvreSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> & { ligne?: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> })[]
   export let ligne: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> = undefined
   export let lignes: { [id: string]: boolean } = {}
+  export let thumbnails: boolean = false
 </script>
 
 <table class:lignes>
@@ -35,7 +36,7 @@
         <!-- {oeuvre.fields.largeur}cm   -->
       </p>
     </td>
-    <td>
+    <td class:thumbnails>
       {#if oeuvre.fields.vignette}
       <figure>
         <Media media={oeuvre.fields.vignette} small />
@@ -73,16 +74,27 @@
     }
 
     td:last-child {
-      border: none;
-      position: relative;
-      width: $gap * 14;
 
-      figure {
-        position: absolute;
-        top: 0;
-        right: 0;
-        opacity: 0;
-        transition: opacity 333ms;
+      &.thumbnails {
+        padding: ($base * 0.5) 0 ($base * 0.5) ($base * 1);
+
+        figure {
+          width: $gap * 5;
+        }
+      }
+
+      &:not(.thumbnails) {
+        border: none;
+        position: relative;
+        width: $gap * 14;
+
+        figure {
+          position: absolute;
+          top: 0;
+          right: 0;
+          opacity: 0;
+          transition: opacity 333ms;
+        }
       }
     }
 

@@ -246,7 +246,7 @@
   {#if results.length === 0}
   <div class="col col--12of12"><em>Aucun résultats</em></div>
   {:else}
-  <Tableau oeuvres={results} {lignes} />
+  <Tableau oeuvres={results} {lignes} thumbnails />
   {/if}
   {/if}
 </form>
