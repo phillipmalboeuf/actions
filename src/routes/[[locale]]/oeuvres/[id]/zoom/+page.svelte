@@ -15,7 +15,7 @@
 </script>
 
 <dialog transition:fly={{ opacity: 1, y: '-100%', duration: 666 }}>
-  <a href="/oeuvres/{data.oeuvre.fields.id}" on:click={(e) => onClose(e)}><Icon i="close" label="Fermer" /></a>
+  <a href="/oeuvres/{data.oeuvre.fields.id}" on:click|preventDefault={(e) => onClose(e)}><Icon i="close" label="Fermer" /></a>
   <div>
     <Zoom oeuvre={data.oeuvre} file={{
       url: imigx(((data.oeuvre.fields.media && data.oeuvre.fields.media[data.i || 0]) || data.oeuvre.fields.vignette).fields.file.url),
