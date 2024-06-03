@@ -50,7 +50,7 @@
   }
 
   const reset = () => {
-    console.log(file.width, element.clientWidth, tileSize, Math.sqrt(file.width / element.clientWidth) * -1)
+    // console.log(file.width, element.clientWidth, tileSize, Math.sqrt(file.width / element.clientWidth) * -1)
     map.setView([-file.height / 2, file.width / 2], Math.sqrt(file.width / element.clientWidth) * -1)
   }
 
@@ -67,7 +67,7 @@
       getTileUrl: function({ x, y, z }) {
         // console.log({ x, y, z, w: file.width, h: file.height })
         const zoom = Math.round(tileSize / Math.pow(2, z))
-        // console.log(`${zoom},${zoom},${x * zoom},${y * zoom}`)
+        // console.log(`${file.url}?q=100&auto=forma&rect=${x * zoom},${y * zoom},${zoom},${zoom}&w=${tileSize}&h=${tileSize}`)
         // if (x < 0 || y < 0) return;
         return `${file.url}?q=100&auto=forma&rect=${x * zoom},${y * zoom},${zoom},${zoom}&w=${tileSize}&h=${tileSize}`
       },
@@ -78,7 +78,7 @@
 
     new Zoom('', {
       maxZoom,
-      minZoom: Math.sqrt(file.width / element.clientWidth) * -1,
+      minZoom: maxZoom * -1,
       tileSize,
       bounds: [[0,0],[-file.height + tileSize, file.width - tileSize]],
       noWrap: true
@@ -106,7 +106,7 @@
   <figure style="aspect-ratio: {file.width} / {file.height};" bind:this={element}></figure>
 
   <aside>
-    <figure class:dragging on:pointerdown={() => dragging = true}
+    <figure style="aspect-ratio: {file.width} / {file.height};" class:dragging on:pointerdown={() => dragging = true}
       on:pointermove={(e) => {
         if (dragging) {
           map.panTo({ lng: (e.offsetX / e.currentTarget.offsetWidth) * file.width, lat: (e.offsetY / e.currentTarget.offsetHeight) * -file.height })
@@ -132,6 +132,7 @@
 <style lang="scss">
   main {
     display: flex;
+    gap: $gap * 2;
     // align-items: flex-start;
     justify-content: space-between;
 
@@ -140,15 +141,18 @@
       // width: 50%;
       background-color: transparent !important;
 
-      :global(img) {
-        object-fit: cover;
+      
 
-        &:after {
-          content: attr(src);
-          position: absolute;
-          top: 0;
-          left: 0;
-        }
+      :global(img.leaflet-tile) {
+        object-fit: cover;
+        mix-blend-mode: normal;
+
+        // &:after {
+        //   content: attr(src);
+        //   position: absolute;
+        //   top: 0;
+        //   left: 0;
+        // }
       }
 
       :global(.leaflet-pane),
@@ -161,6 +165,7 @@
     aside {
       display: flex;
       flex-direction: column;
+      width: 300px;
       // justify-content: center;
 
       p {
@@ -170,6 +175,7 @@
       figure {
         cursor: grab;
         position: relative;
+        
 
         &.dragging {
           cursor: grabbing;
@@ -187,7 +193,7 @@
 
         img {
           display: block;
-          width: 15vw;
+          width: 300px;
 
           &:nth-last-child(2) {
             position: absolute;

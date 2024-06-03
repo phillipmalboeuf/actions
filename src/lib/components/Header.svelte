@@ -119,6 +119,7 @@
     right: 0;
     width: 100%;
     padding: ($gap) ($gap * 2);
+    pointer-events: none;
 
     display: flex;
     align-items: center;
@@ -126,6 +127,10 @@
 
     transition: transform 666ms;
     transform: translateY(-100%);
+
+    // a, label, input, nav {
+    //   pointer-events: all;
+    // }
 
     &.up {
       transform: translateY(0%);
