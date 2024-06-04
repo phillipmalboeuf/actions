@@ -109,7 +109,7 @@
           <button class="button--none" on:click={() => {
             const label = document.querySelector(`label[data-letter=${l}]`)
             // @ts-ignore
-            label.parentElement.scrollTo({ top: label.offsetTop - 125 })
+            label.parentElement.scrollTo({ top: label.offsetTop - 125, behavior: 'smooth' })
           }}>{l}</button>
           {/each}
         </nav>
