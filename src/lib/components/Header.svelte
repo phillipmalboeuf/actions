@@ -23,7 +23,7 @@
 
   $: {
     if (browser) {
-      document.documentElement.classList.toggle('noscroll', !!(menu || searching))
+      document.documentElement.classList.toggle('noscroll', (menu || searching))
     }
   }
 
