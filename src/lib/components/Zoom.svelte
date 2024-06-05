@@ -74,7 +74,7 @@
         const zoom = Math.round(tileSize / Math.pow(2, z))
         // console.log(`${file.url}?q=100&auto=forma&rect=${x * zoom},${y * zoom},${zoom},${zoom}&w=${tileSize}&h=${tileSize}`)
         // if (x < 0 || y < 0) return;
-        return `${file.url}?q=100&auto=format&rect=${x * zoom},${y * zoom},${zoom},${zoom}&w=${tileSize}&h=${tileSize}`
+        return `${file.url}?q=100&auto=format&rect=${x * zoom},${y * zoom},${zoom},${zoom}&w=${tileSize * 2}&h=${tileSize * 2}`
       },
       getAttribution: function() {
         return "<a href=''>MAJ</a>"
@@ -125,8 +125,8 @@
     
 
       <nav>
-        <button on:click={() => map.zoomIn()}><Icon i="plus" label="Plus zoom" /></button>
-        <button on:click={() => map.zoomOut()}><Icon i="minus" label="Minus zoom" /></button>
+        <button on:click={() => map.zoomIn(0.5)}><Icon i="plus" label="Plus zoom" /></button>
+        <button on:click={() => map.zoomOut(0.5)}><Icon i="minus" label="Minus zoom" /></button>
         <button on:click={reset}>Réinitialiser</button>
       </nav>
     </div>
