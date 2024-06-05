@@ -268,7 +268,7 @@
     > fieldset {
       margin-bottom: $gap * 2;
 
-      select,
+      // select,
       .dropdown {
         border: 1px solid;
         background-color: transparent;

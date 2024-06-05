@@ -18,6 +18,7 @@
   let element: HTMLElement
   let map: Map
   let dragging = false
+  let zoomed = false
 
   let bounds: {
     top: number
@@ -29,14 +30,14 @@
   }
 
   const maxZoom = 4
-  const tileSize = Math.round(file.width / 24)
+  const tileSize = Math.round(Math.min(file.width, file.height) / 24)
 
   // console.log(file.height / 2, file.width / 2, tileSize)
 
   const update: LeafletEventHandlerFn = (e) => {
-    // console.log((e.target as Map).getBounds())
-    // console.log('update')
     // console.log(JSON.stringify((e.target as Map).getBounds(), null, 2))
+
+    zoomed = (e.target as Map).getZoom() > -1
 
     const b = (e.target as Map).getBounds()
     bounds = {
@@ -53,7 +54,7 @@
 
   const reset = () => {
     // console.log(file.width, element.clientWidth, tileSize, Math.sqrt(file.width / element.clientWidth) * -1)
-    map.setView([-file.height / 2, file.width / 2], Math.sqrt(file.width / element.clientWidth) * -1)
+    map.setView([-file.height / 2, file.width / 2], -2)
   }
 
   onMount(async () => {
@@ -62,7 +63,9 @@
       crs: Leaflet.CRS.Simple,
       zoomControl: false,
       attributionControl: false,
-      zoomSnap: 0.5
+      zoomSnap: 0.5,
+      zoomAnimation: false,
+      fadeAnimation: false
     })
 
     const Zoom = Leaflet.TileLayer.extend({
@@ -71,7 +74,7 @@
         const zoom = Math.round(tileSize / Math.pow(2, z))
         // console.log(`${file.url}?q=100&auto=forma&rect=${x * zoom},${y * zoom},${zoom},${zoom}&w=${tileSize}&h=${tileSize}`)
         // if (x < 0 || y < 0) return;
-        return `${file.url}?q=100&auto=forma&rect=${x * zoom},${y * zoom},${zoom},${zoom}&w=${tileSize}&h=${tileSize}`
+        return `${file.url}?q=100&auto=format&rect=${x * zoom},${y * zoom},${zoom},${zoom}&w=${tileSize}&h=${tileSize}`
       },
       getAttribution: function() {
         return "<a href=''>MAJ</a>"
@@ -83,7 +86,7 @@
       minZoom: maxZoom * -1,
       tileSize,
       bounds: [[0,0],[-file.height + tileSize, file.width - tileSize]],
-      noWrap: true
+      noWrap: true,
     }).addTo(map)
 
     reset()
@@ -105,27 +108,30 @@
 </script>
 
 <main on:pointerup={() => dragging = false}>
-  <figure style="aspect-ratio: {file.width} / {file.height};" bind:this={element}></figure>
+  <figure bind:this={element}></figure>
 
   <aside>
-    <figure style="aspect-ratio: {file.width} / {file.height};" class:dragging on:pointerdown={() => dragging = true}
-      on:pointermove={(e) => {
-        if (dragging) {
-          map.panTo({ lng: (e.offsetX / e.currentTarget.offsetWidth) * file.width, lat: (e.offsetY / e.currentTarget.offsetHeight) * -file.height })
-        }
-      }}>
-      {#if bounds}<button style="top: {bounds.top}%; left: {bounds.left}%; height: {bounds.height}%; width: {bounds.width}%"></button>{/if}
-      <img src="{file.url}?w={400}&auto=format" alt="Controls" draggable="false" />
-      {#if bounds}<img style="clip-path: polygon({bounds.left}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top + bounds.height}%, {bounds.left}% {bounds.top + bounds.height}%);" src="{file.url}?w={400}&auto=format" alt="Zoom area" draggable="false" />{/if}
-    </figure>
+    <div>
+      <figure style="aspect-ratio: {file.width} / {file.height};" class:dragging on:pointerdown={() => dragging = true}
+        on:pointermove={(e) => {
+          if (dragging) {
+            map.panTo({ lng: (e.offsetX / e.currentTarget.offsetWidth) * file.width, lat: (e.offsetY / e.currentTarget.offsetHeight) * -file.height })
+          }
+        }}>
+        {#if bounds}<button style="top: {bounds.top}%; left: {bounds.left}%; height: {bounds.height}%; width: {bounds.width}%"></button>{/if}
+        <img src="{file.url}?w={400}&auto=format" alt="Controls" draggable="false" />
+        {#if bounds}<img style="clip-path: polygon({bounds.left}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top}%, {bounds.left + bounds.width}% {bounds.top + bounds.height}%, {bounds.left}% {bounds.top + bounds.height}%);" src="{file.url}?w={400}&auto=format" alt="Zoom area" draggable="false" />{/if}
+      </figure>
+    
 
-    <nav>
-      <button on:click={() => map.zoomIn()}><Icon i="plus" label="Plus zoom" /></button>
-      <button on:click={() => map.zoomOut()}><Icon i="minus" label="Minus zoom" /></button>
-      <button on:click={reset}>Réinitialiser</button>
-    </nav>
+      <nav>
+        <button on:click={() => map.zoomIn()}><Icon i="plus" label="Plus zoom" /></button>
+        <button on:click={() => map.zoomOut()}><Icon i="minus" label="Minus zoom" /></button>
+        <button on:click={reset}>Réinitialiser</button>
+      </nav>
+    </div>
 
-    <p>
+    <p class:zoomed>
       <Credit {oeuvre} />
     </p>
   </aside>
@@ -140,7 +146,7 @@
 
     > figure {
       height: calc(100vh - ($gap * 6));
-      // width: 50%;
+      width: 100vw;
       background-color: transparent !important;
 
       
@@ -148,7 +154,7 @@
       :global(img.leaflet-tile) {
         object-fit: cover;
         // mix-blend-mode: plus-lighter;
-        // pointer-events: all;
+        pointer-events: all;
 
         // &:after {
         //   content: attr(src);
@@ -166,13 +172,30 @@
     }
 
     aside {
+      position: absolute;
+      z-index: 2000;
+      top: $gap * 5;
+      bottom: $gap;
+      right: $gap;
       display: flex;
       flex-direction: column;
-      width: 300px;
+      width: 280px;
       // justify-content: center;
 
       p {
         margin-top: auto;
+        transition: opacity 666ms;
+
+        &.zoomed {
+          opacity: 0;
+          pointer-events: none;
+        }
+      }
+
+      div {
+        padding: $base * 0.5;
+        background-color: $black;
+        border-radius: $base * 0.5;
       }
 
       figure {
@@ -196,11 +219,11 @@
 
         img {
           display: block;
-          width: 300px;
+          width: calc(280px - ($base * 1));
 
           &:nth-last-child(2) {
             position: absolute;
-            z-index: -1;
+            z-index: 0;
             top: 0;
             left: 0;
             width: 100%;
