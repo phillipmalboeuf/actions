@@ -181,8 +181,10 @@
       flex-direction: column;
       width: 280px;
       // justify-content: center;
+      pointer-events: none;
 
       p {
+        pointer-events: all;
         margin-top: auto;
         transition: opacity 666ms;
 
@@ -193,6 +195,7 @@
       }
 
       div {
+        pointer-events: all;
         padding: $base * 0.5;
         background-color: $black;
         border-radius: $base * 0.5;
