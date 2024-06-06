@@ -82,10 +82,12 @@ export interface TypeOeuvreFields {
     numero: EntryFieldTypes.Symbol;
     description?: EntryFieldTypes.Text;
     artiste?: EntryFieldTypes.EntryLink<TypeArtisteSkeleton>;
+    annee?: EntryFieldTypes.Integer;
     couleur?: EntryFieldTypes.Symbol;
     vignette?: EntryFieldTypes.AssetLink;
     media?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
-    annee?: EntryFieldTypes.Integer;
+    minZoom?: EntryFieldTypes.Number;
+    maxZoom?: EntryFieldTypes.Number;
     format?: EntryFieldTypes.Symbol<"Large" | "Moyen" | "Petit">;
     dimensions?: EntryFieldTypes.Symbol;
     hauteur?: EntryFieldTypes.Number;

@@ -18,7 +18,7 @@
   let element: HTMLElement
   let map: Map
   let dragging = false
-  let zoomed = false
+  let zoom: number = -2.5
 
   let bounds: {
     top: number
@@ -29,7 +29,7 @@
     height: number
   }
 
-  const maxZoom = 4
+  // const maxZoom = 4
   const tileSize = Math.round(Math.min(file.width, file.height) / 24)
 
   // console.log(file.height / 2, file.width / 2, tileSize)
@@ -37,7 +37,7 @@
   const update: LeafletEventHandlerFn = (e) => {
     // console.log(JSON.stringify((e.target as Map).getBounds(), null, 2))
 
-    zoomed = (e.target as Map).getZoom() > -1
+    zoom = (e.target as Map).getZoom()
 
     const b = (e.target as Map).getBounds()
     bounds = {
@@ -54,7 +54,7 @@
 
   const reset = () => {
     // console.log(file.width, element.clientWidth, tileSize, Math.sqrt(file.width / element.clientWidth) * -1)
-    map.setView([-file.height / 2, file.width / 2], -2)
+    map.setView([-file.height / 2, file.width / 2], zoom)
   }
 
   onMount(async () => {
@@ -82,8 +82,8 @@
     }) as unknown as typeof Leaflet.TileLayer;
 
     new Zoom('', {
-      maxZoom,
-      minZoom: maxZoom * -1,
+      maxZoom: (oeuvre.fields.maxZoom || 0),
+      minZoom: (oeuvre.fields.minZoom || -2.5),
       tileSize,
       bounds: [[0,0],[-file.height + tileSize, file.width - tileSize]],
       noWrap: true,
@@ -125,13 +125,14 @@
     
 
       <nav>
-        <button on:click={() => map.zoomIn(0.5)}><Icon i="plus" label="Plus zoom" /></button>
-        <button on:click={() => map.zoomOut(0.5)}><Icon i="minus" label="Minus zoom" /></button>
+        <button disabled={zoom == (oeuvre.fields.maxZoom || 0)} on:click={() => map.zoomIn(0.5)}><Icon i="plus" label="Plus zoom" /></button>
+        <button disabled={zoom == (oeuvre.fields.minZoom || -2.5)} on:click={() => map.zoomOut(0.5)}><Icon i="minus" label="Minus zoom" /></button>
+        <!-- <small>{zoom}</small> -->
         <button on:click={reset}>Réinitialiser</button>
       </nav>
     </div>
 
-    <p class:zoomed>
+    <p class:zoomed={zoom > (oeuvre.fields.minZoom || -2.5)}>
       <Credit {oeuvre} />
     </p>
   </aside>
@@ -257,6 +258,11 @@
 
         &:last-child {
           margin-left: auto;
+        }
+
+        &[disabled] {
+          pointer-events: none;
+          opacity: 0.5;
         }
       }
     }
