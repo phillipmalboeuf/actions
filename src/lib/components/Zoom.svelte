@@ -18,7 +18,7 @@
   let element: HTMLElement
   let map: Map
   let dragging = false
-  let zoom: number = -2.5
+  let zoom: number = oeuvre.fields.minZoom || -2.5
 
   let bounds: {
     top: number
@@ -54,7 +54,7 @@
 
   const reset = () => {
     // console.log(file.width, element.clientWidth, tileSize, Math.sqrt(file.width / element.clientWidth) * -1)
-    map.setView([-file.height / 2, file.width / 2], zoom)
+    map.setView([-file.height / 2, file.width / 2], oeuvre.fields.minZoom || -2.5)
   }
 
   onMount(async () => {
@@ -64,7 +64,7 @@
       zoomControl: false,
       attributionControl: false,
       zoomSnap: 0.5,
-      zoomAnimation: false,
+      // zoomAnimation: false,
       fadeAnimation: false
     })
 

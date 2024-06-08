@@ -51,7 +51,7 @@
 	currentScroll = scrollY
 }} />
 
-<header class:up>
+<header class:up class:dark={$page.route.id === '/[[locale]]/oeuvres/[id]/zoom' && !searching && !menu}>
   {#if $page.route.id !== '/[[locale]]' && $page.route.id !== '/[[locale]]/oeuvres/[id]/zoom'}
   <a href="/" class="h2"><Icon i="home" label="Accueil" /></a>
   {/if}
@@ -129,7 +129,7 @@
     align-items: center;
     gap: $gap;
 
-    transition: transform 666ms;
+    transition: transform 666ms, color 666ms;
     transform: translateY(-100%);
 
     a, label, input, nav {
@@ -155,6 +155,10 @@
       line-height: 0;
     }
 
+    &.dark {
+      color: $white;
+    }
+
     nav {
       position: absolute;
       top: 0;
@@ -167,6 +171,7 @@
       border: none;
       border-top-left-radius: $base * $scale;
       border-bottom-left-radius: $base * $scale;
+      color: $brown;
       background-color: $yellow;
       padding: $base * $scale;
       box-shadow: 0px 0px 6px fade-out($color: $black, $amount: 0.85);

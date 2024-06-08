@@ -1,6 +1,8 @@
 <script lang="ts">
   import { fly, fade } from 'svelte/transition'
+  import { onMount, onDestroy } from 'svelte'
   import { page } from '$app/stores'
+  import { browser } from '$app/environment'
   import type { MouseEventHandler } from 'svelte/elements'
   import Zoom from '$lib/components/Zoom.svelte'
   import Icon from '$lib/components/Icon.svelte'
@@ -12,6 +14,14 @@
 
   export let onClose: MouseEventHandler<HTMLAnchorElement> = undefined
   let ready = false
+
+  onMount(() => {
+    browser && document.documentElement.classList.add('noscroll')
+  })
+
+  onDestroy(() => {
+    browser && document.documentElement.classList.remove('noscroll')
+  })
 </script>
 
 <dialog transition:fly={{ opacity: 1, y: '-100%', duration: 666 }}>
@@ -36,9 +46,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
     
     z-index: 3000;
     border: none;
