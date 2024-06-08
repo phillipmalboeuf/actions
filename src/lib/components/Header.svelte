@@ -68,8 +68,8 @@
   <label for="menu"><Icon i={menu ? "menu-close" : "menu"} label="Menu" /></label>
 
   <nav class="flex">
-    <figure class="col col--6of12"><a href="/" on:click={click}><Logo /></a></figure>
-    <ol class="col col--4of12">
+    <figure class="col col--6of12 col--mobile--12of12"><a href="/" on:click={click}><Logo /></a></figure>
+    <ol class="col col--4of12 col--mobile--12of12">
       {#if header}
       {#each header.fields.liens as lien}
       <li>
@@ -128,6 +128,10 @@
     display: flex;
     align-items: center;
     gap: $gap;
+
+    @media (max-width: $mobile) {
+      padding: ($mobile_gap);
+    }
 
     transition: transform 666ms, color 666ms;
     transform: translateY(-100%);
@@ -202,6 +206,16 @@
           height: calc(100vh - ($gap * 4));
           width: auto;
         }
+
+        @media (max-width: $mobile) {
+          padding: $gap 0;
+          order: 1;
+
+          :global(svg) {
+            height: auto;
+            width: calc(100vw - ($gap * 4));
+          }
+        }
       }
       
       ol {
@@ -210,6 +224,10 @@
         flex-direction: column;
         gap: $base;
         padding: ($base * $scale) 0;
+
+        @media (max-width: $mobile) {
+          gap: $mobile_base;
+        }
 
         li {
           a {

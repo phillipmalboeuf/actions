@@ -48,7 +48,7 @@
     }
 
     @media (max-width: $mobile) {
-      padding: $mobile_base;
+      padding: 0;
     }
 
     header {
@@ -60,6 +60,12 @@
       display: flex;
       justify-content: flex-end;
       text-transform: lowercase;
+
+      @media (max-width: $mobile) {
+        position: static;
+        padding: 0 $mobile_base;
+        margin-top: $mobile_gap * 6;
+      }
 
       // > a {
       //   padding: $base;
@@ -104,7 +110,9 @@
       gap: $gap;
       margin: auto;
 
-      margin-top: ($gap * 10);
+      @media (min-width: $mobile) {
+        margin-top: ($gap * 10);
+      }
     }
   }
 

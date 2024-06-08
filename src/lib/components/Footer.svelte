@@ -8,9 +8,9 @@
 </script>
 
 <footer class="flex flex--gapped">
-  <figure class="col col--3of12"><a href="/"><Logo /></a></figure>
+  <figure class="col col--3of12 col--mobile--12of12"><a href="/"><Logo /></a></figure>
 
-  <main class="col col--9of12">
+  <main class="col col--9of12 col--mobile--12of12">
     <ol class="list--nostyle flex flex--gapped">
       {#if footer}
       {#each footer.fields.liens as lien}
@@ -39,7 +39,7 @@
       </form>
       <a href="https://www.museejoliette.org/fr/" target="_blank" rel="external"><Icon i="maj" label="Musée d'art de Joliette" /></a>
       <a href="https://www.museesnumeriques.ca" target="_blank" rel="external"><Icon i="mnc" label="Musées numériques Canada" /></a>
-      <small>©{new Date().getFullYear()}<br>Musée d’art<br>de Joliette</small>
+      <small>©{new Date().getFullYear()}<br> Musée d’art<br> de Joliette</small>
     </nav>
   </main>
 </footer>
@@ -55,6 +55,11 @@
     background-color: var(--background);
     padding: ($gap * 2) ($gap * 2) ($gap * 2);
     backface-visibility: hidden;
+
+    @media (max-width: $mobile) {
+      padding: ($mobile_gap * 2) ($mobile_gap) ($mobile_gap * 2);
+      gap: ($mobile_gap * 3);
+    }
 
     :global(.-pages-credits) ~ &,
     :global(.-pages-bibliographie) ~ & {
@@ -80,6 +85,10 @@
           }
         }
       }
+
+      @media (max-width: $mobile) {
+        display: none;
+      }
     }
 
     nav {
@@ -89,6 +98,15 @@
 
       small {
         text-align: right;
+
+        @media (max-width: $mobile) {
+          text-align: center;
+          width: 100%;
+
+          br {
+            display: none;
+          }
+        }
       }
 
       form {
@@ -97,8 +115,18 @@
         width: 50%;
         margin-right: auto;
 
+        @media (max-width: $mobile) {
+          flex-wrap: wrap;
+          width: 100%;
+          row-gap: $mobile_gap;
+        }
+
         strong {
           margin-right: $base;
+
+          @media (max-width: $mobile) {
+            margin: 0 auto;
+          }
         }
 
         input {
@@ -108,14 +136,23 @@
           border-radius: $base * 1.25;
 
           &:first-of-type {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            border-right: none;
+
+            @media (min-width: $mobile) {
+              border-top-right-radius: 0;
+              border-bottom-right-radius: 0;
+              border-right: none;
+            }
+
+            @media (max-width: $mobile) {
+              width: 100%;
+            }
           }
 
           &:last-of-type {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
+            @media (min-width: $mobile) {
+              border-top-left-radius: 0;
+              border-bottom-left-radius: 0;
+            }
           }
 
           &:not(:placeholder-shown) {
@@ -134,6 +171,14 @@
           border: none;
           margin-left: $base * -2.5;
           margin-right: $base * -2.5;
+        }
+      }
+
+      @media (max-width: $mobile) {
+        a {
+          &:last-of-type {
+            margin-left: auto;
+          }
         }
       }
     }

@@ -99,9 +99,10 @@
       :global(svg) {
         // padding: $gap;
         width: auto;
+        max-width: calc(100vw - ($gap * 0));
         height: calc(100vh - ($gap * 2));
         overflow: visible;
-        object-position: left top;
+        object-position: left center;
         background-color: var(--background);
 
         :global(g) {
@@ -155,6 +156,10 @@
           gap: $gap * 8;
           padding: $gap ($gap * 2);
 
+          @media (max-width: $mobile) {
+            padding: $gap;
+          }
+
           li {
             &:nth-child(2n) {
               align-self: flex-start;
@@ -196,6 +201,11 @@
 
                 font-size: $mobile_base;
               }
+
+              @media (max-width: $mobile) {
+                flex-direction: column;
+                align-items: flex-start;
+              }
             }
 
             &:first-child {
@@ -223,6 +233,10 @@
         > :global(*) {
           width: 50vw;
           max-width: 644px;
+
+          @media (max-width: $mobile) {
+            width: 100%;
+          }
         }
         
         > :global(p),
@@ -251,6 +265,10 @@
             width: auto;
             height: 50vw;
             object-fit: contain;
+
+            @media (max-width: $mobile) {
+              // height: 75vw;
+            }
           }
 
           :global(figcaption) {
