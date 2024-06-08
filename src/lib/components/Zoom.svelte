@@ -177,7 +177,7 @@
       z-index: 2000;
       top: $gap * 5;
       bottom: $gap;
-      right: $gap;
+      right: $gap * 2;
       display: flex;
       flex-direction: column;
       width: 280px;
@@ -188,6 +188,7 @@
         pointer-events: all;
         margin-top: auto;
         transition: opacity 666ms;
+        padding: $base;
 
         &.zoomed {
           opacity: 0;
@@ -197,9 +198,9 @@
 
       div {
         pointer-events: all;
-        padding: $base * 0.5;
+        padding: $base;
         background-color: $black;
-        border-radius: $base * 0.5;
+        border-radius: $base;
       }
 
       figure {
@@ -223,7 +224,7 @@
 
         img {
           display: block;
-          width: calc(280px - ($base * 1));
+          width: calc(280px - ($base * 2));
 
           &:nth-last-child(2) {
             position: absolute;

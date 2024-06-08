@@ -5,7 +5,7 @@
 
   export let oeuvres: (Entry<TypeOeuvreSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> & { ligne?: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> })[]
   export let ligne: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> = undefined
-  export let lignes: { [id: string]: boolean } = {}
+  export let lignes: { [id: string]: boolean } = undefined
   export let thumbnails: boolean = false
 </script>
 
@@ -55,22 +55,12 @@
     th {
       padding: ($base);
       padding-left: ($gap * 2);
+      width: 25%;
 
       &:first-child {
         padding-left: 0;
+        width: $gap;
       }
-    }
-
-    td:nth-child(1) {
-      width: $gap;
-    }
-
-    td:nth-child(2) {
-      width: $gap * 14;
-    }
-
-    td:nth-child(3) {
-      width: $gap * 14;
     }
 
     td:last-child {
@@ -80,13 +70,15 @@
 
         figure {
           width: $gap * 5;
+          margin-left: auto;
         }
       }
 
       &:not(.thumbnails) {
         border: none;
         position: relative;
-        width: $gap * 14;
+        // width: $gap * 14;
+        padding: 0;
 
         figure {
           position: absolute;
@@ -101,7 +93,7 @@
     a {
       display: table-row;
       vertical-align: middle;
-      line-height: 1.333;
+      line-height: 1.3;
 
       h2 {
         display: inline-block;
@@ -120,7 +112,7 @@
         }
 
         figure {
-          opacity: 1;
+          opacity: 1 !important;
         }
       }
 

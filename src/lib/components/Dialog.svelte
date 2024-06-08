@@ -11,7 +11,7 @@
 
   $: {
     if (browser) {
-      document.documentElement.classList.toggle('noscroll', !!(($page.state.type && $page.state.open) || ($page.state.zoom)))
+      document.documentElement.classList.toggle('noscroll', !!(($page.state.type && $page.state.open) || ($page.state.zoom) || ($page.state.search)))
     }
   }
 </script>

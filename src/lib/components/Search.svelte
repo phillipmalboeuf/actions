@@ -146,6 +146,7 @@
       {#if mediums}
       <fieldset class="col col--4of12 dropdown">
         <label>Type d'oeuvre <Icon i="down" label="Choix" /></label>
+        <nav></nav>
         <div>
           {#each mediums as m}
           <label>
@@ -293,7 +294,11 @@
           display: none;
           width: auto;
           padding: $base $base ($base * 1.5);
-          margin: 0 ($base * -1);
+          margin: 0 (($base * -1) - 1px);
+
+          &:empty {
+            padding-bottom: 0;
+          }
 
           button {
             margin-left: 0;
@@ -305,8 +310,8 @@
 
           max-height: 50vh;
           overflow: auto;
-          padding: 0 $base $base;
-          margin: 0 ($base * -1);
+          padding: 0 $base ($base * 2);
+          margin: 0 (($base * -1) - 1px);
           border-bottom-left-radius: $base * 1.5;
           border-bottom-right-radius: $base * 1.5;
 
@@ -315,8 +320,14 @@
             justify-content: space-between;
             align-items: flex-start;
             gap: $gap;
+
+            line-height: 1.3;
             padding: ($base * 0.5) 0;
             border-top: 1px solid;
+
+            &:last-child {
+              border-bottom: 1px solid;
+            }
           }
         }
 
