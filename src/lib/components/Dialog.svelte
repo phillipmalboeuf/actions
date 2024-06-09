@@ -59,6 +59,10 @@
     &.half {
       width: 50vw;
     }
+
+    @media (max-width: $mobile) {
+      width: 100vw;
+    }
   }
 
   .back {
@@ -92,6 +96,10 @@
     &:hover,
     &:focus {
       transform: translateX(20%);
+    }
+
+    @media (max-width: $mobile) {
+      left: calc(0px + ($base * $scale));
     }
   }
 </style>

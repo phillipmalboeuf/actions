@@ -186,11 +186,19 @@
 
       justify-content: space-between;
 
+      @media (max-width: $mobile) {
+        width: 100vw;
+      }
+
       &.search {
         background-color: $beige;
         width: 90vw;
         padding-top: $gap * 6;
         // z-index: 3;
+
+        @media (max-width: $mobile) {
+          width: 100vw;
+        }
 
         > .button--none {
           position: absolute;

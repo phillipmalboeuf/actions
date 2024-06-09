@@ -30,10 +30,10 @@
     <span></span>
     {/if} -->
     <div class="col col--6of12"></div>
-    <h1 class="col col--5of12">{data.oeuvre.fields.annee}</h1>
+    <h1 class="col col--5of12 col--mobile--12of12">{data.oeuvre.fields.annee}</h1>
   </header>
 
-  <figure class="col col--6of12">
+  <figure class="col col--6of12 col--mobile--12of12">
     {#if data.oeuvre.fields.media?.length > 1}
     <Slider autoplay={false} autoheight={false} buttons={false} dots={data.oeuvre.fields.media.length} slidesPerView={1} bind:active>
       <ol class="slider__container">
@@ -55,7 +55,7 @@
       <a href="{imigx(active !== undefined ? data.oeuvre.fields.media[active].fields.file.url : data.oeuvre.fields.vignette.fields.file.url)}?q=100&w=1020&txt={encodeURIComponent([data.oeuvre.fields.artiste.fields.nom, data.oeuvre.fields.titre, data.oeuvre.fields.anneeDeRealisation || data.oeuvre.fields.annee, data.oeuvre.fields.medium].join(' – '))}&txt-clip=end,ellipsis&txt-align=bottom,right&txt-size=20&txt-color=57221E&h=1320&fit=fill&fill=solid&pad=80&fill-color=FAF8EF&bg=FAF8EF&fm=jpg&dl={data.oeuvre.fields.annee}-{data.oeuvre.fields.titre.replaceAll(' ', '-')}.png" download="{data.oeuvre.fields.annee}-{data.oeuvre.fields.titre.replaceAll(' ', '-')}.png" target="_blank" rel="external"><Icon i="download" label="Téléchargement" /></a>
     </figcaption>
   </figure>
-  <main class="col col--5of12">
+  <main class="col col--5of12 col--mobile--12of12">
     {#if data.oeuvre.fields.description}<h5>{data.oeuvre.fields.description}</h5>{/if}
     <aside>
       <Credit oeuvre={data.oeuvre} />
@@ -133,6 +133,10 @@
       width: 100%;
       padding: 0 ($gap * 2);
 
+      @media (max-width: $mobile) {
+        position: static;
+      }
+
       > a {
         padding: $base;
       }
@@ -152,7 +156,9 @@
       gap: $gap * 1.5;
       margin: auto;
 
-      margin-top: ($gap * 10);
+      @media (min-width: $mobile) {
+        margin-top: ($gap * 10);
+      }
 
       h5 {
         font-size: ($base * $scale) + 2px;
@@ -203,6 +209,11 @@
       position: sticky;
       top: 50%;
       transform: translateY(-50%);
+
+      @media (max-width: $mobile) {
+        position: static;
+        transform: none;
+      }
       
       :global(img),
       :global(video) {
