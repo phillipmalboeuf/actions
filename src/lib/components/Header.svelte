@@ -161,6 +161,29 @@
 
     &.dark {
       color: $white;
+
+      gap: 0;
+      align-items: stretch;
+      
+      > label {
+        background-color: fade-out($black, 0.33);
+        display: flex;
+        align-items: center;
+        padding: $base * 0.5;
+        border-radius: $base * 2;
+
+        &:first-of-type {
+          padding-left: $base;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+
+        &:last-of-type {
+          padding-right: $base;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
     }
 
     nav {

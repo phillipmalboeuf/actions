@@ -55,10 +55,10 @@
 
     color: $white;
     background-color: $black;
-    padding: ($base * $scale * 4) ($base * $scale * 2) ($base * $scale * 2);
+    // padding: ($base * $scale * 4) ($base * $scale * 2) ($base * $scale * 2);
 
     > a {
-      display: block;
+      display: flex;
       position: absolute;
       top: $base;
       left: ($base * $scale * 2);
@@ -67,6 +67,9 @@
       padding: 0;
       color: $white;
       margin-bottom: $base * $scale;
+      background-color: fade-out($black, 0.33);
+      padding: $base * 0.5;
+      border-radius: 50%;
     }
   }
 </style>

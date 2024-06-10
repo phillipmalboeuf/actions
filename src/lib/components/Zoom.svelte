@@ -146,10 +146,9 @@
     justify-content: space-between;
 
     > figure {
-      height: calc(100vh - ($gap * 6));
+      height: 100vh;
       width: 100vw;
       background-color: transparent !important;
-
       
 
       :global(img.leaflet-tile) {
@@ -175,7 +174,7 @@
     aside {
       position: absolute;
       z-index: 2000;
-      top: $gap * 5;
+      top: $gap * 4;
       bottom: $gap;
       right: $gap * 2;
       display: flex;
