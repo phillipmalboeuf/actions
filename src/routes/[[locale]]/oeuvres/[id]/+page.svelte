@@ -6,6 +6,7 @@
   import Video from '$lib/components/Video.svelte'
   import ZoomPage from './zoom/+page.svelte'
   import Slider from '$lib/components/Slider.svelte'
+  import Credit from '$lib/components/Credit.svelte'
 
   import { imigx, year } from '$lib/formatters'
   import { openDialog } from '$lib/helpers'
@@ -14,7 +15,6 @@
   import { page } from '$app/stores'
 
   import type { PageData } from './$types' 
-  import Credit from '$lib/components/Credit.svelte';
   export let data: PageData
 
   // export let retour = false

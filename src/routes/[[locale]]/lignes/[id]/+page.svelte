@@ -104,6 +104,10 @@
   section {
     padding: ($gap * 4) ($gap * 2) ($gap * 4);
 
+    @media (max-width: $mobile) {
+      padding: ($mobile_gap * 6) ($mobile_gap * 1) ($mobile_gap * 3);
+    }
+
     header {
       margin: ($gap * 2) 0;
       
@@ -136,6 +140,17 @@
         opacity: 0;
         transform: translateY(100%);
         transition: transform 666ms, opacity 666ms;
+
+        @media (max-width: $mobile) {
+          position: static;
+          transform: none;
+          order: -1;
+
+          &:not(.annee) {
+            opacity: 1;
+            pointer-events: all;
+          }
+        }
       }
 
       .formats {
@@ -161,6 +176,13 @@
             transform: translateY(-$gap * 2) scaleX(-1);
           }
         }
+
+        @media (max-width: $mobile) {
+          font-size: $mobile_base * 8;
+          order: 99;
+          margin: 0 auto;
+          transform: translate(0%, 100%);
+        }
       }
 
       &:not(.first) {
@@ -174,6 +196,10 @@
           opacity: 1;
           transform: translate(-50%, 0%);
           pointer-events: all;
+
+          @media (max-width: $mobile) {
+            transform: none;
+          }
         }
       }
 
@@ -205,6 +231,13 @@
             justify-content: center;
             height: calc(100vh - ($base * 15));
 
+            @media (max-width: $mobile) {
+              height: auto;
+              width: 100vw;
+              padding: 0 $mobile_gap;
+              flex-direction: column;
+            }
+
             :global(img),
             :global(video) {
               width: auto;
@@ -212,6 +245,10 @@
               object-fit: contain;
               -webkit-user-select: none;
               user-select: none;
+
+              @media (max-width: $mobile) {
+                width: 100%;
+              }
             }
 
             div {
@@ -232,6 +269,10 @@
                 opacity: 0;
                 transition: opacity 333ms;
               }
+
+              @media (max-width: $mobile) {
+                display: none;
+              }
             }
 
             figcaption {
@@ -242,6 +283,10 @@
 
               h5 {
                 margin-bottom: $base;
+              }
+
+              @media (max-width: $mobile) {
+                width: 100%;
               }
             }
           }
@@ -316,6 +361,11 @@
                 height: 20vh;
                 background-color: transparent;
                 padding: 0;
+              }
+
+              @media (max-width: $mobile) {
+                padding: 0;
+                width: auto;
               }
             }
           }
