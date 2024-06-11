@@ -87,19 +87,19 @@
 
     td:last-child {
 
-      &.thumbnails {
-        padding: ($base * 0.5) 0 ($base * 0.5) ($base * 1);
+      @media (min-width: $mobile) {
+        &.thumbnails {
+          padding: ($base * 0.5) 0 ($base * 0.5) ($base * 1);
+
+          figure {
+            width: $gap * 5;
+            margin-left: auto;
+          }
+        }
 
         figure {
-          width: $gap * 5;
-          margin-left: auto;
+          width: $gap * 10;
         }
-      }
-
-      @media (min-width: $mobile) {
-      figure {
-        width: $gap * 10;
-      }
 
         &:not(.thumbnails) {
           border: none;

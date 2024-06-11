@@ -15,7 +15,7 @@
 
   $: {
     if (browser) {
-      document.documentElement.classList.toggle('noscroll', !!(($page.state.type && $page.state.open) || ($page.state.zoom) || ($page.state.search)))
+      document.documentElement.classList.toggle('noscroll', !!(($page.state.type && $page.state.open) || ($page.state.zoom)))
 
       if (innerWidth !== undefined) {
         vertical = innerWidth < innerHeight

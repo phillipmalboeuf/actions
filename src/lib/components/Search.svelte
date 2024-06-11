@@ -99,10 +99,10 @@
 
   <hr class="col col--12of12">
 
-  <fieldset class="col col--8of12">
+  <fieldset class="col col--8of12 col--mobile--12of12">
     <div class="flex flex--gapped">
       {#if artists}
-      <fieldset class="col col--4of12 dropdown">
+      <fieldset class="col col--4of12 col--mobile--12of12 dropdown">
         <label>Artiste <Icon i="down" label="Choix" /></label>
         <nav class="flex flex--tight_gapped">
           {#each ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].filter(l => artists.items.find(a => a.fields.nom[0] === l)) as l}
@@ -144,7 +144,7 @@
       {/if}
 
       {#if mediums}
-      <fieldset class="col col--4of12 dropdown">
+      <fieldset class="col col--4of12 col--mobile--12of12 dropdown">
         <label>Type d'oeuvre <Icon i="down" label="Choix" /></label>
         <nav></nav>
         <div>
@@ -179,7 +179,7 @@
       {/if}
 
       {#if annees}
-      <fieldset class="col col--4of12 dropdown dropdown--wide">
+      <fieldset class="col col--4of12 col--mobile--12of12 dropdown dropdown--wide">
         <label>Année de production <Icon i="down" label="Choix" /></label>
         <div>
           <label for="from">À partir de</label>
@@ -211,7 +211,7 @@
       {/if}
 
       {#each $page.data.lignes as ligne}
-      <fieldset class="col col--4of12" style:--couleur={ligne.fields.couleur}>
+      <fieldset class="col col--4of12 col--mobile--12of12" style:--couleur={ligne.fields.couleur}>
         <label class="ligne">
           {ligne.fields.titre}
           <input type="checkbox" name="{ligne.fields.id}" checked={lignes[ligne.fields.id]} on:input={(e) => {
@@ -245,7 +245,7 @@
 
   {#if results}
   {#if results.length === 0}
-  <div class="col col--12of12"><em>Aucun résultats</em></div>
+  <div class="col col--12of12 empty"><em>Aucun résultats</em></div>
   {:else}
   <Tableau oeuvres={results} {lignes} thumbnails />
   {/if}
@@ -257,17 +257,48 @@
     align-items: flex-start;
     padding: $gap;
 
+    @media (max-width: $mobile) {
+      padding: 0;
+
+      :global(table),
+      .empty {
+        margin-top: $mobile_gap * 2;
+        order: 99;
+      }
+
+      button {
+        order: 99;
+      }
+    }
+
     aside {
       margin-top: $gap * 2;
       margin-bottom: $gap * -0.5;
 
+      @media (max-width: $mobile) {
+        margin-top: $mobile_gap * 2;
+        margin-bottom: 0;
+      }
+
       &:first-of-type {
         margin-right: auto;
+      }
+
+      @media (max-width: $mobile) {
+        &:last-of-type {
+          margin-top: 0;
+          order: 99;
+          align-self: center;
+        }
       }
     }
 
     > fieldset {
       margin-bottom: $gap * 2;
+
+      @media (max-width: $mobile) {
+        margin-bottom: $mobile_gap * 1;
+      }
 
       // select,
       .dropdown {
@@ -278,8 +309,8 @@
       .dropdown {
         height: $base * 2.5;
         overflow: visible;
-        position: relative;
-        z-index: 3000;
+        // position: relative;
+        // z-index: 3000;
 
         > label {
           margin: 2px 0 ($base * 0.5);
@@ -291,6 +322,8 @@
         }
 
         nav {
+          position: relative;
+          z-index: 2;
           display: none;
           width: auto;
           padding: $base $base ($base * 1.5);
@@ -363,6 +396,10 @@
               margin-top: ($base * 0.5);
               padding: ($base * 0.5) 0;
             }
+          }
+
+          @media (max-width: $mobile) {
+            margin-bottom: $mobile_base;
           }
 
           &:hover,

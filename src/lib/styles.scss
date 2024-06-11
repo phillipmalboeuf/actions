@@ -296,6 +296,8 @@ form {
 
 	.dropdown {
 		div {
+			position: relative;
+			z-index: 2;
 			&::-webkit-scrollbar {
 				display: none;
 			}
