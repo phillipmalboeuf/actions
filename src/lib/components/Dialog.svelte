@@ -9,15 +9,25 @@
   import { browser } from '$app/environment'
   // import ContactPage from '../../routes/[[locale]]/contact/+page.svelte'
 
+  let innerWidth: number
+  let innerHeight: number
+  let vertical = false
+
   $: {
     if (browser) {
       document.documentElement.classList.toggle('noscroll', !!(($page.state.type && $page.state.open) || ($page.state.zoom) || ($page.state.search)))
+
+      if (innerWidth !== undefined) {
+        vertical = innerWidth < innerHeight
+      }
     }
   }
 </script>
 
+<svelte:window bind:innerHeight bind:innerWidth />
+
 {#if $page.state.type && $page.state.open}
-<dialog transition:fly={{ opacity: 1, x: '100%', duration: 666 }} class:half={$page.state.type === 'contexte'}>
+<dialog transition:fly={{ opacity: 1, ...vertical ? { y: '100%' } : { x: '100%' }, duration: 666 }} class:vertical class:half={$page.state.type === 'contexte'}>
   {#if $page.state.type === 'oeuvre'}
   <OeuvrePage data={$page.state.open} />
   {:else if $page.state.type === 'contexte'}
@@ -26,8 +36,8 @@
 </dialog>
 <button class="back" transition:fade={{ duration: 666 }} on:click={() => history.back()}>
 </button>
-<button class="close" class:half={$page.state.type === 'contexte'} transition:fly={{ opacity: 1, x: '100vw', duration: 666 }} on:click={() => history.back()}>
-  <Icon i="back" label="Retour" />
+<button class="close" class:vertical class:half={$page.state.type === 'contexte'} transition:fly={{ opacity: 1, ...vertical ? { y: '100vh' } : { x: '100vw' }, duration: 666 }} on:click={() => history.back()}>
+  <Icon i={vertical ? "arrow" : "back"} label="Retour" />
 </button>
 {/if}
 
@@ -49,8 +59,18 @@
     width: 90vw;
     z-index: 2000;
     border: none;
-    border-top-left-radius: $base * $scale;
-    border-bottom-left-radius: $base * $scale;
+    border-top-left-radius: $gap;
+    border-bottom-left-radius: $gap;
+
+    &.vertical {
+      top: auto;
+      bottom: 0;
+      height: 90vh;
+      width: 100vw;
+
+      border-top-right-radius: $gap;
+      border-bottom-left-radius: 0;
+    }
 
     color: currentColor;
     border: none;
@@ -84,8 +104,8 @@
 
   .close {
     position: fixed;
-    top: $base * $scale;
-    left: calc(10vw + ($base * $scale));
+    top: $gap;
+    left: calc(10vw + ($gap));
     z-index: 2001;
     background: none;
     padding: 0;
@@ -93,8 +113,12 @@
     color: currentColor;
     transition: transform 333ms;
 
+    &.vertical {
+      top: calc(10vh + $mobile_gap);
+    }
+
     &.half {
-      left: calc(50vw + ($base * $scale));
+      left: calc(50vw + ($gap));
 
       @media (max-width: $mobile) {
         left: calc(0px + ($mobile_gap));
