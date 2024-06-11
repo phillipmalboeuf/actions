@@ -3,7 +3,6 @@
   import Icon from '$lib/components/Icon.svelte'
   import Logo from '$lib/components/Logo.svelte'
   import Media from '$lib/components/Media.svelte'
-  import { onMount } from 'svelte'
 
   import type { PageData } from './$types'
   export let data: PageData
@@ -21,7 +20,7 @@
       {#each data.lignes as ligne}
       <li class="flex flex--spaced flex--middle flex--gapped">
         <a href="/lignes/{ligne.fields.id}" class=""><Media media={ligne.fields.logotype} /></a>
-        <a href="/lignes/{ligne.fields.id}/video" class="col col--4of12"><Icon i="play" label="Visionner vidéo" /> <Media media={ligne.fields.vignette} small /></a>
+        <a href="/lignes/{ligne.fields.id}/video" class="col col--4of12 col--mobile--12of12"><Icon i="play" label="Visionner vidéo" /> <Media media={ligne.fields.vignette} small /></a>
         <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur}>Visiter</a>
         <hr>
       </li>
@@ -70,6 +69,10 @@
       h6 {
         margin-bottom: $gap * -1;
         text-align: center;
+
+        @media (max-width: $mobile) {
+          margin-bottom: $mobile_gap * 2;
+        }
       }
 
       h2 {
@@ -77,10 +80,15 @@
         margin-bottom: $gap;
         font-size: $base * $scale * 3;
 
+        @media (max-width: $mobile) {
+          font-size: $mobile_gap * 2;
+          margin-bottom: $gap;
+        }
+
         :global(svg) {
           position: absolute;
           left: $gap * -1.5;
-          top: 100%;
+          top: calc(100% - 1px);
 
           :global(path):last-child {
             fill: transparent;
@@ -92,12 +100,20 @@
             top: calc(100% - 1px);
             transform: rotate(180deg);
           }
+
+          @media (max-width: $mobile) {
+            top: calc(100% - 1px);
+          }
         }
 
         + hr {
           margin: 0 ($gap * -1.5);
           width: calc(100% + ($gap * 3));
           max-width: calc(1560px + ($gap * 3));
+
+          @media (max-width: $mobile) {
+            margin-bottom: $mobile_gap;
+          }
         }
       }
 
@@ -115,6 +131,21 @@
               height: $base * 6.66;
               object-fit: contain;
               object-position: left;
+
+              @media (max-width: $mobile) {
+                height: $mobile_base * 3.33;
+              }
+            }
+          }
+
+          @media (max-width: $mobile) {
+            a:nth-child(2) {
+              order: 99;
+              margin: ($mobile_base * 0.75) 0 ($mobile_base * 0.5);
+            }
+
+            hr {
+              order: 99;
             }
           }
 
@@ -122,6 +153,10 @@
             a:first-child {
               :global(img) {
                 height: $base * 7.5;
+
+                @media (max-width: $mobile) {
+                  height: $mobile_base * 4.1;
+                }
               }
             }
           }
@@ -135,12 +170,19 @@
               left: $base;
               color: $beige;
               opacity: 0.88;
+
+              @media (max-width: $mobile) {
+                top: $mobile_base * 0.75;
+                left: $mobile_base * 0.75;
+              }
             }
           }
 
           &:nth-child(2n) {
-            a:last-of-type {
-              order: -1;
+            @media (min-width: $mobile) {
+              a:last-of-type {
+                order: -1;
+              }
             }
           }
         }

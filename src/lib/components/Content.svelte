@@ -21,7 +21,7 @@
   <li class="gallerie" id={item.fields.id}>
     {#if i === 0}
     <figure class="logo" style:--scroll={!innerHeight ? 0 : scrollY > innerHeight ? 1 : scrollY / innerHeight}>
-      <figcaption>Actions collectives. Regards féministes sur la collection.</figcaption>
+      <!-- <figcaption>Actions collectives. Regards féministes sur la collection.</figcaption> -->
       <Logo />
     </figure>
     <figure class="maj">
@@ -99,7 +99,7 @@
       :global(svg) {
         // padding: $gap;
         width: auto;
-        max-width: calc(100vw - ($gap * 0));
+        max-width: calc(100vw - ($gap * 1));
         height: calc(100vh - ($gap * 2));
         overflow: visible;
         object-position: left center;
@@ -148,6 +148,13 @@
           &.scrolled {
             pointer-events: none;
             opacity: 0;
+          }
+
+          @media (max-width: $mobile) {
+            position: fixed;
+            top: $mobile_gap;
+            left: $mobile_gap;
+            transform: none;
           }
         }
 
@@ -260,6 +267,14 @@
           left: 50%;
           transform: translateX(-50%);
 
+          @media (max-width: $mobile) {
+            flex-direction: column;
+            position: static;
+            transform: none;
+            width: 100%;
+            margin-left: 0;
+          }
+
           :global(img),
           :global(video) {
             width: auto;
@@ -267,19 +282,26 @@
             object-fit: contain;
 
             @media (max-width: $mobile) {
-              // height: 75vw;
+              width: 100%;
+              height: auto;
             }
           }
 
           :global(figcaption) {
             width: $gap * 10;
+
+            @media (max-width: $mobile) {
+              width: 100%;
+            }
           }
 
           &:nth-of-type(2n) {
-            justify-content: flex-end;
+            @media (min-width: $mobile) {
+              justify-content: flex-end;
 
-            :global(figcaption) {
-              order: -1;
+              :global(figcaption) {
+                order: -1;
+              }
             }
           }
         }
@@ -314,6 +336,21 @@
                 font-style: normal;
                 margin-bottom: $base * 0.25;
               }
+            }
+          }
+
+          @media (max-width: $mobile) {
+            :global(tr) {
+              display: flex;
+              flex-direction: column;
+              margin-bottom: $mobile_gap * 2;
+            }
+
+            :global(th),
+            :global(td) {
+              display: block;
+              width: 100%;
+              padding: 0;
             }
           }
         }

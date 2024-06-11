@@ -82,5 +82,9 @@
       font-size: $base * 0.9;
       line-height: 1.15;
     }
+
+    @media (max-width: $mobile) {
+      margin: ($mobile_gap * 1.5) 0;
+    }
   }
 </style>

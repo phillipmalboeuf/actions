@@ -206,6 +206,11 @@
       main {
         width: calc(100% + ($gap * 4));
         margin-left: ($gap * -2);
+
+        @media (max-width: $mobile) {
+          width: calc(100% + ($mobile_gap * 2));
+          margin-left: ($mobile_gap * -1);
+        }
       }
 
       ol {
@@ -224,6 +229,10 @@
             }
           }
 
+          @media (max-width: $mobile) {
+            flex: 0 0 80%;
+          }
+
           figure {
             position: relative;
             display: flex;
@@ -232,8 +241,8 @@
             height: calc(100vh - ($base * 15));
 
             @media (max-width: $mobile) {
+              max-width: 100vw;
               height: auto;
-              width: 100vw;
               padding: 0 $mobile_gap;
               flex-direction: column;
             }
@@ -247,6 +256,7 @@
               user-select: none;
 
               @media (max-width: $mobile) {
+                height: 50vh;
                 width: 100%;
               }
             }
@@ -287,6 +297,7 @@
 
               @media (max-width: $mobile) {
                 width: 100%;
+                text-align: center;
               }
             }
           }
@@ -335,8 +346,17 @@
             gap: $base;
             flex-direction: column;
 
+            @media (max-width: $mobile) {
+              height: auto;
+              padding-left: ($mobile_gap * 1);
+            }
+
             :global(p) {
               max-width: 572px;
+
+              @media (max-width: $mobile) {
+                display: none;
+              }
             }
 
             button {
@@ -345,6 +365,12 @@
               right: ($base * 10);
               transition: opacity 333ms;
               opacity: 1;
+
+              @media (max-width: $mobile) {
+                left: $mobile_gap * 1.5;
+                right: auto;
+                bottom: ($mobile_base * 15);
+              }
             }
 
             &:not(.active) button {
