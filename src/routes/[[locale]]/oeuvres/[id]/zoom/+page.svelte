@@ -42,6 +42,7 @@
 
 <style lang="scss">
   dialog {
+    touch-action: manipulation;
     display: block;
     position: fixed;
     top: 0;
