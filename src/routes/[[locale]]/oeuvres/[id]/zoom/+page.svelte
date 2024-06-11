@@ -13,7 +13,7 @@
   export let data: PageData
 
   export let onClose: MouseEventHandler<HTMLAnchorElement> = undefined
-  let ready = false
+  // let ready = false
 
   onMount(() => {
     browser && document.documentElement.classList.add('noscroll')
@@ -61,15 +61,19 @@
       display: flex;
       position: absolute;
       top: $base;
-      left: ($base * $scale * 2);
+      left: ($gap * 2);
       z-index: 4001;
       background: none;
       padding: 0;
       color: $white;
-      margin-bottom: $base * $scale;
+      // margin-bottom: $gap;
       background-color: fade-out($black, 0.33);
       padding: $base * 0.5;
       border-radius: 50%;
+
+      @media (max-width: $mobile) {
+        left: ($mobile_gap * 1);
+      }
     }
   }
 </style>

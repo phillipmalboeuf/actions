@@ -29,7 +29,7 @@
     {:else}
     <span></span>
     {/if} -->
-    <div class="col col--6of12"></div>
+    <div class="col col--6of12 col--mobile--12of12"></div>
     <h1 class="col col--5of12 col--mobile--12of12">{data.oeuvre.fields.annee}</h1>
   </header>
 
@@ -135,6 +135,7 @@
 
       @media (max-width: $mobile) {
         position: static;
+        padding: 0 $mobile_gap;
       }
 
       > a {
@@ -147,6 +148,12 @@
         // text-align: center;
         // margin-left: ($gap * 2);
         margin: ($gap * -1.666) auto 0;
+
+        @media (max-width: $mobile) {
+          margin-top: $mobile_gap * 2;
+          font-size: $mobile_base * 8;
+          text-align: center;
+        }
       }
     }
 
@@ -223,6 +230,10 @@
         max-height: 66vh;
         object-fit: contain;
         background-color: transparent;
+
+        @media (max-width: $mobile) {
+          max-height: none;
+        }
       }
 
       figcaption {
@@ -232,6 +243,10 @@
 
         a:first-of-type {
           margin-left: auto;
+        }
+
+        @media (max-width: $mobile) {
+          margin: $mobile_base 0 ($mobile_gap) !important;
         }
       }
     }

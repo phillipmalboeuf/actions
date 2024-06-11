@@ -128,7 +128,7 @@
         <button disabled={zoom == (oeuvre.fields.maxZoom || 0)} on:click={() => map.zoomIn(0.5)}><Icon i="plus" label="Plus zoom" /></button>
         <button disabled={zoom == (oeuvre.fields.minZoom || -2.5)} on:click={() => map.zoomOut(0.5)}><Icon i="minus" label="Minus zoom" /></button>
         <!-- <small>{zoom}</small> -->
-        <button on:click={reset}>Réinitialiser</button>
+        <button disabled={zoom == (oeuvre.fields.minZoom || -2.5)} on:click={reset}><Icon i="reset" label="Réinitialiser" /></button>
       </nav>
     </div>
 
@@ -183,11 +183,24 @@
       // justify-content: center;
       pointer-events: none;
 
+      @media (max-width: $mobile) {
+        width: auto;
+        top: auto;
+        right: $mobile_gap;
+        bottom: $mobile_gap;
+        left: $mobile_gap;
+      }
+
       p {
         pointer-events: all;
         margin-top: auto;
         transition: opacity 666ms;
         padding: $base;
+
+        @media (max-width: $mobile) {
+          padding: 0;
+          width: 50%;
+        }
 
         &.zoomed {
           opacity: 0;
@@ -200,12 +213,22 @@
         padding: $base;
         background-color: $black;
         border-radius: $base;
+
+        @media (max-width: $mobile) {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          background-color: fade-out($black, 0.33);
+        }
       }
 
       figure {
         cursor: grab;
         position: relative;
-        
+
+        @media (max-width: $mobile) {
+          display: none;
+        }
 
         &.dragging {
           cursor: grabbing;
@@ -249,6 +272,11 @@
       gap: $base;
       margin-top: $base;
 
+      @media (max-width: $mobile) {
+        margin-top: 0;
+        flex-direction: column;
+      }
+
       button {
         font-size: 0.88em;
         color: currentColor;
@@ -258,6 +286,10 @@
 
         &:last-child {
           margin-left: auto;
+
+          @media (max-width: $mobile) {
+            margin-left: 0;
+          }
         }
 
         &[disabled] {

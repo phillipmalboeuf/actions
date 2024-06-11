@@ -75,5 +75,9 @@
         opacity: 0.88;
       }
     }
+
+    @media (max-width: $mobile) {
+      padding: ($mobile_gap * 6) $mobile_gap;
+    }
   }
 </style>

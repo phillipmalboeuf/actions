@@ -58,6 +58,10 @@
 
     &.half {
       width: 50vw;
+
+      @media (max-width: $mobile) {
+        width: 100vw;
+      }
     }
 
     @media (max-width: $mobile) {
@@ -91,6 +95,10 @@
 
     &.half {
       left: calc(50vw + ($base * $scale));
+
+      @media (max-width: $mobile) {
+        left: calc(0px + ($mobile_gap));
+      }
     }
 
     &:hover,
@@ -99,7 +107,7 @@
     }
 
     @media (max-width: $mobile) {
-      left: calc(0px + ($base * $scale));
+      left: calc(0px + ($mobile_gap));
     }
   }
 </style>

@@ -9,6 +9,7 @@
   import Slider from '$lib/components/Slider.svelte'
   import Tableau from '$lib/components/Tableau.svelte'
   import Lignes from '$lib/components/Lignes.svelte'
+  import Credit from '$lib/components/Credit.svelte'
 
   import { year } from '$lib/formatters'
   import { openDialog } from '$lib/helpers'
@@ -16,10 +17,7 @@
   import { page } from '$app/stores'
 
   import type { PageData } from './$types' 
-  import Credit from '$lib/components/Credit.svelte';
   export let data: PageData
-
-  export let retour = false
 
   let slider: EmblaCarouselType
   let active: number = 0
@@ -115,6 +113,10 @@
         width: auto;
         height: 140px;
         object-fit: contain;
+
+        @media (max-width: $mobile) {
+          height: 70px;
+        }
       }
     }
 
