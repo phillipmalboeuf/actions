@@ -3,6 +3,7 @@
   import Icon from '$lib/components/Icon.svelte'
   import Logo from '$lib/components/Logo.svelte'
   import Media from '$lib/components/Media.svelte'
+  import Document from '$lib/components/document/index.svelte'
 
   import type { PageData } from './$types'
   export let data: PageData
@@ -27,6 +28,12 @@
       {/each}
     </ul>
   </nav>
+
+  {#if data.page.fields.credits}
+  <small>
+    <Document body={data.page.fields.credits} />
+  </small>
+  {/if}
 </main>
 
 <style lang="scss">
@@ -46,10 +53,11 @@
       }
     }
 
-    nav {
+    nav,
+    small {
       position: relative;
       z-index: 1;
-      padding: ($gap * 4) ($gap * 2) ($gap * 8);
+      padding: ($gap * 4) ($gap * 2) ($gap * 2);
       background-color: var(--background);
 
       display: flex;
@@ -186,6 +194,16 @@
             }
           }
         }
+      }
+    }
+
+    small {
+      padding-top: 0;
+      padding-bottom: ($gap * 4);
+      
+      :global(td),
+      :global(th) {
+        border: none;
       }
     }
   }

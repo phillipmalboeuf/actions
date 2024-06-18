@@ -101,6 +101,7 @@ export interface TypeOeuvreFields {
     publications?: EntryFieldTypes.RichText;
     historiqueTxt?: EntryFieldTypes.Text;
     publicationsTxt?: EntryFieldTypes.Text;
+    credits?: EntryFieldTypes.RichText;
 }
 
 export type TypeOeuvreSkeleton = EntrySkeletonType<TypeOeuvreFields, "oeuvre">;
@@ -117,6 +118,7 @@ export interface TypePageFields {
     logotype?: EntryFieldTypes.AssetLink;
     format?: EntryFieldTypes.Symbol<"Large" | "Medium" | "Étroit">;
     contenu?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeGallerieSkeleton | TypeTextSkeleton>>;
+    credits?: EntryFieldTypes.RichText;
 }
 
 export type TypePageSkeleton = EntrySkeletonType<TypePageFields, "page">;

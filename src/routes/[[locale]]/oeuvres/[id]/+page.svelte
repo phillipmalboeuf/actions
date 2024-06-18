@@ -69,13 +69,13 @@
     {/if}
 
     <h3>Détails techniques de l’œuvre</h3>
-    <table>
+    <table class="small">
       <tr>
         <td colspan="2">
           <h6>Nom de l’artiste</h6>
           <div>{data.oeuvre.fields.artiste.fields.nom}</div>
           {#if data.oeuvre.fields.artiste.fields.description}<small>{data.oeuvre.fields.artiste.fields.description}</small>{/if}
-          <small>{data.oeuvre.fields.artiste.fields.lieuDeNaissance}, {data.oeuvre.fields.artiste.fields.anneeDeNaissance} {#if data.oeuvre.fields.artiste.fields.lieuDeDeces}– {data.oeuvre.fields.artiste.fields.lieuDeDeces}, {data.oeuvre.fields.artiste.fields.anneDeDeces}{/if}</small>
+          ({data.oeuvre.fields.artiste.fields.lieuDeNaissance}, {data.oeuvre.fields.artiste.fields.anneeDeNaissance} {#if data.oeuvre.fields.artiste.fields.lieuDeDeces}– {data.oeuvre.fields.artiste.fields.lieuDeDeces}, {data.oeuvre.fields.artiste.fields.anneDeDeces}{/if})
         </td>
       </tr>
       <tr>
@@ -111,6 +111,36 @@
         </td>
       </tr>
     </table>
+
+    {#if data.oeuvre.fields.historiqueTxt || data.oeuvre.fields.historique}
+    <div>
+    <h5><strong>Historique d'exposition</strong></h5>
+    <small>
+      {#if data.oeuvre.fields.historique}
+      <Document body={data.oeuvre.fields.historique} />
+      {:else}
+      <p>{data.oeuvre.fields.historiqueTxt}</p>
+      {/if}
+    </small>
+    </div>
+    {/if}
+
+    {#if data.oeuvre.fields.publicationsTxt || data.oeuvre.fields.publications}
+    <div>
+    <h5><strong>Historique de publication de l'oeuvre</strong></h5>
+    <small>
+      {#if data.oeuvre.fields.publications}
+      <Document body={data.oeuvre.fields.publications} />
+      {:else}
+      <p>{data.oeuvre.fields.publicationsTxt}</p>
+      {/if}
+    </small>
+    </div>
+    {/if}
+
+    {#if data.oeuvre.fields.credits}
+    <Document body={data.oeuvre.fields.credits} />
+    {/if}
   </main>
 </section>
 
@@ -168,12 +198,18 @@
       }
 
       h5 {
-        font-size: ($base * $scale) + 2px;
+        // font-size: ($base * $scale) + 2px;
       }
 
       h5,
       aside {
         max-width: 400px;
+      }
+
+      div {
+        h5 {
+          margin-bottom: $base;
+        }
       }
 
       aside {
@@ -186,7 +222,7 @@
       }
 
       :global(p) {
-        font-size: $base + 2px;
+        // font-size: $base + 2px;
       }
 
       :global(figure figcaption) {
@@ -199,6 +235,7 @@
       }
 
       table {
+        margin-bottom: $base * 0.33;
 
         h6,
         div {
