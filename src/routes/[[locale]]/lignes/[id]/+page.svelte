@@ -33,10 +33,12 @@
   </header>
   {/if}
 
-  <nav class="col col--6of12">
-    <Lignes current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} format={data.format} />
+  <nav class="col selector">
+    <Lignes id="exposition-desktop" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} format={data.format} />
   </nav>
-  <nav class="col formats" style:--current-color={data.ligne.fields.couleur}>
+  <nav class="col col--mobile--12of12 formats" style:--current-color={data.ligne.fields.couleur}>
+    <Lignes id="exposition-mobile" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} format={data.format} />
+
     {#if data.format === "index"}
     <a href="/lignes/{data.ligne.fields.id}?format=gallerie" class="button" style:--color={data.ligne.fields.couleur}>Gallerie</a>
     {:else}
@@ -158,6 +160,26 @@
       .formats {
         left: auto;
         right: $gap * 2;
+
+        @media (min-width: $mobile) {
+          :global(form) {
+            display: none;
+          }
+        }
+      }
+
+      @media (max-width: $mobile) {
+        .selector {
+          display: none;
+        }
+
+        .formats {
+          position: relative;
+          left: 0;
+          right: 0;
+          top: 0;
+          justify-content: space-between;
+        }
       }
 
       .annee {
@@ -406,10 +428,13 @@
       &.formats {
         z-index: 20;
         display: flex;
-        flex-direction: column;
         gap: $base * 0.5;
-        margin-left: auto;
         align-self: top;
+
+        @media (min-width: $mobile) {
+          flex-direction: column;
+          margin-left: auto;
+        }
 
         // > div {
         //   position: relative;
