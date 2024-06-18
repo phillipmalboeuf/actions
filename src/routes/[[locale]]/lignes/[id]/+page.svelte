@@ -82,6 +82,7 @@
               <p>
                 <Credit {oeuvre} />
               </p>
+              <u>Découvrir l'oeuvre</u>
             </figcaption>
           </figure>
           </a>
@@ -131,6 +132,10 @@
     }
 
     &.gallerie {
+      @media (max-width: $mobile) {
+        // --gap: $mobile_gap;
+      }
+
       nav,
       .annee {
         position: absolute;
@@ -199,12 +204,16 @@
           &.previous {
             transform: translateY(-$gap * 2) scaleX(-1);
           }
+
+          @media (max-width: $mobile) {
+            display: none;
+          }
         }
 
         @media (max-width: $mobile) {
           font-size: $mobile_base * 8;
           order: 99;
-          margin: 0 auto;
+          margin: ($mobile_base * -1) auto 0;
           transform: translate(0%, 100%);
         }
       }
@@ -322,6 +331,10 @@
               @media (max-width: $mobile) {
                 width: 100%;
                 text-align: center;
+
+                p {
+                  display: none;
+                }
               }
             }
           }
