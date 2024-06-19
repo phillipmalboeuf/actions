@@ -9,6 +9,7 @@ declare global {
 			type?: 'oeuvre' | 'page' | 'contexte'
 			open?: any
 			zoom?: any
+			video?: any
 			search?: any
 		}
 		// interface Platform {}

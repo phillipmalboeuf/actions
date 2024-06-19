@@ -4,6 +4,7 @@
   import Logo from '$lib/components/Logo.svelte'
   import Media from '$lib/components/Media.svelte'
   import Document from '$lib/components/document/index.svelte'
+  import { openDialog } from '$lib/helpers'
 
   import type { PageData } from './$types'
   export let data: PageData
@@ -21,7 +22,7 @@
       {#each data.lignes as ligne}
       <li class="flex flex--spaced flex--middle flex--gapped">
         <a href="/lignes/{ligne.fields.id}" class=""><Media media={ligne.fields.logotype} /></a>
-        <a href="/lignes/{ligne.fields.id}/video" class="col col--4of12 col--mobile--12of12"><Icon i="play" label="Visionner vidéo" /> <Media media={ligne.fields.vignette} small /></a>
+        <a href="/lignes/{ligne.fields.id}/video" on:click={openDialog} class="col col--4of12 col--mobile--12of12"><Icon i="play" label="Visionner vidéo" /> <Media media={ligne.fields.vignette} small /></a>
         <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur}>Visiter</a>
         <hr>
       </li>

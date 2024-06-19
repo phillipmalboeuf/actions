@@ -51,8 +51,8 @@
 	currentScroll = scrollY
 }} />
 
-<header class:up class:dark={$page.route.id === '/[[locale]]/oeuvres/[id]/zoom' && !searching && !menu}>
-  {#if $page.route.id !== '/[[locale]]' && $page.route.id !== '/[[locale]]/oeuvres/[id]/zoom'}
+<header class:up class:dark={($page.route.id === '/[[locale]]/oeuvres/[id]/zoom' || $page.route.id === '/[[locale]]/lignes/[id]/video') && !searching && !menu}>
+  {#if $page.route.id !== '/[[locale]]' && $page.route.id !== '/[[locale]]/oeuvres/[id]/zoom' && $page.route.id !== '/[[locale]]/lignes/[id]/video'}
   <a href="/" class="h2"><Icon i="home" label="Accueil" /></a>
   {/if}
 

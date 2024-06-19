@@ -30,8 +30,10 @@
   <Document body={data.ligne.fields.contexte} />
 
   <figure>
-    <Icon i="play" label="Visionner vidéo" />
-    <Media media={data.ligne.fields.vignette} />
+    <a href="/lignes/{data.ligne.fields.id}/video" on:click={openDialog}>
+      <Icon i="play" label="Visionner vidéo" />
+      <Media media={data.ligne.fields.vignette} />
+    </a>
   </figure>
 </aside>
 

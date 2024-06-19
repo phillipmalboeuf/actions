@@ -5,6 +5,7 @@
   import OeuvrePage from '../../routes/[[locale]]/oeuvres/[id]/+page.svelte'
   import ContextePage from '../../routes/[[locale]]/lignes/[id]/contexte/+page.svelte'
   import ZoomPage from '../../routes/[[locale]]/oeuvres/[id]/zoom/+page.svelte'
+  import VideoPage from '../../routes/[[locale]]/lignes/[id]/video/+page.svelte'
   import Icon from './Icon.svelte'
   import { browser } from '$app/environment'
   // import ContactPage from '../../routes/[[locale]]/contact/+page.svelte'
@@ -43,6 +44,12 @@
 
 {#if $page.state.zoom}
 <ZoomPage data={$page.state.zoom} onClose={() => {
+  history.back()
+}} />
+{/if}
+
+{#if $page.state.video}
+<VideoPage data={$page.state.video} onClose={() => {
   history.back()
 }} />
 {/if}
