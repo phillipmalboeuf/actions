@@ -30,9 +30,10 @@
     </td>
     <td>
       <p>
-        <em>{oeuvre.fields.titre}</em><br />
+        {oeuvre.fields.titre}<br />
         {oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}<br />
         {oeuvre.fields.medium}<br />
+        {oeuvre.fields.largeur} cm x {oeuvre.fields.hauteur} cm
         <!-- {oeuvre.fields.largeur}cm   -->
       </p>
     </td>
@@ -63,12 +64,12 @@
     th {
       padding: ($base);
       padding-left: ($gap * 2);
-      width: 25%;
+      width: 30%;
 
       @media (min-width: $mobile) {
         &:first-child {
           padding-left: 0;
-          width: $gap;
+          width: 10%;
         }
       }
 
@@ -120,8 +121,11 @@
 
     a {
       display: table-row;
-      vertical-align: middle;
       line-height: 1.3;
+
+      td {
+        vertical-align: middle;
+      }
 
       @media (max-width: $mobile) {
         display: flex;
