@@ -95,6 +95,7 @@ export interface TypeOeuvreFields {
     typologie?: EntryFieldTypes.Symbol;
     medium?: EntryFieldTypes.Symbol;
     anneeDeRealisation?: EntryFieldTypes.Symbol;
+    droits?: EntryFieldTypes.Text;
     mention?: EntryFieldTypes.Text;
     corps?: EntryFieldTypes.RichText;
     historique?: EntryFieldTypes.RichText;
