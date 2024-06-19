@@ -247,7 +247,7 @@
   {#if results.length === 0}
   <div class="col col--12of12 empty"><em>Aucun résultats</em></div>
   {:else}
-  <Tableau oeuvres={results} {lignes} thumbnails />
+  <Tableau oeuvres={results} {lignes} thumbnails on:click />
   {/if}
   {/if}
 </form>

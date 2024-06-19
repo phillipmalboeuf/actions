@@ -61,7 +61,7 @@
 
   <nav class="search">
     <button class="button--none" on:click={() => searching = false}><Icon i="back" label="Fermer" /></button>
-    <Search visible={searching} />
+    <Search visible={searching} on:click={() => searching = false} />
   </nav>
 
   <input type="checkbox" name="menu" id="menu" bind:checked={menu} on:input={() => searching = false} />

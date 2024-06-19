@@ -5,6 +5,7 @@
   import Document from './document/index.svelte'
   import Icon from './Icon.svelte'
   import Logo from './Logo.svelte'
+  import Credit from './Credit.svelte';
 
   export let content: Entry<TypeGallerieSkeleton | TypeTextSkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>[]
   export let format: TypePageFields['format']['values'] = undefined
@@ -40,11 +41,7 @@
         <figure>
           <Media media={oeuvre.fields.vignette} />
           <figcaption>
-            <p>{oeuvre.fields.artiste?.fields.nom}, {oeuvre.fields.titre}</p>
-            <p>{oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}, {oeuvre.fields.medium},<br />{oeuvre.fields.dimensions}</p>
-            <p>Collection du Musée d’art 
-            de Joliette ({oeuvre.fields.numero}),<br />
-            {oeuvre.fields.mention}</p>
+            <Credit {oeuvre} />
           </figcaption>
         </figure>
         
