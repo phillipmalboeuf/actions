@@ -133,7 +133,7 @@
     </div>
 
     <p class:zoomed={zoom > (oeuvre.fields.minZoom || -2.5)}>
-      <Credit {oeuvre} />
+      <Credit {oeuvre} full />
     </p>
   </aside>
 </main>

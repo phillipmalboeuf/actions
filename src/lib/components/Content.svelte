@@ -250,6 +250,10 @@
         > :global(blockquote > p) {
           font-size: $base + 2px;
         }
+
+        > :global(h5) {
+          font-size: ($base * $scale) + 4px;
+        }
         
         > :global(table ~ p) {
           font-size: $base;
@@ -257,18 +261,18 @@
 
         > :global(figure) {
           display: flex;
+          flex-direction: column;
           width: calc(100vw - ($base * 4));
           margin-left: $base * -1;
           max-width: none;
-          gap: $gap;
-          align-items: flex-end;
+          gap: $gap * 0.5;
+          align-items: flex-start;
 
-          position: relative;
-          left: 50%;
-          transform: translateX(-50%);
+          // position: relative;
+          // left: 50%;
+          // transform: translateX(-50%);
 
           @media (max-width: $mobile) {
-            flex-direction: column;
             position: static;
             transform: none;
             width: 100%;
@@ -288,7 +292,8 @@
           }
 
           :global(figcaption) {
-            width: $gap * 10;
+            // width: $gap * 10;
+            
 
             @media (max-width: $mobile) {
               width: 100%;
@@ -296,11 +301,13 @@
           }
 
           &:nth-of-type(2n) {
+            align-items: flex-end;
+
             @media (min-width: $mobile) {
               justify-content: flex-end;
 
               :global(figcaption) {
-                order: -1;
+                // order: -1;
               }
             }
           }
@@ -309,7 +316,7 @@
         > :global(h3),
         > :global(h4),
         > :global(h5) {
-          margin: ($gap) 0 ($gap * 0.5);
+          // margin: ($gap) 0 ($gap);
         }
 
         > :global(table) {

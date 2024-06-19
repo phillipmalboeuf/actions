@@ -24,6 +24,11 @@
 {:else if node.nodeType === 'hr'}
   <hr />
 
+{:else if node.nodeType === 'ordered-list'}
+  <ol>
+    {#each node.content as item}<li>{#each item.content as node}<svelte:self node={node} />{/each}</li>{/each}
+  </ol>
+
 {:else if node.nodeType === 'unordered-list'}
   <ul>
     {#each node.content as item}<li>{#each item.content as node}<svelte:self node={node} />{/each}</li>{/each}
@@ -86,5 +91,10 @@
     @media (max-width: $mobile) {
       margin: ($mobile_gap * 1.5) 0;
     }
+  }
+
+  ol,
+  ul {
+    padding-left: 1.5em;
   }
 </style>

@@ -328,6 +328,12 @@
                 margin-bottom: $base;
               }
 
+              @media (min-width: $mobile) {
+                u {
+                  display: none;
+                }
+              }
+
               @media (max-width: $mobile) {
                 width: 100%;
                 text-align: center;

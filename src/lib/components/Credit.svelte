@@ -3,9 +3,12 @@
   import type { Entry } from 'contentful'
 
   export let oeuvre: Entry<TypeOeuvreSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
+  export let full = false
 </script>
 
 <div>{oeuvre.fields.artiste.fields.nom}</div>
-<div><em>{oeuvre.fields.titre}</em></div>
+<div>{oeuvre.fields.titre}</div>
+{#if full}
 <div>{oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}</div>
 <div>{oeuvre.fields.medium}</div>
+{/if}
