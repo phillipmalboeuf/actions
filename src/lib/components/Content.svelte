@@ -40,11 +40,10 @@
         <!-- <a href="/oeuvres/{oeuvre.fields.id}" on:click={openDialog}></a> -->
         <figure>
           <Media media={oeuvre.fields.vignette} />
-          <figcaption>
+          <!-- <figcaption>
             <Credit {oeuvre} />
-          </figcaption>
+          </figcaption> -->
         </figure>
-        
       </li>
     {/each}
     </ul>

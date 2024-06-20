@@ -88,6 +88,12 @@
 
     td:last-child {
 
+      @media (max-width: $mobile) {
+        figure {
+          padding-right: $base;
+        }
+      }
+
       @media (min-width: $mobile) {
         &.thumbnails {
           padding: ($base * 0.5) 0 ($base * 0.5) ($base * 1);

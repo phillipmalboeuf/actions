@@ -35,7 +35,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   @media (max-width: $mobile) {
-    font-size: $mobile_base;
+    font-size: $mobile_base + 1px;
     line-height: $mobile_scale;
   }
 }
@@ -163,7 +163,7 @@ button,
 	&.button--tight {
 		// color: $white;
 		padding: ($base * $scale * 0.25) ($base * $scale * 0.5);
-		background-color: $grey-light;
+		background-color: $beige-dark;
 		border-color: transparent;
 	}
 
