@@ -148,7 +148,7 @@
 <style lang="scss">
   video {
     width: 100vw;
-    height: 100vh;
+    height: $vh;
     background: $black;
     // object-fit: cover;
   }

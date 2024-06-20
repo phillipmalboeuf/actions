@@ -97,7 +97,7 @@
         // padding: $gap;
         width: auto;
         max-width: calc(100vw - ($gap * 1));
-        height: calc(100vh - ($gap * 2));
+        height: calc($vh - ($gap * 2));
         overflow: visible;
         object-position: left center;
         background-color: var(--background);
@@ -120,7 +120,7 @@
       }
 
       ~ ul {
-        margin-top: calc(-100vh + ($gap * 4));
+        margin-top: calc(($vh * -1) + ($gap * 4));
       }
     }
 

@@ -146,7 +146,7 @@
     justify-content: space-between;
 
     > figure {
-      height: 100vh;
+      height: $vh;
       width: 100vw;
       background-color: transparent !important;
       

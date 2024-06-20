@@ -191,7 +191,7 @@
       top: 0;
       right: 0;
       left: auto;
-      height: 100vh;
+      height: $vh;
       overflow-y: auto;
       width: 99vw;
       z-index: -1;
@@ -234,7 +234,7 @@
         padding: $gap;
         
         :global(svg) {
-          height: calc(100vh - ($gap * 4));
+          height: calc($vh - ($gap * 4));
           width: auto;
         }
 

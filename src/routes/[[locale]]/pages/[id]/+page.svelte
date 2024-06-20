@@ -38,7 +38,7 @@
 <style lang="scss">
   section {
     padding: ($gap * 2) ($gap * 2);
-    min-height: 100vh;
+    min-height: $vh;
     // justify-content: space-around;
 
     :global(.-pages-credits) &,

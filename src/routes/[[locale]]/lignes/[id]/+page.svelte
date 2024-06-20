@@ -303,7 +303,7 @@
             display: flex;
             gap: $gap;
             justify-content: center;
-            height: calc(100vh - ($base * 15));
+            height: calc($vh - ($base * 15));
 
             @media (max-width: $mobile) {
               max-width: 100vw;
@@ -416,7 +416,7 @@
             flex: 0 0 80%;
             // min-width: 70vw;
             padding: ($gap * 3) ($gap * 2) $gap;
-            height: calc(100vh - ($base * 5));
+            height: calc($vh - ($base * 5));
             display: flex;
             gap: $base;
             flex-direction: column;

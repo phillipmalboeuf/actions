@@ -61,7 +61,7 @@
     top: 0;
     right: 0;
     left: auto;
-    height: 100vh;
+    height: $vh;
     overflow-y: auto;
     width: 90vw;
     z-index: 2000;
