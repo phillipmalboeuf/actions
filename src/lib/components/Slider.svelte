@@ -13,7 +13,7 @@
   export let dots: number = undefined
   export let slidesPerView: number | "auto" = 1
 
-  let options: EmblaOptionsType = { loop }
+  let options: EmblaOptionsType = { loop, startIndex: 0 }
   let plugins = [
     ...autoplay ? [Autoplay({ stopOnFocusIn: true })] : [],
     ...autoheight ? [Autoheight()] : [],

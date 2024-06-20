@@ -131,13 +131,17 @@ button,
 	color: currentColor;
 	display: inline-block;
 	text-align: center;
-	padding: ($base * $scale * 0.5) ($base * $scale * 1.5);
+	padding: ($gap * 0.5) ($gap * 1.5);
 	border-radius: $gap;
 	// background: transparent;
 	// border: 1px solid;
 	line-height: 1;
 	border: 1.5px solid;
 	background-color: transparent;
+
+	@media (max-width: $mobile) {
+		padding: ($mobile_gap * 0.5) ($mobile_gap * 1);
+	}
 
 	&:hover,
 	&:focus {

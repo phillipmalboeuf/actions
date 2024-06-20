@@ -1,5 +1,7 @@
 <script lang="ts">
   import { type EmblaCarouselType } from 'embla-carousel'
+  import type { Entry } from 'contentful';
+  import type { TypeLigneSkeleton } from '$lib/clients/content_types';
 
   // import { fade } from 'svelte/transition'
   import Media from '$lib/components/Media.svelte'
@@ -21,6 +23,14 @@
 
   let slider: EmblaCarouselType
   let active: number = 0
+
+  let next: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
+  let index: number
+
+  $: {
+    index = data.lignes.findIndex(l => l.sys.id === data.ligne.sys.id)
+    next = data.lignes[index === data.lignes.length - 1 ? 0 : index + 1]
+  }
 </script>
 
 {#key data.format}
@@ -88,14 +98,23 @@
           </a>
         </li>
         {/each}
+
+        <li class="slide fin" class:active={active === data.ligne.fields.oeuvres.length}>
+          <a href="/lignes/{next.fields.id}" on:click={() => slider.scrollTo(0, true)} style:--color={next.fields.couleur}>
+            <Icon i="back" label="Prochain" />
+            <p>Visitez la prochaine exposition</p>
+            <hr>
+            <p>{next.fields.titre}</p>
+          </a>
+        </li>
       </ol>
       {/key}
     </Slider>
   </main>
   <h1 class="annee">
     <button class="previous button--none" on:click={() => slider.scrollPrev()}><Icon i="next" label="Retour" /></button>
-    {active > 0 ? data.ligne.fields.oeuvres[active - 1].fields.annee : data.ligne.fields.oeuvres[0].fields.annee}
-    {#if active !== data.ligne.fields.oeuvres.length}<button class="next button--none" on:click={() => slider.scrollNext()}><Icon i="next" label="Prochain" /></button>{/if}
+    {active > 0 ? active === data.ligne.fields.oeuvres.length + 1 ? data.ligne.fields.oeuvres[active - 2].fields.annee : data.ligne.fields.oeuvres[active - 1].fields.annee : data.ligne.fields.oeuvres[0].fields.annee}
+    <button disabled={active === data.ligne.fields.oeuvres.length + 1} class="next button--none" on:click={() => slider.scrollNext()}><Icon i="next" label="Prochain" /></button>
   </h1>
   {/if}
 </section>
@@ -211,6 +230,11 @@
 
           &.previous {
             transform: translateY(-$gap * 2) scaleX(-1);
+          }
+
+          &[disabled] {
+            pointer-events: none;
+            opacity: 0.5;
           }
 
           @media (max-width: $mobile) {
@@ -443,6 +467,40 @@
               @media (max-width: $mobile) {
                 padding: 0;
                 width: auto;
+              }
+            }
+          }
+
+          &.fin {
+            flex: 0 0 33%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+
+            @media (max-width: $mobile) {
+              flex: 0 0 40%;
+            }
+
+            a {
+              background-color: var(--color);
+              padding: ($base * 0.75) ($base * 0.5) ($base * 0.75);
+              border-bottom-left-radius: $base * 0.5;
+              border-top-left-radius: $base * 0.5;
+              width: 120px;
+              font-size: $base - 2px;
+
+              :global(svg) {
+                display: block;
+                width: 37px;
+                height: 37px;
+                border: 1px solid;
+                border-radius: 50%;
+                padding: $base * 0.25;
+                margin-bottom: $gap;
+              }
+
+              hr {
+                margin: ($gap * 3) 0 ($base * 0.75);
               }
             }
           }
