@@ -55,6 +55,7 @@
     background-color: var(--background);
     padding: ($gap * 2) ($gap * 2) ($gap * 2);
     backface-visibility: hidden;
+    overflow-x: hidden;
 
     @media (max-width: $mobile) {
       padding: ($mobile_gap * 2) ($mobile_gap) ($mobile_gap * 2);
