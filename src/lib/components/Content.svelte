@@ -96,6 +96,7 @@
         // padding: $gap;
         width: auto;
         max-width: calc(100vw - ($gap * 1));
+        transition: height 333ms;
         height: calc($vh - ($gap * 2));
         overflow: visible;
         object-position: left center;
