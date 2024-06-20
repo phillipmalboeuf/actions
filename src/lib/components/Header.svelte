@@ -211,6 +211,7 @@
 
       @media (max-width: $mobile) {
         width: 100vw;
+        border-radius: 0;
       }
 
       &.search {
