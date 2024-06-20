@@ -10,7 +10,7 @@ $mobile_gap: $mobile_base * $mobile_scale;
 
 $number_of_columns: 12;
 
-$vh: min(100dvh, 100vh);
+$vh: min(100svh, 100vh);
 
 // FONTS
 $display: 'Marguerite Grotesk', sans-serif;
