@@ -495,7 +495,7 @@
       }
     }
 
-    button {
+    button:not([type="button"]) {
       margin-left: auto;
     }
   }
