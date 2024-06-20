@@ -256,6 +256,7 @@ form {
 	input[type="text"],
 	input[type="email"],
 	input[type="search"],
+	input[type="number"],
 	.dropdown,
 	textarea,
 	select {
@@ -348,11 +349,12 @@ form {
 		cursor: pointer;
 		-webkit-appearance: none;
 		appearance: none;
-		margin: ($base * 0.5) 0;
+		margin: ($base * 0.5) 0 ($base * 0.75);
 
 		&::-webkit-slider-runnable-track {
-			height: $base * 0.5;
-			border: 1px solid;
+			height: 1px;
+			// border: 1px solid;
+			background-color: currentColor;
 			border-radius: $base;
 		}
 
@@ -360,7 +362,7 @@ form {
 			-webkit-appearance: none;
 			border: 1px solid;
 			background-color: $beige;
-			margin-top: ($base * -0.25) - 1px;
+			margin-top: ($base * -0.5);
 			height: $base;
 			width: $base;
 			border-radius: 50%;
@@ -371,6 +373,7 @@ form {
 			left: var(--left);
 			display: inline-block;
 			transform: translateX(-50%);
+			font-size: $base - 2px;
 		}
 	}
 }

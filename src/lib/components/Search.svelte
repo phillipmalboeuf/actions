@@ -58,10 +58,10 @@
 
     if (result.type === 'loaded' && result.status === 200) {
       query = result.data.query
-      artist = result.data.artist
+      artist = result.data.artist || []
       from = result.data.from
       to = result.data.to
-      medium = result.data.medium
+      medium = result.data.medium || []
       results = result.data.results
 
       pushState(path, { search: result.data })
@@ -75,7 +75,12 @@
 
 <form class="flex flex--gapped" bind:this={form} action="/search" method="get" on:submit|preventDefault={submit}>
   <label for="query">Inscrire les termes recherchés</label>
-  <input type="search" name="query" id="query" placeholder="Recherche…" bind:value={query}>
+  <input type="search" name="query" id="query" placeholder="Recherche…" bind:value={query} on:input={(e) => {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      form.requestSubmit()
+    }, 666)
+  }}>
 
   <aside class="col">
     <label for="artist">Filtres</label>
@@ -182,23 +187,28 @@
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown dropdown--wide">
         <label>Année de production <Icon i="down" label="Choix" /></label>
         <div>
-          <label for="from">À partir de</label>
-          <input type="range" name="from" id="from" bind:value={from} min={1930} max={2020} on:input={(e) => {
-            clearTimeout(timeout)
-            timeout = setTimeout(() => {
-              form.requestSubmit()
-            }, 666)
-          }}>
-          <span style:--left={`${(from - 1925) / (2025 - 1925) * 100}%`}>{from}</span>
-
-          <label for="from">Jusqu'à</label>
-          <input type="range" name="to" id="to" bind:value={to} min={1930} max={2020} on:input={(e) => {
-            clearTimeout(timeout)
-            timeout = setTimeout(() => {
-              form.requestSubmit()
-            }, 666)
-          }}>
-          <span style:--left={`${(to - 1925) / (2025 - 1925) * 100}%`}>{to}</span>
+          <div>
+            <label for="from">À partir de</label>
+            <input type="number" class:default={Number(from) === 1930} bind:value={from}>
+            <input type="range" name="from" id="from" bind:value={from} min={1930} max={2020} on:input={(e) => {
+              clearTimeout(timeout)
+              timeout = setTimeout(() => {
+                form.requestSubmit()
+              }, 666)
+            }}>
+            <span style:--left={`${(from - 1925) / (2025 - 1925) * 100}%`}>{from}</span>
+          </div>
+          <div>
+            <label for="from">Jusqu'à</label>
+            <input type="number" class:default={Number(to) === 2020} bind:value={to}>
+            <input type="range" name="to" id="to" bind:value={to} min={1930} max={2020} on:input={(e) => {
+              clearTimeout(timeout)
+              timeout = setTimeout(() => {
+                form.requestSubmit()
+              }, 666)
+            }}>
+            <span style:--left={`${(to - 1925) / (2025 - 1925) * 100}%`}>{to}</span>
+          </div>
         </div>
         <!-- <select name="annee" value={annee || ""} on:input={(e) => { form.requestSubmit() }}>
           <option value={""}>Année de production</option>
@@ -395,6 +405,54 @@
             label {
               margin-top: ($base * 0.5);
               padding: ($base * 0.5) 0;
+            }
+
+            &:has(> div) {
+              padding-bottom: $base * 0.25;
+            }
+
+            > div {
+              position: relative;
+              margin: 0 0 $base;
+              padding: $base !important;
+              background-color: $grey-ish !important;
+              border-radius: $base;
+
+              label {
+                border-top: none;
+                margin-top: 0;
+                padding-top: 0;
+                margin-bottom: $base * 0.5;
+              }
+
+              input[type="range"] {
+                &::-webkit-slider-thumb {
+                  background-color: $grey-ish;
+                }
+              }
+
+              input[type="number"] {
+                position: absolute;
+                top: $base * 0.95;
+                right: $base * 0.75;
+                background-color: $beige;
+                width: $base * 3;
+                padding: $base * 0.25;
+                font-size: $base - 2px;
+                text-align: center;
+
+                &.default {
+                  color: transparent;
+                }
+
+                -moz-appearance: textfield;
+
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                  -webkit-appearance: none;
+                  margin: 0;
+                }
+              }
             }
           }
 

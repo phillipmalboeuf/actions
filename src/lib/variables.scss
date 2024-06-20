@@ -10,7 +10,7 @@ $mobile_gap: $mobile_base * $mobile_scale;
 
 $number_of_columns: 12;
 
-$vh: 100dvh;
+$vh: min(100dvh, 100vh);
 
 // FONTS
 $display: 'Marguerite Grotesk', sans-serif;
@@ -23,6 +23,7 @@ $black: #000000;
 $black-light: #212121;
 $white: #FFFFFF;
 $grey: #BDB98D;
+$grey-ish: #DDDCD3;
 $grey-light: #E4E4E4;
 $grey-dark: #2F2F2F;
 
