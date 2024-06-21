@@ -30,6 +30,7 @@
   export let mediums: string[] = undefined
 
   let timeout: NodeJS.Timeout
+  let down: string = undefined
 
   $: {
     if (browser && !artists && visible) {
@@ -84,15 +85,16 @@
 
   <aside class="col">
     <label for="artist">Filtres</label>
+    {#if results && results.length < 83}<a href="#resultats">{#if results.length === 0}Aucun résultats{:else}Voir les {results.length} résultats{/if}</a>{/if}
   </aside>
 
   <aside class="col">
     <a href="/search" on:click|preventDefault={async () => {
       query = undefined
-      artist = undefined
+      artist = []
       from = 1930
       to = 2020
-      medium = undefined
+      medium = []
       lignes = $page.data.lignes.reduce((ls, ligne) => ({
         ...ls,
         [ligne.fields.id]: true
@@ -107,8 +109,8 @@
   <fieldset class="col col--8of12 col--mobile--12of12">
     <div class="flex flex--gapped">
       {#if artists}
-      <fieldset class="col col--4of12 col--mobile--12of12 dropdown">
-        <label>Artiste <Icon i="down" label="Choix" /></label>
+      <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Artiste'}>
+        <button class="button--none" on:click={() => down = down === 'Artiste' ? undefined : 'Artiste'}>Artiste <Icon i="down" label="Choix" /></button>
         <nav class="flex flex--tight_gapped">
           {#each ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].filter(l => artists.items.find(a => a.fields.nom[0] === l)) as l}
           <button class="button--none" on:click={() => {
@@ -134,7 +136,7 @@
                 clearTimeout(timeout)
                 timeout = setTimeout(() => {
                   form.requestSubmit()
-                }, 666)
+                }, 333)
               }}>
           </label>
           {/each}
@@ -149,8 +151,8 @@
       {/if}
 
       {#if mediums}
-      <fieldset class="col col--4of12 col--mobile--12of12 dropdown">
-        <label>Type d'oeuvre <Icon i="down" label="Choix" /></label>
+      <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Type'}>
+        <button class="button--none" on:click={() => down = down === 'Type' ? undefined : 'Type'}>Type d'oeuvre <Icon i="down" label="Choix" /></button>
         <nav></nav>
         <div>
           {#each mediums as m}
@@ -168,7 +170,7 @@
                 clearTimeout(timeout)
                 timeout = setTimeout(() => {
                   form.requestSubmit()
-                }, 666)
+                }, 333)
               }}>
           </label>
           {/each}
@@ -184,8 +186,8 @@
       {/if}
 
       {#if annees}
-      <fieldset class="col col--4of12 col--mobile--12of12 dropdown dropdown--wide">
-        <label>Année de production <Icon i="down" label="Choix" /></label>
+      <fieldset class="col col--4of12 col--mobile--12of12 dropdown dropdown--wide" class:down={down === 'Année'}>
+        <button class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'}>Année de production <Icon i="down" label="Choix" /></button>
         <div>
           <div>
             <label for="from">À partir de</label>
@@ -194,7 +196,7 @@
               clearTimeout(timeout)
               timeout = setTimeout(() => {
                 form.requestSubmit()
-              }, 666)
+              }, 333)
             }}>
             <span style:--left={`${(from - 1925) / (2025 - 1925) * 100}%`}>{from}</span>
           </div>
@@ -255,9 +257,9 @@
 
   {#if results}
   {#if results.length === 0}
-  <div class="col col--12of12 empty"><em>Aucun résultats</em></div>
+  <div class="col col--12of12 empty" id="resultats"><em>Aucun résultats</em></div>
   {:else}
-  <Tableau oeuvres={results} {lignes} thumbnails on:click />
+  <div id="resultats"><Tableau oeuvres={results} {lignes} thumbnails on:click /></div>
   {/if}
   {/if}
 </form>
@@ -295,10 +297,22 @@
       }
 
       @media (max-width: $mobile) {
+        &:first-of-type {
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+        }
+
         &:last-of-type {
           margin-top: 0;
           order: 99;
           align-self: center;
+        }
+      }
+
+      @media (min-width: $mobile) {
+        button {
+          display: none;
         }
       }
     }
@@ -322,7 +336,11 @@
         // position: relative;
         // z-index: 3000;
 
-        > label {
+        > button {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
           margin: 2px 0 ($base * 0.5);
 
           :global(svg) {
@@ -374,27 +392,58 @@
           }
         }
 
-        &:hover,
-        &:has(input[focus]) {
-          background-color: $beige-dark;
-          border-color: $beige-dark;
-          border-bottom-left-radius: 0;
-          border-bottom-right-radius: 0;
+        @media (min-width: $mobile) {
+          &:hover,
+          &:has(input[focus]) {
+            background-color: $beige-dark;
+            border-color: $beige-dark;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
 
-          label {
-            :global(svg) {
-              transform: rotate(-180deg);
+            button {
+              // pointer-events: none;
+
+              :global(svg) {
+                transform: rotate(-180deg);
+              }
+            }
+
+            nav {
+              display: flex;
+              background-color: $beige-dark;
+            }
+
+            div {
+              display: block;
+              background-color: $beige-dark;
             }
           }
+        }
 
-          nav {
-            display: flex;
+        @media (max-width: $mobile) {
+          &.down {
             background-color: $beige-dark;
-          }
+            border-color: $beige-dark;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
 
-          div {
-            display: block;
-            background-color: $beige-dark;
+            button {
+              // pointer-events: none;
+
+              :global(svg) {
+                transform: rotate(-180deg);
+              }
+            }
+
+            nav {
+              display: flex;
+              background-color: $beige-dark;
+            }
+
+            div {
+              display: block;
+              background-color: $beige-dark;
+            }
           }
         }
 
@@ -458,11 +507,6 @@
 
           @media (max-width: $mobile) {
             margin-bottom: $mobile_base;
-          }
-
-          &:hover,
-          &:has(input[focus]) {
-
           }
         }
       }
