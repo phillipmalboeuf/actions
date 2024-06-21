@@ -23,6 +23,9 @@
 
   let slider: EmblaCarouselType
   let active: number = 0
+  let scroll: number = 0
+  let location: number = 0
+  let last: number
 
   let next: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
   let index: number
@@ -33,6 +36,7 @@
   }
 </script>
 
+{#key data.ligne.sys.id}
 {#key data.format}
 <section class="flex flex--thick_gapped {data.format || "gallerie"}" class:first={active === 0}>
   {#if data.format === "index"}
@@ -50,7 +54,7 @@
     <Lignes id="exposition-mobile" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} format={data.format} />
 
     {#if data.format === "index"}
-    <a href="/lignes/{data.ligne.fields.id}?format=gallerie" class="button" style:--color={data.ligne.fields.couleur}>Gallerie</a>
+    <a href="/lignes/{data.ligne.fields.id}?format=gallerie" class="button" style:--color={data.ligne.fields.couleur}>Galerie</a>
     {:else}
     <a href="/lignes/{data.ligne.fields.id}?format=index" on:click={() => active = 0} class="button" style:--color={data.ligne.fields.couleur}>Index</a>
     {/if}
@@ -62,11 +66,12 @@
     <Tableau ligne={data.ligne} oeuvres={data.ligne.fields.oeuvres} />
   </main>
   {:else}
-  <main class="col col--12of12" style:--color={data.ligne.fields.couleur}>
-    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={"auto"} bind:slider bind:active>
+  <main class="col col--12of12" style:--color={data.ligne.fields.couleur} class:fini={active >= data.ligne.fields.oeuvres.length} style:--scroll={scroll} style:--location={location} style:--last={last}>
+    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={"auto"} bind:slider bind:active bind:scroll bind:location bind:last>
+      <!-- {location} {scroll} {last} -->
       {#key data.ligne.fields.id}
       <ol class="slider__container">
-        <li class="slide" class:active={active === 0}>
+        <li class="slide first" class:active={active === 0}>
           <Document body={data.ligne.fields.contexte} />
           <figure>
             <Media media={data.ligne.fields.logotype} />
@@ -74,7 +79,7 @@
           <button class="next button--none" on:click={() => slider.scrollNext()}><Icon i="back" label="Prochain" /></button>
         </li>
         {#each data.ligne.fields.oeuvres as oeuvre, i}
-        <li class="slide {oeuvre.fields.format}" class:left={active < i + 1} class:right={active > i + 1}>
+        <li class="slide {oeuvre.fields.format}" class:left={(active < i + 1)} class:right={(active > i + 1) && i !== data.ligne.fields.oeuvres.length - 1}>
           <a href="/oeuvres/{oeuvre.fields.id}" on:click|preventDefault={e => {
             if (i !== active - 1) {
               slider.scrollTo(i + 1)
@@ -118,6 +123,7 @@
   </h1>
   {/if}
 </section>
+{/key}
 {/key}
 
 <style lang="scss">
@@ -279,14 +285,11 @@
       }
 
       ol {
+        // transition: transform 666ms;
         li {
           display: flex;
           flex-direction: column;
-          // min-width: 60vw;
-
-          // transition: transform 666ms;
-          // &.left { transform: translateX(-25%); }
-          // &.right { transform: translateX(25%); }
+          // transition: transform 33ms;
 
           &.left, &.right {
             figcaption {
@@ -412,7 +415,7 @@
             // flex: 0 0 100%;
           }
 
-          &:first-child {
+          &.first {
             flex: 0 0 80%;
             // min-width: 70vw;
             padding: ($gap * 3) ($gap * 2) $gap;
@@ -472,13 +475,17 @@
           }
 
           &.fin {
+            position: relative;
+            z-index: 2;
             flex: 0 0 33%;
             display: flex;
             align-items: flex-end;
             justify-content: center;
+            padding-bottom: $gap * 6;
 
             @media (max-width: $mobile) {
-              flex: 0 0 40%;
+              // flex: 0 0 40%;
+              padding-bottom: $mobile_gap * 5;
             }
 
             a {
@@ -503,6 +510,16 @@
                 margin: ($gap * 3) 0 ($base * 0.75);
               }
             }
+          }
+        }
+      }
+
+      .fini {
+        ol {
+          transform: translate3d(calc(((var(--location) + max(calc(var(--last) - var(--scroll)), 0)) * 1px)), 0px, 0px) !important;
+
+          li.fin {
+            transform: translateX(calc(max(calc(var(--last) - var(--scroll)), 0) * -1px));
           }
         }
       }

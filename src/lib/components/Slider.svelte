@@ -21,6 +21,9 @@
 
   export let slider: EmblaCarouselType = undefined
   export let active = 0
+  export let location = 0
+  export let scroll = 0
+  export let last = 0
 
   onDestroy(() => {
     slider?.destroy()
@@ -31,7 +34,15 @@
 <figure class="slider" style:--view={slidesPerView === "auto" ? "auto" : `${100 / slidesPerView}%`} on:emblaInit={(event) => {
   // @ts-ignore
   slider = event.detail
+  const list = slider.scrollSnapList()
+  const limit = slider.internalEngine().limit.length
+  last = (1 - list[list.length - 2]) * limit
+
   slider.on("select", () => active = slider.selectedScrollSnap())
+  slider.on("scroll", () => {  
+    location = slider.internalEngine().location.get()
+    scroll = location + limit
+  })
 }} use:emblaCarouselSvelte={{ options, plugins }}>
   <slot />
 </figure>
