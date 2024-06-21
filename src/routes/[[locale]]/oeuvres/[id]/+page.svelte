@@ -18,7 +18,7 @@
   export let data: PageData
 
   // export let retour = false
-  let img: HTMLElement
+  let img: HTMLImageElement
   let active: number
 </script>
 
@@ -47,7 +47,7 @@
     <Media media={data.oeuvre.fields.vignette} eager bind:img />
     {/if}
 
-    {#key img?.offsetLeft}
+    {#key img?.complete}
     <figcaption style="margin-left: {img?.offsetLeft}px; margin-right: {img?.offsetLeft}px;">
       <small>
         {#if data.oeuvre.fields.droits}
