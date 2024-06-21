@@ -177,8 +177,13 @@
 
       @media (max-width: $mobile) {
         a {
+          max-width: 40%;
           &:last-of-type {
             margin-left: auto;
+          }
+
+          :global(svg) {
+            max-width: 100%;
           }
         }
       }

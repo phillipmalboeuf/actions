@@ -31,6 +31,7 @@
     {/if} -->
     <div class="col col--6of12 col--mobile--12of12"></div>
     <h1 class="col col--5of12 col--mobile--12of12">{data.oeuvre.fields.annee}</h1>
+    {#if data.oeuvre.fields.description}<h5 class="col col--12of12">{data.oeuvre.fields.description}</h5>{/if}
   </header>
 
   <figure class="col col--6of12 col--mobile--12of12">
@@ -74,9 +75,11 @@
       <tr>
         <td colspan="2">
           <h6>Nom de l’artiste</h6>
-          <div>{data.oeuvre.fields.artiste.fields.nom}</div>
-          {#if data.oeuvre.fields.artiste.fields.description}<small>{data.oeuvre.fields.artiste.fields.description}</small>{/if}
-          ({data.oeuvre.fields.artiste.fields.lieuDeNaissance}, {data.oeuvre.fields.artiste.fields.anneeDeNaissance} {#if data.oeuvre.fields.artiste.fields.lieuDeDeces}– {data.oeuvre.fields.artiste.fields.lieuDeDeces}, {data.oeuvre.fields.artiste.fields.anneDeDeces}{/if})
+          <p>
+            {data.oeuvre.fields.artiste.fields.nom}
+            {#if data.oeuvre.fields.artiste.fields.description}<small>{data.oeuvre.fields.artiste.fields.description}</small>{/if}
+            ({data.oeuvre.fields.artiste.fields.lieuDeNaissance}, {data.oeuvre.fields.artiste.fields.anneeDeNaissance} {#if data.oeuvre.fields.artiste.fields.lieuDeDeces}– {data.oeuvre.fields.artiste.fields.lieuDeDeces}, {data.oeuvre.fields.artiste.fields.anneDeDeces}{/if})
+          </p>
         </td>
       </tr>
       <tr>
@@ -91,26 +94,32 @@
           {data.oeuvre.fields.anneeDeRealisation || data.oeuvre.fields.annee}
         </td>
         <td>
-          <h6>Médium</h6>
-          {data.oeuvre.fields.medium}
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <h6>Dimensions</h6>
+          <h6>Médium et support</h6>
+          {data.oeuvre.fields.medium}<br><br>
           {#if data.oeuvre.fields.dimensions}{data.oeuvre.fields.dimensions}{:else}{data.oeuvre.fields.largeur} x {data.oeuvre.fields.hauteur} cm{/if}
-        </td>
-        <td>
-          <h6>Numéro d’accession</h6>
-          {data.oeuvre.fields.numero}
         </td>
       </tr>
       <tr>
         <td colspan="2">
-          <h6>Mention du donateur</h6>
+          <h6>Mention de source</h6>
           {data.oeuvre.fields.mention}
         </td>
       </tr>
+      <tr>
+        <!-- <td>
+          <h6>Dimensions</h6>
+          {#if data.oeuvre.fields.dimensions}{data.oeuvre.fields.dimensions}{:else}{data.oeuvre.fields.largeur} x {data.oeuvre.fields.hauteur} cm{/if}
+        </td> -->
+        <td>
+          <h6>Numéro d’acquisition</h6>
+          {data.oeuvre.fields.numero}
+        </td>
+        <td>
+          <h6>Année d’entrée au Musée</h6>
+          {data.oeuvre.fields.numero?.split('.')[0]}
+        </td>
+      </tr>
+      
     </table>
 
     {#if data.oeuvre.fields.historiqueTxt || data.oeuvre.fields.historique}
@@ -140,7 +149,9 @@
     {/if}
 
     {#if data.oeuvre.fields.credits}
-    <Document body={data.oeuvre.fields.credits} />
+    <small>
+      <Document body={data.oeuvre.fields.credits} />
+    </small>
     {/if}
   </main>
 </section>
@@ -186,6 +197,15 @@
           text-align: center;
         }
       }
+
+      h5 {
+        text-align: center;
+        margin-bottom: $mobile_gap;
+
+        @media (min-width: $mobile) {
+          display: none;
+        }
+      }
     }
 
     main {
@@ -200,6 +220,9 @@
 
       h5 {
         // font-size: ($base * $scale) + 2px;
+        @media (max-width: $mobile) {
+          display: none;
+        }
       }
 
       h5,

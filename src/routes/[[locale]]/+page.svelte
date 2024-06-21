@@ -61,6 +61,10 @@
       padding: ($gap * 4) ($gap * 2) ($gap * 2);
       background-color: var(--background);
 
+      @media (max-width: $mobile) {
+        padding: ($gap * 4) ($mobile_gap * 1) ($gap * 2);
+      }
+
       display: flex;
       flex-direction: column;
       align-items: center;

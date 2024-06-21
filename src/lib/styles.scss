@@ -229,7 +229,7 @@ table {
 		vertical-align: top;
 		text-align: left;
 		white-space: pre-line;
-		padding: ($base * 0.75) 0;
+		padding: ($base * 0.75) ($base) ($base * 0.75) 0;
 
 		p:not(:last-child) {
 			margin-bottom: $base;

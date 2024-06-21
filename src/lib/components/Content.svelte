@@ -128,6 +128,11 @@
       position: absolute;
       top: calc(100% + ($gap * 2));
       right: $gap * 2;
+
+      @media (max-width: $mobile) {
+        right: auto;
+        left: $gap;
+      }
     }
 
     li {
@@ -157,11 +162,12 @@
 
         ul {
           // align-self: flex-end;
-          gap: $gap * 8;
+          gap: 35vh;
           padding: $gap ($gap * 2);
 
           @media (max-width: $mobile) {
-            padding: $gap;
+            padding: $gap 0 50vh;
+            gap: 66vh;
           }
 
           li {
@@ -171,6 +177,10 @@
 
             &:nth-child(2n + 1) {
               align-self: flex-end;
+            }
+
+            &:nth-child(3n) {
+              // align-self: center;
             }
 
             &:hover,
@@ -189,10 +199,14 @@
               :global(video) {
                 // height: auto;
                 // flex: 1;
-                max-height: 50vh;
+                // max-height: 50vh;
                 width: auto;
-                max-width: 50vw;
+                max-width: 33vw;
                 object-fit: contain;
+
+                @media (max-width: $mobile) {
+                  max-width: 66vw;
+                }
               }
 
               figcaption {
@@ -212,12 +226,25 @@
               }
             }
 
-            &:first-child {
+            // &:first-child {
+            //   figure {
+            //     flex-direction: column;
+            //     align-items: flex-start;
+            //     figcaption {
+            //       margin-bottom: $gap * -4;
+            //     }
+            //   }
+            // }
+
+            &:nth-child(2n) {
               figure {
-                flex-direction: column;
-                align-items: flex-start;
-                figcaption {
-                  margin-bottom: $gap * -4;
+                :global(img),
+                :global(video) {
+                  max-width: 66vw;
+
+                  @media (max-width: $mobile) {
+                    max-width: 75vw;
+                  }
                 }
               }
             }
@@ -340,21 +367,6 @@
                 font-style: normal;
                 margin-bottom: $base * 0.25;
               }
-            }
-          }
-
-          @media (max-width: $mobile) {
-            :global(tr) {
-              display: flex;
-              flex-direction: column;
-              margin-bottom: $mobile_gap * 2;
-            }
-
-            :global(th),
-            :global(td) {
-              display: block;
-              width: 100%;
-              padding: 0;
             }
           }
         }

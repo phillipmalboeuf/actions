@@ -97,4 +97,27 @@
   ul {
     padding-left: 1.5em;
   }
+
+  h4,
+  h5,
+  h6 {
+    // padding-right: 25%;
+  }
+
+  table {
+    @media (max-width: $mobile) {
+      :global(tr) {
+        display: flex;
+        flex-direction: column;
+      }
+
+      :global(th),
+      :global(td) {
+        display: block;
+        width: 100% !important;
+        padding: 0;
+        margin-bottom: $mobile_gap;
+      }
+    }
+  }
 </style>
