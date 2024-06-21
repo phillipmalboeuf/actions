@@ -10,6 +10,7 @@
   import Icon from './Icon.svelte'
   import Logo from './Logo.svelte'
   import Search from './Search.svelte'
+  import NoScroll from './NoScroll.svelte'
   import CommentairesPage from '../../routes/[[locale]]/commentaires/+page.svelte'
   
   export let header: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
@@ -20,12 +21,6 @@
   let up = true
   let currentScroll = 0
 	let scrollY = 0
-
-  $: {
-    if (browser) {
-      document.documentElement.classList.toggle('noscroll', (menu || searching))
-    }
-  }
 
   onMount(() => {
     document.body.querySelectorAll("a[href='/commentaires']").forEach(a => a.addEventListener("click", (e) => {
@@ -50,6 +45,10 @@
 	
 	currentScroll = scrollY
 }} />
+
+{#if searching || menu}
+<NoScroll />
+{/if}
 
 <header class:up class:dark={($page.route.id === '/[[locale]]/oeuvres/[id]/zoom' || $page.route.id === '/[[locale]]/lignes/[id]/video') && !searching && !menu}>
   {#if $page.route.id !== '/[[locale]]' && $page.route.id !== '/[[locale]]/oeuvres/[id]/zoom' && $page.route.id !== '/[[locale]]/lignes/[id]/video'}

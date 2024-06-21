@@ -7,8 +7,9 @@
   import ZoomPage from '../../routes/[[locale]]/oeuvres/[id]/zoom/+page.svelte'
   import VideoPage from '../../routes/[[locale]]/lignes/[id]/video/+page.svelte'
   import Icon from './Icon.svelte'
+  import NoScroll from './NoScroll.svelte'
+
   import { browser } from '$app/environment'
-  // import ContactPage from '../../routes/[[locale]]/contact/+page.svelte'
 
   let innerWidth: number
   let innerHeight: number
@@ -16,8 +17,6 @@
 
   $: {
     if (browser) {
-      document.documentElement.classList.toggle('noscroll', !!(($page.state.type && $page.state.open) || ($page.state.zoom)))
-
       if (innerWidth !== undefined) {
         vertical = innerWidth < innerHeight
       }
@@ -28,6 +27,7 @@
 <svelte:window bind:innerHeight bind:innerWidth />
 
 {#if $page.state.type && $page.state.open}
+<NoScroll />
 <dialog transition:fly={{ opacity: 1, ...vertical ? { y: '100%' } : { x: '100%' }, duration: 666 }} class:vertical class:half={$page.state.type === 'contexte'}>
   {#if $page.state.type === 'oeuvre'}
   <OeuvrePage data={$page.state.open} />
@@ -43,12 +43,14 @@
 {/if}
 
 {#if $page.state.zoom}
+<NoScroll />
 <ZoomPage data={$page.state.zoom} onClose={() => {
   history.back()
 }} />
 {/if}
 
 {#if $page.state.video}
+<NoScroll />
 <VideoPage data={$page.state.video} onClose={() => {
   history.back()
 }} />

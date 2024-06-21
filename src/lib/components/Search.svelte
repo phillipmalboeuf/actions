@@ -311,7 +311,7 @@
       }
 
       @media (min-width: $mobile) {
-        button {
+        a {
           display: none;
         }
       }
