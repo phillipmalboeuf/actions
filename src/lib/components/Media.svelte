@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Asset } from 'contentful'
+  import { onDestroy, onMount } from 'svelte'
 
   export let media: Asset<"WITHOUT_UNRESOLVABLE_LINKS">
   export let small = false
@@ -11,6 +12,18 @@
   function cdn(url: string) {
     return url.replace('//downloads.ctfassets.net', '//images.ctfassets.net')
   }
+
+  function reset() {
+    img = img
+  }
+
+  onMount(() => {
+    img && img.addEventListener("load", reset)
+  })
+
+  onDestroy(() => {
+    img && img.removeEventListener("load", reset)
+  })
 </script>
 
 <style lang="scss">
