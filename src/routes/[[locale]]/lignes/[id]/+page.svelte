@@ -93,7 +93,7 @@
             </div>
             <Media media={oeuvre.fields.vignette} />
             <figcaption>
-              {#if oeuvre.fields.description}<h5>{oeuvre.fields.description}</h5>{/if}
+              <h5>{oeuvre.fields.description || oeuvre.fields.titre}</h5>
               <p>
                 <Credit {oeuvre} />
               </p>
@@ -314,6 +314,7 @@
             height: calc($vh - ($base * 15));
 
             @media (max-width: $mobile) {
+              gap: $mobile_base;
               max-width: 100vw;
               height: auto;
               padding: 0 $mobile_gap;
