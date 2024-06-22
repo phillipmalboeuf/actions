@@ -12,15 +12,17 @@
   import Search from './Search.svelte'
   import NoScroll from './NoScroll.svelte'
   import CommentairesPage from '../../routes/[[locale]]/commentaires/+page.svelte'
+  import { up } from '$lib/stores'
   
   export let header: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
   let searching = false
   let menu = false
   let commentaires = false
 
-  let up = true
   let currentScroll = 0
 	let scrollY = 0
+  let menuScrollY = 0
+  let menuCurrentScroll = 0
 
   onMount(() => {
     document.body.querySelectorAll("a[href='/commentaires']").forEach(a => a.addEventListener("click", (e) => {
@@ -34,23 +36,35 @@
     searching = false
     menu = false
   }
+
+  const scroll = (menu=false) => {
+    if (menu) {
+      if ($up && menuScrollY > 0 && menuCurrentScroll < menuScrollY) {
+        up.set(false)
+      } else if (!$up && menuCurrentScroll > menuScrollY) {
+        up.set(true)
+      }
+      
+      menuCurrentScroll = menuScrollY
+    } else {
+      if ($up && scrollY > 0 && currentScroll < scrollY) {
+        up.set(false)
+      } else if (!$up && currentScroll > scrollY) {
+        up.set(true)
+      }
+      
+      currentScroll = scrollY
+    }
+  }
 </script>
 
-<svelte:window bind:scrollY on:scroll={e => {
-  if (up && scrollY > 0 && currentScroll < scrollY) {
-		up = false
-	} else if (!up && currentScroll > scrollY) {
-		up = true
-	}
-	
-	currentScroll = scrollY
-}} />
+<svelte:window bind:scrollY on:scroll={() => scroll()} />
 
 {#if searching || menu}
 <NoScroll />
 {/if}
 
-<header class:up class:dark={($page.route.id === '/[[locale]]/oeuvres/[id]/zoom' || $page.route.id === '/[[locale]]/lignes/[id]/video') && !searching && !menu}>
+<header class:up={$up} class:dark={($page.route.id === '/[[locale]]/oeuvres/[id]/zoom' || $page.route.id === '/[[locale]]/lignes/[id]/video') && !searching && !menu}>
   {#if $page.route.id !== '/[[locale]]' && $page.route.id !== '/[[locale]]/oeuvres/[id]/zoom' && $page.route.id !== '/[[locale]]/lignes/[id]/video'}
   <a href="/" class="h2"><Icon i="home" label="Accueil" /></a>
   {/if}
@@ -58,7 +72,10 @@
   <input type="checkbox" name="search" id="search" bind:checked={searching} on:input={() => menu = false} />
   <label for="search"><Icon i="search" label="Recherche" /></label>
 
-  <nav class="search">
+  <nav class="search" on:scroll={e => {
+    menuScrollY = e.currentTarget.scrollTop
+    scroll(true)
+  }}>
     <button class="button--none" on:click={() => searching = false}><Icon i="back" label="Fermer" /></button>
     <Search visible={searching} on:click={() => searching = false} />
   </nav>
@@ -66,7 +83,10 @@
   <input type="checkbox" name="menu" id="menu" bind:checked={menu} on:input={() => searching = false} />
   <label for="menu"><Icon i={menu ? "menu-close" : "menu"} label="Menu" /></label>
 
-  <nav class="flex">
+  <nav class="flex" on:scroll={e => {
+    menuScrollY = e.currentTarget.scrollTop
+    scroll(true)
+  }}>
     <figure class="col col--6of12 col--mobile--12of12"><a href="/" on:click={click}><Logo /></a></figure>
     <ol class="col col--4of12 col--mobile--12of12">
       {#if header}
@@ -132,15 +152,21 @@
       padding: ($mobile_gap);
     }
 
-    transition: transform 666ms, color 666ms;
-    transform: translateY(-100%);
+    > a,
+    > label {
+      transition: transform 666ms, color 666ms;
+      transform: translateY(-100px);
+    }
 
     a, label, input, nav {
       pointer-events: all;
     }
 
     &.up {
-      transform: translateY(0%);
+      > a,
+      > label {
+        transform: translateY(0%);
+      }
     }
 
     label[for="search"] {
@@ -199,7 +225,7 @@
       border-bottom-left-radius: $base * $scale;
       color: $brown;
       background-color: $yellow;
-      padding: $base * $scale;
+      padding: $gap;
       box-shadow: 0px 0px 6px fade-out($color: $black, $amount: 0.85);
 
       transition: transform 666ms;
@@ -211,6 +237,7 @@
       @media (max-width: $mobile) {
         width: 100vw;
         border-radius: 0;
+        padding: $mobile_gap;
       }
 
       &.search {
@@ -254,24 +281,38 @@
         display: flex;
         flex-direction: column;
         gap: $base;
-        padding: ($base * $scale) 0;
+        padding: ($gap) 0;
 
         @media (max-width: $mobile) {
           gap: $mobile_base;
+          padding: 0;
         }
 
         li {
           a {
-            font-size: $base * $scale * 1.5;
+            font-size: $gap * 1.5;
+
+            @media (max-width: $mobile) {
+              font-size: $mobile_gap * 1.25;
+            }
           }
 
           small {
             font-size: $base;
             margin-left: 0.5em;
+
+            @media (max-width: $mobile) {
+              font-size: $mobile_base;
+              vertical-align: middle;
+            }
           }
 
           :global(form) {
             padding-left: 0;
+
+            @media (max-width: $mobile) {
+              padding-right: 0;
+            }
           }
           
           &.buttons {
@@ -285,9 +326,24 @@
                 background-color: $brown;
               }
             }
+
+            @media (max-width: $mobile) {
+              margin-top: $mobile_gap;
+              margin-bottom: $mobile_gap * 2;
+
+              aside {
+                flex-direction: column;
+                align-items: flex-start;
+
+                a {
+                  min-width: $mobile_base * 8;
+                  justify-content: center;
+                }
+              }
+            }
           }
 
-          :global(svg) {
+          a :global(svg) {
             vertical-align: top;
             height: 1em;
             width: 1em;
@@ -323,6 +379,10 @@
 
             li a {
               font-size: ($base * $scale) + 2px;
+
+              @media (max-width: $mobile) {
+                font-size: $base;
+              }
             }
 
             &:hover,
