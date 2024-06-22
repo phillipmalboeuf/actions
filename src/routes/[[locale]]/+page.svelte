@@ -205,6 +205,8 @@
     small {
       padding-top: 0;
       padding-bottom: ($gap * 4);
+      max-width: calc(1560px + ($gap * 4));
+      margin: 0 auto;
       
       :global(td),
       :global(th) {
