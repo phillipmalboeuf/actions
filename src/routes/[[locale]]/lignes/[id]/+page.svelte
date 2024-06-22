@@ -244,12 +244,17 @@
           }
 
           @media (max-width: $mobile) {
-            display: none;
+            // display: none;
+            transform: translateY(-$mobile_gap * 1);
+
+            &.previous {
+              transform: translateY(-$mobile_gap * 1) scaleX(-1);
+            }
           }
         }
 
         @media (max-width: $mobile) {
-          font-size: $mobile_base * 8;
+          font-size: $mobile_base * 7;
           order: 99;
           margin: ($mobile_base * -1) auto 0;
           transform: translate(0%, 100%);
