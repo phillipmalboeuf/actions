@@ -22,6 +22,7 @@
   let active: number
 </script>
 
+{#key data.oeuvre.sys.id}
 <section style:--color={data.oeuvre.fields.couleur} class="flex flex--gapped">
   <header class="flex flex--gapped">
     <!-- {#if !retour}
@@ -155,9 +156,27 @@
       <Document body={data.oeuvre.fields.credits} />
     </small>
     {/if}
+
+    <nav>
+      {#if data.prev}
+      <a href="/oeuvres/{data.prev.fields.id}" class="prev" on:click={e => $page.state.open && openDialog(e)}>
+        <Icon label="Oeuvre précédente" i="next" />
+        <h2>{data.prev.fields.annee}</h2>
+      </a>
+      {:else}
+      <span></span>
+      {/if}
+
+      {#if data.next}
+      <a href="/oeuvres/{data.next.fields.id}" class="next" on:click={e => $page.state.open && openDialog(e)}>
+        <Icon label="Oeuvre suivante" i="next" />
+        <h2>{data.next.fields.annee}</h2>
+      </a>
+      {/if}
+    </nav>
   </main>
 </section>
-
+{/key}
 
 <style lang="scss">
   section {
@@ -182,9 +201,9 @@
         padding: 0 $mobile_gap;
       }
 
-      > a {
-        padding: $base;
-      }
+      // > a {
+      //   padding: $base;
+      // }
 
       h1 {
         font-size: $base * 10;
@@ -263,6 +282,25 @@
       table {
         margin-bottom: $base * 0.33;
 
+        td + td {
+          position: relative;
+
+          &:before {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: $gap * -1;
+            width: $gap;
+            height: 2px;
+            background-color: $beige;
+
+            @media (max-width: $mobile) {
+              left: $mobile_gap * -1;
+              width: $mobile_gap;
+            }
+          }
+        }
+
         h6,
         div {
           margin-bottom: $base * 0.33;
@@ -270,6 +308,34 @@
 
         small {
           font-size: $base - 2px;
+        }
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        margin: ($gap * 2) 0;
+
+        a {
+          display: flex;
+          align-items: center;
+          gap: $base;
+
+          // :global(svg) {
+          //   width: $base * 4;
+          // }
+
+          &.prev {
+            :global(svg) {
+              transform: rotate(180deg);
+            }
+          }
+
+          &.next {
+            :global(svg) {
+              order: 99;
+            }
+          }
         }
       }
     }

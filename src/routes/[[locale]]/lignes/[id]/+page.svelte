@@ -484,7 +484,7 @@
             padding-bottom: $gap * 6;
 
             @media (max-width: $mobile) {
-              // flex: 0 0 40%;
+              flex: 0 0 40%;
               padding-bottom: $mobile_gap * 5;
             }
 

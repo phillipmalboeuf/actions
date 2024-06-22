@@ -238,14 +238,14 @@ table {
 
 	td {
 		border: none;
-		border-top: 1px solid;
+		border-bottom: 1px solid;
 	}
 
 	tr, a {
 
-		&:last-child {
+		&:first-child {
 			td {
-				border-bottom: 1px solid;
+				border-top: 1px solid;
 			}
 		}
 	}
