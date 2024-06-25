@@ -187,7 +187,7 @@
 
       {#if annees}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown dropdown--wide" class:down={down === 'Année'}>
-        <button class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'}>Année de production <Icon i="down" label="Choix" /></button>
+        <button class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'}>Année d'évenement <Icon i="down" label="Choix" /></button>
         <div>
           <div>
             <label for="from">À partir de</label>
