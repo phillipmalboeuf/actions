@@ -10,6 +10,7 @@
   import NoScroll from './NoScroll.svelte'
 
   import { browser } from '$app/environment'
+  import { pushState } from '$app/navigation'
 
   let innerWidth: number
   let innerHeight: number
@@ -22,6 +23,8 @@
       }
     }
   }
+
+  const close = () => pushState($page.url.href, {})
 </script>
 
 <svelte:window bind:innerHeight bind:innerWidth />
@@ -35,9 +38,9 @@
   <ContextePage data={$page.state.open} />
   {/if}
 </dialog>
-<button class="back" transition:fade={{ duration: 666 }} on:click={() => history.back()}>
+<button class="back" transition:fade={{ duration: 666 }} on:click={close}>
 </button>
-<button class="close" class:vertical class:half={$page.state.type === 'contexte'} transition:fly={{ opacity: 1, ...vertical ? { y: '100vh' } : { x: '100vw' }, duration: 666 }} on:click={() => history.back()}>
+<button class="close" class:vertical class:half={$page.state.type === 'contexte'} transition:fly={{ opacity: 1, ...vertical ? { y: '100vh' } : { x: '100vw' }, duration: 666 }} on:click={close}>
   <Icon i={vertical ? "arrow" : "back"} label="Retour" />
 </button>
 {/if}

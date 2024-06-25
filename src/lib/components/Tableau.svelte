@@ -28,9 +28,10 @@
     <td class="artist">
       <p>{oeuvre.fields.artiste?.fields.nom || '-'}</p>
     </td>
-    <td>
+    <td class="cartel">
+      <div>{oeuvre.fields.artiste?.fields.nom || '-'}</div>
       <p>
-        {oeuvre.fields.titre}<br />
+        <em>{oeuvre.fields.titre}</em><br />
         {oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}<br />
         {oeuvre.fields.medium}<br />
         {oeuvre.fields.largeur} cm x {oeuvre.fields.hauteur} cm
@@ -145,6 +146,14 @@
 
         .artist {
           display: none;
+        }
+      }
+
+      @media (min-width: $mobile) {
+        .cartel {
+          > div {
+            display: none;
+          }
         }
       }
 

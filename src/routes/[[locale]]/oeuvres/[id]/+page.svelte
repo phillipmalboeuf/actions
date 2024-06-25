@@ -88,7 +88,7 @@
       <tr>
         <td colspan="2">
           <h6>Titre de l’œuvre</h6>
-          {data.oeuvre.fields.titre}
+          <em>{data.oeuvre.fields.titre}</em>
         </td>
       </tr>
       <tr>
@@ -98,9 +98,22 @@
         </td>
         <td>
           <h6>Médium et support</h6>
-          {data.oeuvre.fields.medium}<br><br>
+          {data.oeuvre.fields.medium}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h6>Dimensions</h6>
           {#if data.oeuvre.fields.dimensions}{data.oeuvre.fields.dimensions}{:else}{data.oeuvre.fields.largeur} x {data.oeuvre.fields.hauteur} cm{/if}
         </td>
+        <td>
+          <h6>Numéro d’acquisition</h6>
+          {data.oeuvre.fields.numero}
+        </td>
+        <!-- <td>
+          <h6>Année d’entrée au Musée</h6>
+          {data.oeuvre.fields.numero?.split('.')[0]}
+        </td> -->
       </tr>
       <tr>
         <td colspan="2">
@@ -108,21 +121,6 @@
           {data.oeuvre.fields.mention}
         </td>
       </tr>
-      <tr>
-        <!-- <td>
-          <h6>Dimensions</h6>
-          {#if data.oeuvre.fields.dimensions}{data.oeuvre.fields.dimensions}{:else}{data.oeuvre.fields.largeur} x {data.oeuvre.fields.hauteur} cm{/if}
-        </td> -->
-        <td>
-          <h6>Numéro d’acquisition</h6>
-          {data.oeuvre.fields.numero}
-        </td>
-        <td>
-          <h6>Année d’entrée au Musée</h6>
-          {data.oeuvre.fields.numero?.split('.')[0]}
-        </td>
-      </tr>
-      
     </table>
 
     {#if data.oeuvre.fields.historiqueTxt || data.oeuvre.fields.historique}
@@ -140,7 +138,7 @@
 
     {#if data.oeuvre.fields.publicationsTxt || data.oeuvre.fields.publications}
     <div>
-    <h5><strong>Historique de publication de l'oeuvre</strong></h5>
+    <h5><strong>Historique de publication</strong></h5>
     <small>
       {#if data.oeuvre.fields.publications}
       <Document body={data.oeuvre.fields.publications} />
