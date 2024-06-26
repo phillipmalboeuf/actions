@@ -102,23 +102,25 @@
         </td>
       </tr>
       <tr>
-        <td>
+        <td colspan="2">
           <h6>Dimensions</h6>
           {#if data.oeuvre.fields.dimensions}{data.oeuvre.fields.dimensions}{:else}{data.oeuvre.fields.largeur} x {data.oeuvre.fields.hauteur} cm{/if}
         </td>
-        <td>
-          <h6>Numéro d’acquisition</h6>
-          {data.oeuvre.fields.numero}
-        </td>
-        <!-- <td>
-          <h6>Année d’entrée au Musée</h6>
-          {data.oeuvre.fields.numero?.split('.')[0]}
-        </td> -->
       </tr>
       <tr>
         <td colspan="2">
           <h6>Mention de source</h6>
           {data.oeuvre.fields.mention}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h6>Numéro d’acquisition</h6>
+          {data.oeuvre.fields.numero}
+        </td>
+        <td>
+          <h6>Année d’entrée au Musée</h6>
+          {data.oeuvre.fields.numero?.split('.')[0]}
         </td>
       </tr>
     </table>
