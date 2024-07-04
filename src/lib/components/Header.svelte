@@ -381,7 +381,7 @@
               font-size: ($base * $scale) + 2px;
 
               @media (max-width: $mobile) {
-                font-size: $base;
+                font-size: $base + 2px;
               }
             }
 
