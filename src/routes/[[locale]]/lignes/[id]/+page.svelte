@@ -97,7 +97,7 @@
               <p>
                 <Credit {oeuvre} />
               </p>
-              <u>Découvrir l'oeuvre</u>
+              <u>Découvrir l’oeuvre</u>
             </figcaption>
           </figure>
           </a>

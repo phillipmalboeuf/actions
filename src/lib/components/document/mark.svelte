@@ -13,6 +13,8 @@
   <sub><svelte:self mark={{ ...mark, marks: mark.marks.slice(1) }} /></sub>
   {:else if mark.marks[0].type === 'bold'}
   <strong><svelte:self mark={{ ...mark, marks: mark.marks.slice(1) }} /></strong>
+  {:else if mark.marks[0].type === 'underline'}
+  <u><svelte:self mark={{ ...mark, marks: mark.marks.slice(1) }} /></u>
   {:else if mark.marks[0].type === 'code'}
   {@html mark.value}
   {/if}

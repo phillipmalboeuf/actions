@@ -77,6 +77,7 @@
     display: flex;
     flex-direction: column;
     gap: $gap * 4;
+    padding-left: 0;
 
     figure.logo {
       position: sticky;
@@ -256,6 +257,10 @@
         background-color: var(--background);
         padding: ($gap * 6) $gap;
 
+        @media (max-width: $mobile) {
+          padding: ($mobile_gap * 6) $mobile_gap;
+        }
+
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -288,6 +293,10 @@
         
         > :global(table ~ p) {
           font-size: $base;
+
+          @media (max-width: $mobile) {
+            font-size: $base - 2px;
+          }
         }
 
         > :global(figure) {
@@ -353,11 +362,23 @@
         > :global(table) {
           display: block;
 
+          :global(tr) {
+            @media (max-width: $mobile) {
+              margin-bottom: $mobile_gap * 2;
+            }
+          }
+
           :global(td) {
             border: none;
             width: 50%;
             vertical-align: top;
             padding: ($gap) 0;
+
+            @media (max-width: $mobile) {
+              width: 100%;
+              padding: 0;
+              margin-bottom: 0;
+            }
 
             > :global(p) {
               margin-bottom: $base;
@@ -367,12 +388,17 @@
                 margin-bottom: $base * 1.666;
               }
 
-              > :global(em:first-child),
-              > :global(strong:first-child) {
-                // display: inline-block;
-                // font-size: $base + 2px;
-                // font-style: normal;
-                // margin-bottom: $base * 0.25;
+              :global(strong) {
+                font-weight: 600;
+              }
+
+              > :global(u:first-child),
+              > :global(strong:first-child > u) {
+                display: inline-block;
+                font-size: $base + 2px;
+                font-style: normal;
+                text-decoration: none;
+                margin-bottom: $base * 0.25;
               }
             }
           }
