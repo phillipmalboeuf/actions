@@ -440,7 +440,8 @@
 
             @media (max-width: $mobile) {
               height: auto;
-              padding-left: ($mobile_gap * 1);
+              padding-left: 0;
+              transform: translateY($base * 4);
             }
 
             :global(p) {
@@ -459,7 +460,7 @@
               opacity: 1;
 
               @media (max-width: $mobile) {
-                left: $mobile_gap * 1.5;
+                left: 0;
                 right: auto;
                 bottom: ($mobile_base * 15);
               }
