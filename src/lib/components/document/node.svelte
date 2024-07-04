@@ -84,7 +84,7 @@
     margin: ($gap * 2) 0;
 
     figcaption {
-      font-size: $base * 0.9;
+      font-size: $base - 2px;
       line-height: 1.15;
     }
 
@@ -95,7 +95,12 @@
 
   ol,
   ul {
-    padding-left: 1.5em;
+    // padding-left: 1.5em;
+    li {
+      &:not(:last-child) {
+        margin-bottom: $base * 0.25;
+      }
+    }
   }
 
   h4,

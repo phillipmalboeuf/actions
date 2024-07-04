@@ -22,8 +22,8 @@
     <td>
       <h2>{oeuvre.fields.annee}</h2>
     </td>
-    <td>
-      <p>{oeuvre.fields.description || '-'}</p>
+    <td class="description">
+      <p>{@html oeuvre.fields.description || '-'}</p>
     </td>
     <td class="artist">
       <p>{oeuvre.fields.artiste?.fields.nom || '-'}</p>
@@ -31,7 +31,7 @@
     <td class="cartel">
       <div>{oeuvre.fields.artiste?.fields.nom || '-'}</div>
       <p>
-        <em>{oeuvre.fields.titre}</em><br />
+        <em>{@html oeuvre.fields.titre}</em><br />
         {oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}<br />
         {oeuvre.fields.medium}<br />
         {oeuvre.fields.largeur} cm x {oeuvre.fields.hauteur} cm
@@ -78,6 +78,11 @@
         border: none;
         padding: 0 ($mobile_base) ($mobile_base) 0;
         width: 50%;
+
+        &.cartel,
+        &.description {
+          padding-right: 0;
+        }
       }
     }
 
@@ -142,6 +147,10 @@
 
         &:last-of-type {
           border-bottom: 1px solid;
+        }
+
+        .description {
+          align-self: center;
         }
 
         .artist {

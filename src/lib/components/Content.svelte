@@ -271,8 +271,15 @@
         }
         
         > :global(p),
+        > :global(ul p),
+        > :global(ol p),
         > :global(blockquote > p) {
           font-size: $base + 2px;
+        }
+
+        > :global(ul) {
+          padding-left: 0;
+          list-style: none;
         }
 
         > :global(h5) {
@@ -362,10 +369,10 @@
 
               > :global(em:first-child),
               > :global(strong:first-child) {
-                display: inline-block;
-                font-size: $base + 2px;
-                font-style: normal;
-                margin-bottom: $base * 0.25;
+                // display: inline-block;
+                // font-size: $base + 2px;
+                // font-style: normal;
+                // margin-bottom: $base * 0.25;
               }
             }
           }

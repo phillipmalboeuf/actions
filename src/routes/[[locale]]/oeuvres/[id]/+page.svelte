@@ -32,7 +32,7 @@
     {/if} -->
     <div class="col col--6of12 col--mobile--12of12"></div>
     <h1 class="col col--5of12 col--mobile--12of12">{data.oeuvre.fields.annee}</h1>
-    {#if data.oeuvre.fields.description}<h5 class="col col--12of12">{data.oeuvre.fields.description}</h5>{/if}
+    {#if data.oeuvre.fields.description}<h5 class="col col--12of12">{@html data.oeuvre.fields.description}</h5>{/if}
   </header>
 
   <figure class="col col--6of12 col--mobile--12of12">
@@ -61,7 +61,7 @@
     {/key}
   </figure>
   <main class="col col--5of12 col--mobile--12of12">
-    {#if data.oeuvre.fields.description}<h5>{data.oeuvre.fields.description}</h5>{/if}
+    {#if data.oeuvre.fields.description}<h5>{@html data.oeuvre.fields.description}</h5>{/if}
     <aside>
       <Credit oeuvre={data.oeuvre} />
     </aside>
@@ -80,7 +80,7 @@
           <h6>Nom de l’artiste</h6>
           <p>
             {data.oeuvre.fields.artiste.fields.nom}
-            {#if data.oeuvre.fields.artiste.fields.description}<small>{data.oeuvre.fields.artiste.fields.description}</small>{/if}
+            {#if data.oeuvre.fields.artiste.fields.description}<small>{@html data.oeuvre.fields.artiste.fields.description}</small>{/if}
             ({data.oeuvre.fields.artiste.fields.lieuDeNaissance}, {data.oeuvre.fields.artiste.fields.anneeDeNaissance} {#if data.oeuvre.fields.artiste.fields.lieuDeDeces}– {data.oeuvre.fields.artiste.fields.lieuDeDeces}, {data.oeuvre.fields.artiste.fields.anneDeDeces}{/if})
           </p>
         </td>

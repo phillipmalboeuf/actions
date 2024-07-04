@@ -93,7 +93,7 @@
             </div>
             <Media media={oeuvre.fields.vignette} />
             <figcaption>
-              <h5>{oeuvre.fields.description || oeuvre.fields.titre}</h5>
+              <h5>{@html oeuvre.fields.description || oeuvre.fields.titre}</h5>
               <p>
                 <Credit {oeuvre} />
               </p>

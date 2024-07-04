@@ -123,7 +123,7 @@
         <div>
           {#each artists.items as a}
           <label data-letter={a.fields.nom[0]}>
-            {a.fields.nom}
+            {@html a.fields.nom.replace('(', '<br>(')}
             <input type="checkbox" bind:group={artist} value="{a.fields.id}"
               on:click={async (e) => {
                 // if (a.fields.id === artist) {
@@ -152,7 +152,7 @@
 
       {#if mediums}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Type'}>
-        <button class="button--none" on:click={() => down = down === 'Type' ? undefined : 'Type'}>Type d'oeuvre <Icon i="down" label="Choix" /></button>
+        <button class="button--none" on:click={() => down = down === 'Type' ? undefined : 'Type'}>Type d’oeuvre <Icon i="down" label="Choix" /></button>
         <nav></nav>
         <div>
           {#each mediums as m}
@@ -187,7 +187,7 @@
 
       {#if annees}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown dropdown--wide" class:down={down === 'Année'}>
-        <button class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'}>Année d'événement <Icon i="down" label="Choix" /></button>
+        <button class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'}>Année d’événement <Icon i="down" label="Choix" /></button>
         <div>
           <div>
             <label for="from">À partir de</label>
@@ -201,7 +201,7 @@
             <span style:--left={`${(from - 1925) / (2025 - 1925) * 100}%`}>{from}</span>
           </div>
           <div>
-            <label for="from">Jusqu'à</label>
+            <label for="from">Jusqu’à</label>
             <input type="number" class:default={Number(to) === 2020} bind:value={to}>
             <input type="range" name="to" id="to" bind:value={to} min={1930} max={2020} on:input={(e) => {
               clearTimeout(timeout)
@@ -240,13 +240,13 @@
           <button type="button" class="button--tight" on:click={() => {
             //@ts-ignore
             document.querySelector(`input[type=checkbox][value="${f}"]`).click()
-          }}>{artists.items.find(a => a.fields.id === f).fields.nom} X</button>
+          }}>{artists.items.find(a => a.fields.id === f).fields.nom} &nbsp;X</button>
           {/each}
           {#each medium as f}
           <button type="button" class="button--tight" on:click={() => {
             //@ts-ignore
             document.querySelector(`input[type=checkbox][value="${f}"]`).click()
-          }}>{capitalize(f)} X</button>
+          }}>{capitalize(f)} &nbsp;X</button>
           {/each}
       </div>
       </div>
@@ -530,6 +530,10 @@
           }
         }
       }
+    }
+
+    .button--tight {
+      font-size: calc($base - 2px);
     }
 
     input {

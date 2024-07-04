@@ -50,6 +50,13 @@
     padding: $gap * 6;
     background-color: $beige;
 
+    > :global(p),
+    > :global(ul p),
+    > :global(ol p),
+    > :global(blockquote > p) {
+      font-size: $base;
+    }
+
     :global(> picture) {
       margin-bottom: ($gap * 2);
 
