@@ -114,6 +114,12 @@ strong {
 	font-weight: 600;
 }
 
+em {
+	> em {
+		font-style: normal;
+	}
+}
+
 sub,
 sup {
 	font-size: 0.666em;
