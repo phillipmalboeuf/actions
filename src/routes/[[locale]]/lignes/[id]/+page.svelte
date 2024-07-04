@@ -281,6 +281,10 @@
           pointer-events: all;
         }
 
+        .first {
+          opacity: 0;
+        }
+
         .annee {
           opacity: 1;
           transform: translate(-50%, 0%);
@@ -409,6 +413,7 @@
             }
           }
 
+          @media (min-width: $mobile) {
           &.Petit,
           &.Moyen {
             a {
@@ -430,6 +435,7 @@
               height: calc(55.55vh);
             }
           }
+          }
 
           &:last-child {
             // flex: 0 0 100%;
@@ -438,16 +444,17 @@
           &.first {
             flex: 0 0 80%;
             // min-width: 70vw;
-            padding: $gap ($gap) $gap;
+            padding: $gap ($gap * 2) $gap;
             height: calc($vh - ($base * 5));
             display: flex;
             gap: $base;
             flex-direction: column;
+            transition: transform 666ms, opacity 666ms;
 
             @media (max-width: $mobile) {
               height: auto;
-              padding-left: 0;
-              transform: translateY($base * 4);
+              padding: $mobile_gap;
+              transform: translateY($base * 2);
             }
 
             :global(p) {
@@ -466,7 +473,7 @@
               opacity: 1;
 
               @media (max-width: $mobile) {
-                left: 0;
+                left: $mobile_gap;
                 right: auto;
                 bottom: ($mobile_base * 15);
               }

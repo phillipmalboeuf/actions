@@ -163,6 +163,7 @@ button,
 	&.button--none {
 		padding: 0;
 		border: none;
+		border-radius: 0;
 
 		&:hover,
 		&:focus {
