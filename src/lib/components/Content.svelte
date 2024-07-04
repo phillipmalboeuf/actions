@@ -5,7 +5,7 @@
   import Document from './document/index.svelte'
   import Icon from './Icon.svelte'
   import Logo from './Logo.svelte'
-  import Credit from './Credit.svelte';
+  import Credit from './Credit.svelte'
 
   export let content: Entry<TypeGallerieSkeleton | TypeTextSkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>[]
   export let format: TypePageFields['format']['values'] = undefined
@@ -95,7 +95,7 @@
 
       :global(svg) {
         // padding: $gap;
-        width: auto;
+        width: 100%;
         max-width: calc(100vw - ($gap * 1));
         transition: height 333ms;
         height: calc($vh - ($gap * 2));
@@ -107,15 +107,29 @@
           will-change: transform;
 
           &:nth-child(2) {
-            transform: translateX(calc((1 - var(--scroll, 0)) * 10vw / 6));
+            transform: translateX(calc((1 - var(--scroll, 0)) * min(3.666vh, 3.666dvh)));
           }
 
           &:nth-child(4) {
-            transform: translateX(calc((1 - var(--scroll, 0)) * 30vw / 6));
+            transform: translateX(calc((1 - var(--scroll, 0)) * min(7.333vh, 7.333dvh)));
           }
 
           &:nth-child(6) {
-            transform: translateX(calc((1 - var(--scroll, 0)) * 5vw / 6));
+            transform: translateX(calc((1 - var(--scroll, 0)) * min(2.1vh, 2.1dvh)));
+          }
+
+          @media (orientation: portrait) {
+            &:nth-child(2) {
+              transform: translateX(calc((1 - var(--scroll, 0)) * 7.25vw));
+            }
+
+            &:nth-child(4) {
+              transform: translateX(calc((1 - var(--scroll, 0)) * 14.9vw));
+            }
+
+            &:nth-child(6) {
+              transform: translateX(calc((1 - var(--scroll, 0)) * 4.2vw));
+            }
           }
         }
       }
