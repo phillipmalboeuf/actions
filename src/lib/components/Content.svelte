@@ -258,7 +258,7 @@
         padding: ($gap * 6) $gap;
 
         @media (max-width: $mobile) {
-          padding: ($mobile_gap * 6) $mobile_gap;
+          padding: ($mobile_gap * 4) $mobile_gap;
         }
 
         display: flex;

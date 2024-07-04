@@ -85,15 +85,26 @@
       }
 
       figure {
-        // width: 50%;
-        margin-right: ($gap * 8);
-        margin-top: -5px;
-        max-height: 140px;
+        height: 140px;
+
+        @media (max-width: $mobile) {
+          margin-top: ($mobile_gap * 3);
+          height: 70px;
+        }
+
+        @media (min-width: $mobile) {
+          margin-right: ($gap * 8);
+          margin-top: -5px;
+        }
 
         :global(img) {
           height: 100%;
           object-fit: contain;
           object-position: right;
+
+          @media (max-width: $mobile) {
+            object-position: left;
+          }
         }
 
         // &.bigger {
