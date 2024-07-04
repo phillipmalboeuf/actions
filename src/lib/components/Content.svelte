@@ -107,28 +107,28 @@
           will-change: transform;
 
           &:nth-child(2) {
-            transform: translateX(calc((1 - var(--scroll, 0)) * min(3.666vh, 3.666dvh)));
+            transform: translateX(calc((1 - var(--scroll, 0)) * 11vh));
           }
 
           &:nth-child(4) {
-            transform: translateX(calc((1 - var(--scroll, 0)) * min(7.333vh, 7.333dvh)));
+            transform: translateX(calc((1 - var(--scroll, 0)) * 23vh));
           }
 
           &:nth-child(6) {
-            transform: translateX(calc((1 - var(--scroll, 0)) * min(2.1vh, 2.1dvh)));
+            transform: translateX(calc((1 - var(--scroll, 0)) * 6.5vh));
           }
 
           @media (orientation: portrait) {
             &:nth-child(2) {
-              transform: translateX(calc((1 - var(--scroll, 0)) * 7.25vw));
+              transform: translateX(calc((1 - var(--scroll, 0)) * 22vw));
             }
 
             &:nth-child(4) {
-              transform: translateX(calc((1 - var(--scroll, 0)) * 14.9vw));
+              transform: translateX(calc((1 - var(--scroll, 0)) * 46vw));
             }
 
             &:nth-child(6) {
-              transform: translateX(calc((1 - var(--scroll, 0)) * 4.2vw));
+              transform: translateX(calc((1 - var(--scroll, 0)) * 13vw));
             }
           }
         }
