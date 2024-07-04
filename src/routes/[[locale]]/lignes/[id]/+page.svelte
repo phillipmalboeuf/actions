@@ -19,6 +19,7 @@
   import { page } from '$app/stores'
 
   import type { PageData } from './$types' 
+  import { onNavigate } from '$app/navigation'
   export let data: PageData
 
   let slider: EmblaCarouselType
@@ -29,6 +30,10 @@
 
   let next: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
   let index: number
+
+  onNavigate(() => {
+    active = 0
+  })
 
   $: {
     index = data.lignes.findIndex(l => l.sys.id === data.ligne.sys.id)
