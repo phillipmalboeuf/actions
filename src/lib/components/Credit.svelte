@@ -7,7 +7,7 @@
 </script>
 
 <div>{oeuvre.fields.artiste.fields.nom}</div>
-<div><em>{oeuvre.fields.titre}</em></div>
+<div><em>{@html oeuvre.fields.titre}</em></div>
 {#if full}
 <div>{oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}</div>
 <div>{oeuvre.fields.medium}</div>

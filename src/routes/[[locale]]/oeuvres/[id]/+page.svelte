@@ -88,7 +88,7 @@
       <tr>
         <td colspan="2">
           <h6>Titre de l’œuvre</h6>
-          <em>{data.oeuvre.fields.titre}</em>
+          <em>{@html data.oeuvre.fields.titre}</em>
         </td>
       </tr>
       <tr>
