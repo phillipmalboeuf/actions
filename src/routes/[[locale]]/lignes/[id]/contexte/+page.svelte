@@ -62,7 +62,11 @@
 
       &:first-child {
         display: block;
-        height: 20vh;
+        height: 148px;
+
+        @media (max-width: $mobile) {
+          height: 99px;
+        }
 
         :global(img) {
           height: 100%;

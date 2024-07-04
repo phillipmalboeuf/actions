@@ -21,7 +21,7 @@
   <header>
     <!-- <a href="/"><h3>Accueil</h3></a> -->
     {#if data.page.fields.logotype}
-    <figure role="heading" aria-level="1" class:bigger={['a-propos', 'bibliographie'].includes(data.page.fields.id)}>
+    <figure role="heading" aria-level="1">
       <Media media={data.page.fields.logotype} />
     </figure>
     {:else}
@@ -96,11 +96,11 @@
           object-position: right;
         }
 
-        &.bigger {
-          :global(img) {
-            height: 125%;
-          }
-        }
+        // &.bigger {
+        //   :global(img) {
+        //     height: 125%;
+        //   }
+        // }
       }
     }
 

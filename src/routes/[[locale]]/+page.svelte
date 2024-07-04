@@ -21,9 +21,11 @@
     <ul class="list--nostyle">
       {#each data.lignes as ligne}
       <li class="flex flex--spaced flex--middle flex--gapped">
-        <a href="/lignes/{ligne.fields.id}" class=""><Media media={ligne.fields.logotype} /></a>
-        <a href="/lignes/{ligne.fields.id}/video" on:click={openDialog} class="col col--4of12 col--mobile--12of12"><Icon i="play" label="Visionner vidéo" /> <Media media={ligne.fields.vignette} small /></a>
-        <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur}>Visiter</a>
+        <a href="/lignes/{ligne.fields.id}" class="col col--4of12"><Media media={ligne.fields.logotype} /></a>
+        <a href="/lignes/{ligne.fields.id}/video" on:click={openDialog} class="video col col--4of12 col--mobile--12of12"><Icon i="play" label="Visionner vidéo" /> <Media media={ligne.fields.vignette} small /></a>
+        <div class="col col--4of12">
+          <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur}>Visiter</a>
+        </div>
         <hr>
       </li>
       {/each}
@@ -141,12 +143,12 @@
             :global(img) {
               background-color: transparent;
               width: auto;
-              height: $base * 6.66;
+              height: $base * 6;
               object-fit: contain;
               object-position: left;
 
               @media (max-width: $mobile) {
-                height: $mobile_base * 3.33;
+                height: $mobile_base * 3.5;
               }
             }
           }
@@ -159,18 +161,6 @@
 
             hr {
               order: 99;
-            }
-          }
-
-          &:nth-child(2) {
-            a:first-child {
-              :global(img) {
-                height: $base * 7.5;
-
-                @media (max-width: $mobile) {
-                  height: $mobile_base * 4.1;
-                }
-              }
             }
           }
 
@@ -191,10 +181,15 @@
             }
           }
 
+          div {
+            text-align: right;
+          }
+
           &:nth-child(2n) {
             @media (min-width: $mobile) {
-              a:last-of-type {
+              div:nth-last-child(2) {
                 order: -1;
+                text-align: left;
               }
             }
           }

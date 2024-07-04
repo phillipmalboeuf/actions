@@ -139,11 +139,19 @@
       
       figure :global(img) {
         width: auto;
-        height: 140px;
+        height: 148px;
         object-fit: contain;
 
         @media (max-width: $mobile) {
-          height: 70px;
+          height: 99px;
+        }
+      }
+
+      @media (max-width: $mobile) {
+        margin: ($mobile_gap * 2) 0 ($mobile_gap);
+
+        & ~ .formats {
+          margin-bottom: ($mobile_gap);
         }
       }
     }
@@ -424,7 +432,7 @@
           &.first {
             flex: 0 0 80%;
             // min-width: 70vw;
-            padding: ($gap * 3) ($gap * 2) $gap;
+            padding: $gap ($gap) $gap;
             height: calc($vh - ($base * 5));
             display: flex;
             gap: $base;
@@ -537,7 +545,7 @@
         z-index: 20;
         display: flex;
         gap: $base * 0.5;
-        align-self: top;
+        // align-self: flex-start;
 
         @media (min-width: $mobile) {
           flex-direction: column;
