@@ -61,7 +61,7 @@
     {/key}
   </figure>
   <main class="col col--5of12 col--mobile--12of12">
-    {#if data.oeuvre.fields.description}<h5>{@html data.oeuvre.fields.description}</h5>{/if}
+    {#if data.oeuvre.fields.description}<h4>{@html data.oeuvre.fields.description}</h4>{/if}
     <aside>
       <Credit oeuvre={data.oeuvre} />
     </aside>
@@ -73,7 +73,7 @@
     <p>Met volo omnia non re pa qui to qui sum imi, quae pam sinum quaes rosa atur, omnimus, tota nobit omnihicabor ade expli quodito, nietar laut qui veris velligent eserfer chitio et estinisas pro officidam aut nauate rosarehenient quibero teta idem quides maios enihil is dolut auter incti disaresse ipiendendi bea quam sum rerrovid unt dolup accullorem quete marissim int optatiunt faccabo rosam ribusaperunti ut aut aditaturest incto blabo. Nullescar iusciis erchitatquia nonsequunti velignis nesti ventas ros. Ehenist officimaxim rerora isis adistionet prem. Ximus etter expliques lantore, intiust rosa quassirem doloribus, consequam ut entem niendaepe sam num dis accumo incien ipiset veli totae sim voloribar usamet automa ipisim oribusarer commoler nduciisas nauta sinullab iure moditissir rosas issim.</p>
     {/if}
 
-    <h3>Détails techniques de l’œuvre</h3>
+    <h4>Détails techniques de l’œuvre</h4>
     <table class="small">
       <tr>
         <td colspan="2">
@@ -127,7 +127,7 @@
 
     {#if data.oeuvre.fields.historiqueTxt || data.oeuvre.fields.historique}
     <div>
-    <h5><strong>Historique d'exposition</strong></h5>
+    <h6><strong>Historique d'exposition</strong></h6>
     <small>
       {#if data.oeuvre.fields.historique}
       <Document body={data.oeuvre.fields.historique} />
@@ -140,7 +140,7 @@
 
     {#if data.oeuvre.fields.publicationsTxt || data.oeuvre.fields.publications}
     <div>
-    <h5><strong>Historique de publication</strong></h5>
+    <h6><strong>Historique de publication</strong></h6>
     <small>
       {#if data.oeuvre.fields.publications}
       <Document body={data.oeuvre.fields.publications} />
@@ -160,7 +160,7 @@
     <nav>
       {#if data.prev}
       <a href="/oeuvres/{data.prev.fields.id}" class="prev" on:click={e => $page.state.open && openDialog(e)}>
-        <Icon label="Oeuvre précédente" i="next" />
+        <Icon label="Oeuvre précédente" i="big-next" />
         <h2>{data.prev.fields.annee}</h2>
       </a>
       {:else}
@@ -169,7 +169,7 @@
 
       {#if data.next}
       <a href="/oeuvres/{data.next.fields.id}" class="next" on:click={e => $page.state.open && openDialog(e)}>
-        <Icon label="Oeuvre suivante" i="next" />
+        <Icon label="Oeuvre suivante" i="big-next" />
         <h2>{data.next.fields.annee}</h2>
       </a>
       {/if}
@@ -232,42 +232,46 @@
     main {
       display: flex;
       flex-direction: column;
-      gap: $gap * 1.5;
+      gap: $gap * 1.75;
       margin: auto;
 
       @media (min-width: $mobile) {
         margin-top: ($gap * 10);
       }
 
-      h5 {
-        // font-size: ($base * $scale) + 2px;
-        @media (max-width: $mobile) {
-          display: none;
-        }
-      }
-
-      h5,
+      h4,
       aside {
         max-width: 400px;
       }
 
       div {
-        h5 {
+        h6 {
           margin-bottom: $base;
         }
       }
 
       aside {
+        font-size: $base + 2px;
         line-height: 1.3;
         margin-bottom: $gap * 2;
 
         display: flex;
         flex-direction: column;
         gap: 4px;
+
+        @media (max-width: $mobile) {
+          font-size: $base + 4px;
+          margin: ($mobile_gap * 2) 0;
+        }
       }
 
-      :global(p) {
-        // font-size: $base + 2px;
+      @media (max-width: $mobile) {
+        > :global(p),
+        > :global(ul p),
+        > :global(ol p),
+        > :global(blockquote > p) {
+          font-size: $base;
+        }
       }
 
       :global(figure figcaption) {
@@ -275,12 +279,33 @@
         line-height: 1.3;
       }
 
-      h3 {
+      h4 {
+        font-size: $base * 1.444;
         margin-top: $gap * 2;
+
+        @media (max-width: $mobile) {
+          font-size: $gap;
+          
+          &:first-child {
+            display: none;
+          }
+        }
       }
 
       table {
-        margin-bottom: $base * 0.33;
+        margin-bottom: $gap;
+
+        @media (max-width: $mobile) {
+          tr {
+            display: flex;
+            flex-wrap: wrap;
+          }
+          td {
+            width: 100%;
+            font-size: $base;
+            padding: ($mobile_base * 0.666) 0;
+          }
+        }
 
         td + td {
           position: relative;
@@ -325,15 +350,25 @@
           //   width: $base * 4;
           // }
 
-          &.prev {
-            :global(svg) {
-              transform: rotate(180deg);
+          h2 {
+            font-size: 70px;
+
+            @media (max-width: $mobile) {
+              font-size: 50px;
+            }
+          }
+
+          :global(svg) {
+            @media (max-width: $mobile) {
+              width: 38.5px;
+              height: 36px;
             }
           }
 
           &.next {
             :global(svg) {
               order: 99;
+              transform: rotate(180deg);
             }
           }
         }

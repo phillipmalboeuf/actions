@@ -266,9 +266,29 @@ ul,
 ol {
 	padding-left: 1em;
 
+	small & {
+		padding-left: 1.5em;
+	}
+
 	&.list--nostyle {
 		list-style: none;
 		padding-left: 0;
+	}
+}
+
+ol:not(.list--nostyle) {
+	li {
+		position: relative;
+		&:before {
+			content: "";
+			height: 0.5em;
+			width: 0.5em;
+			background-color: $beige;
+
+			position: absolute;
+			top: 0.8em;
+			left: -0.8em;
+		}
 	}
 }
 

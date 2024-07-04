@@ -374,6 +374,7 @@
               transition: opacity 333ms;
 
               h5 {
+                font-size: $base + 2px;
                 margin-bottom: $base;
               }
 
