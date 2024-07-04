@@ -16,7 +16,7 @@
 
 <svelte:window bind:scrollY bind:innerHeight />
 
-<ol class={format}>
+<ol class="list--nostyle {format}">
 {#each content as item, i}
   {#if isTypeGallerie(item)}
   <li class="gallerie" id={item.fields.id}>

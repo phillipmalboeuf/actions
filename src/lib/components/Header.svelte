@@ -88,7 +88,7 @@
     scroll(true)
   }}>
     <figure class="col col--6of12 col--mobile--12of12"><a href="/" on:click={click}><Logo /></a></figure>
-    <ol class="col col--4of12 col--mobile--12of12">
+    <ol class="list--nostyle col col--4of12 col--mobile--12of12">
       {#if header}
       {#each header.fields.liens as lien}
       <li>
@@ -104,7 +104,7 @@
         }}><Icon i="back" label="Naviguer vers" /> {lien.fields.titre} {#if lien.fields.route !== "/" && $page.url.pathname === lien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
 
         {#if lien.fields.sousLiens}
-        <ol>
+        <ol class="list--nostyle">
           {#each lien.fields.sousLiens as souslien}
           <li>
             <a on:click={click} href="{souslien.fields.route}"><Icon i="back" label="Naviguer vers" /> {souslien.fields.titre} {#if $page.url.pathname === souslien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
@@ -277,7 +277,6 @@
       }
       
       ol {
-        list-style: none;
         display: flex;
         flex-direction: column;
         gap: $base;

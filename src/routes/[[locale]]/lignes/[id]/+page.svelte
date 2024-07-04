@@ -70,7 +70,7 @@
     <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={"auto"} bind:slider bind:active bind:scroll bind:location bind:last>
       <!-- {location} {scroll} {last} -->
       {#key data.ligne.fields.id}
-      <ol class="slider__container">
+      <ol class="list--nostyle slider__container">
         <li class="slide first" class:active={active === 0}>
           <Document body={data.ligne.fields.contexte} />
           <figure>

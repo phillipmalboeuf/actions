@@ -38,7 +38,7 @@
   <figure class="col col--6of12 col--mobile--12of12">
     {#if data.oeuvre.fields.media?.length > 1}
     <Slider autoplay={false} autoheight={false} buttons={false} dots={data.oeuvre.fields.media.length} slidesPerView={1} bind:active>
-      <ol class="slider__container">
+      <ol class="list--nostyle slider__container">
         {#each data.oeuvre.fields.media as media, i}
         <li class="slide"><Media {media} eager={i === 0} /></li>
         {/each}
