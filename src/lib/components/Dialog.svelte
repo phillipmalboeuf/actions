@@ -40,7 +40,7 @@
 </dialog>
 <button class="back" transition:fade={{ duration: 666 }} on:click={close}>
 </button>
-<button class="close" class:vertical class:half={$page.state.type === 'contexte'} transition:fly={{ opacity: 1, ...vertical ? { y: '100vh' } : { x: '100vw' }, duration: 666 }} on:click={close}>
+<button class="close button--none" class:vertical class:half={$page.state.type === 'contexte'} transition:fly={{ opacity: 1, ...vertical ? { y: '100vh', opacity: 0 } : { x: '100vw' }, duration: 666 }} on:click={close}>
   <Icon i={vertical ? "arrow" : "back"} label="Retour" />
 </button>
 {/if}
@@ -77,7 +77,7 @@
     &.vertical {
       top: auto;
       bottom: 0;
-      height: 90vh;
+      height: min(90dvh, 90vh);
       width: 100vw;
 
       border-top-right-radius: $gap;
@@ -119,10 +119,6 @@
     top: $gap;
     left: calc(10vw + ($gap));
     z-index: 2001;
-    background: none;
-    padding: 0;
-    border: none;
-    color: currentColor;
     transition: transform 333ms;
 
     &.vertical {
