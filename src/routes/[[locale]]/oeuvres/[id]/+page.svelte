@@ -8,7 +8,7 @@
   import Slider from '$lib/components/Slider.svelte'
   import Credit from '$lib/components/Credit.svelte'
 
-  import { imigx, year } from '$lib/formatters'
+  import { imigx, year, intlNumber } from '$lib/formatters'
   import { openDialog } from '$lib/helpers'
   import { pushState } from '$app/navigation'
 
@@ -104,7 +104,8 @@
       <tr>
         <td colspan="2">
           <h6>Dimensions</h6>
-          {#if data.oeuvre.fields.dimensions}{data.oeuvre.fields.dimensions}{:else}{data.oeuvre.fields.largeur} x {data.oeuvre.fields.hauteur} cm{/if}
+          <!-- {#if data.oeuvre.fields.dimensions}{data.oeuvre.fields.dimensions}{:else}{data.oeuvre.fields.largeur} x {data.oeuvre.fields.hauteur} cm{/if} -->
+          {intlNumber(data.oeuvre.fields.largeur)} cm x {intlNumber(data.oeuvre.fields.hauteur)} cm {#if data.oeuvre.fields.profondeur}x {intlNumber(data.oeuvre.fields.profondeur)} cm{/if}
         </td>
       </tr>
       <tr>

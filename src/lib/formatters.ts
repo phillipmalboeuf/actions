@@ -9,6 +9,15 @@ export const money = (value: any) => {
   return currency.format(value)
 }
 
+export const intlNumber = (value: any) => {
+  const n = Intl.NumberFormat('fr-CA', {
+    // style: 'currency',
+    // currency: 'CAD',
+    // maximumFractionDigits: 0
+  })
+  return n.format(value)
+}
+
 export const date = (value: string) => {
   return DateTime.fromISO(value).setLocale('fr-CA').toLocaleString({ month: '2-digit', year: 'numeric' })
 }

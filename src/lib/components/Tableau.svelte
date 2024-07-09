@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { TypeLigneSkeleton, TypeOeuvreSkeleton } from '$lib/clients/content_types'
   import type { Entry } from 'contentful'
+  import { intlNumber } from '$lib/formatters' 
   import Media from './Media.svelte'
 
   export let oeuvres: (Entry<TypeOeuvreSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> & { ligne?: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> })[]
@@ -34,8 +35,7 @@
         <em>{@html oeuvre.fields.titre}</em><br />
         {oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}<br />
         {oeuvre.fields.medium}<br />
-        {oeuvre.fields.largeur} cm x {oeuvre.fields.hauteur} cm
-        <!-- {oeuvre.fields.largeur}cm   -->
+        {intlNumber(oeuvre.fields.largeur)} cm x {intlNumber(oeuvre.fields.hauteur)} cm {#if oeuvre.fields.profondeur}x {intlNumber(oeuvre.fields.profondeur)} cm{/if}
       </p>
     </td>
     <td class:thumbnails>
