@@ -26,7 +26,7 @@ export const load = (async ({ locals, url, params, parent }) => {
       artists,
       mediums,
       annees,
-      results: (await content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre", limit: 200, include: 3, order: ["fields.annee"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' })).items.map(oeuvre => ({
+      results: (await content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre", limit: 200, include: 3, order: ["fields.anneeEvenement"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' })).items.map(oeuvre => ({
         ...oeuvre,
         ligne: lignes.items.find(l => l.fields.oeuvres.find(o => oeuvre.sys.id === o.sys.id))
       }))
@@ -43,7 +43,7 @@ export const load = (async ({ locals, url, params, parent }) => {
       'fields.artiste.sys.contentType.sys.id': 'artiste',
       'fields.artiste.fields.id[in]': artist
     } : {},
-    include: 3, order: ["fields.annee"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
+    include: 3, order: ["fields.anneeEvenement"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
   ])
 
   return {

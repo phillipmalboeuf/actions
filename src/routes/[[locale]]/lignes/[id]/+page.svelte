@@ -123,7 +123,7 @@
   </main>
   <h1 class="annee">
     <button class="previous button--none" on:click={() => slider.scrollPrev()}><Icon i="next" label="Retour" /></button>
-    {active > 0 ? active === data.ligne.fields.oeuvres.length + 1 ? data.ligne.fields.oeuvres[active - 2].fields.annee : data.ligne.fields.oeuvres[active - 1].fields.annee : data.ligne.fields.oeuvres[0].fields.annee}
+    {active > 0 ? active === data.ligne.fields.oeuvres.length + 1 ? data.ligne.fields.oeuvres[active - 2].fields.anneeEvenement : data.ligne.fields.oeuvres[active - 1].fields.anneeEvenement : data.ligne.fields.oeuvres[0].fields.anneeEvenement}
     <button disabled={active === data.ligne.fields.oeuvres.length + 1} class="next button--none" on:click={() => slider.scrollNext()}><Icon i="next" label="Prochain" /></button>
   </h1>
   {/if}

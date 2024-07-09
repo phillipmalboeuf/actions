@@ -82,7 +82,9 @@ export interface TypeOeuvreFields {
     numero: EntryFieldTypes.Symbol;
     description?: EntryFieldTypes.Text;
     artiste?: EntryFieldTypes.EntryLink<TypeArtisteSkeleton>;
-    annee?: EntryFieldTypes.Integer;
+    anneeEvenement: EntryFieldTypes.Integer;
+    annee: EntryFieldTypes.Integer;
+    anneeDeRealisation?: EntryFieldTypes.Symbol;
     couleur?: EntryFieldTypes.Symbol;
     vignette?: EntryFieldTypes.AssetLink;
     media?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
@@ -92,9 +94,9 @@ export interface TypeOeuvreFields {
     dimensions?: EntryFieldTypes.Symbol;
     hauteur?: EntryFieldTypes.Number;
     largeur?: EntryFieldTypes.Number;
+    profondeur?: EntryFieldTypes.Number;
     typologie?: EntryFieldTypes.Symbol;
     medium?: EntryFieldTypes.Symbol;
-    anneeDeRealisation?: EntryFieldTypes.Symbol;
     droits?: EntryFieldTypes.Text;
     mention?: EntryFieldTypes.Text;
     corps?: EntryFieldTypes.RichText;

@@ -75,7 +75,7 @@
 </script>
 
 <form class="flex flex--gapped" bind:this={form} action="/search" method="get" on:submit|preventDefault={submit}>
-  <label for="query">Inscrire les termes recherchés</label>
+  <!-- <label for="query">Inscrire les termes recherchés</label> -->
   <input type="search" name="query" id="query" placeholder="Recherche…" bind:value={query} on:input={(e) => {
     clearTimeout(timeout)
     timeout = setTimeout(() => {
@@ -112,7 +112,7 @@
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Artiste'}>
         <button class="button--none" on:click={() => down = down === 'Artiste' ? undefined : 'Artiste'}>Artiste <Icon i="down" label="Choix" /></button>
         <nav class="flex flex--tight_gapped">
-          {#each ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].filter(l => artists.items.find(a => a.fields.nom[0] === l)) as l}
+          {#each ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].filter(l => artists.items.filter(a => a?.fields?.nom).find(a => a.fields.nom[0] === l)) as l}
           <button class="button--none" on:click={() => {
             const label = document.querySelector(`label[data-letter=${l}]`)
             // @ts-ignore
@@ -121,7 +121,7 @@
           {/each}
         </nav>
         <div>
-          {#each artists.items as a}
+          {#each artists.items.filter(a => a?.fields?.nom) as a}
           <label data-letter={a.fields.nom[0]}>
             {@html a.fields.nom.replace('(', '<br>(')}
             <input type="checkbox" bind:group={artist} value="{a.fields.id}"
@@ -187,7 +187,7 @@
 
       {#if annees}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown dropdown--wide" class:down={down === 'Année'}>
-        <button class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'}>Année d’événement <Icon i="down" label="Choix" /></button>
+        <button class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'}>Période de réalisation <Icon i="down" label="Choix" /></button>
         <div>
           <div>
             <label for="from">À partir de</label>
