@@ -127,7 +127,7 @@
 
     {#if data.oeuvre.fields.historiqueTxt || data.oeuvre.fields.historique}
     <div>
-    <h6><strong>Historique d'exposition</strong></h6>
+    <h6><strong>Historique d’exposition</strong></h6>
     <small>
       {#if data.oeuvre.fields.historique}
       <Document body={data.oeuvre.fields.historique} />
