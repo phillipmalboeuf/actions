@@ -18,7 +18,10 @@
   let element: HTMLElement
   let map: Map
   let dragging = false
-  let zoom: number = oeuvre.fields.minZoom || -2.5
+  let zoom: number
+
+  let maxZoom = 0
+  let minZoom = -3
 
   let bounds: {
     top: number
@@ -29,7 +32,6 @@
     height: number
   }
 
-  // const maxZoom = 4
   const tileSize = Math.round(Math.min(file.width, file.height) / 24)
 
   // console.log(file.height / 2, file.width / 2, tileSize)
@@ -54,7 +56,7 @@
 
   const reset = () => {
     // console.log(file.width, element.clientWidth, tileSize, Math.sqrt(file.width / element.clientWidth) * -1)
-    map.setView([-file.height / 2, file.width / 2], oeuvre.fields.minZoom || -2.5)
+    map.setView([-file.height / 2, file.width / 2], minZoom)
   }
 
   onMount(async () => {
@@ -67,6 +69,9 @@
       // zoomAnimation: false,
       fadeAnimation: false
     })
+
+    // minZoom = Math.round(Math.max(file.width / element.clientWidth, file.height / element.clientHeight) * -2) / 2
+    minZoom = Math.round(Math.max(Math.sqrt(file.width / element.clientWidth), Math.sqrt(file.height / element.clientHeight * 2)) * -2) / 2
 
     const Zoom = Leaflet.TileLayer.extend({
       getTileUrl: function({ x, y, z }) {
@@ -82,8 +87,8 @@
     }) as unknown as typeof Leaflet.TileLayer;
 
     new Zoom('', {
-      maxZoom: (oeuvre.fields.maxZoom || 0),
-      minZoom: (oeuvre.fields.minZoom || -2.5),
+      maxZoom,
+      minZoom,
       tileSize,
       bounds: [[0,0],[-file.height + tileSize, file.width - tileSize]],
       noWrap: true,
@@ -125,14 +130,14 @@
     
 
       <nav>
-        <button disabled={zoom == (oeuvre.fields.maxZoom || 0)} on:click={() => map.zoomIn(0.5)}><Icon i="plus" label="Plus zoom" /></button>
-        <button disabled={zoom == (oeuvre.fields.minZoom || -2.5)} on:click={() => map.zoomOut(0.5)}><Icon i="minus" label="Minus zoom" /></button>
+        <button disabled={zoom == maxZoom} on:click={() => map.zoomIn(0.5)}><Icon i="plus" label="Plus zoom" /></button>
+        <button disabled={zoom == minZoom} on:click={() => map.zoomOut(0.5)}><Icon i="minus" label="Minus zoom" /></button>
         <!-- <small>{zoom}</small> -->
-        <button disabled={zoom == (oeuvre.fields.minZoom || -2.5)} on:click={reset}><Icon i="reset" label="Réinitialiser" /></button>
+        <button disabled={zoom == minZoom} on:click={reset}><Icon i="reset" label="Réinitialiser" /></button>
       </nav>
     </div>
 
-    <p class:zoomed={zoom > (oeuvre.fields.minZoom || -2.5)}>
+    <p class:zoomed={zoom > minZoom}>
       <Credit {oeuvre} full />
     </p>
   </aside>
