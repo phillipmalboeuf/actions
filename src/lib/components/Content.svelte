@@ -217,6 +217,7 @@
                 // max-height: 50vh;
                 width: auto;
                 max-width: 33vw;
+                max-height: 88vh;
                 object-fit: contain;
 
                 @media (max-width: $mobile) {

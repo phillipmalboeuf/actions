@@ -207,6 +207,8 @@
       :global(th) {
         border: none;
       }
+
+      
     }
   }
 </style>
