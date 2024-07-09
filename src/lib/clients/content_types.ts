@@ -3,6 +3,8 @@ import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleC
 export interface TypeArtisteFields {
     nom?: EntryFieldTypes.Symbol;
     id: EntryFieldTypes.Symbol;
+    nomFamille?: EntryFieldTypes.Symbol;
+    prenom?: EntryFieldTypes.Symbol;
     description?: EntryFieldTypes.Text;
     lieuDeNaissance?: EntryFieldTypes.Symbol;
     anneeDeNaissance?: EntryFieldTypes.Integer;

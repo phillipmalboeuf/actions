@@ -27,10 +27,10 @@
       <p>{@html oeuvre.fields.description || '-'}</p>
     </td>
     <td class="artist">
-      <p>{oeuvre.fields.artiste?.fields.nom || '-'}</p>
+      <p>{@html (oeuvre.fields.artiste.fields.prenom ? `${oeuvre.fields.artiste.fields.nomFamille}, ${oeuvre.fields.artiste.fields.prenom}` : oeuvre.fields.artiste.fields.nom).replace('(', '<br>(')}</p>
     </td>
     <td class="cartel">
-      <div>{oeuvre.fields.artiste?.fields.nom || '-'}</div>
+      <div>{@html (oeuvre.fields.artiste.fields.prenom ? `${oeuvre.fields.artiste.fields.nomFamille}, ${oeuvre.fields.artiste.fields.prenom}` : oeuvre.fields.artiste.fields.nom).replace('(', '<br>(')}</div>
       <p>
         <em>{@html oeuvre.fields.titre}</em><br />
         {oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}<br />

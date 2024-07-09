@@ -112,18 +112,18 @@
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Artiste'}>
         <button class="button--none" on:click={() => down = down === 'Artiste' ? undefined : 'Artiste'}>Artiste <Icon i="down" label="Choix" /></button>
         <nav class="flex flex--tight_gapped">
-          {#each ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].filter(l => artists.items.filter(a => a?.fields?.nom).find(a => a.fields.nom[0] === l)) as l}
+          {#each ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].filter(l => artists.items.filter(a => a?.fields?.nomFamille).find(a => a.fields.nomFamille[0] === l)) as l}
           <button class="button--none" on:click={() => {
             const label = document.querySelector(`label[data-letter=${l}]`)
             // @ts-ignore
-            label.parentElement.scrollTo({ top: label.offsetTop - 125, behavior: 'smooth' })
+            label.parentElement.scrollTo({ top: label.offsetTop, behavior: 'smooth' })
           }}>{l}</button>
           {/each}
         </nav>
         <div>
-          {#each artists.items.filter(a => a?.fields?.nom) as a}
-          <label data-letter={a.fields.nom[0]}>
-            {@html a.fields.nom.replace('(', '<br>(')}
+          {#each artists.items.filter(a => a?.fields?.nomFamille) as a}
+          <label data-letter={a.fields.nomFamille[0]}>
+            {@html (a.fields.prenom ? `${a.fields.nomFamille}, ${a.fields.prenom}` : a.fields.nom).replace('(', '<br>(')}
             <input type="checkbox" bind:group={artist} value="{a.fields.id}"
               on:click={async (e) => {
                 // if (a.fields.id === artist) {
@@ -240,7 +240,7 @@
           <button type="button" class="button--tight" on:click={() => {
             //@ts-ignore
             document.querySelector(`input[type=checkbox][value="${f}"]`).click()
-          }}>{artists.items.find(a => a.fields.id === f).fields.nom} &nbsp;X</button>
+          }}>{artists.items.find(a => a.fields.id === f).fields.nomFamille}, {artists.items.find(a => a.fields.id === f).fields.prenom} &nbsp;X</button>
           {/each}
           {#each medium as f}
           <button type="button" class="button--tight" on:click={() => {

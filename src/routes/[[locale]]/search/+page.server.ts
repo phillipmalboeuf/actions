@@ -6,7 +6,7 @@ import type { Entry } from 'contentful'
 
 export const load = (async ({ locals, url, params, parent }) => {
   const [artists, oeuvres, lignes] = await Promise.all([
-    content.getEntries<TypeArtisteSkeleton>({ "content_type": "artiste", order: ["fields.nom"], select: ["fields.nom", "fields.id", "sys.id"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
+    content.getEntries<TypeArtisteSkeleton>({ "content_type": "artiste", order: ["fields.nomFamille", "fields.nom"], select: ["fields.prenom", "fields.nomFamille", "fields.nom", "fields.id", "sys.id"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
     content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre", select: ["fields.annee", "fields.medium", "fields.typologie"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
     content.getEntries<TypeLigneSkeleton>({ "content_type": "ligne", select: ["fields.oeuvres", "fields.id", "fields.couleur"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
   ])
