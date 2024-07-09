@@ -131,7 +131,12 @@
 
       <nav>
         <button disabled={zoom == maxZoom} on:click={() => map.zoomIn(0.5)}><Icon i="plus" label="Plus zoom" /></button>
-        <button disabled={zoom == minZoom} on:click={() => map.zoomOut(0.5)}><Icon i="minus" label="Minus zoom" /></button>
+        <button disabled={zoom == minZoom} on:click={() => {
+          map.zoomOut(0.5)
+          if (zoom == minZoom + 0.5) {
+            reset()
+          }
+        }}><Icon i="minus" label="Minus zoom" /></button>
         <!-- <small>{zoom}</small> -->
         <button disabled={zoom == minZoom} on:click={reset}><Icon i="reset" label="Réinitialiser" /></button>
       </nav>
