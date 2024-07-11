@@ -92,7 +92,7 @@ export interface TypeOeuvreFields {
     media?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
     minZoom?: EntryFieldTypes.Number;
     maxZoom?: EntryFieldTypes.Number;
-    format?: EntryFieldTypes.Symbol<"Large" | "Moyen" | "Petit">;
+    format?: EntryFieldTypes.Symbol<"Large" | "Moyen" | "Petit" | "Extra-large">;
     dimensions?: EntryFieldTypes.Symbol;
     hauteur?: EntryFieldTypes.Number;
     largeur?: EntryFieldTypes.Number;

@@ -426,13 +426,19 @@
 
           &.Petit {
             figure {
-              height: calc(36.66vh);
+              height: calc(40vh);
             }
           }
 
           &.Moyen {
             figure {
-              height: calc(55.55vh);
+              height: calc(55vh);
+            }
+          }
+
+          &.Large {
+            figure {
+              height: calc(65vh);
             }
           }
           }
