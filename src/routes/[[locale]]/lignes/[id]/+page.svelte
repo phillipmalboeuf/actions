@@ -23,7 +23,7 @@
   export let data: PageData
 
   let slider: EmblaCarouselType
-  let active: number = 0
+  let active: number = $page.url.searchParams.get('active') ? Number($page.url.searchParams.get('active')) : 0
   let scroll: number = 0
   let location: number = 0
   let last: number
@@ -32,7 +32,7 @@
   let index: number
 
   onNavigate(() => {
-    active = 0
+    // active = 0
   })
 
   $: {
@@ -41,7 +41,6 @@
   }
 </script>
 
-{#key data.ligne.sys.id}
 {#key data.format}
 <section class="flex flex--thick_gapped {data.format || "gallerie"}" class:first={active === 0}>
   {#if data.format === "index"}
@@ -53,7 +52,7 @@
   {/if}
 
   <nav class="col selector">
-    <Lignes id="exposition-desktop" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} format={data.format} />
+    <Lignes id="exposition-desktop" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} {active} format={data.format} />
   </nav>
   <nav class="col col--mobile--12of12 formats" style:--current-color={data.ligne.fields.couleur}>
     <Lignes id="exposition-mobile" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} format={data.format} />
@@ -72,7 +71,7 @@
   </main>
   {:else}
   <main class="col col--12of12" style:--color={data.ligne.fields.couleur} class:fini={active >= data.ligne.fields.oeuvres.length} style:--scroll={scroll} style:--location={location} style:--last={last}>
-    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={"auto"} bind:slider bind:active bind:scroll bind:location bind:last>
+    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} startIndex={$page.url.searchParams.get('active') ? Number($page.url.searchParams.get('active')) : 0} slidesPerView={"auto"} bind:slider bind:active bind:scroll bind:location bind:last>
       <!-- {location} {scroll} {last} -->
       {#key data.ligne.fields.id}
       <ol class="list--nostyle slider__container">
@@ -92,7 +91,7 @@
               openDialog(e)
             }
           }}>
-          <figure>
+          <figure style:--color={oeuvre.fields.couleur || '#EBEAE0'}>
             <div>
               <Icon i="plus" label="Découvrez" />
             </div>
@@ -128,7 +127,6 @@
   </h1>
   {/if}
 </section>
-{/key}
 {/key}
 
 <style lang="scss">
@@ -345,6 +343,7 @@
               object-fit: contain;
               -webkit-user-select: none;
               user-select: none;
+              background-color: var(--color);
 
               @media (max-width: $mobile) {
                 height: 50vh;

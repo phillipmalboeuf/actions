@@ -5,6 +5,7 @@
 
   export let id: string
   export let current: number
+  export let active: number = undefined
   export let lignes: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">[]
   export let format: string = undefined
 
@@ -23,7 +24,7 @@
   </label>
 
   {#each lignes as ligne, i}
-  <a href="/lignes/{ligne.fields.id}{format ? `?format=${format}` : ""}" on:click={() => input.checked = false}>
+  <a href="/lignes/{ligne.fields.id}{active ? `?active=${active}` : ""}{format ? `?format=${format}` : ""}" on:click={() => input.checked = false}>
     <label for={ligne.fields.id}>
       {ligne.fields.titre}
       <input type="radio" bind:group={selected} value={ligne.fields.id} style:--color={ligne.fields.couleur}>
