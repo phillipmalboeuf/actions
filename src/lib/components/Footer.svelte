@@ -10,7 +10,7 @@
 <footer class="flex flex--gapped">
   <figure class="col col--3of12 col--mobile--12of12"><a href="/"><Logo /></a></figure>
 
-  <main class="col col--9of12 col--mobile--12of12">
+  <main class="col col--9of12 col--tablet--12of12">
     <ol class="list--nostyle flex flex--gapped">
       {#if footer}
       {#each footer.fields.liens as lien}
@@ -59,9 +59,12 @@
     backface-visibility: hidden;
     overflow-x: hidden;
 
+    @media (max-width: $tablet_portrait) {
+      gap: ($mobile_gap * 3);
+    }
+
     @media (max-width: $mobile) {
       padding: ($mobile_gap * 2) ($mobile_gap) ($mobile_gap * 2);
-      gap: ($mobile_gap * 3);
     }
 
     :global(.-pages-credits) ~ &,

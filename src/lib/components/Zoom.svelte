@@ -193,9 +193,15 @@
       // justify-content: center;
       pointer-events: none;
 
-      @media (max-width: $mobile) {
+      @media (max-width: $tablet_portrait) {
         width: auto;
         top: auto;
+        right: $gap * 2;
+        bottom: $gap * 2;
+        left: $gap * 2;
+      }
+
+      @media (max-width: $mobile) {
         right: $mobile_gap;
         bottom: $mobile_gap;
         left: $mobile_gap;
@@ -207,7 +213,7 @@
         transition: opacity 666ms;
         padding: $base;
 
-        @media (max-width: $mobile) {
+        @media (max-width: $tablet_portrait) {
           padding: 0;
           width: 50%;
         }
@@ -224,7 +230,7 @@
         background-color: $black;
         border-radius: $base;
 
-        @media (max-width: $mobile) {
+        @media (max-width: $tablet_portrait) {
           position: absolute;
           bottom: 0;
           right: 0;
@@ -236,7 +242,7 @@
         cursor: grab;
         position: relative;
 
-        @media (max-width: $mobile) {
+        @media (max-width: $tablet_portrait) {
           display: none;
         }
 
@@ -282,7 +288,7 @@
       gap: $base;
       margin-top: $base;
 
-      @media (max-width: $mobile) {
+      @media (max-width: $tablet_portrait) {
         margin-top: 0;
         flex-direction: column;
       }
@@ -297,7 +303,7 @@
         &:last-child {
           margin-left: auto;
 
-          @media (max-width: $mobile) {
+          @media (max-width: $tablet_portrait) {
             margin-left: 0;
           }
         }

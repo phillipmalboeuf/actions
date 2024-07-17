@@ -496,6 +496,14 @@ form {
         width: calc(#{$width} - var(--gap) + #{$adjust});
        }
 
+			@media (max-width: $tablet_portrait) {
+				&.col--tablet--#{$i}of#{$number_of_columns} {
+					$width: (100% / $number_of_columns * $i);
+					$adjust: calc(var(--gap) / #{$number_of_columns / $i});
+					width: calc(#{$width} - var(--gap) + #{$adjust});
+				}
+			}
+
 			@media (max-width: $mobile) {
 				&.col--mobile--#{$i}of#{$number_of_columns} {
 					$width: (100% / $number_of_columns * $i);

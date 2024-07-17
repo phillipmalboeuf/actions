@@ -147,7 +147,7 @@
               object-fit: contain;
               object-position: left;
 
-              @media (max-width: $mobile) {
+              @media (max-width: $tablet_portrait) {
                 height: $mobile_base * 3.5;
               }
             }
