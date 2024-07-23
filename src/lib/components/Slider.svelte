@@ -39,8 +39,10 @@
   const limit = slider.internalEngine().limit.length
   last = (1 - list[list.length - 2]) * limit
 
-  slider.on("select", () => active = slider.selectedScrollSnap())
-  slider.on("scroll", () => {  
+  slider.on("select", () => {
+    active = slider.selectedScrollSnap()
+  })
+  slider.on("scroll", () => {
     location = slider.internalEngine().location.get()
     scroll = location + limit
   })

@@ -1,9 +1,8 @@
 <script lang="ts">
   import { type EmblaCarouselType } from 'embla-carousel'
-  import type { Entry } from 'contentful';
-  import type { TypeLigneSkeleton } from '$lib/clients/content_types';
+  import type { Entry } from 'contentful'
+  import type { TypeLigneSkeleton } from '$lib/clients/content_types'
 
-  // import { fade } from 'svelte/transition'
   import Media from '$lib/components/Media.svelte'
   import Document from '$lib/components/document/index.svelte'
   import Icon from '$lib/components/Icon.svelte'
@@ -19,20 +18,31 @@
   import { page } from '$app/stores'
 
   import type { PageData } from './$types' 
+  import { fade } from 'svelte/transition'
+  import { tick } from 'svelte'
   import { onNavigate } from '$app/navigation'
+  
   export let data: PageData
 
   let slider: EmblaCarouselType
-  let active: number = $page.url.searchParams.get('active') ? Number($page.url.searchParams.get('active')) : 0
-  let scroll: number = 0
-  let location: number = 0
+  let active: number
+  let scroll: number
+  let location: number
   let last: number
 
   let next: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
   let index: number
+  let hover: string
 
-  onNavigate(() => {
-    // active = 0
+  let ready = true
+
+  onNavigate(async () => {
+    ready = false
+    setTimeout(() => {
+      slider.scrollTo(active, true)
+      // slider.emit("scroll")
+      ready = true
+    }, 333)
   })
 
   $: {
@@ -52,10 +62,20 @@
   {/if}
 
   <nav class="col selector">
-    <Lignes id="exposition-desktop" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} {active} format={data.format} />
+    <Lignes id="exposition-desktop" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} {active} format={data.format}
+      on:mouseenter={(e) => {
+        // @ts-ignore
+        hover = e.currentTarget.getAttribute("data-id")
+      }}
+      on:mouseleave={() => hover = undefined} />
   </nav>
   <nav class="col col--mobile--12of12 formats" style:--current-color={data.ligne.fields.couleur}>
-    <Lignes id="exposition-mobile" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} format={data.format} />
+    <Lignes id="exposition-mobile" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} format={data.format}
+      on:mouseenter={(e) => {
+        // @ts-ignore
+        hover = e.currentTarget.getAttribute("data-id")
+      }}
+      on:mouseleave={() => hover = undefined} />
 
     {#if data.format === "index"}
     <a href="/lignes/{data.ligne.fields.id}?format=gallerie" class="button" style:--color={data.ligne.fields.couleur}>Galerie</a>
@@ -70,10 +90,10 @@
     <Tableau ligne={data.ligne} oeuvres={data.ligne.fields.oeuvres} on:click={openDialog} />
   </main>
   {:else}
-  <main class="col col--12of12" style:--color={data.ligne.fields.couleur} class:fini={active >= data.ligne.fields.oeuvres.length} style:--scroll={scroll} style:--location={location} style:--last={last}>
-    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} startIndex={$page.url.searchParams.get('active') ? Number($page.url.searchParams.get('active')) : 0} slidesPerView={"auto"} bind:slider bind:active bind:scroll bind:location bind:last>
+  <main class="col col--12of12" class:ready style:--color={data.ligne.fields.couleur} class:fini={active >= data.ligne.fields.oeuvres.length} style:--scroll={scroll} style:--location={location} style:--last={last}>
+    {#key data.ligne.fields.id}
+    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={"auto"} bind:slider bind:active bind:scroll bind:location bind:last>
       <!-- {location} {scroll} {last} -->
-      {#key data.ligne.fields.id}
       <ol class="list--nostyle slider__container">
         <li class="slide first" class:active={active === 0}>
           <Document body={data.ligne.fields.contexte} />
@@ -109,7 +129,10 @@
         {/each}
 
         <li class="slide fin" class:active={active === data.ligne.fields.oeuvres.length}>
-          <a href="/lignes/{next.fields.id}" on:click={() => slider.scrollTo(0, true)} style:--color={next.fields.couleur}>
+          <a href="/lignes/{next.fields.id}" on:click={() => {
+            active = 0
+            slider.scrollTo(0, true)
+          }} style:--color={next.fields.couleur}>
             <Icon i="back" label="Prochain" />
             <p>Visitez la prochaine exposition</p>
             <hr>
@@ -117,8 +140,24 @@
           </a>
         </li>
       </ol>
-      {/key}
     </Slider>
+    {/key}
+
+    {#if hover && hover !== data.ligne.fields.id}
+    {#await fetch(`/lignes/${hover}/siblings/${active - 1}`) then response}
+    {#await response.json() then siblings}
+    <aside class="siblings" transition:fade={{ duration: 333 }}>
+      <figure class="sibling--previous {siblings.previous?.fields.format}">
+        {#if siblings.previous}<Media media={siblings.previous.fields.vignette} />{/if}
+      </figure> 
+      
+      <figure class="sibling--next {siblings.next?.fields.format}">
+        {#if siblings.next}<Media media={siblings.next.fields.vignette} />{/if}
+      </figure>
+    </aside>
+    {/await}
+    {/await}
+    {/if}
   </main>
   <h1 class="annee">
     <button class="previous button--none" on:click={() => slider.scrollPrev()}><Icon i="next" label="Retour" /></button>
@@ -308,12 +347,57 @@
       }
 
       main {
+        position: relative;
         width: calc(100% + ($gap * 4));
         margin-left: ($gap * -2);
 
         @media (max-width: $mobile) {
           width: calc(100% + ($mobile_gap * 2));
           margin-left: ($mobile_gap * -1);
+        }
+
+        opacity: 0;
+
+        &.ready {
+          opacity: 1;
+          transition: opacity 333ms;
+        }
+
+        .siblings {
+          pointer-events: none;
+          position: absolute;
+          z-index: -1;
+          top: -90px;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          opacity: 0.25;
+
+          figure {
+            width: 33%;
+            height: calc($vh - ($base * 15));
+
+            :global(img) {
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+            }
+
+            &.Petit {
+              height: calc(40vh);
+            }
+
+            &.Moyen {
+              height: calc(55vh);
+            }
+
+            &.Large {
+              height: calc(65vh);
+            }
+          }
         }
       }
 
