@@ -68,7 +68,7 @@
 
   {#if data.format === "index"}
   <main class="col col--12of12">
-    <Tableau ligne={data.ligne} oeuvres={data.ligne.fields.oeuvres} />
+    <Tableau ligne={data.ligne} oeuvres={data.ligne.fields.oeuvres} on:click={openDialog} />
   </main>
   {:else}
   <main class="col col--12of12" style:--color={data.ligne.fields.couleur} class:fini={active >= data.ligne.fields.oeuvres.length} style:--scroll={scroll} style:--location={location} style:--last={last}>
