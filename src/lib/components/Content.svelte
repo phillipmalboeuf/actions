@@ -428,6 +428,13 @@
           }
         }
 
+        > :global(h6) {
+          :global(u) {
+            text-decoration: none;
+            font-size: $base + 2px;
+          }
+        }
+
         .split {
           font-size: 9vw;
           position: sticky;
