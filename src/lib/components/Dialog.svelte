@@ -77,7 +77,7 @@
     &.vertical {
       top: auto;
       bottom: 0;
-      height: min(90dvh, 90vh);
+      height: min(95dvh, 95vh);
       width: 100vw;
 
       border-top-right-radius: $gap;
@@ -91,9 +91,13 @@
     &.half {
       width: 50vw;
 
-      @media (max-width: $mobile) {
+      @media (orientation: portrait) {
         width: 100vw;
       }
+    }
+
+    @media (max-width: $tablet_landscape) {
+      width: 95vw;
     }
 
     @media (max-width: $mobile) {
@@ -122,13 +126,13 @@
     transition: transform 333ms;
 
     &.vertical {
-      top: calc(10vh + $mobile_gap);
+      top: calc(5vh + $mobile_gap);
     }
 
     &.half {
       left: calc(50vw + ($gap));
 
-      @media (max-width: $mobile) {
+      @media (orientation: portrait) {
         left: calc(0px + ($mobile_gap));
       }
     }
@@ -138,7 +142,7 @@
       transform: translateX(20%);
     }
 
-    @media (max-width: $mobile) {
+    @media (orientation: portrait) {
       left: calc(0px + ($mobile_gap));
     }
   }

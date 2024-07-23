@@ -6,6 +6,7 @@
   import { onDestroy, onMount } from 'svelte'
 
   export let loop = true
+  export let startIndex = 0
   export let disabled = false
   export let buttons = true
   export let autoplay = true
@@ -13,7 +14,7 @@
   export let dots: number = undefined
   export let slidesPerView: number | "auto" = 1
 
-  let options: EmblaOptionsType = { loop, startIndex: 0 }
+  let options: EmblaOptionsType = { loop, startIndex }
   let plugins = [
     ...autoplay ? [Autoplay({ stopOnFocusIn: true })] : [],
     ...autoheight ? [Autoheight()] : [],
@@ -38,8 +39,10 @@
   const limit = slider.internalEngine().limit.length
   last = (1 - list[list.length - 2]) * limit
 
-  slider.on("select", () => active = slider.selectedScrollSnap())
-  slider.on("scroll", () => {  
+  slider.on("select", () => {
+    active = slider.selectedScrollSnap()
+  })
+  slider.on("scroll", () => {
     location = slider.internalEngine().location.get()
     scroll = location + limit
   })

@@ -60,7 +60,7 @@
     </figcaption>
     {/key}
   </figure>
-  <main class="col col--5of12 col--mobile--12of12">
+  <main class="col col--5of12 col--tablet--6of12 col--mobile--12of12">
     {#if data.oeuvre.fields.description}<h4>{@html data.oeuvre.fields.description}</h4>{/if}
     <aside>
       <Credit oeuvre={data.oeuvre} />
@@ -185,6 +185,10 @@
     min-height: $vh;
     background-color: $beige;
     // justify-content: space-around;
+
+    @media (max-width: $tablet_portrait) {
+      padding: ($gap * 1);
+    }
 
     @media (max-width: $mobile) {
       padding: $mobile_base;

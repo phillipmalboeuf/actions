@@ -96,12 +96,20 @@
       :global(svg) {
         // padding: $gap;
         width: 100%;
-        max-width: calc(100vw - ($gap * 1));
+        max-width: calc(100vw - ($gap * 2));
         transition: height 333ms;
         height: calc($vh - ($gap * 2));
         overflow: visible;
         object-position: left center;
         background-color: var(--background);
+
+        @media (max-width: $tablet_portrait) {
+          max-width: calc(66vw - ($mobile_gap * 2));
+        }
+
+        @media (max-width: $mobile) {
+          max-width: calc(80vw - ($mobile_gap * 2));
+        }
 
         :global(g) {
           will-change: transform;
@@ -119,6 +127,7 @@
           }
 
           @media (orientation: portrait) {
+
             &:nth-child(2) {
               transform: translateX(calc((1 - var(--scroll, 0)) * 22vw));
             }
@@ -416,6 +425,13 @@
                 margin-bottom: $base * 0.25;
               }
             }
+          }
+        }
+
+        > :global(h6) {
+          :global(u) {
+            text-decoration: none;
+            font-size: $base + 2px;
           }
         }
 

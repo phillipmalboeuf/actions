@@ -87,8 +87,8 @@
     menuScrollY = e.currentTarget.scrollTop
     scroll(true)
   }}>
-    <figure class="col col--6of12 col--mobile--12of12"><a href="/" on:click={click}><Logo /></a></figure>
-    <ol class="list--nostyle col col--4of12 col--mobile--12of12">
+    <figure class="col col--6of12 col--tablet--12of12"><a href="/" on:click={click}><Logo /></a></figure>
+    <ol class="list--nostyle col col--4of12 col--tablet--12of12">
       {#if header}
       {#each header.fields.liens as lien}
       <li>
@@ -235,7 +235,7 @@
       justify-content: space-between;
 
       @media (max-width: $mobile) {
-        width: 100vw;
+        // width: 100vw;
         border-radius: 0;
         padding: $mobile_gap;
       }
@@ -246,8 +246,12 @@
         padding-top: $gap * 6;
         // z-index: 3;
 
-        @media (max-width: $mobile) {
-          width: 100vw;
+        @media (max-width: $tablet_landscape) {
+          width: 95vw;
+        }
+
+        @media (max-width: $tablet_portrait) {
+          width: 99vw;
         }
 
         > .button--none {
@@ -265,7 +269,7 @@
           width: auto;
         }
 
-        @media (max-width: $mobile) {
+        @media (orientation: portrait) {
           padding: $gap 0;
           order: 1;
 
@@ -326,7 +330,7 @@
               }
             }
 
-            @media (max-width: $mobile) {
+            @media (max-width: $tablet_portrait) {
               margin-top: $mobile_gap;
               margin-bottom: $mobile_gap * 2;
 
@@ -335,7 +339,7 @@
                 align-items: flex-start;
 
                 a {
-                  min-width: $mobile_base * 8;
+                  min-width: $mobile_base * 10;
                   justify-content: center;
                 }
               }
