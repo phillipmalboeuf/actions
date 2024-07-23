@@ -134,7 +134,7 @@
             slider.scrollTo(0, true)
           }} style:--color={next.fields.couleur}>
             <Icon i="back" label="Prochain" />
-            <p>Visitez la prochaine exposition</p>
+            <p>Visitez la prochaine ligne du temps</p>
             <hr>
             <p>{next.fields.titre}</p>
           </a>
