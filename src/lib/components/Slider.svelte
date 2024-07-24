@@ -3,10 +3,11 @@
   import emblaCarouselSvelte, { type EmblaCarouselSvelteType } from 'embla-carousel-svelte'
   import Autoplay, { type AutoplayOptionsType } from 'embla-carousel-autoplay'
   import Autoheight from 'embla-carousel-auto-height'
-  import { onDestroy, onMount } from 'svelte'
+  import { onDestroy, onMount, tick } from 'svelte'
 
   export let loop = true
   export let startIndex = 0
+  export let wheel = false
   export let disabled = false
   export let buttons = true
   export let autoplay = true
@@ -25,6 +26,9 @@
   export let location = 0
   export let scroll = 0
   export let last = 0
+
+  let scrolling = false
+  let timeout: NodeJS.Timeout
 
   onDestroy(() => {
     slider?.destroy()
@@ -46,7 +50,45 @@
     location = slider.internalEngine().location.get()
     scroll = location + limit
   })
-}} use:emblaCarouselSvelte={{ options, plugins }}>
+}} use:emblaCarouselSvelte={{ options, plugins }}
+  on:wheel={e => {
+    if (!wheel) return
+
+    if (scrolling) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
+
+    if (e.deltaY > 0) {
+      if (active < slider.scrollSnapList().length - 1) {
+        e.preventDefault()
+        e.stopPropagation()
+        
+        if (e.deltaY > 5 && !scrolling) {
+          scrolling = true
+          slider.scrollNext()
+
+          timeout = setTimeout(() => {
+            scrolling = false
+          }, 666)
+        }
+      }
+    } else if (active > 0) {
+      if (window.scrollY <= 0) {
+        e.preventDefault()
+        e.stopPropagation()
+      }
+
+      if (e.deltaY < -5 && !scrolling) {
+        scrolling = true
+        slider.scrollPrev()
+
+        timeout = setTimeout(() => {
+          scrolling = false
+        }, 666)
+      }
+    }
+  }}>
   <slot />
 </figure>
 

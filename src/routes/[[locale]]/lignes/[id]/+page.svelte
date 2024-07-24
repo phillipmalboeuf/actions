@@ -92,7 +92,7 @@
   {:else}
   <main class="col col--12of12" class:ready style:--color={data.ligne.fields.couleur} class:fini={active >= data.ligne.fields.oeuvres.length} style:--scroll={scroll} style:--location={location} style:--last={last}>
     {#key data.ligne.fields.id}
-    <Slider loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={"auto"} bind:slider bind:active bind:scroll bind:location bind:last>
+    <Slider wheel loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={"auto"} bind:slider bind:active bind:scroll bind:location bind:last>
       <!-- {location} {scroll} {last} -->
       <ol class="list--nostyle slider__container">
         <li class="slide first" class:active={active === 0}>
@@ -100,7 +100,7 @@
           <figure>
             <Media media={data.ligne.fields.logotype} />
           </figure>
-          <button class="next button--none" on:click={() => slider.scrollNext()}><Icon i="back" label="Prochain" /></button>
+          <!-- <button class="next button--none" on:click={() => slider.scrollNext()}><Icon i="back" label="Prochain" /></button> -->
         </li>
         {#each data.ligne.fields.oeuvres as oeuvre, i}
         <li class="slide {oeuvre.fields.format}" class:left={(active < i + 1)} class:right={(active > i + 1) && i !== data.ligne.fields.oeuvres.length - 1}>
@@ -440,6 +440,7 @@
               object-fit: contain;
               -webkit-user-select: none;
               user-select: none;
+              transition: transform 333ms;
 
               @media (min-width: $mobile) {
                 background-color: var(--color);
@@ -503,11 +504,13 @@
             }
           }
 
-          a:hover,
-          a:focus {
-            div {
-              :global(svg) {
-                opacity: 1;
+          &:not(.left):not(.right) {
+            a:hover,
+            a:focus {
+              div {
+                :global(svg) {
+                  opacity: 1;
+                }
               }
             }
           }
@@ -607,6 +610,12 @@
               @media (max-width: $mobile) {
                 padding: 0;
                 width: auto;
+              }
+            }
+
+            @media (min-width: $tablet_portrait) {
+              &.active + li :global(img) {
+                transform: scale(1.5) translateY(calc($base * 2));
               }
             }
           }
