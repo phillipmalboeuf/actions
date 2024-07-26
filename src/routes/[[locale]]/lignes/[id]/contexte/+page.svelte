@@ -14,6 +14,7 @@
 
   import type { PageData } from './$types' 
   export let data: PageData
+  export let dialog = false
 </script>
 
 <!-- <header>
@@ -35,6 +36,12 @@
       <Media media={data.ligne.fields.vignette} />
     </a>
   </figure>
+
+  {#if !dialog}
+  <a class="last" href="/lignes/{data.ligne.fields.id}">
+    <Icon i={"back"} label="Retour" /> Revenir à la ligne du temps
+  </a>
+  {/if}
 </aside>
 
 
@@ -44,6 +51,8 @@
   // }
 
   aside {
+    max-width: $tablet_portrait;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: $gap;
@@ -91,6 +100,20 @@
 
     @media (max-width: $mobile) {
       padding: ($mobile_gap * 6) $mobile_gap;
+    }
+  }
+
+  .last {
+    padding: $mobile_gap $mobile_gap ($mobile_gap * 2);
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: $mobile_gap * 0.5;
+
+    :global(svg) {
+      height: 24px;
+      width: 24px;
     }
   }
 </style>

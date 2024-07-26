@@ -95,7 +95,7 @@
     {#if active !== undefined}
     <aside class="progress flex flex--column">
       <strong>défiler pour naviguer</strong>
-      <progress max={data.ligne.fields.oeuvres.length + 2} value={active}>{active} / {data.ligne.fields.oeuvres.length + 2}</progress>
+      <progress max={data.ligne.fields.oeuvres.length + 1} value={active}>{active} / {data.ligne.fields.oeuvres.length + 2}</progress>
     </aside>
     {/if}
     <Slider wheel loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={"auto"} bind:slider bind:active bind:scroll bind:location bind:last>

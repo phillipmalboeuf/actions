@@ -15,7 +15,7 @@
     <th><p>Événement</p></th>
     <th></th>
     <th><p>Artiste</p></th>
-    <th><p>Oeuvre</p></th>
+    <th><p>Œuvre</p></th>
     <th></th>
   </tr>
   {#each oeuvres.filter(o => (lignes) ? lignes[o.ligne?.fields.id] : true) as oeuvre (oeuvre.fields.id)}

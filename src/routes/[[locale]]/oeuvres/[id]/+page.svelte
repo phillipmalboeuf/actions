@@ -16,8 +16,8 @@
 
   import type { PageData } from './$types' 
   export let data: PageData
-
-  // export let retour = false
+  export let dialog = false
+  
   let img: HTMLImageElement
   let active: number
 </script>
@@ -175,6 +175,12 @@
       </a>
       {/if}
     </nav>
+
+    {#if !dialog}
+    <a class="last" href="/lignes/{data.ligne.fields.id}">
+      <Icon i={"back"} label="Retour" /> Revenir à la ligne du temps
+    </a>
+    {/if}
   </main>
 </section>
 {/key}
@@ -376,6 +382,20 @@
               transform: rotate(180deg);
             }
           }
+        }
+      }
+
+      .last {
+        padding: $mobile_gap $mobile_gap ($mobile_gap * 2);
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: $mobile_gap * 0.5;
+
+        :global(svg) {
+          height: 24px;
+          width: 24px;
         }
       }
     }

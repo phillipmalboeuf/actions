@@ -32,17 +32,25 @@
 {#if $page.state.type && $page.state.open}
 <NoScroll />
 <dialog transition:fly={{ opacity: 1, ...vertical ? { y: '100%' } : { x: '100%' }, duration: 666 }} class:vertical class:half={$page.state.type === 'contexte'}>
+  <button class="close button--none" class:vertical class:half={$page.state.type === 'contexte'} on:click={close}>
+    <Icon i={vertical ? "arrow" : "back"} label="Retour" />
+  </button>
+
   {#if $page.state.type === 'oeuvre'}
-  <OeuvrePage data={$page.state.open} />
+  <OeuvrePage data={$page.state.open} dialog />
   {:else if $page.state.type === 'contexte'}
-  <ContextePage data={$page.state.open} />
+  <ContextePage data={$page.state.open} dialog />
   {/if}
+
+  <button class="last button--none" on:click={close}>
+    <Icon i={vertical ? "arrow" : "back"} label="Retour" /> Revenir à la ligne du temps
+  </button>
 </dialog>
 <button class="back" transition:fade={{ duration: 666 }} on:click={close}>
 </button>
-<button class="close button--none" class:vertical class:half={$page.state.type === 'contexte'} transition:fly={{ opacity: 1, ...vertical ? { y: '100vh', opacity: 0 } : { x: '100vw' }, duration: 666 }} on:click={close}>
+<!-- <button class="close button--none" class:vertical class:half={$page.state.type === 'contexte'} transition:fly={{ opacity: 1, ...vertical ? { y: '100vh', opacity: 0 } : { x: '100vw' }, duration: 666 }} on:click={close}>
   <Icon i={vertical ? "arrow" : "back"} label="Retour" />
-</button>
+</button> -->
 {/if}
 
 {#if $page.state.zoom}
@@ -119,31 +127,50 @@
   }
 
   .close {
-    position: fixed;
+    position: absolute;
     top: $gap;
-    left: calc(10vw + ($gap));
+    left: $gap;
     z-index: 2001;
     transition: transform 333ms;
 
     &.vertical {
-      top: calc(5vh + $mobile_gap);
+      top: $mobile_gap;
     }
 
-    &.half {
-      left: calc(50vw + ($gap));
+    // &.half {
+    //   left: calc(50vw + ($gap));
 
-      @media (orientation: portrait) {
-        left: calc(0px + ($mobile_gap));
-      }
-    }
+    //   @media (orientation: portrait) {
+    //     left: calc(0px + ($mobile_gap));
+    //   }
+    // }
 
     &:hover,
     &:focus {
       transform: translateX(20%);
+
+      &.vertical {
+        transform: translateY(20%);
+      }
     }
 
     @media (orientation: portrait) {
-      left: calc(0px + ($mobile_gap));
+      left: $mobile_gap;
+    }
+  }
+
+  .last {
+    background-color: $beige !important;
+    padding: $mobile_gap $mobile_gap ($mobile_gap * 2);
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: $mobile_gap * 0.5;
+
+    :global(svg) {
+      height: 24px;
+      width: 24px;
     }
   }
 </style>
