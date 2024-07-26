@@ -80,9 +80,9 @@
     {#if data.format === "index"}
     <a href="/lignes/{data.ligne.fields.id}?format=gallerie" class="button" style:--color={data.ligne.fields.couleur}>Galerie</a>
     {:else}
-    <a href="/lignes/{data.ligne.fields.id}?format=index" on:click={() => active = 0} class="button" style:--color={data.ligne.fields.couleur}>Index</a>
+    <a href="/lignes/{data.ligne.fields.id}?format=index" on:click={() => active = 0} class="button" style:--color={data.ligne.fields.couleur}>Liste</a>
     {/if}
-    <a href="/lignes/{data.ligne.fields.id}/contexte" on:click={openDialog} class="button" style:--color={data.ligne.fields.couleur}>Contexte</a>
+    <a href="/lignes/{data.ligne.fields.id}/contexte" on:click={openDialog} class="button" style:--color={data.ligne.fields.couleur}>Vidéo</a>
   </nav>
 
   {#if data.format === "index"}
@@ -94,7 +94,7 @@
     {#key data.ligne.fields.id}
     {#if active !== undefined}
     <aside class="progress flex flex--column">
-      <strong>défiler pour naviguer</strong>
+      <small>défiler pour explorer</small>
       <progress max={data.ligne.fields.oeuvres.length + 1} value={active}>{active} / {data.ligne.fields.oeuvres.length + 2}</progress>
     </aside>
     {/if}
@@ -377,7 +377,9 @@
           text-align: center;
 
           progress {
-            margin: 0 auto;
+            margin-left: auto;
+            margin-right: auto;
+            width: $gap * 10;
           }
 
           @media (max-width: $tablet_portrait) {

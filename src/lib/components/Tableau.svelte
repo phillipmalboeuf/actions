@@ -55,6 +55,8 @@
 
     tr {
       &:first-child {
+        border-bottom: 1px solid;
+
         @media (max-width: $mobile) {
           display: none;
         }
@@ -84,6 +86,11 @@
           padding-right: 0;
         }
       }
+    }
+
+    th {
+      padding-top: 0;
+      padding-bottom: ($base * 0.5);
     }
 
     td:nth-last-child(2) {

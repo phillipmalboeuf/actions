@@ -76,7 +76,7 @@
 
 <form class="flex flex--gapped" bind:this={form} action="/search" method="get" on:submit|preventDefault={submit}>
   <!-- <label for="query">Inscrire les termes recherchés</label> -->
-  <input type="search" name="query" id="query" placeholder="Recherche…" bind:value={query} on:input={(e) => {
+  <input type="search" name="query" id="query" placeholder="Rechercher" bind:value={query} on:input={(e) => {
     clearTimeout(timeout)
     timeout = setTimeout(() => {
       form.requestSubmit()

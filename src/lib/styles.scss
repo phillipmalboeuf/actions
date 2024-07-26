@@ -213,6 +213,31 @@ button,
 	}
 }
 
+progress {
+	appearance: none;
+	display: inline-block;
+	margin: ($base * 0.25) 0;
+	height: 1.5px;
+}
+
+	progress::-webkit-progress-bar {
+		background-color: $grey-ish;
+	}
+
+	progress::-moz-progress-bar {
+		background-color: $grey-ish;
+	}
+
+	progress::-webkit-progress-value {
+		transition: width 333ms;
+		background-color: $brown;
+	}
+
+	progress::-moz-progress-value {
+		transition: width 333ms;
+		background-color: $brown;
+	}
+
 svg {
 	path:not([stroke]),
 	rect {
