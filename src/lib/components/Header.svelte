@@ -78,6 +78,8 @@
   }}>
     <button class="button--none" on:click={() => searching = false}><Icon i="back" label="Fermer" /></button>
     <Search visible={searching} on:click={() => searching = false} />
+
+    <button class="button--none" on:click={() => searching = false}><Icon i="back" label="Fermer" /> Fermer la fenêtre</button>
   </nav>
 
   <input type="checkbox" name="menu" id="menu" bind:checked={menu} on:input={() => searching = false} />
@@ -255,9 +257,29 @@
         }
 
         > .button--none {
-          position: absolute;
-          top: $gap;
-          left: $gap;
+
+          &:first-child {
+            position: absolute;
+            top: $gap;
+            left: $gap;
+          }
+
+          &:last-child {
+            display: flex;
+            align-items: center;
+            gap: $mobile_gap * 0.5;
+            margin-top: $mobile_gap;
+            margin-bottom: $mobile_gap;
+
+            @media (min-width: $tablet_portrait) {
+              margin-left: $gap;
+            }
+
+            :global(svg) {
+              height: 15px;
+              width: 24px;
+            }
+          }
         }
       }
 

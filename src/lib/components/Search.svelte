@@ -85,10 +85,10 @@
 
   <aside class="col">
     <label for="artist">Filtres</label>
-    {#if results && results.length < 83}<a href="#resultats">{#if results.length === 0}Aucun résultats{:else}Voir les {results.length} résultats{/if}</a>{/if}
+    {#if results && results.length < 82}<a href="#resultats">{#if results.length === 0}Aucun résultats{:else}Voir les {results.length} résultats{/if}</a>{/if}
   </aside>
 
-  <aside class="col">
+  <!-- <aside class="col">
     <a href="/search" on:click|preventDefault={async () => {
       query = undefined
       artist = []
@@ -102,7 +102,7 @@
       await tick()
       form.requestSubmit()
     }}>Réinitialisé</a>
-  </aside>
+  </aside> -->
 
   <hr class="col col--12of12">
 
@@ -253,7 +253,20 @@
     </div>
   </fieldset>
 
-  <button class="button--inverse" type="submit">{#if waiting}Un instant...{:else}Rechercher{/if}</button>
+  <!-- <button class="button--inverse" type="submit">{#if waiting}Un instant...{:else}Rechercher{/if}</button> -->
+  <button class="button--inverse" type="reset" on:click|preventDefault={async () => {
+      query = undefined
+      artist = []
+      from = 1930
+      to = 2020
+      medium = []
+      lignes = $page.data.lignes.reduce((ls, ligne) => ({
+        ...ls,
+        [ligne.fields.id]: true
+      }), {})
+      await tick()
+      form.requestSubmit()
+    }}>Réinitialisé</button>
 
   {#if results}
   {#if results.length === 0}
@@ -275,12 +288,12 @@
       :global(table),
       .empty {
         margin-top: $mobile_gap * 2;
-        order: 99;
+        // order: 99;
       }
 
-      button {
-        order: 99;
-      }
+      // button {
+      //   order: 99;
+      // }
     }
 
     aside {
@@ -304,8 +317,8 @@
         }
 
         &:last-of-type {
-          margin-top: 0;
-          order: 99;
+          margin-top: $mobile_gap;
+          // order: 99;
           align-self: center;
         }
       }
@@ -321,7 +334,7 @@
       margin-bottom: $gap * 2;
 
       @media (max-width: $tablet_portrait) {
-        margin-bottom: $mobile_gap * 1;
+        margin-bottom: $mobile_gap * 0.5;
       }
 
       // select,
@@ -544,7 +557,9 @@
     }
 
     button:not([type="button"]) {
-      margin-left: auto;
+      @media (min-width: $mobile) {
+        margin-left: auto;
+      }
     }
   }
 </style>
