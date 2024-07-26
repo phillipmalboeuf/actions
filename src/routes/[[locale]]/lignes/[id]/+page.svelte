@@ -92,6 +92,12 @@
   {:else}
   <main class="col col--12of12" class:ready style:--color={data.ligne.fields.couleur} class:fini={active >= data.ligne.fields.oeuvres.length} style:--scroll={scroll} style:--location={location} style:--last={last}>
     {#key data.ligne.fields.id}
+    {#if active !== undefined}
+    <aside class="progress flex flex--column">
+      <strong>défiler pour naviguer</strong>
+      <progress max={data.ligne.fields.oeuvres.length + 2} value={active}>{active} / {data.ligne.fields.oeuvres.length + 2}</progress>
+    </aside>
+    {/if}
     <Slider wheel loop={false} buttons={false} autoplay={false} autoheight={false} slidesPerView={"auto"} bind:slider bind:active bind:scroll bind:location bind:last>
       <!-- {location} {scroll} {last} -->
       <ol class="list--nostyle slider__container">
@@ -361,6 +367,22 @@
         &.ready {
           opacity: 1;
           transition: opacity 333ms;
+        }
+
+        .progress {
+          position: absolute;
+          bottom: calc(100% + ($gap * 1.5));
+          left: 0%;
+
+          text-align: center;
+
+          progress {
+            margin: 0 auto;
+          }
+
+          @media (max-width: $tablet_portrait) {
+            display: none;
+          }
         }
 
         .siblings {

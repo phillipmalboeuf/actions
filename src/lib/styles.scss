@@ -22,6 +22,7 @@
 
 html {
 	scroll-behavior: smooth;
+	accent-color: $grey-dark;
 
 	&.noscroll {
     overflow: hidden;
@@ -460,6 +461,10 @@ form {
 
 	&.flex--middle {
 		align-items: center;
+	}
+
+	&.flex--column {
+		flex-direction: column;
 	}
 
   &.flex--gapped {
