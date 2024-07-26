@@ -324,7 +324,7 @@
         }
 
         @media (max-width: $mobile) {
-          font-size: $mobile_base * 7;
+          font-size: $mobile_base * 6;
           order: 99;
           margin: ($mobile_base * -1) auto 0;
           transform: translate(0%, 100%);
@@ -510,6 +510,10 @@
               h5 {
                 font-size: $base + 2px;
                 margin-bottom: $base;
+
+                @media (max-width: $mobile) {
+                  margin-bottom: $mobile_base * 0.5;
+                }
               }
 
               @media (min-width: $mobile) {
