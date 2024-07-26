@@ -117,9 +117,10 @@
               openDialog(e)
             }
           }}>
-          <figure style:--color={oeuvre.fields.couleur || '#EBEAE0'}>
+          <figure>
             <div>
-              <Icon i="plus" label="Découvrez" />
+              <Icon i="plus" label="Plus" />
+              <!-- <small>Découvrir</small> -->
             </div>
             <Media media={oeuvre.fields.vignette} />
             <figcaption>
@@ -179,7 +180,7 @@
     padding: ($gap * 4) ($gap * 2) ($gap * 4);
 
     @media (max-width: $mobile) {
-      padding: ($mobile_gap * 6) ($mobile_gap * 1) ($mobile_gap * 3);
+      padding: ($mobile_gap * 5) ($mobile_gap * 1) ($mobile_gap * 3);
     }
 
     header {
@@ -479,13 +480,13 @@
             div {
               position: relative;
               width: 12vw;
-
+            
               :global(svg) {
                 position: absolute;
                 top: 50%;
                 right: ($base * -2) - 4px;
-                color: $white;
-                background-color: $brown;
+                // color: $white;
+                background-color: var(--color, $brown);
                 width: $base * 2;
                 height: $base * 2;
                 padding: $base * 0.5;
@@ -639,7 +640,7 @@
 
             @media (min-width: $tablet_portrait) {
               &.active + li :global(img) {
-                transform: scale(1.5) translateY(calc($base * 2));
+                transform: scale(1.75) translate(calc($base * -2), calc($base * 2));
               }
             }
           }

@@ -502,6 +502,10 @@ form {
 
   &.flex--thick_gapped {
     --gap: #{$base*2};
+
+		@media (max-width: $mobile) {
+      --gap: #{$mobile_base};
+    }
   }
 
   &.flex--tight_gapped {
