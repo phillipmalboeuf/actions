@@ -131,6 +131,17 @@
       </tr>
     </table>
 
+    {#if data.oeuvre.fields.extraCredits}
+    <div>
+    <h6><strong>Composantes exposées</strong></h6>
+    <small>
+      {#if data.oeuvre.fields.extraCredits}
+      <p>{@html data.oeuvre.fields.extraCredits}</p>
+      {/if}
+    </small>
+    </div>
+    {/if}
+
     {#if data.oeuvre.fields.historiqueTxt || data.oeuvre.fields.historique}
     <div>
     <h6><strong>Historique d’exposition</strong></h6>
@@ -138,7 +149,7 @@
       {#if data.oeuvre.fields.historique}
       <Document body={data.oeuvre.fields.historique} />
       {:else}
-      <p>{data.oeuvre.fields.historiqueTxt}</p>
+      <p>{@html data.oeuvre.fields.historiqueTxt}</p>
       {/if}
     </small>
     </div>
@@ -151,7 +162,7 @@
       {#if data.oeuvre.fields.publications}
       <Document body={data.oeuvre.fields.publications} />
       {:else}
-      <p>{data.oeuvre.fields.publicationsTxt}</p>
+      <p>{@html data.oeuvre.fields.publicationsTxt}</p>
       {/if}
     </small>
     </div>

@@ -23,6 +23,13 @@
     paused = !paused
   }
 
+  function keydown(e) {
+    if (audio?.fields.file.url && e.key === ' ') {
+      e.preventDefault()
+      togglePaused()
+    }
+  }
+
   // function toggleVolume() {
   //   volume = volume ? 0 : 1
   // }
@@ -34,6 +41,8 @@
   onMount(() => {
   })
 </script>
+
+<svelte:window on:keydown={keydown} />
 
 {#if audio?.fields.file.url}
 <figure>
@@ -51,7 +60,7 @@
     on:click={togglePaused} />
   
   <figcaption class="controls">
-    <button class="button--none" on:click={togglePaused}>{#if paused}<Icon i="play" label="Play" />{:else}Pause{/if}</button>
+    <button class="button--none" on:click={togglePaused}>{#if paused}<Icon i="play" label="Play" />{:else}<Icon i="pause" label="Pause" />{/if}</button>
     <!-- <button on:click={toggleVolume}>{#if volume}Sound Off{:else}Sound On{/if}</button> -->
     
    {#if duration}
@@ -79,7 +88,7 @@
 
   figure {
     width: 100%;
-    margin: $gap 0;
+    margin: $gap 0 0;
     padding: ($gap * 0.75) ($gap * 0.75) ($gap * 0.5);
     border-radius: $base * 0.75;
     background-color: $beige-dark;

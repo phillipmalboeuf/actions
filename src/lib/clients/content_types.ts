@@ -83,6 +83,7 @@ export interface TypeOeuvreFields {
     id: EntryFieldTypes.Symbol;
     numero: EntryFieldTypes.Symbol;
     description?: EntryFieldTypes.Text;
+    extraCredits?: EntryFieldTypes.Text;
     artiste?: EntryFieldTypes.EntryLink<TypeArtisteSkeleton>;
     anneeEvenement: EntryFieldTypes.Integer;
     annee: EntryFieldTypes.Integer;
