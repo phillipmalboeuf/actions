@@ -15,6 +15,7 @@
   import { page } from '$app/stores'
 
   import type { PageData } from './$types' 
+  import Audio from '$lib/components/Audio.svelte';
   export let data: PageData
   export let dialog = false
   
@@ -57,6 +58,10 @@
       </small>
       <a href="/oeuvres/{data.oeuvre.fields.id}/zoom{active !== undefined ? `?i=${active}` : ''}" on:click={openDialog}><Icon i="view" label="Zoom" /></a>
       <a href="{imigx(active !== undefined ? data.oeuvre.fields.media[active].fields.file.url : data.oeuvre.fields.vignette.fields.file.url)}?q=100&w=1020&txt={encodeURIComponent([data.oeuvre.fields.artiste.fields.nom, data.oeuvre.fields.titre, data.oeuvre.fields.anneeDeRealisation || data.oeuvre.fields.annee, data.oeuvre.fields.medium].join(' – '))}&txt-clip=end,ellipsis&txt-align=bottom,right&txt-size=20&txt-color=57221E&h=1320&fit=fill&fill=solid&pad=80&fill-color=FAF8EF&bg=FAF8EF&fm=jpg&dl={data.oeuvre.fields.anneeEvenement}-{data.oeuvre.fields.titre.replaceAll(' ', '-')}.png" download="{data.oeuvre.fields.anneeEvenement}-{data.oeuvre.fields.titre.replaceAll(' ', '-')}.png" target="_blank" rel="external"><Icon i="download" label="Téléchargement" /></a>
+
+      {#if data.oeuvre.fields.audio}
+      <Audio audio={data.oeuvre.fields.audio} />
+      {/if}
     </figcaption>
     {/key}
   </figure>
@@ -176,7 +181,7 @@
       {/if}
     </nav>
 
-    {#if !dialog}
+    {#if !dialog && data.ligne}
     <a class="last" href="/lignes/{data.ligne.fields.id}">
       <Icon i={"back"} label="Retour" /> Revenir à la ligne du temps
     </a>
@@ -427,6 +432,7 @@
 
       figcaption {
         display: flex;
+        flex-wrap: wrap;
         gap: $base;
         margin-top: $base;
 

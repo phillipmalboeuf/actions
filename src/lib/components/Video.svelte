@@ -7,7 +7,6 @@
 
   // export let poster
   export let srcs
-  export let grabs = undefined
 
   let time = 0
 	let duration: number

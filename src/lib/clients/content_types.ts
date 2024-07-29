@@ -90,6 +90,7 @@ export interface TypeOeuvreFields {
     couleur?: EntryFieldTypes.Symbol;
     vignette?: EntryFieldTypes.AssetLink;
     media?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
+    audio?: EntryFieldTypes.AssetLink;
     minZoom?: EntryFieldTypes.Number;
     maxZoom?: EntryFieldTypes.Number;
     format?: EntryFieldTypes.Symbol<"Large" | "Moyen" | "Petit" | "Extra-large">;

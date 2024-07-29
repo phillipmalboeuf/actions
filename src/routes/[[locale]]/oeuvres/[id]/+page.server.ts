@@ -12,6 +12,12 @@ export const load = (async ({ locals, url, params }) => {
   const lignes = await content.getEntries<TypeLigneSkeleton>({ content_type: "ligne", include: 2, "links_to_entry": oeuvre.sys.id, limit: 1 })
   const ligne = lignes.items[0]
 
+  if (!ligne) {
+    return {
+      oeuvre
+    }
+  }
+
   const index = ligne.fields.oeuvres.findIndex(o => oeuvre.sys.id === o.sys.id)
 
   return {
