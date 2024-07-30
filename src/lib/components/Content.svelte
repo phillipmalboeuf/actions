@@ -21,7 +21,7 @@
   {#if isTypeGallerie(item)}
   <li class="gallerie" id={item.fields.id}>
     {#if i === 0}
-    <figure class="logo" style:--scroll={!innerHeight ? 0 : scrollY > innerHeight ? 1 : scrollY / innerHeight}>
+    <figure class="logo" style:--height={898} style:--scroll={!innerHeight ? 0 : scrollY > innerHeight ? 1 : scrollY / innerHeight}>
       <!-- <figcaption>Actions collectives. Regards féministes sur la collection.</figcaption> -->
       <Logo />
     </figure>
@@ -115,30 +115,15 @@
           will-change: transform;
 
           &:nth-child(2) {
-            transform: translateX(calc((1 - var(--scroll, 0)) * 11vh));
+            transform: translateX(calc((1 - var(--scroll, 0)) * 0.11px * var(--height)));
           }
 
           &:nth-child(4) {
-            transform: translateX(calc((1 - var(--scroll, 0)) * 23vh));
+            transform: translateX(calc((1 - var(--scroll, 0)) * 0.23px * var(--height)));
           }
 
           &:nth-child(6) {
-            transform: translateX(calc((1 - var(--scroll, 0)) * 6.5vh));
-          }
-
-          @media (orientation: portrait) {
-
-            &:nth-child(2) {
-              transform: translateX(calc((1 - var(--scroll, 0)) * 22vw));
-            }
-
-            &:nth-child(4) {
-              transform: translateX(calc((1 - var(--scroll, 0)) * 46vw));
-            }
-
-            &:nth-child(6) {
-              transform: translateX(calc((1 - var(--scroll, 0)) * 13vw));
-            }
+            transform: translateX(calc((1 - var(--scroll, 0)) * 0.065px * var(--height)));
           }
         }
       }
