@@ -12,7 +12,8 @@ export const load = (async ({ locals, url, params }) => {
 
   const page = pages.items[0]
   const galleries = page.fields.contenu.filter(item => isTypeGallerie(item))
-  const random = Math.floor(Math.random() * galleries.length)
+  // const random = Math.floor(Math.random() * galleries.length)
+  const random = 0
 
   return {
     page: {

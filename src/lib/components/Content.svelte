@@ -34,7 +34,7 @@
     {/if}
 
     {#if item.fields.oeuvres?.length}
-    <ul>
+    <ul class="list--nostyle">
     {#each item.fields.oeuvres as oeuvre}
       <li>
         <!-- <a href="/oeuvres/{oeuvre.fields.id}" on:click={openDialog}></a> -->
@@ -69,7 +69,7 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: $gap * 4;
+    gap: 15vh;
   }
 
   ol {
@@ -86,12 +86,12 @@
       // padding: $gap;
       z-index: -1;
 
-      figcaption {
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-      }
+      // figcaption {
+      //   position: absolute;
+      //   top: 0;
+      //   left: 0;
+      //   opacity: 0;
+      // }
 
       :global(svg) {
         // padding: $gap;
@@ -144,18 +144,19 @@
       }
 
       ~ ul {
-        margin-top: calc(($vh * -1) + ($gap * 4));
+        margin-top: calc(($vh * -1));
       }
     }
 
     figure.maj {
       position: absolute;
-      top: calc(100% + ($gap * 2));
+      top: calc(100% - ($gap * 3));
       right: $gap * 2;
 
       @media (max-width: $mobile) {
+        top: calc(100% + ($mobile_gap * 2));
         right: auto;
-        left: $gap;
+        left: $mobile_gap;
       }
     }
 
@@ -163,12 +164,18 @@
       // width: 50%;
 
       &.gallerie {
+        position: relative;
+        z-index: 1;
+
         a.down {
           display: block;
-          text-align: right;
-          position: sticky;
-          top: calc(100% + #{$gap});
-          transform: translateY($gap * - 4);
+          // text-align: right;
+          // position: sticky;
+          // top: calc(100% + #{$gap});
+          // transform: translateY($gap * - 4);
+          position: fixed;
+          bottom: calc($gap * 1);
+          right: calc($gap);
           transition: opacity 666ms;
 
           &.scrolled {
@@ -177,26 +184,75 @@
           }
 
           @media (max-width: $mobile) {
-            position: fixed;
+            // position: fixed;
             top: $mobile_gap;
             left: $mobile_gap;
-            transform: none;
+            // transform: none;
           }
         }
 
         ul {
           // align-self: flex-end;
-          gap: 35vh;
-          padding: $gap ($gap * 2);
+          // gap: 35vh;
+          // padding: $gap ($gap);
 
           @media (max-width: $mobile) {
-            padding: $gap 0 50vh;
-            gap: 66vh;
+            // padding: $gap 0 50vh;
+            // padding-bottom: 33lvh;
+            // gap: 66vh;
           }
 
           li {
+            &:first-child {
+              figure {
+                :global(img),
+                :global(video) {
+                  object-position: center;
+                }
+              }
+
+              :global(.random-1) & {
+                
+                figure {
+                  :global(img),
+                  :global(video) {
+                    width: 25vw;
+
+                    @media (max-width: $mobile) {
+                      width: 50vw;
+                    }
+                  }
+                }
+              }
+
+              :global(.random-2) & {
+                
+                figure {
+                  :global(img),
+                  :global(video) {
+                    width: 28vw;
+
+                    @media (max-width: $mobile) {
+                      width: 50vw;
+                    }
+                  }
+                }
+              }
+            }
+
             &:nth-child(2n) {
               align-self: flex-start;
+
+              figure {
+                :global(img),
+                :global(video) {
+                  width: 66vw;
+
+                  @media (max-width: $mobile) {
+                    width: 75vw;
+                  }
+                }
+              }
             }
 
             &:nth-child(2n + 1) {
@@ -205,50 +261,65 @@
 
             &:nth-child(3n) {
               // align-self: center;
-            }
+              @media (min-width: $tablet_portrait) {
+                :global(.random-0) & {
+                  margin-right: 25vw;
+                }
 
-            &:hover,
-            &:focus {
-              figcaption {
-                opacity: 1;
+                :global(.random-1) & {
+                  margin-right: 15vw;
+                }
+
+                :global(.random-2) & {
+                  margin-right: 25vw;
+                }
               }
             }
 
+            // &:hover,
+            // &:focus {
+            //   figcaption {
+            //     opacity: 1;
+            //   }
+            // }
+
             figure {
-              display: flex;
-              gap: $base;
-              align-items: flex-end;
+              // display: flex;
+              // gap: $base;
+              // align-items: flex-end;
 
               :global(img),
               :global(video) {
                 // height: auto;
                 // flex: 1;
                 // max-height: 50vh;
-                width: auto;
-                max-width: 33vw;
-                max-height: 88vh;
+                // width: auto;
+                width: 33vw;
+                height: calc(85lvh);
                 object-fit: contain;
+                object-position: top;
 
                 @media (max-width: $mobile) {
-                  max-width: 66vw;
+                  width: 66vw;
+                  height: calc(85lvh);
                 }
               }
 
-              figcaption {
-                width: 210px;
-                opacity: 0;
-                transition: opacity 333ms;
+              // figcaption {
+              //   width: 210px;
+              //   opacity: 0;
+              //   transition: opacity 333ms;
 
-                position: sticky;
-                bottom: $base;
+              //   position: sticky;
+              //   bottom: $base;
 
-                font-size: $mobile_base;
-              }
+              //   font-size: $mobile_base;
+              // }
 
-              @media (max-width: $mobile) {
-                flex-direction: column;
-                align-items: flex-start;
-              }
+              // @media (max-width: $mobile) {
+              //   flex-direction: column;
+              //   align-items: flex-start;
+              // }
             }
 
             // &:first-child {
@@ -260,19 +331,6 @@
             //     }
             //   }
             // }
-
-            &:nth-child(2n) {
-              figure {
-                :global(img),
-                :global(video) {
-                  max-width: 66vw;
-
-                  @media (max-width: $mobile) {
-                    max-width: 75vw;
-                  }
-                }
-              }
-            }
           }
         }
       }

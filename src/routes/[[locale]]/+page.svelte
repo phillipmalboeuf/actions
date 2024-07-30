@@ -11,7 +11,7 @@
 </script>
 
 
-<main>
+<main class="random-{data.random}">
   <Content content={data.page.fields.contenu} format={data.page.fields.format} />
 
   <nav id="lignes">
@@ -54,6 +54,15 @@
       &:first-of-type {
         // margin-top: $vh;
       }
+
+      @media (max-width: $mobile) {
+        padding: $mobile_gap;
+      }
+    }
+
+    :global(.gallerie) {
+      padding-top: 0;
+      padding-bottom: 0;
     }
 
     nav,
