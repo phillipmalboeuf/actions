@@ -423,7 +423,8 @@
       transform: translateY(-50%);
 
       @media (max-width: $mobile) {
-        position: static;
+        position: relative;
+        top: 0;
         transform: none;
       }
       
@@ -452,6 +453,7 @@
         }
 
         @media (max-width: $mobile) {
+          align-items: center;
           margin: $mobile_base 0 ($mobile_gap) !important;
         }
       }

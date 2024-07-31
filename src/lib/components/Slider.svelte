@@ -158,7 +158,7 @@ nav {
   }
 
   &.dots {
-    top: auto;
+    // top: auto;
     left: 50%;
     top: calc(100%);
     right: auto;
@@ -172,6 +172,18 @@ nav {
 
       &.active {
         background-color: $brown;
+      }
+    }
+
+    @media (max-width: $tablet_portrait) {
+      transform: translate(-50%, ($mobile_base * -6.66));
+
+      button.dot {
+        color: $white;
+
+        &.active {
+          background-color: $white;
+        }
       }
     }
   }
