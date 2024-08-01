@@ -72,7 +72,7 @@
   <input type="checkbox" name="search" id="search" bind:checked={searching} on:input={() => menu = false} />
   <label for="search"><Icon i="search" label="Recherche" /></label>
 
-  <nav class="search" on:scroll={e => {
+  <nav class="search" aria-hidden={!searching} on:scroll={e => {
     menuScrollY = e.currentTarget.scrollTop
     scroll(true)
   }}>
@@ -85,7 +85,7 @@
   <input type="checkbox" name="menu" id="menu" bind:checked={menu} on:input={() => searching = false} />
   <label for="menu"><Icon i={menu ? "menu-close" : "menu"} label="Menu" /></label>
 
-  <nav class="flex" on:scroll={e => {
+  <nav class="flex" aria-hidden={!menu} on:scroll={e => {
     menuScrollY = e.currentTarget.scrollTop
     scroll(true)
   }}>
