@@ -115,7 +115,7 @@
     <div class="flex flex--gapped">
       {#if artists}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Artiste'}>
-        <button type="button" class="button--none" type="button" on:click={() => down = down === 'Artiste' ? undefined : 'Artiste'}>Artiste <Icon i="down" label="Choix" /></button>
+        <button type="button" class="button--none" on:click={() => down = down === 'Artiste' ? undefined : 'Artiste'}>Artiste <Icon i="down" label="Choix" /></button>
         <nav class="flex flex--tight_gapped">
           {#each ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].filter(l => artists.items.filter(a => a?.fields?.nomFamille).find(a => a.fields.nomFamille[0] === l)) as l}
           <button type="button" class="button--none" on:click={() => {
