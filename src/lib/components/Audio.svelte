@@ -45,7 +45,7 @@
 <svelte:window on:keydown={keydown} />
 
 {#if audio?.fields.file.url}
-<figure>
+<figure style:--time={time / duration}>
   <figcaption class="title">
     {audio.fields.title}
   </figcaption>
@@ -132,7 +132,9 @@
       -moz-appearance: none;
       appearance: none;
       height: 5px;
-      background-color: $grey-ish;
+      // background-color: $grey-ish;
+      background: linear-gradient();
+      background: linear-gradient(to right, $brown, $brown calc(var(--time) * 100%), $grey-ish calc(var(--time) * 100%), $grey-ish 100%);
     }
 
     input[type="range"]::-webkit-slider-thumb {

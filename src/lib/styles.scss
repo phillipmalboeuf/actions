@@ -351,6 +351,10 @@ form {
 
 	input[type="search"] {
 		border-radius: $base * 2;
+
+		&::-webkit-search-cancel-button {
+			filter: saturate(0);
+		}
 	}
 
 	label {

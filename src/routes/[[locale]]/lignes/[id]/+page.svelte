@@ -106,7 +106,7 @@
           <figure>
             <Media media={data.ligne.fields.logotype} />
           </figure>
-          <!-- <button class="next button--none" on:click={() => slider.scrollNext()}><Icon i="back" label="Prochain" /></button> -->
+          <button class="next button--none" on:click={() => slider.scrollNext()}><Icon i="back" label="Prochain" /></button>
         </li>
         {#each data.ligne.fields.oeuvres as oeuvre, i}
         <li class="slide {oeuvre.fields.format}" class:left={(active < i + 1)} class:right={(active > i + 1) && i !== data.ligne.fields.oeuvres.length - 1}>
@@ -180,7 +180,7 @@
     padding: ($gap * 4) ($gap * 2) ($gap * 4);
 
     @media (max-width: $mobile) {
-      padding: ($mobile_gap * 5) ($mobile_gap * 1) ($mobile_gap * 3);
+      padding: ($mobile_gap * 4) ($mobile_gap * 1) ($mobile_gap * 3);
     }
 
     header {
@@ -280,9 +280,17 @@
       .formats {
         left: auto;
         right: $gap * 2;
+        bottom: $gap * 5.5;
 
         @media (max-width: $tablet_portrait) {
           right: $gap * 1;
+        }
+
+        @media (max-width: $mobile) {
+          position: relative;
+          bottom: 0;
+          left: 0;
+          right: 0;
         }
       }
 
@@ -324,10 +332,10 @@
         }
 
         @media (max-width: $mobile) {
-          font-size: $mobile_base * 6;
+          font-size: $mobile_base * 5.5;
           order: 99;
-          margin: ($mobile_base * -1) auto 0;
-          transform: translate(0%, 100%);
+          margin: ($base * -2.666) auto 0;
+          // transform: translate(0%, -50%);
         }
       }
 
@@ -453,9 +461,10 @@
             @media (max-width: $mobile) {
               gap: $mobile_base;
               max-width: 100vw;
-              height: auto;
-              padding: 0 $mobile_gap;
+              height: calc($vh - ($base * 10));
+              padding: $mobile_gap $mobile_gap;
               flex-direction: column;
+              justify-content: flex-start;
             }
 
             :global(img),
@@ -472,7 +481,7 @@
               }
 
               @media (max-width: $mobile) {
-                height: 50vh;
+                height: min(50dvh, 50vh);
                 width: 100%;
               }
             }
@@ -546,7 +555,8 @@
 
           @media (min-width: $mobile) {
           &.Petit,
-          &.Moyen {
+          &.Moyen,
+          &.Large {
             a {
               margin: auto 0;
             }
@@ -609,10 +619,14 @@
               transition: opacity 333ms;
               opacity: 1;
 
-              @media (max-width: $mobile) {
+              @media (min-width: $tablet_portrait) {
+                display: none;
+              }
+
+              @media (max-width: $tablet_portrait) {
                 left: $mobile_gap;
                 right: auto;
-                bottom: ($mobile_base * 15);
+                bottom: ($mobile_base * 16);
               }
             }
 
@@ -639,12 +653,20 @@
               @media (max-width: $mobile) {
                 padding: 0;
                 width: auto;
+                // transform: translateY($base * 1);
+                // margin-bottom: calc($base * -5);
               }
             }
 
             @media (min-width: $tablet_portrait) {
               &.active + li :global(img) {
-                transform: scale(1.75) translate(calc($base * -2), calc($base * 2));
+                transform: scale(1.75) translate(calc($base * -6), calc($base * 2));
+              }
+            }
+
+            @media (max-width: $tablet_portrait) {
+              &.active + li :global(img) {
+                transform: translate(-50%, 0);
               }
             }
           }
@@ -707,6 +729,13 @@
         display: flex;
         gap: $base * 0.5;
         // align-self: flex-start;
+
+        @media (max-width: $mobile) {
+          .button {
+            flex: 1;
+            gap: $mobile_base;
+          }
+        }
 
         @media (min-width: $mobile) {
           flex-direction: column;

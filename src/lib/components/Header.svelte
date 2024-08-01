@@ -253,6 +253,7 @@
         }
 
         @media (max-width: $tablet_portrait) {
+          padding-top: $mobile_gap * 4;
           width: 99vw;
         }
 

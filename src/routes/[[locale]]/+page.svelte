@@ -127,6 +127,12 @@
 
           @media (max-width: $mobile) {
             top: calc(100% - 1px);
+            left: $mobile_gap * -0.5;
+
+            &:last-of-type {
+              left: auto;
+              right: $mobile_gap * -0.5;
+            }
           }
         }
 
@@ -136,7 +142,8 @@
           max-width: calc(1560px + ($gap * 3));
 
           @media (max-width: $mobile) {
-            margin-bottom: $mobile_gap;
+            margin: 0 0 $mobile_gap;
+            width: calc(100% + $mobile_gap);
           }
         }
       }

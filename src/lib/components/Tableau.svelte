@@ -55,7 +55,13 @@
 
     tr {
       &:first-child {
-        border-bottom: 1px solid;
+        th {
+          border-bottom: 1px solid;
+
+          &:last-child {
+            border-bottom: none;
+          }
+        }
 
         @media (max-width: $mobile) {
           display: none;

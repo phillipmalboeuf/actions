@@ -106,6 +106,7 @@
           {data.oeuvre.fields.medium}
         </td>
       </tr>
+      {#if data.oeuvre.fields.largeur}
       <tr>
         <td colspan="2">
           <h6>Dimensions</h6>
@@ -113,6 +114,7 @@
           {intlNumber(data.oeuvre.fields.largeur)} cm x {intlNumber(data.oeuvre.fields.hauteur)} cm {#if data.oeuvre.fields.profondeur}x {intlNumber(data.oeuvre.fields.profondeur)} cm{/if}
         </td>
       </tr>
+      {/if}
       <tr>
         <td colspan="2">
           <h6>Mention de source</h6>
@@ -134,11 +136,11 @@
     {#if data.oeuvre.fields.extraCredits}
     <div>
     <h6><strong>Composantes exposées</strong></h6>
-    <small>
+    <!-- <small> -->
       {#if data.oeuvre.fields.extraCredits}
       <p>{@html data.oeuvre.fields.extraCredits}</p>
       {/if}
-    </small>
+    <!-- </small> -->
     </div>
     {/if}
 

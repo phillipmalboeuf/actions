@@ -101,7 +101,7 @@
       }), {})
       await tick()
       form.requestSubmit()
-    }}>Réinitialisé</a>
+    }}>Réinitialiser</a>
   </aside> -->
 
   <hr class="col col--12of12">
@@ -266,7 +266,7 @@
       }), {})
       await tick()
       form.requestSubmit()
-    }}>Réinitialisé</button>
+    }}>Réinitialiser</button>
 
   {#if results}
   {#if results.length === 0}
