@@ -74,6 +74,11 @@
   }
 </script>
 
+<svelte:head>
+  {#if results && results.length < 82}
+  {#if results.length === 0}<title>Aucun résultats</title>{:else}<title>Recherche à {results.length} résultats</title>{/if}{/if}
+</svelte:head>
+
 <form class="flex flex--gapped" bind:this={form} action="/search" method="get" on:submit|preventDefault={submit}>
   <!-- <label for="query">Inscrire les termes recherchés</label> -->
   <input type="search" name="query" id="query" placeholder="Rechercher" bind:value={query} on:input={(e) => {
@@ -110,10 +115,10 @@
     <div class="flex flex--gapped">
       {#if artists}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Artiste'}>
-        <button class="button--none" on:click={() => down = down === 'Artiste' ? undefined : 'Artiste'}>Artiste <Icon i="down" label="Choix" /></button>
+        <button type="button" class="button--none" type="button" on:click={() => down = down === 'Artiste' ? undefined : 'Artiste'}>Artiste <Icon i="down" label="Choix" /></button>
         <nav class="flex flex--tight_gapped">
           {#each ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].filter(l => artists.items.filter(a => a?.fields?.nomFamille).find(a => a.fields.nomFamille[0] === l)) as l}
-          <button class="button--none" on:click={() => {
+          <button type="button" class="button--none" on:click={() => {
             const label = document.querySelector(`label[data-letter=${l}]`)
             // @ts-ignore
             label.parentElement.scrollTo({ top: label.offsetTop, behavior: 'smooth' })
@@ -152,7 +157,7 @@
 
       {#if mediums}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Type'}>
-        <button class="button--none" on:click={() => down = down === 'Type' ? undefined : 'Type'}>Type d’oeuvre <Icon i="down" label="Choix" /></button>
+        <button type="button" class="button--none" on:click={() => down = down === 'Type' ? undefined : 'Type'}>Type d’oeuvre <Icon i="down" label="Choix" /></button>
         <nav></nav>
         <div>
           {#each mediums as m}
@@ -187,7 +192,7 @@
 
       {#if annees}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown dropdown--wide" class:down={down === 'Année'}>
-        <button class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'}>Période de réalisation <Icon i="down" label="Choix" /></button>
+        <button type="button" class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'}>Période de réalisation <Icon i="down" label="Choix" /></button>
         <div>
           <div>
             <label for="from">À partir de</label>
@@ -237,13 +242,13 @@
       <div class="col">
         <div class="flex flex--tight_gapped">
           {#each artist as f}
-          <button type="button" class="button--tight" on:click={() => {
+          <button type="button" class="button--tight" aria-label="Retirer" on:click={() => {
             //@ts-ignore
             document.querySelector(`input[type=checkbox][value="${f}"]`).click()
           }}>{artists.items.find(a => a.fields.id === f).fields.nomFamille}, {artists.items.find(a => a.fields.id === f).fields.prenom} &nbsp;X</button>
           {/each}
           {#each medium as f}
-          <button type="button" class="button--tight" on:click={() => {
+          <button type="button" class="button--tight" aria-label="Retirer" on:click={() => {
             //@ts-ignore
             document.querySelector(`input[type=checkbox][value="${f}"]`).click()
           }}>{capitalize(f)} &nbsp;X</button>
