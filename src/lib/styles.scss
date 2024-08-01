@@ -15,8 +15,8 @@
   margin: 0;
 
 	&:focus {
-		// outline: 2px solid currentColor;
-		outline: none;
+		outline: 2px solid currentColor;
+		// outline: none;
 	}
 }
 
@@ -133,7 +133,7 @@ button {
 }
 
 button:focus:not(:focus-visible) {
-	outline: none;
+	// outline: none;
 }
 
 button,
@@ -362,6 +362,10 @@ form {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+
+		input:focus + label {
+			outline: 2px solid currentColor;
+		}
 	}
 
 	select,

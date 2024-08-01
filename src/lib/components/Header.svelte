@@ -236,6 +236,8 @@
 
       justify-content: space-between;
 
+      
+
       @media (max-width: $mobile) {
         // width: 100vw;
         border-radius: 0;
@@ -434,6 +436,10 @@
         }
       }
     }
+  }
+
+  nav:has(*:focus) {
+    transform: translateX(0%) !important;
   }
 
   .back {

@@ -15,8 +15,8 @@
   <Content content={data.page.fields.contenu} format={data.page.fields.format} />
 
   <nav id="lignes">
-    <h6>Sélectionner une ligne du temps<br>pour débuter votre visite</h6>
-    <h2 class="flex flex--spaced"><Icon i="tip" label="À partir de " /><span>1942</span> <Icon i="tip" label="Jusqu'à" /><span>2022</span></h2>
+    <h6 role="none">Sélectionner une ligne du temps<br>pour débuter votre visite</h6>
+    <h2 class="flex flex--spaced" role="none"><Icon i="tip" label="À partir de " /><span>1942</span> <Icon i="tip" label="Jusqu'à" /><span>2022</span></h2>
     <hr>
     <ul class="list--nostyle">
       {#each data.lignes as ligne}
@@ -24,7 +24,7 @@
         <a href="/lignes/{ligne.fields.id}" class="col col--4of12"><Media media={ligne.fields.logotype} /></a>
         <a href="/lignes/{ligne.fields.id}/video" on:click={openDialog} class="video col col--4of12 col--mobile--12of12"><Icon i="play" label="Visionner vidéo" /> <Media media={ligne.fields.vignette} small /></a>
         <div class="col col--4of12">
-          <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur}>Visiter</a>
+          <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur} aria-label="Visiter {ligne.fields.titre}">Visiter</a>
         </div>
         <hr>
       </li>

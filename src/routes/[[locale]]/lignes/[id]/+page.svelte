@@ -166,7 +166,7 @@
     {/await}
     {/if}
   </main>
-  <h1 class="annee">
+  <h1 class="annee" role="navigation">
     <button class="previous button--none" on:click={() => slider.scrollPrev()}><Icon i="next" label="Retour" /></button>
     {active > 0 ? active === data.ligne.fields.oeuvres.length + 1 ? data.ligne.fields.oeuvres[active - 2].fields.anneeEvenement : data.ligne.fields.oeuvres[active - 1].fields.anneeEvenement : data.ligne.fields.oeuvres[0].fields.anneeEvenement}
     <button disabled={active === data.ligne.fields.oeuvres.length + 1} class="next button--none" on:click={() => slider.scrollNext()}><Icon i="next" label="Prochain" /></button>
