@@ -15,13 +15,29 @@
   import { page } from '$app/stores'
 
   import type { PageData } from './$types' 
-  import Audio from '$lib/components/Audio.svelte';
+  import Audio from '$lib/components/Audio.svelte'
   export let data: PageData
   export let dialog = false
   
   let img: HTMLImageElement
   let active: number
+
+  let offset = 0
+
+  $: {
+    if (img) {
+      offset = img.offsetLeft
+    }
+  }
 </script>
+
+<svelte:window on:resize={() => {
+  console.log("REsize")
+  if (img) {
+    console.log(img.offsetLeft)
+    offset = img.offsetLeft
+  }
+}} />
 
 {#key data.oeuvre.sys.id}
 <section style:--color={data.oeuvre.fields.couleur} class="flex flex--gapped">
@@ -50,7 +66,7 @@
     {/if}
 
     {#key img?.complete}
-    <figcaption style="margin-left: {img?.offsetLeft}px; margin-right: {img?.offsetLeft}px;">
+    <figcaption style="margin-left: {offset}px; margin-right: {offset}px;">
       <small>
         {#if data.oeuvre.fields.droits}
         <p>{data.oeuvre.fields.droits}</p>
