@@ -177,6 +177,10 @@
     justify-content: center;
     gap: $mobile_gap * 0.5;
 
+    dialog:not(.half) & {
+      padding-left: 50%;
+    }
+
     :global(svg) {
       height: 24px;
       width: 24px;
