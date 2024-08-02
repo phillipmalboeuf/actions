@@ -18,7 +18,7 @@
   import { page } from '$app/stores'
 
   import type { PageData } from './$types' 
-  import { fade } from 'svelte/transition'
+  import { fade, crossfade } from 'svelte/transition'
   import { tick } from 'svelte'
   import { onNavigate } from '$app/navigation'
   
@@ -34,14 +34,14 @@
   let index: number
   let hover: string
 
-  let ready = true
+  // let ready = true
 
   onNavigate(async () => {
-    ready = false
+    // ready = false
     setTimeout(() => {
       slider.scrollTo(active, true)
       // slider.emit("scroll")
-      ready = true
+      // ready = true
     }, 333)
   })
 
@@ -66,7 +66,7 @@
     <Tableau ligne={data.ligne} oeuvres={data.ligne.fields.oeuvres} on:click={openDialog} />
   </main>
   {:else}
-  <main class="col col--12of12" class:ready style:--color={data.ligne.fields.couleur} class:fini={active >= data.ligne.fields.oeuvres.length} style:--scroll={scroll} style:--location={location} style:--last={last}>
+  <main class="col col--12of12" transition:fade={{ duration: 666 }} style:--color={data.ligne.fields.couleur} class:fini={active >= data.ligne.fields.oeuvres.length} style:--scroll={scroll} style:--location={location} style:--last={last}>
     {#key data.ligne.fields.id}
     {#if active !== undefined}
     <aside class="progress flex flex--column">
@@ -376,12 +376,12 @@
           margin-left: ($mobile_gap * -1);
         }
 
-        opacity: 0;
+        // opacity: 0;
 
-        &.ready {
-          opacity: 1;
-          transition: opacity 333ms;
-        }
+        // &.ready {
+        //   opacity: 1;
+        //   transition: opacity 333ms;
+        // }
 
         .progress {
           position: absolute;
