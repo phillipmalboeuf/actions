@@ -143,6 +143,13 @@
     {/if}
   </main>
 
+  <h1 class="annee" role="navigation">
+    <button class="previous button--none" on:click={() => slider.scrollPrev()}><Icon i="next" label="Retour" /></button>
+    {active > 0 ? active === data.ligne.fields.oeuvres.length + 1 ? data.ligne.fields.oeuvres[active - 2].fields.anneeEvenement : data.ligne.fields.oeuvres[active - 1].fields.anneeEvenement : data.ligne.fields.oeuvres[0].fields.anneeEvenement}
+    <button disabled={active === data.ligne.fields.oeuvres.length + 1} class="next button--none" on:click={() => slider.scrollNext()}><Icon i="next" label="Prochain" /></button>
+  </h1>
+  {/if}
+
   <nav class="col selector">
     <Lignes id="exposition-desktop" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} {active} format={data.format}
       on:mouseenter={(e) => {
@@ -166,13 +173,6 @@
     {/if}
     <a href="/lignes/{data.ligne.fields.id}/contexte" on:click={openDialog} class="button" style:--color={data.ligne.fields.couleur}>Vidéo</a>
   </nav>
-
-  <h1 class="annee" role="navigation">
-    <button class="previous button--none" on:click={() => slider.scrollPrev()}><Icon i="next" label="Retour" /></button>
-    {active > 0 ? active === data.ligne.fields.oeuvres.length + 1 ? data.ligne.fields.oeuvres[active - 2].fields.anneeEvenement : data.ligne.fields.oeuvres[active - 1].fields.anneeEvenement : data.ligne.fields.oeuvres[0].fields.anneeEvenement}
-    <button disabled={active === data.ligne.fields.oeuvres.length + 1} class="next button--none" on:click={() => slider.scrollNext()}><Icon i="next" label="Prochain" /></button>
-  </h1>
-  {/if}
 </section>
 {/key}
 
@@ -240,6 +240,10 @@
     &.index {
       align-items: flex-start;
       padding-bottom: ($gap * 14);
+
+      main {
+        order: 99;
+      }
     }
 
     &.gallerie {
