@@ -142,7 +142,7 @@
     {/await}
     {/if}
   </main>
-  
+
   <nav class="col selector">
     <Lignes id="exposition-desktop" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} {active} format={data.format}
       on:mouseenter={(e) => {
@@ -336,7 +336,7 @@
           font-size: $mobile_base * 5.5;
           order: 99;
           margin: ($base * -2.666) auto 0;
-          // transform: translate(0%, -50%);
+          transform: translate(0%, 100%);
         }
       }
 
