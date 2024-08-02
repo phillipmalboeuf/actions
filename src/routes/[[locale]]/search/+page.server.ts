@@ -33,18 +33,31 @@ export const load = (async ({ locals, url, params, parent }) => {
     }
   }
 
-  const [results] = await Promise.all([
+  const [results, artistQuery] = await Promise.all([
     content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre",
-    "query": query,
-    ...from ? { "fields.annee[gte]": parseInt(from) } : undefined,
-    ...to ? { "fields.annee[lte]": parseInt(to) } : undefined,
-    ...medium?.length ? { "fields.typologie[in]": medium } : {},
-    ...artist?.length ? {
-      'fields.artiste.sys.contentType.sys.id': 'artiste',
-      'fields.artiste.fields.id[in]': artist
-    } : {},
-    include: 3, order: ["fields.anneeEvenement"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
+      "query": query,
+      ...from ? { "fields.annee[gte]": parseInt(from) } : undefined,
+      ...to ? { "fields.annee[lte]": parseInt(to) } : undefined,
+      ...medium?.length ? { "fields.typologie[in]": medium } : {},
+      ...artist?.length ? {
+        'fields.artiste.sys.contentType.sys.id': 'artiste',
+        'fields.artiste.fields.id[in]': artist
+      } : {},
+      include: 3, order: ["fields.anneeEvenement"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
+    content.getEntries<TypeArtisteSkeleton>({ "content_type": "artiste",
+      "query": query,
+    })
   ])
+
+  const more = artistQuery.items?.length
+    ? (await content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre",
+        links_to_entry: artistQuery.items[0].sys.id,
+        ...from ? { "fields.annee[gte]": parseInt(from) } : undefined,
+        ...to ? { "fields.annee[lte]": parseInt(to) } : undefined,
+        ...medium?.length ? { "fields.typologie[in]": medium } : {},
+        include: 3, order: ["fields.anneeEvenement"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' })).items
+        .filter(o => !results.items.find(result => result.fields.id === o.fields.id))
+    : []
 
   return {
     artists,
@@ -55,7 +68,7 @@ export const load = (async ({ locals, url, params, parent }) => {
     from,
     to,
     medium,
-    results: results.items.map(oeuvre => ({
+    results: [...more, ...results.items].map(oeuvre => ({
       ...oeuvre,
       ligne: lignes.items.find(l => l.fields.oeuvres.find(o => oeuvre.sys.id === o.sys.id))
     })),

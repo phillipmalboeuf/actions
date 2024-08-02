@@ -17,8 +17,8 @@
   export let query: string = undefined
   export let artist: string[] = []
   export let medium: string[] = []
-  export let from: number = 1930
-  export let to: number = 2020
+  export let from: number = 1920
+  export let to: number = 2022
   export let lignes: { [id: string]: boolean } = $page.data.lignes.reduce((ls, ligne) => ({
     ...ls,
     [ligne.fields.id]: true
@@ -92,22 +92,6 @@
     <label for="artist">Filtres</label>
     {#if results && results.length < 82}<a href="#resultats">{#if results.length === 0}Aucun résultats{:else}Voir les {results.length} résultats{/if}</a>{/if}
   </aside>
-
-  <!-- <aside class="col">
-    <a href="/search" on:click|preventDefault={async () => {
-      query = undefined
-      artist = []
-      from = 1930
-      to = 2020
-      medium = []
-      lignes = $page.data.lignes.reduce((ls, ligne) => ({
-        ...ls,
-        [ligne.fields.id]: true
-      }), {})
-      await tick()
-      form.requestSubmit()
-    }}>Réinitialiser</a>
-  </aside> -->
 
   <hr class="col col--12of12">
 
@@ -196,19 +180,19 @@
         <div>
           <div>
             <label for="from">À partir de</label>
-            <input type="number" class:default={Number(from) === 1930} bind:value={from}>
-            <input type="range" name="from" id="from" bind:value={from} min={1930} max={2020} on:input={(e) => {
+            <input type="number" class:default={Number(from) === 1920} bind:value={from}>
+            <input type="range" name="from" id="from" bind:value={from} min={1920} max={2022} on:input={(e) => {
               clearTimeout(timeout)
               timeout = setTimeout(() => {
                 form.requestSubmit()
               }, 333)
             }}>
-            <span style:--left={`${(from - 1925) / (2025 - 1925) * 100}%`}>{from}</span>
+            <span style:--left={`${(from - 1915) / (2027 - 1915) * 100}%`}>{from}</span>
           </div>
           <div>
             <label for="from">Jusqu’à</label>
-            <input type="number" class:default={Number(to) === 2020} bind:value={to}>
-            <input type="range" name="to" id="to" bind:value={to} min={1930} max={2020} on:input={(e) => {
+            <input type="number" class:default={Number(to) === 2022} bind:value={to}>
+            <input type="range" name="to" id="to" bind:value={to} min={1920} max={2022} on:input={(e) => {
               clearTimeout(timeout)
               timeout = setTimeout(() => {
                 form.requestSubmit()
@@ -262,8 +246,8 @@
   <button class="button--inverse" type="reset" on:click|preventDefault={async () => {
       query = undefined
       artist = []
-      from = 1930
-      to = 2020
+      from = 1920
+      to = 2022
       medium = []
       lignes = $page.data.lignes.reduce((ls, ligne) => ({
         ...ls,
@@ -277,7 +261,7 @@
   {#if results.length === 0}
   <div class="col col--12of12 empty" id="resultats"><em>Aucun résultats</em></div>
   {:else}
-  <div id="resultats"><Tableau oeuvres={results} {lignes} thumbnails on:click /></div>
+  <div class="col col--12of12" id="resultats"><Tableau oeuvres={results} {lignes} thumbnails on:click /></div>
   {/if}
   {/if}
 </form>
@@ -291,7 +275,7 @@
       padding: 0;
 
       :global(table),
-      .empty {
+      :global(.empty) {
         margin-top: $mobile_gap * 2;
         // order: 99;
       }

@@ -10,6 +10,7 @@
   export let thumbnails: boolean = false
 </script>
 
+{#if oeuvres.filter(o => (lignes) ? lignes[o.ligne?.fields.id] : true).length > 0}
 <table class:lignes>
   <tr>
     <th><p>Événement</p></th>
@@ -34,8 +35,10 @@
       <p>
         <em>{@html oeuvre.fields.titre}</em><br />
         {oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}<br />
-        {oeuvre.fields.medium}<br />
-        {intlNumber(oeuvre.fields.largeur)} cm x {intlNumber(oeuvre.fields.hauteur)} cm {#if oeuvre.fields.profondeur}x {intlNumber(oeuvre.fields.profondeur)} cm{/if}
+        {oeuvre.fields.medium}
+        {#if oeuvre.fields.largeur}
+        <br />
+        {intlNumber(oeuvre.fields.largeur)} cm x {intlNumber(oeuvre.fields.hauteur)} cm {#if oeuvre.fields.profondeur}x {intlNumber(oeuvre.fields.profondeur)} cm{/if}{/if}
       </p>
     </td>
     <td class:thumbnails>
@@ -48,6 +51,11 @@
   </a>
   {/each}
 </table>
+{:else}
+<div class="empty">
+<em>Aucun résultats</em>
+</div>
+{/if}
 
 <style lang="scss">
   table {
@@ -217,5 +225,9 @@
         }
       }
     }
+  }
+
+  .empty {
+    width: 100%;
   }
 </style>
