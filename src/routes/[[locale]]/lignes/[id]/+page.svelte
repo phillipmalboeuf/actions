@@ -612,6 +612,12 @@
               }
             }
 
+            @media (max-height: $mobile) {
+              :global(p) {
+                max-width: 75%;
+              }
+            }
+
             button {
               position: absolute;
               bottom: ($base * 10);
@@ -619,7 +625,7 @@
               transition: opacity 333ms;
               opacity: 1;
 
-              @media (min-width: $tablet_portrait) {
+              @media (min-width: $mobile) {
                 display: none;
               }
 

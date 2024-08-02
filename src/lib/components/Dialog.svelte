@@ -10,11 +10,12 @@
   import NoScroll from './NoScroll.svelte'
 
   import { browser } from '$app/environment'
-  import { pushState } from '$app/navigation'
+  import { onNavigate, pushState } from '$app/navigation'
 
   let innerWidth: number
   let innerHeight: number
   let vertical = false
+  let element: HTMLDialogElement
 
   $: {
     if (browser) {
@@ -24,6 +25,12 @@
     }
   }
 
+  onNavigate(() => {
+    if (element) {
+      element.scrollTo({ top: 0 })
+    }
+  })
+
   const close = () => pushState($page.url.href, {})
 </script>
 
@@ -31,7 +38,7 @@
 
 {#if $page.state.type && $page.state.open}
 <NoScroll />
-<dialog transition:fly={{ opacity: 1, ...vertical ? { y: '100%' } : { x: '100%' }, duration: 666 }} class:vertical class:half={$page.state.type === 'contexte'}>
+<dialog transition:fly={{ opacity: 1, ...vertical ? { y: '100%' } : { x: '100%' }, duration: 666 }} class:vertical class:half={$page.state.type === 'contexte'} bind:this={element}>
   <button class="close button--none" class:vertical class:half={$page.state.type === 'contexte'} on:click={close}>
     <Icon i={vertical ? "arrow" : "back"} label="Retour" />
   </button>
