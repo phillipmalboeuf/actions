@@ -132,7 +132,7 @@ button {
 	font-family: inherit;
 	
 	&:focus {
-		outline: 2px solid currentColor;
+		// outline: 2px solid currentColor;
 	}
 }
 
@@ -368,7 +368,7 @@ form {
 		align-items: center;
 
 		input:focus + label {
-			outline: 2px solid currentColor;
+			// outline: 2px solid currentColor;
 		}
 	}
 
