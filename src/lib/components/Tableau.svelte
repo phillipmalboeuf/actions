@@ -16,7 +16,7 @@
     <th></th>
     <th><p>Artiste</p></th>
     <th><p>Œuvre</p></th>
-    <th></th>
+    <th class:thumbnails></th>
   </tr>
   {#each oeuvres.filter(o => (lignes) ? lignes[o.ligne?.fields.id] : true) as oeuvre (oeuvre.fields.id)}
   <a href="/oeuvres/{oeuvre.fields.id}" style:--couleur={ligne?.fields.couleur || oeuvre.ligne?.fields.couleur || oeuvre.fields.couleur} on:click>
@@ -58,7 +58,7 @@
         th {
           border-bottom: 1px solid;
 
-          &:last-child {
+          &:last-child:not(.thumbnails) {
             border-bottom: none;
           }
         }

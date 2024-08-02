@@ -171,7 +171,7 @@
     {/if}
 
     {#if data.oeuvre.fields.credits}
-    <small>
+    <small class="credits">
       <Document body={data.oeuvre.fields.credits} />
     </small>
     {/if}
@@ -277,6 +277,10 @@
         h6 {
           margin-bottom: $base;
         }
+      }
+
+      .credits {
+        margin-top: $gap * 2;
       }
 
       aside {
