@@ -619,7 +619,7 @@
 
             @media (max-height: $mobile) {
               :global(p) {
-                max-width: 75%;
+                max-width: 88%;
               }
             }
 
