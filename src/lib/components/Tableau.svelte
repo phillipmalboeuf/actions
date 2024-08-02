@@ -53,7 +53,7 @@
 </table>
 {:else}
 <div class="empty">
-<em>Aucun résultats</em>
+<em>Aucun résultat</em>
 </div>
 {/if}
 

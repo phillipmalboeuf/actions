@@ -76,7 +76,7 @@
 
 <svelte:head>
   {#if results && results.length < 82}
-  {#if results.length === 0}<title>Aucun résultats</title>{:else}<title>Recherche à {results.length} résultats</title>{/if}{/if}
+  {#if results.length === 0}<title>Aucun résultat</title>{:else}<title>Recherche à {results.length} résultats</title>{/if}{/if}
 </svelte:head>
 
 <form class="flex flex--gapped" bind:this={form} action="/search" method="get" on:submit|preventDefault={submit}>
@@ -90,7 +90,7 @@
 
   <aside class="col">
     <label for="artist">Filtres</label>
-    {#if results && results.length < 82}<a href="#resultats">{#if results.length === 0}Aucun résultats{:else}Voir les {results.length} résultats{/if}</a>{/if}
+    {#if results && results.length < 82}<a href="#resultats">{#if results.length === 0}Aucun résultat{:else}Voir les {results.length} résultats{/if}</a>{/if}
   </aside>
 
   <hr class="col col--12of12">
@@ -259,7 +259,7 @@
 
   {#if results}
   {#if results.length === 0}
-  <div class="col col--12of12 empty" id="resultats"><em>Aucun résultats</em></div>
+  <div class="col col--12of12 empty" id="resultats"><em>Aucun résultat</em></div>
   {:else}
   <div class="col col--12of12" id="resultats"><Tableau oeuvres={results} {lignes} thumbnails on:click /></div>
   {/if}
