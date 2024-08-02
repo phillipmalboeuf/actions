@@ -61,30 +61,6 @@
   </header>
   {/if}
 
-  <nav class="col selector">
-    <Lignes id="exposition-desktop" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} {active} format={data.format}
-      on:mouseenter={(e) => {
-        // @ts-ignore
-        hover = e.currentTarget.getAttribute("data-id")
-      }}
-      on:mouseleave={() => hover = undefined} />
-  </nav>
-  <nav class="col col--mobile--12of12 formats" style:--current-color={data.ligne.fields.couleur}>
-    <Lignes id="exposition-mobile" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} format={data.format}
-      on:mouseenter={(e) => {
-        // @ts-ignore
-        hover = e.currentTarget.getAttribute("data-id")
-      }}
-      on:mouseleave={() => hover = undefined} />
-
-    {#if data.format === "index"}
-    <a href="/lignes/{data.ligne.fields.id}?format=gallerie" class="button" style:--color={data.ligne.fields.couleur}>Galerie</a>
-    {:else}
-    <a href="/lignes/{data.ligne.fields.id}?format=index" on:click={() => active = 0} class="button" style:--color={data.ligne.fields.couleur}>Liste</a>
-    {/if}
-    <a href="/lignes/{data.ligne.fields.id}/contexte" on:click={openDialog} class="button" style:--color={data.ligne.fields.couleur}>Vidéo</a>
-  </nav>
-
   {#if data.format === "index"}
   <main class="col col--12of12">
     <Tableau ligne={data.ligne} oeuvres={data.ligne.fields.oeuvres} on:click={openDialog} />
@@ -94,7 +70,7 @@
     {#key data.ligne.fields.id}
     {#if active !== undefined}
     <aside class="progress flex flex--column">
-      <small>défiler pour explorer</small>
+      <small aria-hidden="true">défiler pour explorer</small>
       <progress max={data.ligne.fields.oeuvres.length + 1} value={active}>{active} / {data.ligne.fields.oeuvres.length + 2}</progress>
     </aside>
     {/if}
@@ -166,6 +142,31 @@
     {/await}
     {/if}
   </main>
+  
+  <nav class="col selector">
+    <Lignes id="exposition-desktop" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} {active} format={data.format}
+      on:mouseenter={(e) => {
+        // @ts-ignore
+        hover = e.currentTarget.getAttribute("data-id")
+      }}
+      on:mouseleave={() => hover = undefined} />
+  </nav>
+  <nav class="col col--mobile--12of12 formats" style:--current-color={data.ligne.fields.couleur}>
+    <Lignes id="exposition-mobile" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} format={data.format}
+      on:mouseenter={(e) => {
+        // @ts-ignore
+        hover = e.currentTarget.getAttribute("data-id")
+      }}
+      on:mouseleave={() => hover = undefined} />
+
+    {#if data.format === "index"}
+    <a href="/lignes/{data.ligne.fields.id}?format=gallerie" class="button" style:--color={data.ligne.fields.couleur}>Galerie</a>
+    {:else}
+    <a href="/lignes/{data.ligne.fields.id}?format=index" on:click={() => active = 0} class="button" style:--color={data.ligne.fields.couleur}>Liste</a>
+    {/if}
+    <a href="/lignes/{data.ligne.fields.id}/contexte" on:click={openDialog} class="button" style:--color={data.ligne.fields.couleur}>Vidéo</a>
+  </nav>
+
   <h1 class="annee" role="navigation">
     <button class="previous button--none" on:click={() => slider.scrollPrev()}><Icon i="next" label="Retour" /></button>
     {active > 0 ? active === data.ligne.fields.oeuvres.length + 1 ? data.ligne.fields.oeuvres[active - 2].fields.anneeEvenement : data.ligne.fields.oeuvres[active - 1].fields.anneeEvenement : data.ligne.fields.oeuvres[0].fields.anneeEvenement}

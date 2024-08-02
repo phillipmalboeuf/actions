@@ -16,6 +16,7 @@
   let innerHeight: number
   let vertical = false
   let element: HTMLDialogElement
+  let button: HTMLButtonElement
 
   $: {
     if (browser) {
@@ -25,11 +26,12 @@
     }
   }
 
-  onNavigate(() => {
-    if (element) {
+  $: {
+    if (browser && element && $page.state.type && $page.state.open) {
       element.scrollTo({ top: 0 })
+      element.focus()
     }
-  })
+  }
 
   const close = () => pushState($page.url.href, {})
 </script>
@@ -38,8 +40,8 @@
 
 {#if $page.state.type && $page.state.open}
 <NoScroll />
-<dialog transition:fly={{ opacity: 1, ...vertical ? { y: '100%' } : { x: '100%' }, duration: 666 }} class:vertical class:half={$page.state.type === 'contexte'} bind:this={element}>
-  <button class="close button--none" class:vertical class:half={$page.state.type === 'contexte'} on:click={close}>
+<dialog transition:fly={{ opacity: 1, ...vertical ? { y: '100%' } : { x: '100%' }, duration: 666 }} class:vertical class:half={$page.state.type === 'contexte'} bind:this={element} tabindex="-1">
+  <button class="close button--none" class:vertical class:half={$page.state.type === 'contexte'} on:click={close} bind:this={button} tabindex="0">
     <Icon i={vertical ? "arrow" : "back"} label="Retour" />
   </button>
 
