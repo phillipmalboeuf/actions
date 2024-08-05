@@ -69,7 +69,10 @@
   <a href="/" class="h2"><Icon i="home" label="Accueil" /></a>
   {/if}
 
-  <input type="checkbox" name="search" id="search" bind:checked={searching} on:input={() => menu = false} />
+  <input type="checkbox" name="search" id="search" bind:checked={searching} on:input={(e) => {
+    e.currentTarget.blur()
+    menu = false
+  }} />
   <label for="search"><Icon i="search" label="Recherche" /></label>
 
   <nav class="search" aria-hidden={!searching} on:scroll={e => {
@@ -82,7 +85,10 @@
     <button class="button--none" on:click={() => searching = false}><Icon i="back" label="Fermer" /> Fermer la fenêtre</button>
   </nav>
 
-  <input type="checkbox" name="menu" id="menu" bind:checked={menu} on:input={() => searching = false} />
+  <input type="checkbox" name="menu" id="menu" bind:checked={menu} on:input={(e) => {
+    e.currentTarget.blur()
+    searching = false
+  }} />
   <label for="menu"><Icon i={menu ? "menu-close" : "menu"} label="Menu" /></label>
 
   <nav class="flex" aria-hidden={!menu} on:scroll={e => {
