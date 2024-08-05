@@ -32,7 +32,8 @@
     }))
   })
 
-  const click = () => {
+  const click = (e) => {
+    e.currentTarget?.blur()
     searching = false
     menu = false
   }
@@ -79,10 +80,19 @@
     menuScrollY = e.currentTarget.scrollTop
     scroll(true)
   }}>
-    <button class="button--none" on:click={() => searching = false}><Icon i="back" label="Fermer" /></button>
-    <Search visible={searching} on:click={() => searching = false} />
+    <button class="button--none" on:click={(e) => {
+      e.currentTarget.blur()
+      searching = false
+    }}><Icon i="back" label="Fermer" /></button>
+    <Search visible={searching} on:click={(e) => {
+      // e.currentTarget.blur()
+      searching = false
+    }} />
 
-    <button class="button--none" on:click={() => searching = false}><Icon i="back" label="Fermer" /> Fermer la fenêtre</button>
+    <button class="button--none" on:click={(e) => {
+      e.currentTarget.blur()
+      searching = false
+    }}><Icon i="back" label="Fermer" /> Fermer la fenêtre</button>
   </nav>
 
   <input type="checkbox" name="menu" id="menu" bind:checked={menu} on:input={(e) => {
