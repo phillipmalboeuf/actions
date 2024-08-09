@@ -59,6 +59,19 @@
     map.setView([-file.height / 2, file.width / 2], minZoom)
   }
 
+  function zoomIn() {
+    map.zoomIn(0.5)
+  }
+
+  function zoomOut() {
+    if (zoom <= minZoom + 0.5) {
+      reset()
+      return
+    }
+
+    map.zoomOut(0.5)
+  }
+
   onMount(async () => {
     const Leaflet = await import('leaflet')
     map = Leaflet.map(element, {
@@ -109,8 +122,22 @@
     // })
 
     // layer.addTo(map)
-  })  
+  })
 </script>
+
+<svelte:window on:keydown={e => {
+  if (e.key === '=') {
+    zoomIn()
+  }
+
+  if (e.key === '-') {
+    zoomOut()
+  }
+
+  if (e.key === 'r') {
+    reset()
+  }
+}} />
 
 <main on:pointerup={() => dragging = false}>
   <figure bind:this={element}></figure>
@@ -130,13 +157,8 @@
     
 
       <nav>
-        <button disabled={zoom == maxZoom} on:click={() => map.zoomIn(0.5)}><Icon i="plus" label="Plus zoom" /></button>
-        <button disabled={zoom == minZoom} on:click={() => {
-          map.zoomOut(0.5)
-          if (zoom == minZoom + 0.5) {
-            reset()
-          }
-        }}><Icon i="minus" label="Minus zoom" /></button>
+        <button disabled={zoom == maxZoom} on:click={zoomIn}><Icon i="plus" label="Plus zoom" /></button>
+        <button disabled={zoom == minZoom} on:click={zoomOut}><Icon i="minus" label="Minus zoom" /></button>
         <!-- <small>{zoom}</small> -->
         <button disabled={zoom == minZoom} on:click={reset}><Icon i="reset" label="Réinitialiser" /></button>
       </nav>
