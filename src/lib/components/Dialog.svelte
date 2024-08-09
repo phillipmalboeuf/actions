@@ -36,7 +36,11 @@
   const close = () => pushState($page.url.href, {})
 </script>
 
-<svelte:window bind:innerHeight bind:innerWidth />
+<svelte:window bind:innerHeight bind:innerWidth on:keydown={e => {
+  if (e.key === 'Escape') {
+    close()
+  }
+}} />
 
 {#if $page.state.type && $page.state.open}
 <NoScroll />

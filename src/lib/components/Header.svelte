@@ -59,7 +59,12 @@
   }
 </script>
 
-<svelte:window bind:scrollY on:scroll={() => scroll()} />
+<svelte:window bind:scrollY on:scroll={() => scroll()} on:keydown={e => {
+  if (e.key === 'Escape') {
+    searching = false
+    menu = false
+  }
+}} />
 
 {#if searching || menu}
 <NoScroll />
