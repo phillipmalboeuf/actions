@@ -126,6 +126,7 @@
 </script>
 
 <svelte:window on:keydown={e => {
+  console.log(e.key)
   if (e.key === '=') {
     zoomIn()
   }
@@ -136,6 +137,26 @@
 
   if (e.key === 'r') {
     reset()
+  }
+
+  if (e.key === 'ArrowUp') {
+    e.preventDefault()
+    map.panBy([0, 10])
+  }
+
+  if (e.key === 'ArrowRight') {
+    e.preventDefault()
+    map.panBy([-10, 0])
+  }
+
+  if (e.key === 'ArrowDown') {
+    e.preventDefault()
+    map.panBy([0, -10])
+  }
+
+  if (e.key === 'ArrowLeft') {
+    e.preventDefault()
+    map.panBy([10, 0])
   }
 }} />
 
