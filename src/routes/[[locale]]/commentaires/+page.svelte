@@ -38,6 +38,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Commentaires</title>
+</svelte:head>
+
 <form class="flex flex--gapped flex--middle" action="/commentaires" method="post" bind:this={element} on:submit|preventDefault={e => {
   if (ready) { return handleSubmit(e) }
 

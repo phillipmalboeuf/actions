@@ -51,6 +51,10 @@
   }
 </script>
 
+<svelte:head>
+	<title>{data.ligne.fields.titre}</title>
+</svelte:head>
+
 {#key data.format}
 <section class="flex flex--thick_gapped {data.format || "gallerie"}" class:first={active === 0}>
   {#if data.format === "index"}

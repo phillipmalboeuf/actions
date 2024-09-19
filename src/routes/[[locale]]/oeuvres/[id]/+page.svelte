@@ -31,10 +31,12 @@
   }
 </script>
 
+<svelte:head>
+	<title>{data.oeuvre.fields.titre} – {data.ligne.fields.titre}</title>
+</svelte:head>
+
 <svelte:window on:resize={() => {
-  console.log("REsize")
   if (img) {
-    console.log(img.offsetLeft)
     offset = img.offsetLeft
   }
 }} />
