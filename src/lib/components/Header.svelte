@@ -153,7 +153,7 @@
 </header>
 
 {#if menu || searching}
-<button class="back" transition:fade={{ duration: 666 }} on:click={click}>
+<button class="back" transition:fade={{ duration: 666 }} on:click={click} aria-label="Fermer">
 </button>
 {/if}
 
