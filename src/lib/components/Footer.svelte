@@ -35,8 +35,8 @@
         <input type="hidden" name="u" value="0e4b3fa9c3ebd26a49760574a">
         <input type="hidden" name="id" value="8529eaf024">
         <strong>Infolettre</strong>
-        <input tabindex="-1" type="text" name="MERGE1" autocomplete="name" placeholder="Nom">
-        <input tabindex="-1" type="email" name="MERGE0" autocomplete="email" placeholder="Courriel">
+        <input type="text" name="MERGE1" autocomplete="name" placeholder="Nom">
+        <input type="email" name="MERGE0" autocomplete="email" placeholder="Courriel">
         <button class="button--inverse" type="submit"><svg width="22" height="22" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.582 0C16.5822 3.37758 17.7411 6.65286 19.8652 9.27892C21.9893 11.905 24.9501 13.7229 28.253 14.429V15.073C24.9504 15.7791 21.9899 17.5967 19.8659 20.2223C17.7418 22.848 16.5827 26.1228 16.582 29.5" stroke="currentColor" stroke-width="1.75" stroke-miterlimit="10"/><path d="M28.547 14.751H0" stroke="#FCFAF2" stroke-width="1.75"/></svg></button>
       </form>
       <a href="https://www.museejoliette.org/fr/" target="_blank" rel="external"><Icon i="maj" label="Musée d'art de Joliette" /></a>
