@@ -2,13 +2,35 @@
   import '$lib/styles.scss'
 
   import { page } from '$app/stores'
+  import type { PointerEventHandler } from 'svelte/elements'
 
   import Header from '$lib/components/Header.svelte'
 	import Footer from '$lib/components/Footer.svelte'
   import Dialog from '$lib/components/Dialog.svelte'
 
   import type { LayoutData } from './$types'
+  
 	export let data: LayoutData
+
+  const down: PointerEventHandler<Document> = (e) => {
+    const target = (e.target as HTMLButtonElement)
+
+    if (['BUTTON', 'A'].includes(target.nodeName)) {
+      setTimeout(() => target.blur(), 0)
+    }
+
+    if (['BUTTON', 'A'].includes(target.parentElement.nodeName)) {
+      setTimeout(() => target.parentElement.blur(), 0)
+    }
+
+    if (['BUTTON', 'A'].includes(target.parentElement.parentElement.nodeName)) {
+      setTimeout(() => target.parentElement.parentElement.blur(), 0)
+    }
+
+    if (['BUTTON', 'A'].includes(target.parentElement.parentElement.parentElement.nodeName)) {
+      setTimeout(() => target.parentElement.parentElement.parentElement.blur(), 0)
+    }
+  }
 </script>
 
 <svelte:head>
@@ -16,6 +38,8 @@
 	<title>{$page.data.page.fields.titre}</title>
   {/if}
 </svelte:head>
+
+<svelte:document on:pointerdown={down} />
 
 <a href="#main" class="skip">Accéder au contenu principal</a>
 

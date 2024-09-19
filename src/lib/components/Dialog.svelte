@@ -95,6 +95,10 @@
     border-top-left-radius: $gap;
     border-bottom-left-radius: $gap;
 
+    &:focus {
+      outline: none;
+    }
+
     &.vertical {
       top: auto;
       bottom: 0;

@@ -309,6 +309,10 @@
 
       figure {
         padding: $gap;
+
+        a {
+          display: block;
+        }
         
         :global(svg) {
           height: calc($vh - ($gap * 4));
