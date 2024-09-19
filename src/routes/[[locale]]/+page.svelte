@@ -11,7 +11,7 @@
 </script>
 
 
-<main class="random-{data.random}">
+<div class="random-{data.random}">
   <Content content={data.page.fields.contenu} format={data.page.fields.format} />
 
   <nav id="lignes">
@@ -37,10 +37,10 @@
     <Document body={data.page.fields.credits} />
   </small>
   {/if}
-</main>
+</div>
 
 <style lang="scss">
-  main {
+  div {
     // --background: #{$yellow};
     // background-color: var(--background);
     // min-height: 200vh;

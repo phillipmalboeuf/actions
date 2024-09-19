@@ -10,7 +10,7 @@
 <footer class="flex flex--gapped">
   <figure class="col col--3of12 col--mobile--12of12"><a href="/"><Logo /></a></figure>
 
-  <main class="col col--9of12 col--tablet--12of12">
+  <div class="col col--9of12 col--tablet--12of12">
     <ol class="list--nostyle flex flex--gapped">
       {#if footer}
       {#each footer.fields.liens as lien}
@@ -43,7 +43,7 @@
       <a href="https://www.museesnumeriques.ca" target="_blank" rel="external"><Icon i="mnc" label="Musées numériques Canada" /></a>
       <small>©{new Date().getFullYear()}<br> Musée d’art<br> de Joliette</small>
     </nav>
-  </main>
+  </div>
 </footer>
 
 <style lang="scss">
@@ -73,7 +73,7 @@
       background-color: var(--background);
     }
 
-    main {
+    div {
       display: flex;
       flex-direction: column;
     }

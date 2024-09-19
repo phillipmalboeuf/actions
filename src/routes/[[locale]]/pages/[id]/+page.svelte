@@ -29,9 +29,9 @@
     {/if}
   </header>
 
-  <main>
+  <article>
     <Content content={data.page.fields.contenu} format={data.page.fields.format} />
-  </main>
+  </article>
 </section>
 
 
@@ -115,7 +115,7 @@
       }
     }
 
-    main {
+    article {
       display: flex;
       flex-direction: column;
       gap: $gap;

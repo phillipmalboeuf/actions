@@ -66,11 +66,11 @@
   {/if}
 
   {#if data.format === "index"}
-  <main class="col col--12of12">
+  <div class="col col--12of12">
     <Tableau ligne={data.ligne} oeuvres={data.ligne.fields.oeuvres} on:click={openDialog} />
-  </main>
+  </div>
   {:else}
-  <main class="col col--12of12" transition:fade={{ duration: 666 }} style:--color={data.ligne.fields.couleur} class:fini={active >= data.ligne.fields.oeuvres.length} style:--scroll={scroll} style:--location={location} style:--last={last}>
+  <div class="col col--12of12" transition:fade={{ duration: 666 }} style:--color={data.ligne.fields.couleur} class:fini={active >= data.ligne.fields.oeuvres.length} style:--scroll={scroll} style:--location={location} style:--last={last}>
     {#key data.ligne.fields.id}
     {#if active !== undefined}
     <aside class="progress flex flex--column">
@@ -98,10 +98,10 @@
             }
           }}>
           <figure>
-            <div>
+            <aside>
               <Icon i="plus" label="Plus" />
               <!-- <small>Découvrir</small> -->
-            </div>
+            </aside>
             <Media media={oeuvre.fields.vignette} />
             <figcaption>
               <h5>{@html oeuvre.fields.description || oeuvre.fields.titre}</h5>
@@ -145,7 +145,7 @@
     {/await}
     {/await}
     {/if}
-  </main>
+  </div>
 
   <h1 class="annee" role="navigation">
     <button class="previous button--none" on:click={() => slider.scrollPrev()}><Icon i="next" label="Retour" /></button>
@@ -245,7 +245,7 @@
       align-items: flex-start;
       padding-bottom: ($gap * 14);
 
-      main {
+      div {
         order: 99;
       }
     }
@@ -370,7 +370,7 @@
         }
       }
 
-      main {
+      div {
         position: relative;
         width: calc(100% + ($gap * 4));
         margin-left: ($gap * -2);
@@ -495,7 +495,7 @@
               }
             }
 
-            div {
+            aside {
               position: relative;
               width: 12vw;
             

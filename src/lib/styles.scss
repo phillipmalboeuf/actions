@@ -17,7 +17,7 @@
 	transition: outline 333ms;
 
 	&:focus {
-		outline: 2px solid currentColor;
+		outline: 1px solid currentColor;
 		// outline: none;
 	}
 }
@@ -349,6 +349,10 @@ form {
 		background-color: $beige-dark;
 		padding: $base;
 		border-radius: $base - 2px;
+
+		&:focus {
+			outline: none
+		}
 
 		&::placeholder {
 			color: currentColor;

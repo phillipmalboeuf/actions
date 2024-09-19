@@ -83,7 +83,7 @@
     </figcaption>
     {/key}
   </figure>
-  <main class="col col--5of12 col--tablet--6of12 col--mobile--12of12">
+  <article class="col col--5of12 col--tablet--6of12 col--mobile--12of12">
     {#if data.oeuvre.fields.description}<h4>{@html data.oeuvre.fields.description}</h4>{/if}
     <aside>
       <Credit oeuvre={data.oeuvre} />
@@ -217,7 +217,7 @@
       <Icon i={"back"} label="Retour" /> Revenir à la ligne du temps
     </a>
     {/if}
-  </main>
+  </article>
 </section>
 {/key}
 
@@ -276,7 +276,7 @@
       }
     }
 
-    main {
+    article {
       display: flex;
       flex-direction: column;
       gap: $gap * 1.75;
