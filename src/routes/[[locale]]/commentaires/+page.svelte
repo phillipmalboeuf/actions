@@ -60,7 +60,7 @@
 }}>
   <input type="text" name="nom" autocomplete="name" placeholder="Inscrire votre nom">
   <input type="email" name="email" autocomplete="email" placeholder="Inscrire votre courriel" required>
-  <textarea name="message" autocomplete="off" placeholder="Rédiger votre message" required maxlength="10000" on:input={e => {
+  <textarea name="message" autocomplete="off" placeholder="Faites-nous part de vos commentaires ou questions en lien avec l'exposition" required maxlength="10000" on:input={e => {
     if (e.currentTarget.value === '') {
       e.currentTarget.style.height = null
     } else {
