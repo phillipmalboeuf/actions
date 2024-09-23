@@ -54,7 +54,7 @@
     bottom: 0;
     // color: var(--foreground-inverse);
     font-size: $base - 2px;
-    background-color: var(--background);
+    background-color: var(--alt-background);
     padding: ($gap * 2) ($gap * 2) ($gap * 2);
     backface-visibility: hidden;
     overflow-x: hidden;
@@ -69,8 +69,8 @@
 
     :global(.-pages-credits) ~ &,
     :global(.-pages-bibliographie) ~ & {
-      --background: #{$yellow};
-      background-color: var(--background);
+      --alt-background: #{$beige};
+      background-color: var(--alt-background);
     }
 
     div {
@@ -94,6 +94,15 @@
 
       @media (max-width: $mobile) {
         display: none;
+      }
+    }
+
+    figure {
+      @media (max-width: $mobile) {
+        :global(svg) {
+          width: 240px;
+          height: 240px;
+        }
       }
     }
 
@@ -158,6 +167,7 @@
             @media (min-width: $mobile) {
               border-top-left-radius: 0;
               border-bottom-left-radius: 0;
+              padding-right: $base * 2.5;
             }
           }
 
@@ -181,11 +191,13 @@
       }
 
       @media (max-width: $mobile) {
+        justify-content: center;
+
         a {
-          max-width: 40%;
-          &:last-of-type {
-            margin-left: auto;
-          }
+          max-width: 35%;
+          // &:last-of-type {
+          //   margin-left: auto;
+          // }
 
           :global(svg) {
             max-width: 100%;
