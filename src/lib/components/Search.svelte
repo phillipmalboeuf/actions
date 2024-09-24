@@ -106,7 +106,7 @@
             const label = document.querySelector(`label[data-letter=${l}]`)
             // @ts-ignore
             label.parentElement.scrollTo({ top: label.offsetTop, behavior: 'smooth' })
-          }}>{l}</button>
+          }} aria-label="Scroll to {l}">{l}</button>
           {/each}
         </nav>
         <div>
@@ -396,7 +396,8 @@
 
         @media (min-width: $mobile) {
           &:hover,
-          &:has(input[focus]) {
+          &:has(input[focus]),
+          &.down {
             background-color: $beige-dark;
             border-color: $beige-dark;
             border-bottom-left-radius: 0;
