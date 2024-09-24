@@ -7,9 +7,9 @@
   import Header from '$lib/components/Header.svelte'
 	import Footer from '$lib/components/Footer.svelte'
   import Dialog from '$lib/components/Dialog.svelte'
+  import Cookies from '$lib/components/Cookies.svelte'
 
   import type { LayoutData } from './$types'
-  
 	export let data: LayoutData
 
   const down: PointerEventHandler<Document> = (e) => {
@@ -51,6 +51,8 @@
 
 <Dialog />
 <Footer footer={data.footer} />
+
+<Cookies />
 
 <style lang="scss">
   main {

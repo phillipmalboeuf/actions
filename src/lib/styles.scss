@@ -24,7 +24,7 @@
 }
 
 html {
-	scroll-behavior: smooth;
+	// scroll-behavior: smooth;
 	accent-color: $brown;
 
 	&.noscroll {
@@ -505,12 +505,20 @@ form {
 		justify-content: flex-end;
 	}
 
+	&.flex--center {
+		justify-content: center;
+	}
+
 	&.flex--spaced {
 		justify-content: space-between;
 	}
 
 	&.flex--middle {
 		align-items: center;
+	}
+
+	&.flex--bottom {
+		align-items: flex-end;
 	}
 
 	&.flex--column {
