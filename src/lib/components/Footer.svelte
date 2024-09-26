@@ -13,7 +13,8 @@
   <div class="col col--9of12 col--tablet--12of12">
     <ol class="list--nostyle flex flex--gapped">
       {#if footer}
-      {#each footer.fields.liens as lien}
+      {#each footer.fields.liens as lien, i}
+      {#if i < footer.fields.liens.length - 1}
       <li>
         <a href="{lien.fields.route}">{lien.fields.titre}</a>
 
@@ -27,10 +28,14 @@
         </ol>
         {/if}
       </li>
+      {/if}
       {/each}
       {/if}
+
+      <li><a href="https://www.museejoliette.org/fr/" target="_blank" rel="external"><Icon i="maj" label="Musée d'art de Joliette" /></a></li>
+      <li><a href="https://www.museesnumeriques.ca" target="_blank" rel="external"><Icon i="mnc" label="Musées numériques Canada" /></a></li>
     </ol>
-    <nav class="flex flex--gapped">
+    <nav class="flex flex--gapped flex--bottom">
       <form action="https://museejoliette.us7.list-manage.com/subscribe/post?locale=fr" method="post" target="_blank">
         <input type="hidden" name="u" value="0e4b3fa9c3ebd26a49760574a">
         <input type="hidden" name="id" value="8529eaf024">
@@ -39,9 +44,9 @@
         <input type="email" name="MERGE0" autocomplete="email" placeholder="Courriel">
         <button class="button--inverse" type="submit" aria-label="Soumettre"><svg width="22" height="22" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.582 0C16.5822 3.37758 17.7411 6.65286 19.8652 9.27892C21.9893 11.905 24.9501 13.7229 28.253 14.429V15.073C24.9504 15.7791 21.9899 17.5967 19.8659 20.2223C17.7418 22.848 16.5827 26.1228 16.582 29.5" stroke="currentColor" stroke-width="1.75" stroke-miterlimit="10"/><path d="M28.547 14.751H0" stroke="#FCFAF2" stroke-width="1.75"/></svg></button>
       </form>
-      <a href="https://www.museejoliette.org/fr/" target="_blank" rel="external"><Icon i="maj" label="Musée d'art de Joliette" /></a>
-      <a href="https://www.museesnumeriques.ca" target="_blank" rel="external"><Icon i="mnc" label="Musées numériques Canada" /></a>
-      <small>©{new Date().getFullYear()}<br> Musée d’art<br> de Joliette</small>
+      
+      <small><a href="{footer.fields.liens[footer.fields.liens.length - 1].fields.route}">{footer.fields.liens[footer.fields.liens.length - 1].fields.titre}</a></small>
+      <small>©{new Date().getFullYear()} Musée d’art de Joliette</small>
     </nav>
   </div>
 </footer>
@@ -80,14 +85,18 @@
 
     ol {
       list-style: none;
+      justify-content: space-between;
+      column-gap: $gap * 2;
       padding: 0;
 
       li {
-        flex: 1;
+        // flex: 1;
 
         ol {
+          margin-top: $gap * 1.5;
+
           li {
-            margin: $gap 0;
+            margin: ($base * 0.5) 0;
           }
         }
       }
@@ -98,11 +107,9 @@
     }
 
     figure {
-      @media (max-width: $mobile) {
-        :global(svg) {
-          width: 240px;
-          height: 240px;
-        }
+      :global(svg) {
+        width: 240px;
+        height: 240px;
       }
     }
 
@@ -118,7 +125,7 @@
           text-align: center;
           width: 100%;
 
-          br {
+          &:not(:last-of-type) {
             display: none;
           }
         }
