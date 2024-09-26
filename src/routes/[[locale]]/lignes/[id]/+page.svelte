@@ -99,8 +99,10 @@
           }}>
           <figure>
             <aside>
-              <Icon i="plus" label="Plus" />
-              <!-- <small>Découvrir</small> -->
+              <button>
+                <Icon i="plus" label="Plus" />
+                <small>Découvrir</small>
+              </button>
             </aside>
             <Media media={oeuvre.fields.vignette} />
             <figcaption>
@@ -454,10 +456,35 @@
             figcaption {
               opacity: 0;
             }
+
+            aside button {
+              opacity: 0;
+            }
           }
 
           @media (max-width: $mobile) {
             flex: 0 0 80%;
+          }
+
+          a {
+            pointer-events: none;
+
+            figure :global(img),
+            aside button,
+            figcaption > * {
+              pointer-events: auto;
+            }
+
+            &:hover,
+            &:focus {
+              aside button {
+                gap: $base * 0.5;
+                small {
+                  opacity: 1;
+                  width: 60px;
+                }
+              }
+            }
           }
 
           figure {
@@ -499,24 +526,43 @@
               position: relative;
               width: 12vw;
             
-              :global(svg) {
+              button {
                 position: absolute;
                 top: 50%;
-                right: ($base * -2) - 4px;
-                // color: $white;
+                left: calc(100% + 3px);
+
+                display: flex;
+                align-items: center;
+                gap: 0;
+
                 background-color: var(--color, $brown);
-                width: $base * 2;
-                height: $base * 2;
                 padding: $base * 0.5;
-                border-radius: 50%;
-                transform: translateY(-50%);
-                opacity: 0;
-                transition: opacity 333ms;
+                border: none;
+
+                overflow: hidden;
+                opacity: 1;
+                transition: opacity 333ms, gap 333ms;
+
+                small {
+                  width: 0;
+                  opacity: 0;
+                  transition: opacity 333ms, width 333ms;
+                }
+
+                :global(svg) {
+                  // color: $white;
+                  
+                  width: $base;
+                  height: $base;
+                  
+                  // opacity: 0;
+                  // transition: opacity 333ms;
+                }
               }
 
-              @media (max-width: $mobile) {
-                display: none;
-              }
+              // @media (max-width: $mobile) {
+              //   display: none;
+              // }
             }
 
             figcaption {
