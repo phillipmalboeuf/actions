@@ -543,6 +543,10 @@
                 opacity: 1;
                 transition: opacity 333ms, gap 333ms;
 
+                @media (max-width: $mobile) {
+                  display: none;
+                }
+
                 small {
                   width: 0;
                   opacity: 0;
