@@ -186,7 +186,9 @@
     gap: $mobile_gap * 0.5;
 
     dialog:not(.half) & {
-      padding-left: 50%;
+      @media (min-width: $mobile) {
+        padding-left: 50%;
+      }
     }
 
     :global(svg) {
