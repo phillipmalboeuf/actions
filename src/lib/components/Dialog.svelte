@@ -191,6 +191,18 @@
       }
     }
 
+    dialog.half & {
+      justify-content: flex-start;
+      margin-top: ($gap * -4.5);
+      padding: 0 ($gap * 6) ($gap * 2);
+
+      @media (max-width: $mobile) {
+        justify-content: center;
+        margin-top: ($mobile_gap * -4.5);
+        padding: 0 $mobile_gap ($mobile_gap * 2);
+      }
+    }
+
     :global(svg) {
       height: 24px;
       width: 24px;
