@@ -109,6 +109,7 @@ export interface TypeOeuvreFields {
     historiqueTxt?: EntryFieldTypes.Text;
     publicationsTxt?: EntryFieldTypes.Text;
     credits?: EntryFieldTypes.RichText;
+    creditsFiches?: EntryFieldTypes.Text;
 }
 
 export type TypeOeuvreSkeleton = EntrySkeletonType<TypeOeuvreFields, "oeuvre">;
