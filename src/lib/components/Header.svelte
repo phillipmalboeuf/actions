@@ -81,7 +81,7 @@
   }} />
   <label for="search"><Icon i="search" label="Recherche" /></label>
 
-  <nav class="search" aria-hidden={!searching} on:scroll={e => {
+  <nav class="search" on:scroll={e => {
     menuScrollY = e.currentTarget.scrollTop
     scroll(true)
   }}>
@@ -106,7 +106,7 @@
   }} />
   <label for="menu"><Icon i={menu ? "menu-close" : "menu"} label="Menu" /></label>
 
-  <nav class="flex" aria-hidden={!menu} on:scroll={e => {
+  <nav class="flex" on:scroll={e => {
     menuScrollY = e.currentTarget.scrollTop
     scroll(true)
   }}>
