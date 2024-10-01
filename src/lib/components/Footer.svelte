@@ -10,7 +10,7 @@
 <footer class="flex flex--gapped">
   <figure class="col col--3of12 col--mobile--12of12"><a href="/"><Logo /></a></figure>
 
-  <div class="col col--9of12 col--tablet--12of12">
+  <div class="col col--9of12 col--landscape--12of12">
     <ol class="list--nostyle flex flex--gapped">
       {#if footer}
       {#each footer.fields.liens as lien, i}
@@ -31,6 +31,8 @@
       {/if}
       {/each}
       {/if}
+
+      <li class="col col--landscape--12of12"></li>
 
       <li><a href="https://www.museejoliette.org/fr/" target="_blank" rel="external"><Icon i="maj" label="Musée d'art de Joliette" /></a></li>
       <li><a href="https://www.museesnumeriques.ca" target="_blank" rel="external"><Icon i="mnc" label="Musées numériques Canada" /></a></li>
@@ -64,8 +66,20 @@
     backface-visibility: hidden;
     overflow-x: hidden;
 
-    @media (max-width: $tablet_portrait) {
+    @media (max-width: $tablet_landscape) {
       gap: ($mobile_gap * 3);
+
+      ol {
+        // justify-content: flex-start !important;
+      }
+
+      li:has(> a[target="_blank"]) {
+        margin-bottom: ($mobile_gap * 2);
+
+        &:nth-last-child(2) {
+          margin-left: auto;
+        }
+      }
     }
 
     @media (max-width: $mobile) {
@@ -86,7 +100,6 @@
     ol {
       list-style: none;
       justify-content: space-between;
-      column-gap: $gap * 2;
       padding: 0;
 
       li {
@@ -116,7 +129,7 @@
     nav {
       margin-top: auto;
       justify-content: flex-end;
-      gap: $gap * 2;
+      // gap: $gap * 2;
 
       small {
         text-align: right;

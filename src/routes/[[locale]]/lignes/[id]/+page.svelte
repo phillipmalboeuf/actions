@@ -511,12 +511,14 @@
               -webkit-user-select: none;
               user-select: none;
               transition: transform 333ms;
+              max-width: 66vw;
 
               @media (min-width: $mobile) {
-                background-color: var(--color);
+                // background-color: var(--color);
               }
 
               @media (max-width: $mobile) {
+                max-width: none;
                 height: min(50dvh, 50vh);
                 width: 100%;
               }
