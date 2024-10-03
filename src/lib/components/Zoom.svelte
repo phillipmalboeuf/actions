@@ -160,7 +160,7 @@
   }
 }} />
 
-<div on:pointerup={() => dragging = false}>
+<article on:pointerup={() => dragging = false}>
   <figure bind:this={element}></figure>
 
   <aside>
@@ -189,10 +189,10 @@
       <Credit {oeuvre} full />
     </p>
   </aside>
-</div>
+</article>
 
 <style lang="scss">
-  div {
+  article {
     display: flex;
     gap: $gap * 2;
     // align-items: flex-start;
