@@ -50,13 +50,15 @@ export const load = (async ({ locals, url, params, parent }) => {
   ])
 
   const more = artistQuery.items?.length
-    ? (await content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre",
-        links_to_entry: artistQuery.items[0].sys.id,
-        ...from ? { "fields.annee[gte]": parseInt(from) } : undefined,
-        ...to ? { "fields.annee[lte]": parseInt(to) } : undefined,
-        ...medium?.length ? { "fields.typologie[in]": medium } : {},
-        include: 3, order: ["fields.anneeEvenement"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' })).items
-        .filter(o => !results.items.find(result => result.fields.id === o.fields.id))
+    ? artistQuery.items.length > 80
+      ? []
+      : (await content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre",
+          links_to_entry: artistQuery.items[0].sys.id,
+          ...from ? { "fields.annee[gte]": parseInt(from) } : undefined,
+          ...to ? { "fields.annee[lte]": parseInt(to) } : undefined,
+          ...medium?.length ? { "fields.typologie[in]": medium } : {},
+          include: 3, order: ["fields.anneeEvenement"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' })).items
+          .filter(o => !results.items.find(result => result.fields.id === o.fields.id))
     : []
 
   return {
