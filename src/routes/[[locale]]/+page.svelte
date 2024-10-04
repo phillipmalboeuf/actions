@@ -16,7 +16,7 @@
 
   <nav id="lignes">
     <h6 role="none">Sélectionner une ligne du temps<br>pour débuter votre visite</h6>
-    <h2 class="flex flex--spaced" role="none"><Icon i="tip" label="À partir de " /><span>1942</span> <Icon i="tip" label="Jusqu'à" /><span>2022</span></h2>
+    <h2 class="flex flex--spaced" role="none"><Icon i="tip" label="Jusqu'à 2022" /></h2>
     <hr>
     <ul class="list--nostyle">
       {#each data.lignes as ligne}
@@ -78,7 +78,7 @@
 
       display: flex;
       flex-direction: column;
-      align-items: center;
+      // align-items: center;
       gap: $base * 0.5;
 
       > * {
@@ -92,11 +92,12 @@
 
       h6 {
         margin-bottom: $gap * -1;
-        text-align: center;
+        font-weight: normal;
+        // text-align: center;
 
-        @media (max-width: $mobile) {
-          margin-bottom: $mobile_gap * 2;
-        }
+        // @media (max-width: $mobile) {
+        //   margin-bottom: $mobile_gap * 2;
+        // }
       }
 
       h2 {
@@ -137,13 +138,13 @@
         }
 
         + hr {
-          margin: 0 ($gap * -1.5);
-          width: calc(100% + ($gap * 3));
+          margin: 0 ($gap * -1.5) 0 0;
+          width: calc(100% + ($gap * 1.5));
           max-width: calc(1560px + ($gap * 3));
 
           @media (max-width: $mobile) {
             margin: 0 0 $mobile_gap;
-            width: calc(100% + $mobile_gap);
+            width: calc(100% + ($mobile_gap * 0.5));
           }
         }
       }
