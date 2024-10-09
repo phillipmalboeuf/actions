@@ -44,7 +44,7 @@
         <strong>Infolettre</strong>
         <input type="text" name="MERGE1" autocomplete="name" placeholder="Nom">
         <input type="email" name="MERGE0" autocomplete="email" placeholder="Courriel">
-        <button class="button--inverse" type="submit" aria-label="Soumettre"><svg width="22" height="22" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.582 0C16.5822 3.37758 17.7411 6.65286 19.8652 9.27892C21.9893 11.905 24.9501 13.7229 28.253 14.429V15.073C24.9504 15.7791 21.9899 17.5967 19.8659 20.2223C17.7418 22.848 16.5827 26.1228 16.582 29.5" stroke="currentColor" stroke-width="1.75" stroke-miterlimit="10"/><path d="M28.547 14.751H0" stroke="#FCFAF2" stroke-width="1.75"/></svg></button>
+        <button class="button--inverse" type="submit" aria-label="Soumettre"><svg width="22" height="22" viewBox="0 0 30 30"><path d="M16.582 0C16.5822 3.37758 17.7411 6.65286 19.8652 9.27892C21.9893 11.905 24.9501 13.7229 28.253 14.429V15.073C24.9504 15.7791 21.9899 17.5967 19.8659 20.2223C17.7418 22.848 16.5827 26.1228 16.582 29.5" stroke="currentColor" stroke-width="1.75" stroke-miterlimit="10"/><path d="M28.547 14.751H0" stroke="currentColor" stroke-width="1.75"/></svg></button>
       </form>
       
       <small><a href="{footer.fields.liens[footer.fields.liens.length - 1].fields.route}">{footer.fields.liens[footer.fields.liens.length - 1].fields.titre}</a></small>
@@ -207,6 +207,13 @@
           border: none;
           margin-left: $base * -2.5;
           margin-right: $base * -2.5;
+
+          svg {
+            path {
+              fill: none;
+              stroke: var(--alt-background);
+            }
+          }
         }
       }
 
