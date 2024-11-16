@@ -146,7 +146,7 @@
         </td>
         <td>
           <h6>Année d’entrée au Musée</h6>
-          {data.oeuvre.fields.numero?.split('.')[0]}
+          {data.oeuvre.fields.anneeDentreeAuMusee || data.oeuvre.fields.numero?.split('.')[0]}
         </td>
       </tr>
     </table>

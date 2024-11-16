@@ -87,6 +87,7 @@ export interface TypeOeuvreFields {
     artiste?: EntryFieldTypes.EntryLink<TypeArtisteSkeleton>;
     anneeEvenement: EntryFieldTypes.Integer;
     annee: EntryFieldTypes.Integer;
+    anneeDentreeAuMusee?: EntryFieldTypes.Integer;
     anneeDeRealisation?: EntryFieldTypes.Symbol;
     couleur?: EntryFieldTypes.Symbol;
     vignette?: EntryFieldTypes.AssetLink;
