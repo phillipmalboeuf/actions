@@ -31,9 +31,12 @@
   <Document body={data.ligne.fields.contexte} />
 
   <figure>
-    <a href="/lignes/{data.ligne.fields.id}/video" on:click={openDialog}>
+    <a href="/lignes/{data.ligne.fields.id}/video" class="video" on:click={openDialog}>
       <Icon i="play" label="Visionner vidéo" />
       <Media media={data.ligne.fields.vignette} />
+      {#if data.ligne.fields.vignetteVideo}
+      <Media media={data.ligne.fields.vignetteVideo} eager small />
+      {/if}
     </a>
   </figure>
 
@@ -85,16 +88,47 @@
       }
     }
 
-    :global(> figure) {
-      position: relative;
+    > figure {
       margin-top: ($gap * 2);
+    }
+
+    a.video {
+      position: relative;
 
       :global(svg) {
         position: absolute;
-        top: $base;
-        left: $base;
+        z-index: 4;
+        top: $base * 0.75;
+        left: $base * 0.75;
         color: $beige;
         opacity: 0.88;
+        width: $base * 2.5;
+        height: $base * 2.5;
+
+        @media (max-width: $mobile) {
+          top: $mobile_base * 0.75;
+          left: $mobile_base * 0.75;
+        }
+      }
+
+      :global(picture + video),
+      :global(picture + picture) {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        transition: opacity 0.333s;
+      }
+
+      &:hover,
+      &:focus {
+        :global(picture + video),
+        :global(picture + picture) {
+          opacity: 1;
+        }
       }
     }
 

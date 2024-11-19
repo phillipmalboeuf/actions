@@ -53,6 +53,7 @@ export interface TypeLigneFields {
     logotype?: EntryFieldTypes.AssetLink;
     couleur?: EntryFieldTypes.Symbol;
     vignette?: EntryFieldTypes.AssetLink;
+    vignetteVideo?: EntryFieldTypes.AssetLink;
     lienVimeo?: EntryFieldTypes.Symbol;
     contexte?: EntryFieldTypes.RichText;
     oeuvres?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeOeuvreSkeleton>>;

@@ -22,7 +22,13 @@
       {#each data.lignes as ligne}
       <li class="flex flex--spaced flex--middle flex--gapped">
         <a href="/lignes/{ligne.fields.id}" class="col col--4of12"><Media media={ligne.fields.logotype} /></a>
-        <a href="/lignes/{ligne.fields.id}/video" on:click={openDialog} class="video col col--4of12 col--mobile--12of12"><Icon i="play" label="Visionner vidéo" /> <Media media={ligne.fields.vignette} small /></a>
+        <a href="/lignes/{ligne.fields.id}/video" on:click={openDialog} class="video col col--4of12 col--mobile--12of12">
+          <Icon i="play" label="Visionner vidéo" />
+          <Media media={ligne.fields.vignette} small />
+          {#if ligne.fields.vignetteVideo}
+          <Media media={ligne.fields.vignetteVideo} eager small />
+          {/if}
+        </a>
         <div class="col col--4of12">
           <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur} aria-label="Visiter {ligne.fields.titre}">Visiter</a>
         </div>
@@ -181,19 +187,39 @@
             }
           }
 
-          a {
+          a.video {
             position: relative;
 
             :global(svg) {
               position: absolute;
-              top: $base;
-              left: $base;
+              z-index: 2;
+              top: $base * 0.75;
+              left: $base * 0.75;
               color: $beige;
               opacity: 0.88;
+              width: $base * 2.5;
+              height: $base * 2.5;
 
               @media (max-width: $mobile) {
                 top: $mobile_base * 0.75;
                 left: $mobile_base * 0.75;
+              }
+            }
+
+            :global(picture + video),
+            :global(picture + picture) {
+              position: absolute;
+              top: 0;
+              left: 0;
+              opacity: 0;
+              transition: opacity 0.333s;
+            }
+
+            &:hover,
+            &:focus {
+              :global(picture + video),
+              :global(picture + picture) {
+                opacity: 1;
               }
             }
           }
