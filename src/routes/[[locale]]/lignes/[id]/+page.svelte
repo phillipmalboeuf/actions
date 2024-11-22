@@ -709,11 +709,12 @@
 
               :global(img) {
                 height: 20vh;
+                width: auto;
                 background-color: transparent;
                 padding: 0;
 
                 @media (max-width: $tablet_portrait) {
-                  height: 15vh;
+                  height: 12vh;
                 }
               }
 
