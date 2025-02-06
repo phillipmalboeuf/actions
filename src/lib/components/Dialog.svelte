@@ -5,6 +5,7 @@
   import OeuvrePage from '../../routes/[[locale]]/oeuvres/[id]/+page.svelte'
   import ContextePage from '../../routes/[[locale]]/lignes/[id]/contexte/+page.svelte'
   import ZoomPage from '../../routes/[[locale]]/oeuvres/[id]/zoom/+page.svelte'
+  import ZoomArchivePage from '../../routes/[[locale]]/oeuvres/[id]/archives/[asset_id]/zoom/+page.svelte'
   import VideoPage from '../../routes/[[locale]]/lignes/[id]/video/+page.svelte'
   import Icon from './Icon.svelte'
   import NoScroll from './NoScroll.svelte'
@@ -69,6 +70,13 @@
 {#if $page.state.zoom}
 <NoScroll />
 <ZoomPage data={$page.state.zoom} onClose={() => {
+  history.back()
+}} />
+{/if}
+
+{#if $page.state.zoomArchive}
+<NoScroll />
+<ZoomArchivePage data={$page.state.zoomArchive} onClose={() => {
   history.back()
 }} />
 {/if}

@@ -5,6 +5,9 @@
 
   import { page } from '$app/stores'
 
+  import { openDialog } from '$lib/helpers';
+  import Icon from '../Icon.svelte';
+
   import type { TopLevelBlock } from '@contentful/rich-text-types'
   export let node: TopLevelBlock
 </script>
@@ -50,7 +53,14 @@
   <figure>
     <Media media={node.data.target} title />
     {#if node.data.target.fields.description}
-    <figcaption>{node.data.target.fields.description}</figcaption>
+    <figcaption class="flex flex--gapped">
+      <div>{node.data.target.fields.description}</div>
+      {#if $page.data.oeuvre}
+      <div>
+        <a href="/oeuvres/{$page.data.oeuvre.fields.id}/archives/{node.data.target.sys.id}/zoom" on:click={openDialog}><Icon i="view" label="Zoom" /></a>
+      </div>
+      {/if}
+    </figcaption>
     {/if}
   </figure>
 {:else if node.nodeType === 'embedded-entry-block'}
@@ -86,6 +96,7 @@
     figcaption {
       font-size: $base - 2px;
       line-height: 1.15;
+      flex-wrap: nowrap;
     }
 
     @media (max-width: $mobile) {

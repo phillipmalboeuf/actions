@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Entry } from 'contentful'
+  import type { Asset, Entry } from 'contentful'
   import type { TypeOeuvreSkeleton } from '$lib/clients/content_types'
   import type { LeafletEvent, LeafletEventHandlerFn, Map } from 'leaflet'
   import { onMount } from 'svelte'
@@ -8,7 +8,8 @@
   import Icon from './Icon.svelte'
   import Credit from './Credit.svelte'
   
-  export let oeuvre: Entry<TypeOeuvreSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
+  export let oeuvre: Entry<TypeOeuvreSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> = undefined
+  export let asset: Asset<"WITHOUT_UNRESOLVABLE_LINKS"> = undefined
   export let file: {
     url: string
     width: number
@@ -186,7 +187,11 @@
     </div>
 
     <p class:zoomed={zoom > minZoom}>
+      {#if oeuvre}
       <Credit {oeuvre} full />
+      {:else if asset}
+      {asset.fields.description}
+      {/if}
     </p>
   </aside>
 </article>
