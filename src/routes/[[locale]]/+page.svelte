@@ -89,6 +89,7 @@
 
       > * {
         max-width: 1560px;
+        margin: 0 auto;
       }
 
       hr {
@@ -144,7 +145,7 @@
         }
 
         + hr {
-          margin: 0 ($gap * -1.5) 0 0;
+          margin: 0 auto 0 auto;
           width: calc(100% + ($gap * 1.5));
           max-width: calc(1560px + ($gap * 3));
 
