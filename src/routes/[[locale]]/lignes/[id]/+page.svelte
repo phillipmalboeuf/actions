@@ -74,7 +74,7 @@
     {#key data.ligne.fields.id}
     {#if active !== undefined}
     <aside class="progress flex flex--column">
-      <small aria-hidden="true">défiler pour explorer</small>
+      <small aria-hidden="true">Défiler pour explorer</small>
       <progress max={data.ligne.fields.oeuvres.length + 1} value={active}>{active} / {data.ligne.fields.oeuvres.length + 2}</progress>
     </aside>
     {/if}
@@ -132,8 +132,8 @@
     </Slider>
     {/key}
 
-    {#if hover && hover !== data.ligne.fields.id}
-    {#await fetch(`/lignes/${hover}/siblings/${active - 1}`) then response}
+    {#if hover && hover !== data.ligne.fields.id && data.ligne.fields.oeuvres[active - 1]}
+    {#await fetch(`/lignes/${hover}/siblings/${data.ligne.fields.oeuvres[active - 1].fields.anneeEvenement}`) then response}
     {#await response.json() then siblings}
     <aside class="siblings" transition:fade={{ duration: 333 }}>
       <figure class="sibling--previous {siblings.previous?.fields.format}">
@@ -175,7 +175,7 @@
     {#if data.format === "index"}
     <a href="/lignes/{data.ligne.fields.id}?format=gallerie" class="button" style:--color={data.ligne.fields.couleur}>Galerie</a>
     {:else}
-    <a href="/lignes/{data.ligne.fields.id}?format=index" on:click={() => active = 0} class="button" style:--color={data.ligne.fields.couleur}>Liste</a>
+    <a href="/lignes/{data.ligne.fields.id}?format=index" on:click={() => active = 0} class="button" style:--color={data.ligne.fields.couleur}>Exposition</a>
     {/if}
     <a href="/lignes/{data.ligne.fields.id}/contexte" on:click={openDialog} class="button" style:--color={data.ligne.fields.couleur}>Vidéo</a>
   </nav>
@@ -423,6 +423,8 @@
           figure {
             width: 33%;
             height: calc($vh - ($base * 15));
+            transform: scale(0.666);
+            filter: blur(10px);
 
             :global(img) {
               width: 100%;
