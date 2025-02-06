@@ -99,6 +99,8 @@
 
       h6 {
         margin-bottom: $gap * -1;
+        margin-left: 0;
+        font-size: $base * $scale;
         font-weight: normal;
         // text-align: center;
 
