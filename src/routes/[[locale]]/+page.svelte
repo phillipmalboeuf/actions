@@ -99,7 +99,9 @@
 
       h6 {
         margin-bottom: $gap * -1;
-        margin-left: 0;
+        // margin-left: 0;
+        width: 1560px;
+        max-width: 100%;
         font-size: $base * $scale;
         font-weight: normal;
         // text-align: center;
@@ -130,7 +132,7 @@
 
           &:last-of-type {
             left: auto;
-            right: $gap * -1.5;
+            right: 0;
             top: calc(100% - 1px);
             transform: rotate(180deg);
           }
@@ -147,14 +149,14 @@
         }
 
         + hr {
-          margin: 0 auto 0 auto;
-          width: calc(100% + ($gap * 1.5));
-          max-width: calc(1560px + ($gap * 3));
+          // margin: 0 auto 0 auto;
+          // width: calc(100% + ($gap * 1.5));
+          // max-width: calc(1560px + ($gap * 3));
 
-          @media (max-width: $mobile) {
-            margin: 0 0 $mobile_gap;
-            width: calc(100% + ($mobile_gap * 0.5));
-          }
+          // @media (max-width: $mobile) {
+          //   margin: 0 0 $mobile_gap;
+          //   width: calc(100% + ($mobile_gap * 0.5));
+          // }
         }
       }
 
