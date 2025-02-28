@@ -96,6 +96,12 @@
     <p>Met volo omnia non re pa qui to qui sum imi, quae pam sinum quaes rosa atur, omnimus, tota nobit omnihicabor ade expli quodito, nietar laut qui veris velligent eserfer chitio et estinisas pro officidam aut nauate rosarehenient quibero teta idem quides maios enihil is dolut auter incti disaresse ipiendendi bea quam sum rerrovid unt dolup accullorem quete marissim int optatiunt faccabo rosam ribusaperunti ut aut aditaturest incto blabo. Nullescar iusciis erchitatquia nonsequunti velignis nesti ventas ros. Ehenist officimaxim rerora isis adistionet prem. Ximus etter expliques lantore, intiust rosa quassirem doloribus, consequam ut entem niendaepe sam num dis accumo incien ipiset veli totae sim voloribar usamet automa ipisim oribusarer commoler nduciisas nauta sinullab iure moditissir rosas issim.</p>
     {/if}
 
+    {#if data.oeuvre.fields.credits}
+    <small class="credits">
+      <Document body={data.oeuvre.fields.credits} />
+    </small>
+    {/if}
+
     <h4>Détails techniques de l’œuvre</h4>
     <table class="small">
       <tr>
@@ -186,12 +192,6 @@
       {/if}
     </small>
     </div>
-    {/if}
-
-    {#if data.oeuvre.fields.credits}
-    <small class="credits">
-      <Document body={data.oeuvre.fields.credits} />
-    </small>
     {/if}
 
     <nav>
