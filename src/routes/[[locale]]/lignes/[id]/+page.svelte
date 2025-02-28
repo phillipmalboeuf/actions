@@ -89,7 +89,7 @@
           <button class="next button--none" on:click={() => slider.scrollNext()}><Icon i="back" label="Prochain" /></button>
         </li>
         {#each data.ligne.fields.oeuvres as oeuvre, i}
-        <li class="slide {oeuvre.fields.format}" class:left={(active < i + 1)} class:right={(active > i + 1) && i !== data.ligne.fields.oeuvres.length - 1}>
+        <li class="slide {oeuvre.fields.format}" class:left={(active < i + 1)} class:right={(active > i + 1) && i !== data.ligne.fields.oeuvres.length - 1} class:hover>
           <a href="/oeuvres/{oeuvre.fields.id}" on:click|preventDefault={e => {
             if (i !== active - 1) {
               slider.scrollTo(i + 1)
@@ -160,7 +160,11 @@
     <Lignes id="exposition-desktop" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} {active} format={data.format}
       on:mouseenter={(e) => {
         // @ts-ignore
-        hover = e.currentTarget.getAttribute("data-id")
+        const id = e.currentTarget.getAttribute("data-id")
+        
+        if (id !== data.ligne.fields.id) {
+          hover = id
+        }
       }}
       on:mouseleave={() => hover = undefined} />
   </nav>
@@ -464,6 +468,12 @@
             }
           }
 
+          &.hover {
+            figcaption {
+              opacity: 0;
+            }
+          }
+
           @media (max-width: $mobile) {
             flex: 0 0 80%;
           }
@@ -577,7 +587,7 @@
               align-self: center;
               width: 12vw;
 
-              transition: opacity 333ms;
+              transition: opacity 666ms;
 
               h5 {
                 font-size: $base + 2px;
