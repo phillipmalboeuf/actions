@@ -55,9 +55,10 @@
     {#if node.data.target.fields.description}
     <figcaption class="flex flex--gapped">
       <div>{node.data.target.fields.description}</div>
-      {#if $page.data.oeuvre}
+      {#if $page.data.oeuvre || $page.state.type === 'oeuvre'}
+      {@const oeuvre = $page.data.oeuvre || $page.state.open.oeuvre}
       <div>
-        <a href="/oeuvres/{$page.data.oeuvre.fields.id}/archives/{node.data.target.sys.id}/zoom" on:click={openDialog}><Icon i="view" label="Zoom" /></a>
+        <a href="/oeuvres/{oeuvre.fields.id}/archives/{node.data.target.sys.id}/zoom" on:click={openDialog}><Icon i="view" label="Zoom" /></a>
       </div>
       {/if}
     </figcaption>
