@@ -7,7 +7,9 @@
   export let full = false
 </script>
 
+{#if oeuvre.fields.artiste}
 <div>{#if oeuvre.fields.artiste.fields.prenom}{oeuvre.fields.artiste.fields.prenom} {oeuvre.fields.artiste.fields.nomFamille}{:else}{oeuvre.fields.artiste.fields.nom}{/if}</div>
+{/if}
 <div><em>{@html oeuvre.fields.titre}</em></div>
 {#if full}
 <div>{oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}</div>
