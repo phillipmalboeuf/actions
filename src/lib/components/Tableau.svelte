@@ -28,10 +28,14 @@
       <p>{@html oeuvre.fields.description || '-'}</p>
     </td>
     <td class="artist">
+      {#if oeuvre.fields.artiste}
       <p>{@html (oeuvre.fields.artiste.fields.prenom ? `${oeuvre.fields.artiste.fields.nomFamille}, ${oeuvre.fields.artiste.fields.prenom}` : oeuvre.fields.artiste.fields.nom).replace('(', '<br>(')}</p>
+      {/if}
     </td>
     <td class="cartel">
+      {#if oeuvre.fields.artiste}
       <div>{@html (oeuvre.fields.artiste.fields.prenom ? `${oeuvre.fields.artiste.fields.nomFamille}, ${oeuvre.fields.artiste.fields.prenom}` : oeuvre.fields.artiste.fields.nom).replace('(', '<br>(')}</div>
+      {/if}
       <p>
         <em>{@html oeuvre.fields.titre}</em><br />
         {oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}<br />
