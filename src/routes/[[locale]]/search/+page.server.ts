@@ -11,8 +11,8 @@ export const load = (async ({ locals, url, params, parent }) => {
     content.getEntries<TypeLigneSkeleton>({ "content_type": "ligne", select: ["fields.oeuvres", "fields.id", "fields.couleur"], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
   ])
 
-  const annees = [...new Set(oeuvres.items.map(oeuvre => oeuvre.fields.annee))].sort()
-  const mediums = [...new Set(oeuvres.items.filter(oeuvre => oeuvre.fields.typologie).map(oeuvre => oeuvre.fields.typologie?.trimEnd()))].sort()
+  const annees = [...new Set(oeuvres.items.filter(oeuvre => oeuvre.fields?.annee).map(oeuvre => oeuvre.fields.annee))].sort()
+  const mediums = [...new Set(oeuvres.items.filter(oeuvre => oeuvre.fields?.typologie).map(oeuvre => oeuvre.fields.typologie?.trimEnd()))].sort()
 
   const query = url.searchParams.get("query")
   const artist = ((url.searchParams.get("artist") && url.searchParams.get("artist") !== "") ? url.searchParams.get("artist").split(',') : [])
