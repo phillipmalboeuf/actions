@@ -71,6 +71,35 @@
       padding-bottom: 0;
     }
 
+    :global(.text) {
+      > :global(table) {
+        width: 100%;
+        max-width: 1560px;
+        margin: 0 auto;
+
+        :global(td) {
+          @media (min-width: $tablet_portrait) {
+            padding: 0 $mobile_gap !important;
+          }
+
+          :global(strong) {
+            font-size: $base + 2px;
+            font-weight: normal !important;
+          }
+        }
+
+        :global(td:first-child) {
+          // padding-left: 0 !important;
+          font-size: $base + 2px;
+        }
+        
+        :global(td:last-child > *) {
+          max-width: 644px;
+          margin: 0 auto;
+        }
+      }
+    }
+
     nav,
     small {
       position: relative;

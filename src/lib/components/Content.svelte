@@ -333,7 +333,7 @@
         align-items: center;
         gap: $gap + 2px;
 
-        > :global(*) {
+        > :global(*:not(table)) {
           width: 50vw;
           max-width: 644px;
 
