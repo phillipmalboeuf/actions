@@ -422,13 +422,13 @@
           display: flex;
           align-items: center;
           justify-content: space-around;
-          opacity: 0.25;
+          opacity: 0.3;
 
           figure {
             width: 33%;
             height: calc($vh - ($base * 15));
             transform: scale(0.666);
-            filter: blur(10px);
+            filter: blur(5px);
 
             :global(img) {
               width: 100%;
