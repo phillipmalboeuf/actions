@@ -11,6 +11,7 @@ declare global {
 			zoom?: any
 			zoomArchive?: any
 			video?: any
+			oeuvreVideo?: any
 			search?: any
 		}
 		// interface Platform {}

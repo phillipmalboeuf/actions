@@ -10,7 +10,7 @@ export const openDialog: MouseEventHandler<HTMLAnchorElement> = async (e) => {
   const result = await preloadData(href)
 
   if (result.type === 'loaded' && result.status === 200) {
-    pushState(href, href.includes('/archives') ? { zoomArchive: result.data } : href.includes('/zoom') ? { zoom: result.data } : href.includes('/video') ? { video: result.data } : { type: href.includes('oeuvres') ? "oeuvre" : href.includes('contexte') ? "contexte" : "page", open: result.data })
+    pushState(href, href.includes('/archives') ? { zoomArchive: result.data } : href.includes('/zoom') ? { zoom: result.data } : href.includes('/video') ? href.includes('oeuvres') ? { oeuvreVideo: result.data } : { video: result.data } : { type: href.includes('oeuvres') ? "oeuvre" : href.includes('contexte') ? "contexte" : "page", open: result.data })
   } else {
     goto(href)
   }

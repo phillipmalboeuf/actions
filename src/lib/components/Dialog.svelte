@@ -7,6 +7,7 @@
   import ZoomPage from '../../routes/[[locale]]/oeuvres/[id]/zoom/+page.svelte'
   import ZoomArchivePage from '../../routes/[[locale]]/oeuvres/[id]/archives/[asset_id]/zoom/+page.svelte'
   import VideoPage from '../../routes/[[locale]]/lignes/[id]/video/+page.svelte'
+  import OeuvreVideoPage from '../../routes/[[locale]]/oeuvres/[id]/video/+page.svelte'
   import Icon from './Icon.svelte'
   import NoScroll from './NoScroll.svelte'
 
@@ -84,6 +85,13 @@
 {#if $page.state.video}
 <NoScroll />
 <VideoPage data={$page.state.video} onClose={() => {
+  history.back()
+}} />
+{/if}
+
+{#if $page.state.oeuvreVideo}
+<NoScroll />
+<OeuvreVideoPage data={$page.state.oeuvreVideo} onClose={() => {
   history.back()
 }} />
 {/if}

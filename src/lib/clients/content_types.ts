@@ -56,6 +56,7 @@ export interface TypeLigneFields {
     vignetteVideo?: EntryFieldTypes.AssetLink;
     lienVimeo?: EntryFieldTypes.Symbol;
     contexte?: EntryFieldTypes.RichText;
+    transcriptionVideo?: EntryFieldTypes.RichText;
     oeuvres?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeOeuvreSkeleton>>;
 }
 
@@ -84,19 +85,20 @@ export interface TypeOeuvreFields {
     id: EntryFieldTypes.Symbol;
     numero: EntryFieldTypes.Symbol;
     description?: EntryFieldTypes.Text;
-    extraCredits?: EntryFieldTypes.Text;
     artiste?: EntryFieldTypes.EntryLink<TypeArtisteSkeleton>;
+    anneeDentreeAuMusee?: EntryFieldTypes.Integer;
     anneeEvenement: EntryFieldTypes.Integer;
     annee: EntryFieldTypes.Integer;
-    anneeDentreeAuMusee?: EntryFieldTypes.Integer;
     anneeDeRealisation?: EntryFieldTypes.Symbol;
     couleur?: EntryFieldTypes.Symbol;
     vignette?: EntryFieldTypes.AssetLink;
     media?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
     audio?: EntryFieldTypes.AssetLink;
+    lienVideo?: EntryFieldTypes.Symbol;
     minZoom?: EntryFieldTypes.Number;
     maxZoom?: EntryFieldTypes.Number;
-    format?: EntryFieldTypes.Symbol<"Large" | "Moyen" | "Petit" | "Extra-large">;
+    format?: EntryFieldTypes.Symbol<"Extra-large" | "Large" | "Moyen" | "Petit">;
+    extraCredits?: EntryFieldTypes.Text;
     dimensions?: EntryFieldTypes.Symbol;
     hauteur?: EntryFieldTypes.Number;
     largeur?: EntryFieldTypes.Number;
@@ -106,6 +108,7 @@ export interface TypeOeuvreFields {
     droits?: EntryFieldTypes.Text;
     mention?: EntryFieldTypes.Text;
     corps?: EntryFieldTypes.RichText;
+    transcription?: EntryFieldTypes.RichText;
     historique?: EntryFieldTypes.RichText;
     publications?: EntryFieldTypes.RichText;
     historiqueTxt?: EntryFieldTypes.Text;
