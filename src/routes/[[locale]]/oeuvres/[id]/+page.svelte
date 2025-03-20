@@ -483,6 +483,10 @@
           margin-left: auto;
         }
 
+        small {
+          max-width: calc(100% - ($gap * 6));
+        }
+
         @media (max-width: $mobile) {
           align-items: center;
           margin: $mobile_base 0 ($mobile_gap) !important;

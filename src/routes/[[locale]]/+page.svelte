@@ -108,7 +108,7 @@
       background-color: var(--background);
 
       @media (max-width: $mobile) {
-        padding: ($gap * 4) ($mobile_gap * 1) ($gap * 2);
+        padding: ($mobile_gap * 0) ($mobile_gap * 1) ($mobile_gap * 2);
       }
 
       display: flex;
@@ -135,9 +135,9 @@
         font-weight: normal;
         // text-align: center;
 
-        // @media (max-width: $mobile) {
-        //   margin-bottom: $mobile_gap * 2;
-        // }
+        @media (max-width: $mobile) {
+          font-size: $base;
+        }
       }
 
       h2 {
@@ -172,7 +172,7 @@
 
             &:last-of-type {
               left: auto;
-              right: $mobile_gap * -0.5;
+              right: 0;
             }
           }
         }
