@@ -166,6 +166,10 @@
     z-index: 2001;
     transition: transform 333ms;
 
+    @media (min-width: $mobile) {
+      // position: fixed;
+    }
+
     &.vertical {
       top: $mobile_gap;
     }

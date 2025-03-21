@@ -441,9 +441,19 @@
             vertical-align: top;
             padding: ($gap) 0;
 
+            @media (max-width: $tablet_landscape) {
+              &:first-child {
+                padding-right: $gap;
+              }
+
+              &:last-child {
+                padding-left: $gap;
+              }
+            }
+
             @media (max-width: $mobile) {
               width: 100%;
-              padding: 0;
+              padding: 0 !important;
               margin-bottom: 0;
             }
 
