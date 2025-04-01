@@ -141,8 +141,7 @@
       <tr>
         <td colspan="2">
           <h6>Dimensions</h6>
-          <!-- {#if data.oeuvre.fields.dimensions}{data.oeuvre.fields.dimensions}{:else}{data.oeuvre.fields.largeur} x {data.oeuvre.fields.hauteur} cm{/if} -->
-          {intlNumber(data.oeuvre.fields.largeur)} cm x {intlNumber(data.oeuvre.fields.hauteur)} cm {#if data.oeuvre.fields.profondeur}x {intlNumber(data.oeuvre.fields.profondeur)} cm{/if}
+          {#if data.oeuvre.fields.dimensions}{data.oeuvre.fields.dimensions}{:else}{intlNumber(data.oeuvre.fields.largeur)} cm x {intlNumber(data.oeuvre.fields.hauteur)} cm {#if data.oeuvre.fields.profondeur}x {intlNumber(data.oeuvre.fields.profondeur)} cm{/if}{/if}
         </td>
       </tr>
       {/if}

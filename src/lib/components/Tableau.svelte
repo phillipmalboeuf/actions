@@ -42,7 +42,7 @@
         {oeuvre.fields.medium}
         {#if oeuvre.fields.largeur}
         <br />
-        {intlNumber(oeuvre.fields.largeur)} cm x {intlNumber(oeuvre.fields.hauteur)} cm {#if oeuvre.fields.profondeur}x {intlNumber(oeuvre.fields.profondeur)} cm{/if}{/if}
+        {#if oeuvre.fields.dimensions}{oeuvre.fields.dimensions}{:else}{intlNumber(oeuvre.fields.largeur)} cm x {intlNumber(oeuvre.fields.hauteur)} cm {#if oeuvre.fields.profondeur}x {intlNumber(oeuvre.fields.profondeur)} cm{/if}{/if}{/if}
       </p>
     </td>
     <td class:thumbnails>
