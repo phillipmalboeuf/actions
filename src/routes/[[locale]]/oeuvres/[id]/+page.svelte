@@ -137,7 +137,7 @@
           {data.oeuvre.fields.medium}
         </td>
       </tr>
-      {#if data.oeuvre.fields.largeur}
+      {#if data.oeuvre.fields.dimensions || data.oeuvre.fields.largeur}
       <tr>
         <td colspan="2">
           <h6>Dimensions</h6>
