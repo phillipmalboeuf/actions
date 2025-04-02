@@ -78,7 +78,9 @@
       <a href="/oeuvres/{data.oeuvre.fields.id}/video" on:click={openDialog} class="play"><Icon i="play" label="Voir la vidéo" /></a>
       {:else}
       <a href="/oeuvres/{data.oeuvre.fields.id}/zoom{active !== undefined ? `?i=${active}` : ''}" on:click={openDialog}><Icon i="view" label="Zoom" /></a>
-      <a href="{imigx(active !== undefined ? data.oeuvre.fields.media[active].fields.file.url : data.oeuvre.fields.vignette.fields.file.url)}?q=100&w=1020&h=1320&fit=fill&fill=solid&pad=80&fill-color=FAF8EF&bg=FAF8EF&fm=jpg&mark-align=bottom,left&mark-pad=0&mark={encodeURIComponent('https://zoom.imgix.net/~text?fm=png&bg=FAF8EF&txt=' + encodeURIComponent(data.oeuvre.fields.creditsFiches || [data.oeuvre.fields.artiste?.fields.nom, data.oeuvre.fields.titre, data.oeuvre.fields.anneeDeRealisation || data.oeuvre.fields.annee, data.oeuvre.fields.medium].join(' – ')) + '&txt-size=20&txt-color=57221E&txt-line=-1&txt-line-color=FAF8EF&w=860')}" download="{data.oeuvre.fields.anneeEvenement}-{data.oeuvre.fields.titre.replaceAll(' ', '-')}.png" target="_blank" rel="external"><Icon i="download" label="Téléchargement" /></a>
+      {#if data.oeuvre.fields.fiche}
+      <a href="{data.oeuvre.fields.fiche.fields.file.url}" download target="_blank" rel="external"><Icon i="download" label="Téléchargement" /></a>
+      {/if}
       {/if}
       
 

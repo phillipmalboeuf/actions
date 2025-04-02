@@ -94,6 +94,7 @@ export interface TypeOeuvreFields {
     vignette?: EntryFieldTypes.AssetLink;
     media?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
     audio?: EntryFieldTypes.AssetLink;
+    fiche?: EntryFieldTypes.AssetLink;
     lienVideo?: EntryFieldTypes.Symbol;
     minZoom?: EntryFieldTypes.Number;
     maxZoom?: EntryFieldTypes.Number;
