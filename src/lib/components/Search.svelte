@@ -112,7 +112,7 @@
         <div>
           {#each artists.items.filter(a => a?.fields?.nomFamille) as a}
           <label data-letter={a.fields.nomFamille[0]}>
-            {@html (a.fields.prenom ? `${a.fields.nomFamille}, ${a.fields.prenom}` : a.fields.nom).replace('(', '<br>(')}
+            {@html (a.fields.prenom ? `${a.fields.nomFamille}, ${a.fields.prenom}` : a.fields.nom)}
             <input type="checkbox" bind:group={artist} value="{a.fields.id}"
               on:click={async (e) => {
                 // if (a.fields.id === artist) {
