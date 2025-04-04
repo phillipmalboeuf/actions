@@ -131,6 +131,7 @@
 
     &.half {
       width: 50vw;
+      max-width: $tablet_portrait;
 
       @media (orientation: portrait) {
         width: 100vw;
