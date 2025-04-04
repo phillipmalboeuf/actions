@@ -36,6 +36,9 @@
 <svelte:head>
   {#if $page.data.page}
 	<title>{$page.data.page.fields.titre}</title>
+  {#if $page.data.page.fields.description}
+  <meta name="description" content="{$page.data.page.fields.description}" />
+  {/if}
   {/if}
 </svelte:head>
 

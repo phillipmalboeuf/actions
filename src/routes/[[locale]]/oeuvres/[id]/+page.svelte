@@ -33,6 +33,9 @@
 
 <svelte:head>
 	<title>{data.oeuvre.fields.titre} – {data.ligne.fields.titre}</title>
+  {#if data.oeuvre.fields.descriptionSearch}
+  <meta name="description" content="{data.oeuvre.fields.descriptionSearch}" />
+  {/if}
 </svelte:head>
 
 <svelte:window on:resize={() => {
