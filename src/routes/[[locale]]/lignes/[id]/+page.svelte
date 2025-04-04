@@ -299,6 +299,7 @@
 
         @media (max-width: $tablet_portrait) {
           right: $gap * 1;
+          bottom: $gap * 5;
         }
 
         @media (max-width: $mobile) {
@@ -342,15 +343,19 @@
           }
         }
 
-        @media (max-width: $tablet_portrait) {
+        @media (max-width: $tablet_landscape) {
           font-size: $base * 8;
+          bottom: $gap * 4;
+        }
+
+        @media (max-width: $tablet_portrait) {
+          font-size: $base * 6;
         }
 
         @media (max-width: $mobile) {
           font-size: $mobile_base * 5.5;
           order: 99;
           margin: ($base * -2.666) auto 0;
-          transform: translate(0%, 100%);
         }
       }
 
@@ -744,7 +749,13 @@
               }
             }
 
-            @media (max-width: $tablet_portrait) {
+            @media (max-width: $tablet_landscape) {
+              &.active + li :global(img) {
+                transform: translate(-20%, 0);
+              }
+            }
+
+            @media (max-width: $mobile) {
               &.active + li :global(img) {
                 transform: translate(-50%, 0);
               }

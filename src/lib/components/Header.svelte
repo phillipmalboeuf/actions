@@ -171,6 +171,10 @@
     align-items: center;
     gap: $gap;
 
+    // @media (max-width: $tablet_portrait) {
+    //   padding: ($gap) ($gap * 1);
+    // }
+
     @media (max-width: $mobile) {
       padding: ($mobile_gap);
     }
