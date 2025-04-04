@@ -7,10 +7,10 @@
   export let footer: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
 </script>
 
-<footer class="flex flex--gapped">
+<footer class="flex flex--gapped flex--spaced">
   <figure class="col col--3of12 col--mobile--12of12"><a href="/"><Logo /></a></figure>
 
-  <div class="col col--9of12 col--landscape--12of12">
+  <div class="col col--9of12 col--tablet--8of12 col--mobile--12of12">
     <ol class="list--nostyle flex flex--gapped">
       {#if footer}
       {#each footer.fields.liens as lien, i}
@@ -67,8 +67,7 @@
     overflow-x: hidden;
 
     @media (max-width: $tablet_landscape) {
-      gap: ($mobile_gap * 3);
-
+      align-items: center;
       ol {
         // justify-content: flex-start !important;
       }
@@ -83,6 +82,7 @@
     }
 
     @media (max-width: $mobile) {
+      gap: ($mobile_gap * 3);
       padding: ($mobile_gap * 2) ($mobile_gap) ($mobile_gap * 2);
     }
 
@@ -114,7 +114,7 @@
         }
       }
 
-      @media (max-width: $mobile) {
+      @media (max-width: $tablet_portrait) {
         display: none;
       }
     }
@@ -134,7 +134,7 @@
       small {
         text-align: right;
 
-        @media (max-width: $mobile) {
+        @media (max-width: $tablet_portrait) {
           text-align: center;
           width: 100%;
 
@@ -150,7 +150,7 @@
         width: 50%;
         margin-right: auto;
 
-        @media (max-width: $mobile) {
+        @media (max-width: $tablet_portrait) {
           flex-wrap: wrap;
           width: 100%;
           row-gap: $mobile_gap;
@@ -159,7 +159,7 @@
         strong {
           margin-right: $base;
 
-          @media (max-width: $mobile) {
+          @media (max-width: $tablet_portrait) {
             margin: 0 auto;
           }
         }
@@ -172,19 +172,19 @@
 
           &[type="text"] {
 
-            @media (min-width: $mobile) {
+            @media (min-width: $tablet_portrait) {
               border-top-right-radius: 0;
               border-bottom-right-radius: 0;
               border-right: none;
             }
 
-            @media (max-width: $mobile) {
+            @media (max-width: $tablet_portrait) {
               width: 100%;
             }
           }
 
           &[type="email"] {
-            @media (min-width: $mobile) {
+            @media (min-width: $tablet_portrait) {
               border-top-left-radius: 0;
               border-bottom-left-radius: 0;
               padding-right: $base * 2.5;

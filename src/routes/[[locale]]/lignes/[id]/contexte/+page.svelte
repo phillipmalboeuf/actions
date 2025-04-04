@@ -132,6 +132,14 @@
       }
     }
 
+    @media (max-width: $tablet_landscape) {
+      padding: ($gap * 6) ($gap * 2);
+    }
+
+    @media (max-width: $tablet_portrait) {
+      padding: ($gap * 6) ($gap);
+    }
+
     @media (max-width: $mobile) {
       padding: ($mobile_gap * 6) $mobile_gap;
     }

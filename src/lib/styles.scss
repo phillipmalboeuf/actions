@@ -566,7 +566,9 @@ form {
         $adjust: calc(var(--gap) / #{$number_of_columns / $i});
         width: calc(#{$width} - var(--gap) + #{$adjust});
        }
+		}
 
+		@for $i from 1 through $number_of_columns { 
 			@media (max-width: $tablet_landscape) {
 				&.col--landscape--#{$i}of#{$number_of_columns} {
 					$width: (100% / $number_of_columns * $i);
@@ -574,7 +576,9 @@ form {
 					width: calc(#{$width} - var(--gap) + #{$adjust});
 				}
 			}
+		}
 
+		@for $i from 1 through $number_of_columns { 
 			@media (max-width: $tablet_portrait) {
 				&.col--tablet--#{$i}of#{$number_of_columns} {
 					$width: (100% / $number_of_columns * $i);
@@ -582,7 +586,9 @@ form {
 					width: calc(#{$width} - var(--gap) + #{$adjust});
 				}
 			}
+		}
 
+		@for $i from 1 through $number_of_columns { 
 			@media (max-width: $mobile) {
 				&.col--mobile--#{$i}of#{$number_of_columns} {
 					$width: (100% / $number_of_columns * $i);
