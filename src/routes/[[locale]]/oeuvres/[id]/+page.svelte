@@ -415,13 +415,13 @@
           h2 {
             font-size: 70px;
 
-            @media (max-width: $mobile) {
+            @media (max-width: $tablet_landscape) {
               font-size: 50px;
             }
           }
 
           :global(svg) {
-            @media (max-width: $mobile) {
+            @media (max-width: $tablet_landscape) {
               width: 38.5px;
               height: 36px;
             }
