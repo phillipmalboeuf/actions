@@ -822,11 +822,23 @@
         // align-self: flex-start;
 
         @media (max-width: $mobile) {
-          justify-content: flex-start;
+          // justify-content: center;
+          --gap: #{$base * 0.5};
 
           .button {
-            // flex: 1;
-            gap: $mobile_base;
+            padding-left: 0;
+            padding-right: 0;
+          }
+
+          .button,
+          :global(form) {
+            $width: calc(100% / 3);
+            $adjust: calc(var(--gap) / 3);
+            width: calc(#{$width} - var(--gap) + #{$adjust});
+          }
+
+          :global(form .button) {
+            justify-content: center;
           }
         }
 
