@@ -337,7 +337,7 @@
       }
 
       :global(figure figcaption) {
-        margin-top: $base * 0.5;
+        margin-top: $base * 0.75;
         line-height: 1.3;
       }
 

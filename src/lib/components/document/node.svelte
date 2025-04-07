@@ -97,7 +97,13 @@
     figcaption {
       font-size: $base - 2px;
       line-height: 1.15;
-      flex-wrap: nowrap;
+      flex-wrap: nowrap;;
+    }
+
+    :global(img),
+    :global(video) {
+      max-height: 60svh;
+      object-fit: contain;
     }
 
     @media (max-width: $mobile) {

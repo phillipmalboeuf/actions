@@ -414,7 +414,7 @@
               justify-content: flex-end;
 
               :global(figcaption) {
-                // order: -1;
+                justify-content: flex-end;
               }
             }
           }
