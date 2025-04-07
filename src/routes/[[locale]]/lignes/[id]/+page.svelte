@@ -822,8 +822,10 @@
         // align-self: flex-start;
 
         @media (max-width: $mobile) {
+          justify-content: flex-start;
+
           .button {
-            flex: 1;
+            // flex: 1;
             gap: $mobile_base;
           }
         }
