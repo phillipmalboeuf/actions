@@ -61,7 +61,7 @@
       justify-content: flex-end;
       text-transform: lowercase;
 
-      @media (max-width: $mobile) {
+      @media (max-width: $tablet_landscape) {
         position: static;
         padding: 0 $mobile_base;
         margin-top: $mobile_gap * 6;
@@ -87,12 +87,12 @@
       figure {
         height: 140px;
 
-        @media (max-width: $mobile) {
+        @media (max-width: $tablet_landscape) {
           margin-top: ($mobile_gap * 3);
           height: 70px;
         }
 
-        @media (min-width: $mobile) {
+        @media (min-width: $tablet_landscape) {
           margin-right: ($gap * 8);
           margin-top: -5px;
         }
@@ -102,7 +102,7 @@
           object-fit: contain;
           object-position: right;
 
-          @media (max-width: $mobile) {
+          @media (max-width: $tablet_landscape) {
             object-position: left;
           }
         }
@@ -121,7 +121,7 @@
       gap: $gap;
       margin: auto;
 
-      @media (min-width: $mobile) {
+      @media (min-width: $tablet_landscape) {
         margin-top: ($gap * 10);
       }
     }

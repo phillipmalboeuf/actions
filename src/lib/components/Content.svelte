@@ -507,7 +507,10 @@
       li.text {
         > :global(*:not(figure)) {
           width: 90vw;
-          max-width: 840px;
+
+          @media (min-width: $tablet_landscape) {
+            max-width: 840px;
+          }
         }
       }
     }
@@ -516,7 +519,10 @@
       li.text {
         > :global(*:not(figure)) {
           width: 90vw;
-          max-width: 980px;
+
+          @media (min-width: $tablet_landscape) {
+            max-width: 980px;
+          }
         }
       }
     }
