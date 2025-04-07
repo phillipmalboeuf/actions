@@ -204,6 +204,10 @@
               object-fit: contain;
               object-position: left;
 
+              @media (max-width: $tablet_landscape) {
+                height: $base * 4;
+              }
+
               @media (max-width: $tablet_portrait) {
                 height: $mobile_base * 3.5;
               }
