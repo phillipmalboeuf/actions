@@ -380,7 +380,7 @@
           // transform: translateX(-50%);
 
           @media (max-width: $mobile) {
-            position: static;
+            position: relative;
             transform: none;
             width: 100%;
             margin-left: 0;
@@ -415,6 +415,7 @@
 
               :global(figcaption) {
                 justify-content: flex-end;
+                margin-right: 0 !important;
               }
             }
           }

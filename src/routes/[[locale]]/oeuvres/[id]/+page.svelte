@@ -19,9 +19,9 @@
   export let data: PageData
   export let dialog = false
   
-  let img: HTMLImageElement
   let active: number
 
+  let img: HTMLImageElement
   let offset = 0
 
   $: {

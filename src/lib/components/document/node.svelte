@@ -5,11 +5,20 @@
 
   import { page } from '$app/stores'
 
-  import { openDialog } from '$lib/helpers';
-  import Icon from '../Icon.svelte';
+  import { openDialog } from '$lib/helpers'
+  import Icon from '../Icon.svelte'
 
   import type { TopLevelBlock } from '@contentful/rich-text-types'
   export let node: TopLevelBlock
+
+  let img: HTMLImageElement
+  let offset = 0
+
+  $: {
+    if (img) {
+      offset = img.offsetLeft
+    }
+  }
 </script>
 
 {#if node.nodeType === 'heading-2'}
@@ -51,9 +60,9 @@
 
 {:else if node.nodeType === 'embedded-asset-block'}
   <figure>
-    <Media media={node.data.target} title />
+    <Media media={node.data.target} title bind:img />
     {#if node.data.target.fields.description}
-    <figcaption class="flex flex--gapped">
+    <figcaption class="flex flex--gapped" style="margin-left: {offset}px; margin-right: {offset}px;">
       <div>{node.data.target.fields.description}</div>
       {#if $page.data.oeuvre || $page.state.type === 'oeuvre'}
       {@const oeuvre = $page.data.oeuvre || $page.state.open.oeuvre}
@@ -92,17 +101,27 @@
 
 <style lang="scss">
   figure {
+    position: relative;
     margin: ($gap * 2) 0;
 
     figcaption {
+      width: auto;
       font-size: $base - 2px;
       line-height: 1.15;
-      flex-wrap: nowrap;;
+      flex-wrap: nowrap;
+
+      @media (max-width: $mobile) {
+        // margin-left: 0 !important;
+        // margin-right: 0 !important;
+      }
     }
 
     :global(img),
     :global(video) {
       max-height: 60svh;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
       object-fit: contain;
     }
 
