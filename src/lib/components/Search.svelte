@@ -394,9 +394,7 @@
           }
         }
 
-        @media (min-width: $mobile) {
-          &:hover,
-          &:has(input[focus]),
+        @media (hover: none) and (pointer: coarse) {
           &.down {
             background-color: $beige-dark;
             border-color: $beige-dark;
@@ -404,8 +402,6 @@
             border-bottom-right-radius: 0;
 
             button {
-              // pointer-events: none;
-
               :global(svg) {
                 transform: rotate(-180deg);
               }
@@ -423,7 +419,9 @@
           }
         }
 
-        @media (max-width: $mobile) {
+        @media (hover: hover) and (pointer: fine) {
+          &:hover,
+          &:has(input[focus]),
           &.down {
             background-color: $beige-dark;
             border-color: $beige-dark;
