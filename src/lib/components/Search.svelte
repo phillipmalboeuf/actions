@@ -95,7 +95,7 @@
 
   <hr class="col col--12of12">
 
-  <fieldset class="col col--8of12 col--tablet--12of12">
+  <fieldset class="col col--8of12 col--landscape--9of12 col--tablet--12of12">
     <div class="flex flex--gapped">
       {#if artists}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Artiste'}>
