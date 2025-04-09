@@ -53,6 +53,11 @@
 
 <svelte:head>
 	<title>{data.ligne.fields.titre}</title>
+  {#if data.format === "index" && data.ligne.fields.descriptionListe}
+  <meta name="description" content={data.ligne.fields.descriptionListe} />
+  {:else if data.ligne.fields.description}
+  <meta name="description" content={data.ligne.fields.description} />
+  {/if}
 </svelte:head>
 
 {#key data.format}

@@ -17,6 +17,13 @@
   export let dialog = false
 </script>
 
+<svelte:head>
+	<title>{data.ligne.fields.titre}</title>
+  {#if data.ligne.fields.descriptionContexte}
+  <meta name="description" content={data.ligne.fields.descriptionContexte} />
+  {/if}
+</svelte:head>
+
 <!-- <header>
   {#if !retour}
   <a href="/lignes/{data.ligne.fields.id}">Retour</a>

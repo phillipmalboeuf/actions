@@ -50,6 +50,8 @@ export interface TypeLigneFields {
     titre?: EntryFieldTypes.Symbol;
     id: EntryFieldTypes.Symbol;
     description?: EntryFieldTypes.Text;
+    descriptionListe?: EntryFieldTypes.Text;
+    descriptionContexte?: EntryFieldTypes.Text;
     logotype?: EntryFieldTypes.AssetLink;
     couleur?: EntryFieldTypes.Symbol;
     vignette?: EntryFieldTypes.AssetLink;
