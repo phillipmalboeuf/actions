@@ -323,7 +323,7 @@
           width: auto;
         }
 
-        @media (orientation: portrait) {
+        @media (max-width: $tablet_portrait) {
           padding: $gap 0;
           order: 1;
 
