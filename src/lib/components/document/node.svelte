@@ -63,7 +63,7 @@
     <Media media={node.data.target} title bind:img />
     {#if node.data.target.fields.description}
     <figcaption class="flex flex--gapped" style="margin-left: {offset}px; margin-right: {offset}px;">
-      <div>{node.data.target.fields.description}</div>
+      <div>{@html node.data.target.fields.description}</div>
       {#if $page.data.oeuvre || $page.state.type === 'oeuvre'}
       {@const oeuvre = $page.data.oeuvre || $page.state.open.oeuvre}
       <div>
