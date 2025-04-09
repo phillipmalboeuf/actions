@@ -119,6 +119,7 @@
     :global(img),
     :global(video) {
       max-height: 60svh;
+      max-width: 100%;
       width: auto;
       margin-left: auto;
       margin-right: auto;
