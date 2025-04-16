@@ -19,7 +19,7 @@
   {@html mark.value}
   {/if}
 {:else}
-{mark.value}
+{@html mark.value}
 {/if}
 {:else if mark.nodeType === 'hyperlink'}
 <a href="{mark.data.uri}" target="{mark.data.uri.indexOf('http') === 0 ? '_blank' : '_self'}">
