@@ -121,7 +121,7 @@
             {#if data.oeuvre.fields.artiste}
             {data.oeuvre.fields.artiste.fields.nom}
             {#if data.oeuvre.fields.artiste.fields.description}<small>{@html data.oeuvre.fields.artiste.fields.description}</small>{/if}
-            ({data.oeuvre.fields.artiste.fields.lieuDeNaissance}, {data.oeuvre.fields.artiste.fields.anneeDeNaissance} {#if data.oeuvre.fields.artiste.fields.lieuDeDeces}– {data.oeuvre.fields.artiste.fields.lieuDeDeces}, {data.oeuvre.fields.artiste.fields.anneDeDeces}{/if})
+            ({data.oeuvre.fields.artiste.fields.lieuDeNaissance}, {data.oeuvre.fields.artiste.fields.anneeDeNaissance}{#if data.oeuvre.fields.artiste.fields.lieuDeDeces}&nbsp;– {data.oeuvre.fields.artiste.fields.lieuDeDeces}, {data.oeuvre.fields.artiste.fields.anneDeDeces}{/if})
             {/if}
           </p>
         </td>
