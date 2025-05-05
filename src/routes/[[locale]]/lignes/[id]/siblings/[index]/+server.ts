@@ -25,6 +25,7 @@ export const GET: RequestHandler = async ({ request, params, url }) => {
   
 	return json({
 		previous,
-		next
+		next,
+		clickIndex: oeuvres.findIndex(oeuvre => previous ? oeuvre.fields.id === previous.fields.id : oeuvre.fields.id === next.fields.id)
 	})
 }

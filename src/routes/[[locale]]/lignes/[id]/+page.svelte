@@ -1,7 +1,7 @@
 <script lang="ts">
   import { type EmblaCarouselType } from 'embla-carousel'
   import type { Entry } from 'contentful'
-  import type { TypeLigneSkeleton } from '$lib/clients/content_types'
+  import type { TypeLigneSkeleton, TypeOeuvreSkeleton } from '$lib/clients/content_types'
 
   import Media from '$lib/components/Media.svelte'
   import Document from '$lib/components/document/index.svelte'
@@ -33,21 +33,37 @@
   let next: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
   let index: number
   let hover: string
-
-  // let ready = true
+  let siblings: {
+    previous: Entry<TypeOeuvreSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
+    next: Entry<TypeOeuvreSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
+  }
+  let clickIndex: number
+  let ready = true
 
   onNavigate(async () => {
-    // ready = false
+    ready = false
     setTimeout(() => {
-      slider.scrollTo(active, true)
+      slider.scrollTo(clickIndex + 1 || active, true)
       // slider.emit("scroll")
-      // ready = true
-    }, 333)
+      ready = true
+    }, 666)
   })
 
   $: {
     index = data.lignes.findIndex(l => l.sys.id === data.ligne.sys.id)
     next = data.lignes[index === data.lignes.length - 1 ? 0 : index + 1]
+  }
+
+  $: {
+    if (hover && hover !== data.ligne.fields.id && data.ligne.fields.oeuvres[active - 1]) {
+      fetch(`/lignes/${hover}/siblings/${data.ligne.fields.oeuvres[active - 1].fields.anneeEvenement}`)
+        .then(response => response.json()).then(_siblings => {
+        siblings = _siblings
+        clickIndex = parseInt(_siblings.clickIndex)
+      })
+    } else {
+      siblings = undefined
+    }
   }
 </script>
 
@@ -61,7 +77,7 @@
 </svelte:head>
 
 {#key data.format}
-<section class="flex flex--thick_gapped {data.format || "gallerie"}" class:first={active === 0}>
+<section class="flex flex--thick_gapped {data.format || "gallerie"}" class:ready class:first={active === 0}>
   {#if data.format === "index"}
   <header class="col col--12of12">
     <figure>
@@ -137,9 +153,7 @@
     </Slider>
     {/key}
 
-    {#if hover && hover !== data.ligne.fields.id && data.ligne.fields.oeuvres[active - 1]}
-    {#await fetch(`/lignes/${hover}/siblings/${data.ligne.fields.oeuvres[active - 1].fields.anneeEvenement}`) then response}
-    {#await response.json() then siblings}
+    {#if hover && hover !== data.ligne.fields.id && siblings}
     <aside class="siblings" transition:fade={{ duration: 333 }}>
       <figure class="sibling--previous {siblings.previous?.fields.format}">
         {#if siblings.previous}<Media media={siblings.previous.fields.vignette} />{/if}
@@ -149,8 +163,6 @@
         {#if siblings.next}<Media media={siblings.next.fields.vignette} />{/if}
       </figure>
     </aside>
-    {/await}
-    {/await}
     {/if}
   </div>
 
@@ -194,9 +206,18 @@
 <style lang="scss">
   section {
     padding: ($gap * 4) ($gap * 2) ($gap * 4);
+    transition: opacity 666ms;
 
     @media (max-width: $mobile) {
       padding: ($mobile_gap * 4) ($mobile_gap * 1) ($mobile_gap * 3);
+    }
+
+    &.ready {
+      opacity: 1;
+    }
+
+    &:not(.ready) {
+      opacity: 0;
     }
 
     header {
