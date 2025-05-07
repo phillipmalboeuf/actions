@@ -2,12 +2,12 @@
   import { fade, fly } from 'svelte/transition'
   import { page } from '$app/stores'
 
-  import OeuvrePage from '../../routes/[[locale]]/oeuvres/[id]/+page.svelte'
-  import ContextePage from '../../routes/[[locale]]/lignes/[id]/contexte/+page.svelte'
-  import ZoomPage from '../../routes/[[locale]]/oeuvres/[id]/zoom/+page.svelte'
-  import ZoomArchivePage from '../../routes/[[locale]]/oeuvres/[id]/archives/[asset_id]/zoom/+page.svelte'
-  import VideoPage from '../../routes/[[locale]]/lignes/[id]/video/+page.svelte'
-  import OeuvreVideoPage from '../../routes/[[locale]]/oeuvres/[id]/video/+page.svelte'
+  import OeuvrePage from '../../routes/oeuvres/[id]/+page.svelte'
+  import ContextePage from '../../routes/lignes/[id]/contexte/+page.svelte'
+  import ZoomPage from '../../routes/oeuvres/[id]/zoom/+page.svelte'
+  import ZoomArchivePage from '../../routes/oeuvres/[id]/archives/[asset_id]/zoom/+page.svelte'
+  import VideoPage from '../../routes/lignes/[id]/video/+page.svelte'
+  import OeuvreVideoPage from '../../routes/oeuvres/[id]/video/+page.svelte'
   import Icon from './Icon.svelte'
   import NoScroll from './NoScroll.svelte'
 

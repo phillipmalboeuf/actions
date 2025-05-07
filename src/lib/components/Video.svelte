@@ -88,9 +88,6 @@
 <svelte:window on:keydown={keydown} />
 
 <figure class:inactive class:fullscreen on:mousemove={activate} bind:this={element}>
-  <!-- <figcaption class="breadcrumbs">
-    <h6><a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}/projets{$page.url.searchParams.has("director") ? `?director=${$page.url.searchParams.get("director")}` : ''}" rel=prefetch>{$page.data.locale === 'fr' ? 'Retour aux projets' : 'Back to Projects'}</a></h6>
-  </figcaption> -->
   <figcaption class="title"><slot name="title" /></figcaption>
 
   <video autoplay disableRemotePlayback

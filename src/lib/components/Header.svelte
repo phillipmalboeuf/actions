@@ -11,7 +11,7 @@
   import Logo from './Logo.svelte'
   import Search from './Search.svelte'
   import NoScroll from './NoScroll.svelte'
-  import CommentairesPage from '../../routes/[[locale]]/commentaires/+page.svelte'
+  import CommentairesPage from '../../routes/commentaires/+page.svelte'
   import { up } from '$lib/stores'
   
   export let header: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
@@ -70,8 +70,8 @@
 <NoScroll />
 {/if}
 
-<header class:up={$up} class:dark={($page.route.id === '/[[locale]]/oeuvres/[id]/zoom' || $page.route.id === '/[[locale]]/oeuvres/[id]/archives/[asset_id]/zoom' || $page.route.id === '/[[locale]]/lignes/[id]/video' || $page.route.id === '/[[locale]]/oeuvres/[id]/video') && !searching && !menu}>
-  {#if $page.route.id !== '/[[locale]]' && $page.route.id !== '/[[locale]]/oeuvres/[id]/zoom' && $page.route.id !== '/[[locale]]/oeuvres/[id]/archives/[asset_id]/zoom' && $page.route.id !== '/[[locale]]/lignes/[id]/video' && $page.route.id !== '/[[locale]]/oeuvres/[id]/video'}
+<header class:up={$up} class:dark={($page.route.id === '/oeuvres/[id]/zoom' || $page.route.id === '/oeuvres/[id]/archives/[asset_id]/zoom' || $page.route.id === '/lignes/[id]/video' || $page.route.id === '/oeuvres/[id]/video') && !searching && !menu}>
+  {#if  $page.route.id !== '/' && $page.route.id !== '/oeuvres/[id]/zoom' && $page.route.id !== '/oeuvres/[id]/archives/[asset_id]/zoom' && $page.route.id !== '/lignes/[id]/video' && $page.route.id !== '/oeuvres/[id]/video'}
   <a href="/" class="h2"><Icon i="home" label="Accueil" /></a>
   {/if}
 
