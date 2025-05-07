@@ -5,7 +5,7 @@ export const load = (async ({ locals, url, params }) => {
 
   const [asset, oeuvre] = await Promise.all([
     content.getAsset(params.asset_id),
-    content.getEntries<TypeOeuvreSkeleton>({ content_type: "oeuvre", include: 2, "fields.id": params.id, limit: 1 }),
+    content.getEntries<TypeOeuvreSkeleton>({ content_type: "oeuvre", include: 2, "fields.id": params.id, limit: 1, locale: { 'en': 'en-CA' }[params.locale] || 'fr-CA' }),
   ])
 
   return {

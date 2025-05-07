@@ -5,7 +5,7 @@ import type { Entry } from 'contentful'
 export const load = (async ({ locals, url, params }) => {
 
   const [lignes] = await Promise.all([
-    content.getEntries<TypeLigneSkeleton>({ content_type: "ligne", include: 2, "fields.id": params.id, limit: 1 }),
+    content.getEntries<TypeLigneSkeleton>({ content_type: "ligne", include: 2, "fields.id": params.id, limit: 1, locale: { 'en': 'en-CA' }[params.locale] || 'fr-CA' }),
   ])
 
   return {

@@ -5,11 +5,11 @@ import type { Entry } from 'contentful'
 export const load = (async ({ locals, url, params }) => {
 
   const [oeuvres] = await Promise.all([
-    content.getEntries<TypeOeuvreSkeleton>({ content_type: "oeuvre", include: 2, "fields.id": params.id, limit: 1 }),
+    content.getEntries<TypeOeuvreSkeleton>({ content_type: "oeuvre", include: 2, "fields.id": params.id, limit: 1, locale: { 'en': 'en-CA' }[params.locale] || 'fr-CA' }),
   ])
   const oeuvre = oeuvres.items[0]
 
-  const lignes = await content.getEntries<TypeLigneSkeleton>({ content_type: "ligne", include: 2, "links_to_entry": oeuvre.sys.id, limit: 1 })
+  const lignes = await content.getEntries<TypeLigneSkeleton>({ content_type: "ligne", include: 2, "links_to_entry": oeuvre.sys.id, limit: 1, locale: { 'en': 'en-CA' }[params.locale] || 'fr-CA' })
   const ligne = lignes.items[0]
 
   if (!ligne) {
