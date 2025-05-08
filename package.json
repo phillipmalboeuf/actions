@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --open",
-		"build": "vite build",
+		"build": "npx @inlang/paraglide-js compile --project ./project.inlang --outdir ./src/paraglide && vite build",
 		"preview": "vite preview",
 		"test": "playwright test",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
