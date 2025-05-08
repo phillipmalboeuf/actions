@@ -100,21 +100,20 @@
       }
     }
 
-    nav,
-    small {
+    nav {
       position: relative;
       z-index: 1;
       padding: ($gap * 4) ($gap * 2) ($gap * 2);
       background-color: var(--background);
 
-      @media (max-width: $mobile) {
-        padding: ($mobile_gap * 0) ($mobile_gap * 1) ($mobile_gap * 2);
-      }
-
       display: flex;
       flex-direction: column;
       // align-items: center;
       gap: $base * 0.5;
+
+      @media (max-width: $mobile) {
+        padding: ($mobile_gap * 0) ($mobile_gap * 1) ($mobile_gap * 2);
+      }
 
       > * {
         max-width: 1560px;
@@ -279,17 +278,18 @@
     }
 
     small {
+      padding: ($gap * 4) ($gap * 2) ($gap * 4);
       padding-top: 0;
       padding-bottom: ($gap * 4);
-      max-width: calc(1560px + ($gap * 4));
+
+      display: flex;
+      max-width: 1560px;
       margin: 0 auto;
       
-      :global(td),
-      :global(th) {
+      :global(table td),
+      :global(table th) {
         border: none;
       }
-
-      
     }
   }
 </style>

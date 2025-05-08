@@ -114,6 +114,7 @@
 
     <h4>Détails techniques de l’œuvre</h4>
     <table class="small">
+      <tbody>
       <tr>
         <td colspan="2">
           <h6>Nom de l’artiste</h6>
@@ -166,6 +167,7 @@
           {data.oeuvre.fields.anneeDentreeAuMusee || data.oeuvre.fields.numero?.split('.')[0]}
         </td>
       </tr>
+      </tbody>
     </table>
 
     {#if data.oeuvre.fields.extraCredits}

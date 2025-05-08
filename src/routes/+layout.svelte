@@ -1,5 +1,9 @@
 <script lang="ts">
+	import { ParaglideJS } from '@inlang/paraglide-sveltekit'
+	import { i18n } from '$lib/i18n'
+
   import '$lib/styles.scss'
+  import '$lib/content.scss'
 
   import { page } from '$app/stores'
   import type { PointerEventHandler } from 'svelte/elements'
@@ -44,6 +48,8 @@
 
 <svelte:document on:pointerdown={down} />
 
+
+<ParaglideJS {i18n}>
 <a href="#main" class="skip">Accéder au contenu principal</a>
 
 <Header header={data.header} />
@@ -56,6 +62,7 @@
 <Footer footer={data.footer} />
 
 <Cookies />
+</ParaglideJS>
 
 <style lang="scss">
   main {

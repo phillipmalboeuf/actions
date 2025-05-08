@@ -48,7 +48,9 @@
 
 {:else if node.nodeType === 'table'}
   <table>
-    {#each node.content as item}<tr>{#each item.content as node}<svelte:self node={node} />{/each}</tr>{/each}
+    <tbody>
+      {#each node.content as item}<tr>{#each item.content as node}<svelte:self node={node} />{/each}</tr>{/each}
+    </tbody>
   </table>
 {:else if node.nodeType === 'table-header-cell'}
   <th data-content="{node.content[0]?.content[0]?.value}">{#each node.content as item}<svelte:self node={item} />{/each}</th>

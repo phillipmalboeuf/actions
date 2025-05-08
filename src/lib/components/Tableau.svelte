@@ -12,6 +12,7 @@
 
 {#if oeuvres.filter(o => (lignes) ? lignes[o.ligne?.fields.id] : true).length > 0}
 <table class:lignes>
+  <tbody>
   <tr>
     <th><p>Événement</p></th>
     <th></th>
@@ -20,40 +21,51 @@
     <th class:thumbnails></th>
   </tr>
   {#each oeuvres.filter(o => (lignes) ? lignes[o.ligne?.fields.id] : true) as oeuvre (oeuvre.fields.id)}
-  <a href="/oeuvres/{oeuvre.fields.id}" style:--couleur={ligne?.fields.couleur || oeuvre.ligne?.fields.couleur || oeuvre.fields.couleur} on:click>
+  <tr class="oeuvre" style:--couleur={ligne?.fields.couleur || oeuvre.ligne?.fields.couleur || oeuvre.fields.couleur}>
     <td>
-      <h2>{oeuvre.fields.anneeEvenement}</h2>
+      <a href="/oeuvres/{oeuvre.fields.id}" on:click>
+        <h2>{oeuvre.fields.anneeEvenement}</h2>
+      </a>
     </td>
     <td class="description">
-      <p>{@html oeuvre.fields.description || '-'}</p>
+      <a href="/oeuvres/{oeuvre.fields.id}" on:click>
+        <p>{@html oeuvre.fields.description || '-'}</p>
+      </a>
     </td>
     <td class="artist">
-      {#if oeuvre.fields.artiste}
-      <p>{@html (oeuvre.fields.artiste.fields.prenom ? `${oeuvre.fields.artiste.fields.nomFamille}, ${oeuvre.fields.artiste.fields.prenom}` : oeuvre.fields.artiste.fields.nom).replace('(', '<br>(')}</p>
-      {/if}
+      <a href="/oeuvres/{oeuvre.fields.id}" on:click>
+        {#if oeuvre.fields.artiste}
+        <p>{@html (oeuvre.fields.artiste.fields.prenom ? `${oeuvre.fields.artiste.fields.nomFamille}, ${oeuvre.fields.artiste.fields.prenom}` : oeuvre.fields.artiste.fields.nom).replace('(', '<br>(')}</p>
+        {/if}
+      </a>
     </td>
     <td class="cartel">
-      {#if oeuvre.fields.artiste}
-      <div>{@html (oeuvre.fields.artiste.fields.prenom ? `${oeuvre.fields.artiste.fields.nomFamille}, ${oeuvre.fields.artiste.fields.prenom}` : oeuvre.fields.artiste.fields.nom).replace('(', '<br>(')}</div>
-      {/if}
-      <p>
-        <em>{@html oeuvre.fields.titre}</em><br />
-        {oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}<br />
-        {oeuvre.fields.medium}
-        {#if oeuvre.fields.largeur}
-        <br />
-        {#if oeuvre.fields.dimensions}{oeuvre.fields.dimensions}{:else}{intlNumber(oeuvre.fields.largeur)} cm x {intlNumber(oeuvre.fields.hauteur)} cm {#if oeuvre.fields.profondeur}x {intlNumber(oeuvre.fields.profondeur)} cm{/if}{/if}{/if}
-      </p>
+      <a href="/oeuvres/{oeuvre.fields.id}" on:click>
+        {#if oeuvre.fields.artiste}
+        <div>{@html (oeuvre.fields.artiste.fields.prenom ? `${oeuvre.fields.artiste.fields.nomFamille}, ${oeuvre.fields.artiste.fields.prenom}` : oeuvre.fields.artiste.fields.nom).replace('(', '<br>(')}</div>
+        {/if}
+        <p>
+          <em>{@html oeuvre.fields.titre}</em><br />
+          {oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}<br />
+          {oeuvre.fields.medium}
+          {#if oeuvre.fields.largeur}
+          <br />
+          {#if oeuvre.fields.dimensions}{oeuvre.fields.dimensions}{:else}{intlNumber(oeuvre.fields.largeur)} cm x {intlNumber(oeuvre.fields.hauteur)} cm {#if oeuvre.fields.profondeur}x {intlNumber(oeuvre.fields.profondeur)} cm{/if}{/if}{/if}
+        </p>
+      </a>
     </td>
     <td class:thumbnails>
-      {#if oeuvre.fields.vignette}
-      <figure>
+      <a href="/oeuvres/{oeuvre.fields.id}" on:click>
+        {#if oeuvre.fields.vignette}
+        <figure>
         <Media media={oeuvre.fields.vignette} small />
-      </figure>
-      {/if}
+        </figure>
+        {/if}
+      </a>
     </td>
-  </a>
+  </tr>
   {/each}
+  </tbody>
 </table>
 {:else}
 <div class="empty">
@@ -83,8 +95,8 @@
 
     td,
     th {
-      padding: ($base);
-      padding-left: ($gap * 2);
+      // padding: ($base);
+      // padding-left: ($gap * 2);
       width: 30%;
 
       @media (min-width: $mobile) {
@@ -109,6 +121,10 @@
     th {
       padding-top: 0;
       padding-bottom: ($base * 0.5);
+
+      &:not(:first-child) {
+        padding-left: ($gap * 2);
+      }
     }
 
     td:nth-last-child(2) {
@@ -120,6 +136,10 @@
     td:last-child {
 
       @media (max-width: $mobile) {
+        a {
+          padding-left: 0 !important;
+        }
+
         figure {
           padding-right: $base;
         }
@@ -156,12 +176,26 @@
       }
     }
 
-    a {
-      display: table-row;
+    .oeuvre {
+      // display: table-row;
+      cursor: pointer;
       line-height: 1.3;
 
       td {
         vertical-align: middle;
+        padding: 0;
+
+        a {
+          display: block;
+          padding: ($base);
+          padding-left: ($gap * 2);
+        }
+
+        &:first-child {
+          a {
+            padding-left: 0;
+          }
+        }
       }
 
       @media (max-width: $mobile) {
@@ -185,7 +219,7 @@
 
       @media (min-width: $mobile) {
         .cartel {
-          > div {
+          div {
             display: none;
           }
         }
