@@ -23,7 +23,7 @@
       {#each data.lignes as ligne}
       <li class="flex flex--spaced flex--middle flex--gapped">
         <a href="/lignes/{ligne.fields.id}" class="col col--4of12"><Media media={ligne.fields.logotype} /></a>
-        <a href="/lignes/{ligne.fields.id}/video" on:click={openDialog} class="video col col--4of12 col--mobile--12of12">
+        <a href="/lignes/{ligne.fields.id}/video" on:click={openDialog} role="button" class="video col col--4of12 col--mobile--12of12">
           <Icon i="play" label={languageTag() === "en" ? "Watch video" : "Visionner vidéo"} />
           <Media media={ligne.fields.vignette} small />
           {#if ligne.fields.vignetteVideo}

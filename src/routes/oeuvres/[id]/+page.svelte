@@ -79,11 +79,11 @@
         {/if}
       </small>
       {#if data.oeuvre.fields.lienVideo}
-      <a href="/oeuvres/{data.oeuvre.fields.id}/video" on:click={openDialog} class="play"><Icon i="play" label="Voir la vidéo" /></a>
+      <a href="/oeuvres/{data.oeuvre.fields.id}/video" on:click={openDialog} class="play" role="button"><Icon i="play" label="Voir la vidéo" /></a>
       {:else}
-      <a href="/oeuvres/{data.oeuvre.fields.id}/zoom{active !== undefined ? `?i=${active}` : ''}" on:click={openDialog}><Icon i="view" label="Zoom" /></a>
+      <a href="/oeuvres/{data.oeuvre.fields.id}/zoom{active !== undefined ? `?i=${active}` : ''}" on:click={openDialog} role="button"><Icon i="view" label="Zoom" /></a>
       {#if data.oeuvre.fields.fiche}
-      <a href="{data.oeuvre.fields.fiche.fields.file.url}" download target="_blank" rel="external"><Icon i="download" label="Téléchargement" /></a>
+      <a href="{data.oeuvre.fields.fiche.fields.file.url}" download target="_blank" rel="external" role="button"><Icon i="download" label="Téléchargement" /></a>
       {/if}
       {/if}
       
@@ -210,7 +210,7 @@
 
     <nav>
       {#if data.prev}
-      <a href="/oeuvres/{data.prev.fields.id}" class="prev" on:click={e => $page.state.open && openDialog(e)}>
+      <a href="/oeuvres/{data.prev.fields.id}" class="prev" role="button" on:click={e => $page.state.open && openDialog(e)}>
         <Icon label={languageTag() === "en" ? "Previous work" : "Oeuvre précédente"} i="big-next" />
         <h2>{data.prev.fields.anneeEvenement}</h2>
       </a>
@@ -219,7 +219,7 @@
       {/if}
 
       {#if data.next}
-      <a href="/oeuvres/{data.next.fields.id}" class="next" on:click={e => $page.state.open && openDialog(e)}>
+      <a href="/oeuvres/{data.next.fields.id}" class="next" role="button" on:click={e => $page.state.open && openDialog(e)}>
         <Icon label={languageTag() === "en" ? "Next work" : "Oeuvre suivante"} i="big-next" />
         <h2>{data.next.fields.anneeEvenement}</h2>
       </a>

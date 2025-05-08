@@ -39,7 +39,7 @@
   <Document body={data.ligne.fields.contexte} />
 
   <figure>
-    <a href="/lignes/{data.ligne.fields.id}/video" class="video" on:click={openDialog}>
+    <a href="/lignes/{data.ligne.fields.id}/video" class="video" role="button" on:click={openDialog}>
       <Icon i="play" label="Visionner vidéo" />
       <Media media={data.ligne.fields.vignette} />
       {#if data.ligne.fields.vignetteVideo}
