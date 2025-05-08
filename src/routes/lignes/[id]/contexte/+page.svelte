@@ -1,5 +1,6 @@
 <script lang="ts">
   import { type EmblaCarouselType } from 'embla-carousel'
+  import { languageTag } from '$lib/paraglide/runtime'
 
   // import { fade } from 'svelte/transition'
   import Media from '$lib/components/Media.svelte'
@@ -49,7 +50,7 @@
 
   {#if !dialog}
   <a class="last" href="/lignes/{data.ligne.fields.id}">
-    <Icon i={"back"} label="Retour" /> Revenir à la ligne du temps
+    <Icon i={"back"} label="Retour" /> {languageTag() === "en" ? "Back to the time line" : "Revenir à la ligne du temps"}
   </a>
   {/if}
 </aside>

@@ -5,6 +5,7 @@
   import Media from '$lib/components/Media.svelte'
   import Document from '$lib/components/document/index.svelte'
   import { openDialog } from '$lib/helpers'
+  import { languageTag } from '$lib/paraglide/runtime'
 
   import type { PageData } from './$types'
   export let data: PageData
@@ -15,7 +16,7 @@
   <Content content={data.page.fields.contenu} format={data.page.fields.format} />
 
   <nav id="lignes">
-    <h6 role="none">Sélectionner une ligne du temps<br>pour débuter votre visite</h6>
+    <h6 role="none">{@html languageTag() === "en" ? 'Select a time line<br>to start your visit' : 'Sélectionner une ligne du temps<br>pour débuter votre visite'}</h6>
     <h2 class="flex flex--spaced" role="none"><Icon i="tip" label="Jusqu'à 2022" /></h2>
     <hr>
     <ul class="list--nostyle">
@@ -23,14 +24,14 @@
       <li class="flex flex--spaced flex--middle flex--gapped">
         <a href="/lignes/{ligne.fields.id}" class="col col--4of12"><Media media={ligne.fields.logotype} /></a>
         <a href="/lignes/{ligne.fields.id}/video" on:click={openDialog} class="video col col--4of12 col--mobile--12of12">
-          <Icon i="play" label="Visionner vidéo" />
+          <Icon i="play" label={languageTag() === "en" ? "Watch video" : "Visionner vidéo"} />
           <Media media={ligne.fields.vignette} small />
           {#if ligne.fields.vignetteVideo}
           <Media media={ligne.fields.vignetteVideo} eager small />
           {/if}
         </a>
         <div class="col col--4of12">
-          <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur} aria-label="Visiter {ligne.fields.titre}">Visiter</a>
+          <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur} aria-label="Visiter {ligne.fields.titre}">{languageTag() === "en" ? "Visit" : "Visiter"}</a>
         </div>
         <hr>
       </li>
@@ -95,7 +96,8 @@
         
         :global(td:last-child > *) {
           max-width: 644px;
-          margin: 0 auto;
+          margin-left: auto;
+          margin-right: auto;
         }
       }
     }

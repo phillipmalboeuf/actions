@@ -21,6 +21,7 @@
   import { fade, crossfade } from 'svelte/transition'
   import { tick } from 'svelte'
   import { onNavigate } from '$app/navigation'
+  import { languageTag } from '$lib/paraglide/runtime'
   
   export let data: PageData
 
@@ -95,7 +96,7 @@
     {#key data.ligne.fields.id}
     {#if active !== undefined}
     <aside class="progress flex flex--column">
-      <small aria-hidden="true">Défiler pour explorer</small>
+      <small aria-hidden="true">{languageTag() === "en" ? "Scroll to explore" : "Défiler pour explorer"}</small>
       <progress max={data.ligne.fields.oeuvres.length + 1} value={active}>{active} / {data.ligne.fields.oeuvres.length + 2}</progress>
     </aside>
     {/if}
@@ -122,7 +123,7 @@
             <aside>
               <button>
                 <Icon i="plus" label="Plus" />
-                <small>Découvrir</small>
+                <small>{languageTag() === "en" ? "Discover" : "Découvrir"}</small>
               </button>
             </aside>
             <Media media={oeuvre.fields.vignette} />
@@ -131,7 +132,7 @@
               <p>
                 <Credit {oeuvre} />
               </p>
-              <u>Découvrir l’oeuvre</u>
+              <u>{languageTag() === "en" ? "Discover the work" : "Découvrir l’oeuvre"}</u>
             </figcaption>
           </figure>
           </a>
@@ -144,7 +145,7 @@
             slider.scrollTo(0, true)
           }} style:--color={next.fields.couleur}>
             <Icon i="back" label="Prochain" />
-            <p>Visitez la prochaine ligne du temps</p>
+            <p>{languageTag() === "en" ? "Visit the next time line" : "Visiter la prochaine ligne du temps"}</p>
             <hr>
             <p>{next.fields.titre}</p>
           </a>

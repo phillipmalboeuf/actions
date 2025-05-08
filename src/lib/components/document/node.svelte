@@ -47,7 +47,7 @@
   </ul>
 
 {:else if node.nodeType === 'table'}
-  <table>
+  <table role="presentation">
     <tbody>
       {#each node.content as item}<tr>{#each item.content as node}<svelte:self node={node} />{/each}</tr>{/each}
     </tbody>

@@ -13,6 +13,8 @@
   import NoScroll from './NoScroll.svelte'
   import CommentairesPage from '../../routes/commentaires/+page.svelte'
   import { up } from '$lib/stores'
+  import { languageTag } from '$lib/paraglide/runtime'
+  import { i18n } from '$lib/i18n';
   
   export let header: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
   let searching = false
@@ -97,7 +99,7 @@
     <button class="button--none" on:click={(e) => {
       e.currentTarget.blur()
       searching = false
-    }}><Icon i="back" label="Fermer" /> Fermer la fenêtre</button>
+    }}><Icon i="back" label="Fermer" /> {languageTag() === "en" ? "Close the window" : "Fermer la fenêtre"}</button>
   </nav>
 
   <input type="checkbox" name="menu" id="menu" bind:checked={menu} on:input={(e) => {
@@ -124,13 +126,13 @@
           } else {
             commentaires = false
           }
-        }}><Icon i="back" label="Naviguer vers" /> {lien.fields.titre} {#if lien.fields.route !== "/" && $page.url.pathname === lien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
+        }}><Icon i="back" label="Naviguer vers" /> {lien.fields.titre} {#if lien.fields.route !== "/" && $page.url.pathname === lien.fields.route}<small>{languageTag() === "en" ? "(you are here)" : "(vous êtes ici)"}</small>{/if}</a>
 
         {#if lien.fields.sousLiens}
         <ol class="list--nostyle">
           {#each lien.fields.sousLiens as souslien}
           <li>
-            <a on:click={click} href="{souslien.fields.route}"><Icon i="back" label="Naviguer vers" /> {souslien.fields.titre} {#if $page.url.pathname === souslien.fields.route}<small>(vous êtes ici)</small>{/if}</a>
+            <a on:click={click} href="{souslien.fields.route}"><Icon i="back" label="Naviguer vers" /> {souslien.fields.titre} {#if $page.url.pathname === souslien.fields.route}<small>{languageTag() === "en" ? "(you are here)" : "(vous êtes ici)"}</small>{/if}</a>
           </li>
           {/each}
         </ol>
@@ -144,8 +146,14 @@
 
       <li class="buttons">
         <aside>
-          <a href="/" class="button">Français</a>
-          <a href="/en" class="button">English</a>
+          <a href={i18n.route($page.url.pathname)}
+            data-sveltekit-reload
+            hreflang={'fr'}
+            aria-current={languageTag() === 'fr' ? "page" : undefined} class="button">Français</a>
+          <a href={i18n.route($page.url.pathname)}
+            data-sveltekit-reload
+            hreflang={'en'}
+            aria-current={languageTag() === 'en' ? "page" : undefined} class="button">English</a>
         </aside>
       </li>
     </ol>
