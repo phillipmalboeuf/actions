@@ -10,7 +10,7 @@
 </script>
 
 <footer class="flex flex--gapped flex--spaced">
-  <figure class="col col--3of12 col--mobile--12of12"><a href="/"><Logo /></a></figure>
+  <figure class="col col--3of12 col--mobile--12of12"><a href="/"><Logo label="Accueil – Actions collectives. Regards féministes sur la collection." /></a></figure>
 
   <div class="col col--9of12 col--tablet--8of12 col--mobile--12of12">
     <ol class="list--nostyle flex flex--gapped">

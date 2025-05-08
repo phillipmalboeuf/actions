@@ -1,9 +1,11 @@
-<script>
+<script lang="ts">
   import { languageTag } from '$lib/paraglide/runtime'
+
+  export let label:string = undefined
 </script>
 
 {#if languageTag() === 'en'}
-<svg aria-label="Collectives actions. A feminist view of the collection." width="851" height="814" viewBox="0 0 851 814" preserveAspectRatio="xMinYMax meet" class="logo-en">
+<svg aria-label={label || "Collectives actions. A feminist view of the collection."} width="851" height="814" viewBox="0 0 851 814" preserveAspectRatio="xMinYMax meet" class="logo-en">
 <g>
 <path d="M5.19995 86C5.19995 57.9 22.4 35.5 50.7999 35.5C73.1999 35.5 88.5 47.8 90.2 67.9H78.2C76.5 55.3 65.8 46.4 50.9 46.4C30.7 46.4 17.3 64.9 17.3 86C17.3 108.2 30.7 125.6 50.9 125.6C65.4 125.6 76.7 118.6 78.2 104.9H91C88.9 126.6 71.4 136.6 50.2999 136.6C21.5999 136.5 5.19995 115.2 5.19995 86Z" fill="#111111"/>
 <path d="M104.6 85.4C104.6 56.7 122.1 36 149.1 36C176.1 36 193.6 56.7 193.6 85.4C193.6 114.1 176.1 135.2 149.1 135.2C122.1 135.2 104.6 114 104.6 85.4ZM180.9 85.4C180.9 63 168.8 46.8 149 46.8C129.2 46.8 117.1 63 117.1 85.4C117.1 107.8 129.2 124.4 149 124.4C168.9 124.4 180.9 107.8 180.9 85.4Z" fill="#111111"/>
@@ -68,7 +70,7 @@
 </g>
 </svg>
 {:else}
-<svg aria-label="Actions collectives. Regards féministes sur la collection." width="338" height="316" viewBox="0 0 848 991" preserveAspectRatio="xMinYMax meet">
+<svg aria-label={label || "Actions collectives. Regards féministes sur la collection."} width="338" height="316" viewBox="0 0 848 991" preserveAspectRatio="xMinYMax meet">
 <g>
 <path d="M87.2 122.4V68.5C87.2 49.8 76.5 36.8 51 36.8C27.1 36.8 13 50.4 13 68.2H25.4C25.4 57.1 33.2 47.1 50.9 47.1C67.7 47.1 75.7 54.5001 75.7 70.9001V74.1L45.8 78.6C26.7 81.4 10.9 89.7 10.9 111.2C10.9 127.8 23.8 138.2 40.8 138.2C53.6 138.2 67.5 133 75.7 120.5V127.5C75.7 129.4 75.9 133 76.3 134.9H88.5V134.5C87.8 132.8 87.2 126.4 87.2 122.4ZM75.7 106.5C68.9 118 55 128.2 42.2 128.2C31.5 128.2 23.5 122.4 23.5 110.5C23.5 96 36.4 91.3 47.3 89.6L75.7 85.3001V106.5Z" fill="#111111"/>
 <path d="M105.1 87.9001C105.1 59.8001 122.4 37.3 151.2 37.3C173.9 37.3 189.3 49.6001 191 69.8001H178.8C177.1 57.2001 166.2 48.3 151.2 48.3C130.8 48.3 117.3 66.8001 117.3 87.9001C117.3 110.2 130.8 127.5 151.2 127.5C165.9 127.5 177.3 120.5 178.8 106.7H191.8C189.7 128.4 172 138.4 150.6 138.4C121.7 138.5 105.1 117.1 105.1 87.9001Z" fill="#111111"/>
