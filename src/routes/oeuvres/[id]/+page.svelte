@@ -16,6 +16,7 @@
 
   import type { PageData } from './$types' 
   import Audio from '$lib/components/Audio.svelte'
+  import { languageTag } from '$lib/paraglide/runtime';
   export let data: PageData
   export let dialog = false
   
@@ -112,12 +113,12 @@
     </small>
     {/if}
 
-    <h4>Détails techniques de l’œuvre</h4>
+    <h4>{@html languageTag() === "en" ? 'Technical details of the work' : 'Détails techniques de l’œuvre'}</h4>
     <table class="small">
       <tbody>
       <tr>
         <td colspan="2">
-          <h6>Nom de l’artiste</h6>
+          <h6>{@html languageTag() === "en" ? 'Artist’s name' : 'Nom de l’artiste'}</h6>
           <p>
             {#if data.oeuvre.fields.artiste}
             {data.oeuvre.fields.artiste.fields.nom}
@@ -129,41 +130,41 @@
       </tr>
       <tr>
         <td colspan="2">
-          <h6>Titre de l’œuvre</h6>
+          <h6>{@html languageTag() === "en" ? 'Title of the work' : 'Titre de l’œuvre'}</h6>
           <em>{@html data.oeuvre.fields.titre}</em>
         </td>
       </tr>
       <tr>
         <td>
-          <h6>Année de réalisation</h6>
+          <h6>{@html languageTag() === "en" ? 'Year of creation' : 'Année de réalisation'}</h6>
           {data.oeuvre.fields.anneeDeRealisation || data.oeuvre.fields.annee}
         </td>
         <td>
-          <h6>Médium et support</h6>
+          <h6>{@html languageTag() === "en" ? 'Medium and support' : 'Médium et support'}</h6>
           {data.oeuvre.fields.medium}
         </td>
       </tr>
       {#if data.oeuvre.fields.dimensions || data.oeuvre.fields.largeur}
       <tr>
         <td colspan="2">
-          <h6>Dimensions</h6>
+          <h6>{@html languageTag() === "en" ? 'Dimensions' : 'Dimensions'}</h6>
           {#if data.oeuvre.fields.dimensions}{data.oeuvre.fields.dimensions}{:else}{intlNumber(data.oeuvre.fields.largeur)} cm x {intlNumber(data.oeuvre.fields.hauteur)} cm {#if data.oeuvre.fields.profondeur}x {intlNumber(data.oeuvre.fields.profondeur)} cm{/if}{/if}
         </td>
       </tr>
       {/if}
       <tr>
         <td colspan="2">
-          <h6>Mention de source</h6>
+          <h6>{@html languageTag() === "en" ? 'Source mention' : 'Mention de source'}</h6>
           {data.oeuvre.fields.mention}
         </td>
       </tr>
       <tr>
         <td>
-          <h6>Numéro d’acquisition</h6>
+          <h6>{@html languageTag() === "en" ? 'Acquisition number' : 'Numéro d’acquisition'}</h6>
           {data.oeuvre.fields.numero}
         </td>
         <td>
-          <h6>Année d’entrée au Musée</h6>
+          <h6>{@html languageTag() === "en" ? 'Year of entry to the Museum' : 'Année d’entrée au Musée'}</h6>
           {data.oeuvre.fields.anneeDentreeAuMusee || data.oeuvre.fields.numero?.split('.')[0]}
         </td>
       </tr>
@@ -172,7 +173,7 @@
 
     {#if data.oeuvre.fields.extraCredits}
     <div>
-    <h6><strong>Composantes exposées</strong></h6>
+    <h6><strong>{@html languageTag() === "en" ? 'Exposed components' : 'Composantes exposées'}</strong></h6>
     <!-- <small> -->
       {#if data.oeuvre.fields.extraCredits}
       <p>{@html data.oeuvre.fields.extraCredits}</p>
@@ -183,7 +184,7 @@
 
     {#if data.oeuvre.fields.historiqueTxt || data.oeuvre.fields.historique}
     <div>
-    <h6><strong>Historique d’exposition</strong></h6>
+    <h6><strong>{@html languageTag() === "en" ? 'Exhibition history' : 'Historique d’exposition'}</strong></h6>
     <small>
       {#if data.oeuvre.fields.historique}
       <Document body={data.oeuvre.fields.historique} />
@@ -196,7 +197,7 @@
 
     {#if data.oeuvre.fields.publicationsTxt || data.oeuvre.fields.publications}
     <div>
-    <h6><strong>Historique de publication</strong></h6>
+    <h6><strong>{@html languageTag() === "en" ? 'Publication history' : 'Historique de publication'}</strong></h6>
     <small>
       {#if data.oeuvre.fields.publications}
       <Document body={data.oeuvre.fields.publications} />
@@ -210,7 +211,7 @@
     <nav>
       {#if data.prev}
       <a href="/oeuvres/{data.prev.fields.id}" class="prev" on:click={e => $page.state.open && openDialog(e)}>
-        <Icon label="Oeuvre précédente" i="big-next" />
+        <Icon label={languageTag() === "en" ? "Previous work" : "Oeuvre précédente"} i="big-next" />
         <h2>{data.prev.fields.anneeEvenement}</h2>
       </a>
       {:else}
@@ -219,7 +220,7 @@
 
       {#if data.next}
       <a href="/oeuvres/{data.next.fields.id}" class="next" on:click={e => $page.state.open && openDialog(e)}>
-        <Icon label="Oeuvre suivante" i="big-next" />
+        <Icon label={languageTag() === "en" ? "Next work" : "Oeuvre suivante"} i="big-next" />
         <h2>{data.next.fields.anneeEvenement}</h2>
       </a>
       {/if}
@@ -227,7 +228,7 @@
 
     {#if !dialog && data.ligne}
     <a class="last" href="/lignes/{data.ligne.fields.id}">
-      <Icon i={"back"} label="Retour" /> Revenir à la ligne du temps
+      <Icon i={"back"} label="Retour" /> {languageTag() === "en" ? "Back to the time line" : "Revenir à la ligne du temps"}
     </a>
     {/if}
   </article>
