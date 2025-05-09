@@ -17,7 +17,7 @@
 
   <nav id="lignes">
     <h6 role="none">{@html languageTag() === "en" ? 'Select a time line<br>to start your visit' : 'Sélectionner une ligne du temps<br>pour débuter votre visite'}</h6>
-    <h2 class="flex flex--spaced" role="none"><Icon i="tip" label="Jusqu'à 2022" /></h2>
+    <div class="flex flex--spaced tip" role="none"><Icon i="tip" label="Jusqu'à 2022" /></div>
     <hr>
     <ul class="list--nostyle">
       {#each data.lignes as ligne}
@@ -141,7 +141,7 @@
         }
       }
 
-      h2 {
+      .tip {
         position: relative;
         margin-bottom: $gap;
         font-size: $base * $scale * 3;
