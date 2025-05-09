@@ -42,7 +42,9 @@
     // justify-content: space-around;
 
     :global(.-pages-credits) &,
-    :global(.-pages-bibliographie) & {
+    :global(.-pages-bibliographie) &,
+    :global(.-en-pages-bibliographie) &,
+    :global(.-en-pages-credits) & {
       --background: #{$yellow};
       background-color: var(--background);
     }

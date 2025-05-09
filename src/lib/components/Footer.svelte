@@ -86,7 +86,9 @@
     }
 
     :global(.-pages-credits) ~ &,
-    :global(.-pages-bibliographie) ~ & {
+    :global(.-pages-bibliographie) ~ &,
+    :global(.-en-pages-bibliographie) ~ &,
+    :global(.-en-pages-credits) ~ & {
       --alt-background: #{$beige};
       background-color: var(--alt-background);
     }

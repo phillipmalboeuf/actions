@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { ParaglideJS } from '@inlang/paraglide-sveltekit'
 	import { i18n } from '$lib/i18n'
+  import { languageTag } from '$lib/paraglide/runtime'
 
   import '$lib/styles.scss'
   import '$lib/content.scss'
@@ -50,7 +51,7 @@
 
 
 <ParaglideJS {i18n}>
-<a href="#main" class="skip">Accéder au contenu principal</a>
+<a href="#main" class="skip">{languageTag() === "en" ? "Access main content" : "Accéder au contenu principal"}</a>
 
 <Header header={data.header} />
 

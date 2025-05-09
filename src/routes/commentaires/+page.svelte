@@ -6,6 +6,7 @@
 	import type { ActionResult } from '@sveltejs/kit'
   import { page } from '$app/stores'
   import Icon from '$lib/components/Icon.svelte'
+  import { languageTag } from '$lib/paraglide/runtime';
 	
 	// export let form: ActionData
 
@@ -39,7 +40,7 @@
 </script>
 
 <svelte:head>
-	<title>Commentaires</title>
+	<title>{languageTag() === "en" ? "Comments" : "Commentaires"}</title>
 </svelte:head>
 
 <form class="flex flex--gapped flex--middle" action="/commentaires" method="post" bind:this={element} on:submit|preventDefault={e => {
@@ -58,17 +59,17 @@
     submitting = false
   }
 }}>
-  <input type="text" name="nom" autocomplete="name" placeholder="Inscrire votre nom">
-  <input type="email" name="email" autocomplete="email" placeholder="Inscrire votre courriel" required>
-  <textarea name="message" autocomplete="off" placeholder="Faites-nous part de vos commentaires ou questions en lien avec l'exposition" required maxlength="10000" on:input={e => {
+  <input type="text" name="nom" autocomplete="name" placeholder={languageTag() === "en" ? "Enter your name" : "Inscrire votre nom"}>
+  <input type="email" name="email" autocomplete="email" placeholder={languageTag() === "en" ? "Enter your e-mail address" : "Inscrire votre courriel"} required>
+  <textarea name="message" autocomplete="off" placeholder={languageTag() === "en" ? "Send us your comments or questions about the exhibition" : "Faites-nous part de vos commentaires ou questions en lien avec l'exposition"} required maxlength="10000" on:input={e => {
     if (e.currentTarget.value === '') {
       e.currentTarget.style.height = null
     } else {
       e.currentTarget.style.height = (e.currentTarget.scrollHeight + (3)) + "px"
     }
   }}></textarea>
-  <button class:submitting class="button--inverse" type="submit">{#if $page.form?.Message}<Icon label="Réussi" i="check" />{:else}{#if submitting}Annuler{:else}Envoyer{/if}{/if}</button>
-  <small>L’Internet est un forum public et l’information électronique peut etre interceptée. Pour des raisons de sécurité et de respect de la vie privée, nous vous demandons de ne pas nous faire parvenir de renseignements personnels ou confidentiels, tels votre numéro d’assurance sociale, l’adresse de votre domicile ou de votre bureau.</small>
+  <button class:submitting class="button--inverse" type="submit">{#if $page.form?.Message}<Icon label="Réussi" i="check" />{:else}{#if submitting}{languageTag() === "en" ? 'Cancel' : 'Annuler'}{:else}{languageTag() === "en" ? 'Send' : 'Envoyer'}{/if}{/if}</button>
+  <small>{languageTag() === "en" ? "The Internet is a public forum and electronic information can be intercepted. For reasons of security and privacy, we ask that you not send us any personal or confidential information, such as your Social Insurance Number (SIN), home or business address." : "L’Internet est un forum public et l’information électronique peut etre interceptée. Pour des raisons de sécurité et de respect de la vie privée, nous vous demandons de ne pas nous faire parvenir de renseignements personnels ou confidentiels, tels votre numéro d’assurance sociale, l’adresse de votre domicile ou de votre bureau."}</small>
 </form>
 
 <style lang="scss">
@@ -82,7 +83,8 @@
     padding: ($base * 1.25) $base;
     max-width: 620px;
 
-    :global(.-commentaires) & {
+    :global(.-commentaires) &,
+    :global(.-en-commentaires) & {
       padding: ($base * 6) ($base * 2);
       margin: auto;
     }
