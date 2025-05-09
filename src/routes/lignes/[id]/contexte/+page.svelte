@@ -50,7 +50,7 @@
 
   {#if !dialog}
   <a class="last" href="/lignes/{data.ligne.fields.id}">
-    <Icon i={"back"} label="Retour" /> {languageTag() === "en" ? "Back to the time line" : "Revenir à la ligne du temps"}
+    <Icon i={"back"} label="Retour" /> {languageTag() === "en" ? "Return to the timeline" : "Revenir à la ligne du temps"}
   </a>
   {/if}
 </aside>

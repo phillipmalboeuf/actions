@@ -3,6 +3,7 @@
   import type { Entry } from 'contentful'
   import { intlNumber } from '$lib/formatters' 
   import Media from './Media.svelte'
+  import { languageTag } from '$lib/paraglide/runtime';
 
   export let oeuvres: (Entry<TypeOeuvreSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> & { ligne?: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> })[]
   export let ligne: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> = undefined
@@ -14,10 +15,10 @@
 <table class:lignes>
   <tbody>
   <tr>
-    <th><p>Événement</p></th>
+    <th><p>{languageTag() === "en" ? "Event" : "Événement"}</p></th>
     <th></th>
-    <th><p>Artiste</p></th>
-    <th><p>Œuvre</p></th>
+    <th><p>{languageTag() === "en" ? "Artist" : "Artiste"}</p></th>
+    <th><p>{languageTag() === "en" ? "Work" : "Œuvre"}</p></th>
     <th class:thumbnails></th>
   </tr>
   {#each oeuvres.filter(o => (lignes) ? lignes[o.ligne?.fields.id] : true) as oeuvre (oeuvre.fields.id)}
@@ -69,7 +70,7 @@
 </table>
 {:else}
 <div class="empty">
-<em>Aucun résultat</em>
+<em>{languageTag() === "en" ? "No results" : "Aucun résultat"}</em>
 </div>
 {/if}
 

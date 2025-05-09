@@ -113,12 +113,12 @@
     </small>
     {/if}
 
-    <h4>{@html languageTag() === "en" ? 'Technical details of the work' : 'Détails techniques de l’œuvre'}</h4>
+    <h4>{@html languageTag() === "en" ? 'Technical details' : 'Détails techniques de l’œuvre'}</h4>
     <table class="small">
       <tbody>
       <tr>
         <td colspan="2">
-          <h6>{@html languageTag() === "en" ? 'Artist’s name' : 'Nom de l’artiste'}</h6>
+          <h6>{@html languageTag() === "en" ? 'Artist' : 'Nom de l’artiste'}</h6>
           <p>
             {#if data.oeuvre.fields.artiste}
             {data.oeuvre.fields.artiste.fields.nom}
@@ -130,17 +130,17 @@
       </tr>
       <tr>
         <td colspan="2">
-          <h6>{@html languageTag() === "en" ? 'Title of the work' : 'Titre de l’œuvre'}</h6>
+          <h6>{@html languageTag() === "en" ? 'Title' : 'Titre de l’œuvre'}</h6>
           <em>{@html data.oeuvre.fields.titre}</em>
         </td>
       </tr>
       <tr>
         <td>
-          <h6>{@html languageTag() === "en" ? 'Year of creation' : 'Année de réalisation'}</h6>
+          <h6>{@html languageTag() === "en" ? 'Year of production' : 'Année de réalisation'}</h6>
           {data.oeuvre.fields.anneeDeRealisation || data.oeuvre.fields.annee}
         </td>
         <td>
-          <h6>{@html languageTag() === "en" ? 'Medium and support' : 'Médium et support'}</h6>
+          <h6>{@html languageTag() === "en" ? 'Technique and materials' : 'Médium et support'}</h6>
           {data.oeuvre.fields.medium}
         </td>
       </tr>
@@ -154,17 +154,17 @@
       {/if}
       <tr>
         <td colspan="2">
-          <h6>{@html languageTag() === "en" ? 'Source mention' : 'Mention de source'}</h6>
+          <h6>{@html languageTag() === "en" ? 'Source' : 'Mention de source'}</h6>
           {data.oeuvre.fields.mention}
         </td>
       </tr>
       <tr>
         <td>
-          <h6>{@html languageTag() === "en" ? 'Acquisition number' : 'Numéro d’acquisition'}</h6>
+          <h6>{@html languageTag() === "en" ? 'Accession number' : 'Numéro d’acquisition'}</h6>
           {data.oeuvre.fields.numero}
         </td>
         <td>
-          <h6>{@html languageTag() === "en" ? 'Year of entry to the Museum' : 'Année d’entrée au Musée'}</h6>
+          <h6>{@html languageTag() === "en" ? 'Year of acquisition' : 'Année d’entrée au Musée'}</h6>
           {data.oeuvre.fields.anneeDentreeAuMusee || data.oeuvre.fields.numero?.split('.')[0]}
         </td>
       </tr>
@@ -228,7 +228,7 @@
 
     {#if !dialog && data.ligne}
     <a class="last" href="/lignes/{data.ligne.fields.id}">
-      <Icon i={"back"} label="Retour" /> {languageTag() === "en" ? "Back to the time line" : "Revenir à la ligne du temps"}
+      <Icon i={"back"} label="Retour" /> {languageTag() === "en" ? "Return to the timeline" : "Revenir à la ligne du temps"}
     </a>
     {/if}
   </article>

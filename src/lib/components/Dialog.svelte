@@ -13,6 +13,7 @@
 
   import { browser } from '$app/environment'
   import { onNavigate, pushState } from '$app/navigation'
+  import { languageTag } from '$lib/paraglide/runtime';
 
   let innerWidth: number
   let innerHeight: number
@@ -58,7 +59,7 @@
   {/if}
 
   <button class="last button--none" on:click={close}>
-    <Icon i={vertical ? "arrow" : "back"} label="Retour" /> Revenir à la ligne du temps
+    <Icon i={vertical ? "arrow" : "back"} label="Retour" /> {languageTag() === "en" ? "Return to the timeline" : "Revenir à la ligne du temps"}
   </button>
 </dialog>
 <button class="back" transition:fade={{ duration: 666 }} on:click={close}>

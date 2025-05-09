@@ -16,7 +16,7 @@
   <Content content={data.page.fields.contenu} format={data.page.fields.format} />
 
   <nav id="lignes">
-    <h6 role="none">{@html languageTag() === "en" ? 'Select a time line<br>to start your visit' : 'Sélectionner une ligne du temps<br>pour débuter votre visite'}</h6>
+    <h6 role="none">{@html languageTag() === "en" ? 'Select a timeline<br>to begin your visit' : 'Sélectionner une ligne du temps<br>pour débuter votre visite'}</h6>
     <div class="flex flex--spaced tip" role="none"><Icon i="tip" label="Jusqu'à 2022" /></div>
     <hr>
     <ul class="list--nostyle">
@@ -31,7 +31,7 @@
           {/if}
         </a>
         <div class="col col--4of12">
-          <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur} aria-label="Visiter {ligne.fields.titre}">{languageTag() === "en" ? "Visit" : "Visiter"}</a>
+          <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur} aria-label="Visiter {ligne.fields.titre}">{languageTag() === "en" ? "View" : "Visiter"}</a>
         </div>
         <hr>
       </li>

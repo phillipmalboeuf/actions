@@ -11,6 +11,7 @@
   import Tableau from './Tableau.svelte'
   import Icon from './Icon.svelte'
   import { capitalize } from '$lib/formatters'
+  import { languageTag } from '$lib/paraglide/runtime';
 
   export let visible = false
 
@@ -81,7 +82,7 @@
 
 <form class="flex flex--gapped" bind:this={form} action="/search" method="get" on:submit|preventDefault={submit}>
   <!-- <label for="query">Inscrire les termes recherchés</label> -->
-  <input type="search" name="query" id="query" placeholder="Rechercher" aria-label="Rechercher" title="Rechercher" bind:value={query} on:input={(e) => {
+  <input type="search" name="query" id="query" placeholder={languageTag() === "en" ? "Search" : "Rechercher"} aria-label={languageTag() === "en" ? "Search" : "Rechercher"} title={languageTag() === "en" ? "Search" : "Rechercher"} bind:value={query} on:input={(e) => {
     clearTimeout(timeout)
     timeout = setTimeout(() => {
       form.requestSubmit()
@@ -89,8 +90,8 @@
   }}>
 
   <aside class="col">
-    <label for="artist">Filtres</label>
-    {#if results && results.length < 82}<a href="#resultats">{#if results.length === 0}Aucun résultat{:else}Voir les {results.length} résultats{/if}</a>{/if}
+    <label for="artist">{languageTag() === "en" ? "Filters" : "Filtres"}</label>
+    {#if results && results.length < 82}<a href="#resultats">{#if results.length === 0}{languageTag() === "en" ? "No results" : "Aucun résultat"}{:else}{languageTag() === "en" ? `See the ${results.length} results` : `Voir les ${results.length} résultats`}{/if}</a>{/if}
   </aside>
 
   <hr class="col col--12of12">
@@ -99,7 +100,7 @@
     <div class="flex flex--gapped">
       {#if artists}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Artiste'}>
-        <button type="button" class="button--none" on:click={() => down = down === 'Artiste' ? undefined : 'Artiste'}>Artiste <Icon i="down" label="Choix" /></button>
+        <button type="button" class="button--none" on:click={() => down = down === 'Artiste' ? undefined : 'Artiste'}>{languageTag() === "en" ? "Artist" : "Artiste"} <Icon i="down" label="Choix" /></button>
         <nav class="flex flex--tight_gapped">
           {#each ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].filter(l => artists.items.filter(a => a?.fields?.nomFamille).find(a => a.fields.nomFamille[0] === l)) as l}
           <button type="button" class="button--none" on:click={() => {
@@ -141,7 +142,7 @@
 
       {#if mediums}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Type'}>
-        <button type="button" class="button--none" on:click={() => down = down === 'Type' ? undefined : 'Type'}>Type d’oeuvre <Icon i="down" label="Choix" /></button>
+        <button type="button" class="button--none" on:click={() => down = down === 'Type' ? undefined : 'Type'}>{languageTag() === "en" ? "Type" : "Type d’oeuvre"} <Icon i="down" label="Choix" /></button>
         <nav></nav>
         <div>
           {#each mediums as m}
@@ -176,10 +177,10 @@
 
       {#if annees}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown dropdown--wide" class:down={down === 'Année'}>
-        <button type="button" class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'}>Période de réalisation <Icon i="down" label="Choix" /></button>
+        <button type="button" class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'}>{languageTag() === "en" ? "Period of production" : "Période de réalisation"} <Icon i="down" label="Choix" /></button>
         <div>
           <div>
-            <label for="from">À partir de</label>
+            <label for="from">{languageTag() === "en" ? "From" : "À partir de"}</label>
             <input type="number" class:default={Number(from) === 1920} bind:value={from}>
             <input type="range" name="from" id="from" bind:value={from} min={1920} max={2022} on:input={(e) => {
               clearTimeout(timeout)
@@ -190,7 +191,7 @@
             <span style:--left={`${(from - 1915) / (2027 - 1915) * 100}%`}>{from}</span>
           </div>
           <div>
-            <label for="from">Jusqu’à</label>
+            <label for="from">{languageTag() === "en" ? "To" : "Jusqu’à"}</label>
             <input type="number" class:default={Number(to) === 2022} bind:value={to}>
             <input type="range" name="to" id="to" bind:value={to} min={1920} max={2022} on:input={(e) => {
               clearTimeout(timeout)
@@ -259,11 +260,11 @@
       }), {})
       await tick()
       form.requestSubmit()
-    }}>Réinitialiser</button>
+    }}>{languageTag() === "en" ? "Reset" : "Réinitialiser"}</button>
 
   {#if results}
   {#if results.length === 0}
-  <div class="col col--12of12 empty" id="resultats"><em>Aucun résultat</em></div>
+  <div class="col col--12of12 empty" id="resultats"><em>{languageTag() === "en" ? "No results" : "Aucun résultat"}</em></div>
   {:else}
   <div class="col col--12of12" id="resultats"><Tableau oeuvres={results} {lignes} thumbnails on:click /></div>
   {/if}
