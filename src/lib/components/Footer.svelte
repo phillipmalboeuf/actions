@@ -34,7 +34,7 @@
       {/each}
       {/if}
 
-      <li class="col col--landscape--12of12"></li>
+      <li aria-hidden="true" class="col col--landscape--12of12"></li>
 
       <li><a href="https://www.museejoliette.org/fr/" target="_blank" rel="external"><Icon i="maj" label="Lien vers le Musée d'art de Joliette" /></a></li>
       <li><a href="https://www.museesnumeriques.ca" target="_blank" rel="external"><Icon i="mnc" label="Lien vers le Musées numériques Canada" /></a></li>
