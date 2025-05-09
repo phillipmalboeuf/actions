@@ -224,20 +224,24 @@
       {/each}
 
       <div class="col">
-        <div class="flex flex--tight_gapped applied">
+        <ul class="list--nostyle flex flex--tight_gapped applied">
           {#each artist as f}
-          <button type="button" class="button--tight" on:click={() => {
-            //@ts-ignore
-            document.querySelector(`input[type=checkbox][value="${f}"]`).click()
-          }}><span aria-label="Retirer le filtre">X</span> {artists.items.find(a => a.fields.id === f).fields.nomFamille}, {artists.items.find(a => a.fields.id === f).fields.prenom}</button>
+          <li>
+            <button type="button" class="button--tight" on:click={() => {
+              //@ts-ignore
+              document.querySelector(`input[type=checkbox][value="${f}"]`).click()
+            }}><span aria-label="Retirer le filtre">X</span> {artists.items.find(a => a.fields.id === f).fields.nomFamille}, {artists.items.find(a => a.fields.id === f).fields.prenom}</button>
+          </li>
           {/each}
           {#each medium as f}
-          <button type="button" class="button--tight" on:click={() => {
-            //@ts-ignore
-            document.querySelector(`input[type=checkbox][value="${f}"]`).click()
-          }}><span aria-label="Retirer le filtre">X</span> {capitalize(f)}</button>
+          <li>
+            <button type="button" class="button--tight" on:click={() => {
+              //@ts-ignore
+              document.querySelector(`input[type=checkbox][value="${f}"]`).click()
+            }}><span aria-label="Retirer le filtre">X</span> {capitalize(f)}</button>
+          </li>
           {/each}
-      </div>
+        </ul>
       </div>
     </div>
   </fieldset>
