@@ -13,7 +13,7 @@
   <figure class="col col--3of12 col--mobile--12of12"><a href="/"><Logo label="Accueil – Actions collectives. Regards féministes sur la collection." /></a></figure>
 
   <div class="col col--9of12 col--tablet--8of12 col--mobile--12of12">
-    <ol class="list--nostyle flex flex--gapped">
+    <ul class="list--nostyle flex flex--gapped" aria-label="Liens de navigation">
       {#if footer}
       {#each footer.fields.liens as lien, i}
       {#if i < footer.fields.liens.length - 1}
@@ -21,13 +21,13 @@
         <a href="{lien.fields.route}">{lien.fields.titre}</a>
 
         {#if lien.fields.sousLiens}
-        <ol>
+        <ul aria-label="Sous-liens {lien.fields.titre}">
           {#each lien.fields.sousLiens as souslien}
           <li>
             <a href="{souslien.fields.route}">{souslien.fields.titre}</a>
           </li>
           {/each}
-        </ol>
+        </ul>
         {/if}
       </li>
       {/if}
@@ -36,9 +36,9 @@
 
       <li class="col col--landscape--12of12"></li>
 
-      <li><a href="https://www.museejoliette.org/fr/" target="_blank" rel="external"><Icon i="maj" label="Musée d'art de Joliette" /></a></li>
-      <li><a href="https://www.museesnumeriques.ca" target="_blank" rel="external"><Icon i="mnc" label="Musées numériques Canada" /></a></li>
-    </ol>
+      <li><a href="https://www.museejoliette.org/fr/" target="_blank" rel="external"><Icon i="maj" label="Lien vers le Musée d'art de Joliette" /></a></li>
+      <li><a href="https://www.museesnumeriques.ca" target="_blank" rel="external"><Icon i="mnc" label="Lien vers le Musées numériques Canada" /></a></li>
+    </ul>
     <nav class="flex flex--gapped flex--bottom">
       <form action="https://museejoliette.us7.list-manage.com/subscribe/post?locale=fr" method="post" target="_blank">
         <input type="hidden" name="u" value="0e4b3fa9c3ebd26a49760574a">
@@ -70,9 +70,6 @@
 
     @media (max-width: $tablet_landscape) {
       align-items: center;
-      ol {
-        // justify-content: flex-start !important;
-      }
 
       li:has(> a[target="_blank"]) {
         margin-bottom: ($mobile_gap * 2);
@@ -99,7 +96,7 @@
       flex-direction: column;
     }
 
-    ol {
+    ul {
       list-style: none;
       justify-content: space-between;
       padding: 0;
@@ -107,7 +104,7 @@
       li {
         // flex: 1;
 
-        ol {
+        ul {
           margin-top: $gap * 1.5;
 
           li {
