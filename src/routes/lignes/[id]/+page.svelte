@@ -122,7 +122,7 @@
           <figure>
             <aside>
               <button>
-                <Icon i="plus" label="Plus" />
+                <Icon i="plus" label={undefined} />
                 <small>{languageTag() === "en" ? "Discover" : "Découvrir"}</small>
               </button>
             </aside>
