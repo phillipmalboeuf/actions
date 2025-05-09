@@ -224,18 +224,18 @@
       {/each}
 
       <div class="col">
-        <div class="flex flex--tight_gapped">
+        <div class="flex flex--tight_gapped applied">
           {#each artist as f}
-          <button type="button" class="button--tight" aria-label="Retirer" on:click={() => {
+          <button type="button" class="button--tight" on:click={() => {
             //@ts-ignore
             document.querySelector(`input[type=checkbox][value="${f}"]`).click()
-          }}>{artists.items.find(a => a.fields.id === f).fields.nomFamille}, {artists.items.find(a => a.fields.id === f).fields.prenom} &nbsp;X</button>
+          }}><span aria-label="Retirer le filtre">X</span> {artists.items.find(a => a.fields.id === f).fields.nomFamille}, {artists.items.find(a => a.fields.id === f).fields.prenom}</button>
           {/each}
           {#each medium as f}
-          <button type="button" class="button--tight" aria-label="Retirer" on:click={() => {
+          <button type="button" class="button--tight" on:click={() => {
             //@ts-ignore
             document.querySelector(`input[type=checkbox][value="${f}"]`).click()
-          }}>{capitalize(f)} &nbsp;X</button>
+          }}><span aria-label="Retirer le filtre">X</span> {capitalize(f)}</button>
           {/each}
       </div>
       </div>
@@ -547,6 +547,18 @@
     button:not([type="button"]) {
       @media (min-width: $mobile) {
         margin-left: auto;
+      }
+    }
+
+    .applied {
+      button {
+        display: flex;
+        align-items: center;
+        gap: $base * 0.5;
+
+        span {
+          order: 99;
+        }
       }
     }
   }
