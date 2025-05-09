@@ -24,7 +24,7 @@
   </label>
 
   {#each lignes as ligne, i}
-  <a href="/lignes/{ligne.fields.id}{format ? `?format=${format}` : ""}" on:click={() => input.checked = false} data-id={ligne.fields.id} on:mouseenter on:mouseleave>
+  <a href="/lignes/{ligne.fields.id}{format ? `?format=${format}` : ""}" aria-current={selected === ligne.fields.id ? "true" : undefined} on:click={() => input.checked = false} data-id={ligne.fields.id} on:mouseenter on:mouseleave>
     <label for={ligne.fields.id}>
       {ligne.fields.titre}
       <input type="radio" bind:group={selected} value={ligne.fields.id} style:--color={ligne.fields.couleur}>
