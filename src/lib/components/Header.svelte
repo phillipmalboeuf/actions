@@ -475,7 +475,7 @@
     }
   }
 
-  nav:has(*:focus) {
+  nav:global(:has(*:focus)) {
     transform: translateX(0%) !important;
   }
 
