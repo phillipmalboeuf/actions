@@ -59,7 +59,7 @@
     const result = await preloadData(path)
 
     if (result.type === 'loaded' && result.status === 200) {
-      query = result.data.query
+      // query = result.data.query
       artist = result.data.artist || []
       from = result.data.from
       to = result.data.to
@@ -86,7 +86,7 @@
     clearTimeout(timeout)
     timeout = setTimeout(() => {
       form.requestSubmit()
-    }, 666)
+    }, 100)
   }}>
 
   <aside class="col">
