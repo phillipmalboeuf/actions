@@ -31,7 +31,7 @@
     }
   }}><Icon i="close" label="Fermer" /></a>
   <div>
-    <iframe src="https://www.youtube.com/embed/nbWzqumlcK0?si=_BXSld-HTxc565iJ&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/nbWzqumlcK0?si=_BXSld-HTxc565iJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   </div>
 
   <input type="checkbox" name="transcription" id="transcription" on:input={(e) => {
