@@ -112,9 +112,9 @@
         </nav>
         <div>
           {#each artists.items.filter(a => a?.fields?.nomFamille) as a}
-          <label data-letter={a.fields.nomFamille[0]}>
+          <label for="artist-{a.fields.id}" data-letter={a.fields.nomFamille[0]}>
             {@html (a.fields.prenom ? `${a.fields.nomFamille}, ${a.fields.prenom}` : a.fields.nom)}
-            <input type="checkbox" bind:group={artist} value="{a.fields.id}"
+            <input type="checkbox" bind:group={artist} id="artist-{a.fields.id}" value="{a.fields.id}"
               on:click={async (e) => {
                 // if (a.fields.id === artist) {
                 //   artist = undefined
@@ -146,9 +146,9 @@
         <nav></nav>
         <div>
           {#each mediums as m}
-          <label>
+          <label for="medium-{m}">
             {capitalize(m)}
-            <input type="checkbox" bind:group={medium} value="{m}"
+            <input type="checkbox" bind:group={medium} id="medium-{m}" value="{m}"
               on:click={async (e) => {
                 // if (m === medium) {
                 //   medium = undefined
