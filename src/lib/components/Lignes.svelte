@@ -18,14 +18,14 @@
 </script>
 
 <form style:--current={current} style:--length={lignes.length}>
-  <label class="button" for={id}>
+  <label class="button" for={id} role="presentation">
     Exposition <Icon i="down" label="Sélection" />
     <input type="checkbox" class="exposition" id={id} bind:this={input}>
   </label>
 
   {#each lignes as ligne, i}
   <a href="/lignes/{ligne.fields.id}{format ? `?format=${format}` : ""}" aria-current={selected === ligne.fields.id ? "true" : undefined} on:click={() => input.checked = false} data-id={ligne.fields.id} on:mouseenter on:mouseleave>
-    <label for={ligne.fields.id}>
+    <label for={ligne.fields.id} role="presentation">
       {ligne.fields.titre}
       <input type="radio" bind:group={selected} value={ligne.fields.id} style:--color={ligne.fields.couleur}>
     </label>
