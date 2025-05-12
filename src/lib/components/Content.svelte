@@ -21,7 +21,7 @@
   {#if isTypeGallerie(item)}
   <li class="gallerie" id={item.fields.id}>
     {#if i === 0}
-    <figure class="logo" style:--height={898} style:--scroll={!innerHeight ? 0 : scrollY > innerHeight ? 1 : scrollY / innerHeight}>
+    <figure role="heading" aria-level="1" class="logo" style:--height={898} style:--scroll={!innerHeight ? 0 : scrollY > innerHeight ? 1 : scrollY / innerHeight}>
       <!-- <figcaption>Actions collectives. Regards féministes sur la collection.</figcaption> -->
       <Logo />
     </figure>
