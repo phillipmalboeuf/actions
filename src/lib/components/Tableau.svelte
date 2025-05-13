@@ -16,20 +16,15 @@
   <tbody>
   <tr>
     <th><p>{languageTag() === "en" ? "Event" : "Événement"}</p></th>
-    <th></th>
     <th><p>{languageTag() === "en" ? "Artist" : "Artiste"}</p></th>
     <th><p>{languageTag() === "en" ? "Work" : "Œuvre"}</p></th>
     <th class:thumbnails></th>
   </tr>
   {#each oeuvres.filter(o => (lignes) ? lignes[o.ligne?.fields.id] : true) as oeuvre (oeuvre.fields.id)}
   <tr class="oeuvre" style:--couleur={ligne?.fields.couleur || oeuvre.ligne?.fields.couleur || oeuvre.fields.couleur}>
-    <td>
-      <a href="/oeuvres/{oeuvre.fields.id}" on:click>
-        <h2>{oeuvre.fields.anneeEvenement}</h2>
-      </a>
-    </td>
     <td class="description">
-      <a href="/oeuvres/{oeuvre.fields.id}" on:click>
+      <a class="flex flex--thick_gapped flex--middle" href="/oeuvres/{oeuvre.fields.id}" on:click>
+        <h2>{oeuvre.fields.anneeEvenement}</h2>
         <p>{@html oeuvre.fields.description || '-'}</p>
       </a>
     </td>
@@ -103,7 +98,7 @@
       @media (min-width: $mobile) {
         &:first-child {
           padding-left: 0;
-          width: 10%;
+          // width: 10%;
         }
       }
 
@@ -187,15 +182,25 @@
         padding: 0;
 
         a {
-          display: block;
           padding: ($base);
           padding-left: ($gap * 2);
+
+          &:not(.flex) {
+            display: block;
+          }
         }
 
         &:first-child {
           a {
             padding-left: 0;
           }
+        }
+      }
+
+      .description {
+        p {
+          flex: 1;
+          width: auto;
         }
       }
 
@@ -210,11 +215,21 @@
         }
 
         .description {
-          align-self: center;
+          width: 100%;
+
+          p {
+            flex: none;
+            margin-left: auto;
+            width: calc(50% - ($mobile_base * 0.5));
+          }
         }
 
         .artist {
           display: none;
+        }
+
+        .cartel a {
+          padding-left: 0;
         }
       }
 
