@@ -100,7 +100,7 @@
     <div class="flex flex--gapped">
       {#if artists}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Artiste'}>
-        <button type="button" class="button--none" on:click={() => down = down === 'Artiste' ? undefined : 'Artiste'}>{languageTag() === "en" ? "Artist" : "Artiste"} <Icon i="down" label="Choix" /></button>
+        <button type="button" class="button--none" aria-label={languageTag() === "en" ? "Filter by artist" : "Filtrer par artiste"} on:click={() => down = down === 'Artiste' ? undefined : 'Artiste'}>{languageTag() === "en" ? "Artist" : "Artiste"} <Icon i="down" label={undefined} /></button>
         <nav class="flex flex--tight_gapped">
           {#each ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].filter(l => artists.items.filter(a => a?.fields?.nomFamille).find(a => a.fields.nomFamille[0] === l)) as l}
           <button type="button" class="button--none" on:click={() => {
@@ -142,7 +142,7 @@
 
       {#if mediums}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Type'}>
-        <button type="button" class="button--none" on:click={() => down = down === 'Type' ? undefined : 'Type'}>{languageTag() === "en" ? "Type" : "Type d’oeuvre"} <Icon i="down" label="Choix" /></button>
+        <button type="button" class="button--none" aria-label={languageTag() === "en" ? "Filter by medium" : "Filtrer par type d’oeuvre"} on:click={() => down = down === 'Type' ? undefined : 'Type'}>{languageTag() === "en" ? "Type" : "Type d’oeuvre"} <Icon i="down" label={undefined} /></button>
         <nav></nav>
         <div>
           {#each mediums as m}
@@ -177,7 +177,7 @@
 
       {#if annees}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown dropdown--wide" class:down={down === 'Année'}>
-        <button type="button" class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'}>{languageTag() === "en" ? "Period of production" : "Période de réalisation"} <Icon i="down" label="Choix" /></button>
+        <button type="button" class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'} aria-label={languageTag() === "en" ? "Filter by period of production" : "Filtrer par période de réalisation"} >{languageTag() === "en" ? "Period of production" : "Période de réalisation"} <Icon i="down" label={undefined} /></button>
         <div>
           <div>
             <label for="from">{languageTag() === "en" ? "From" : "À partir de"}</label>

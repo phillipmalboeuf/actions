@@ -22,16 +22,16 @@
     <ul class="list--nostyle">
       {#each data.lignes as ligne}
       <li class="flex flex--spaced flex--middle flex--gapped">
-        <a href="/lignes/{ligne.fields.id}" class="col col--4of12"><Media media={ligne.fields.logotype} /></a>
+        <a href="/lignes/{ligne.fields.id}" class="col col--4of12" aria-hidden="true"><Media media={ligne.fields.logotype} /></a>
         <a href="/lignes/{ligne.fields.id}/video" on:click={openDialog} role="button" class="video col col--4of12 col--mobile--12of12">
-          <Icon i="play" label={languageTag() === "en" ? "Watch video" : "Visionner vidéo"} />
+          <Icon i="play" label={languageTag() === "en" ? "Watch video" : "Visionner la vidéo"} />
           <Media media={ligne.fields.vignette} small />
           {#if ligne.fields.vignetteVideo}
           <Media media={ligne.fields.vignetteVideo} eager small />
           {/if}
         </a>
         <div class="col col--4of12">
-          <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur} aria-label="Visiter {ligne.fields.titre}">{languageTag() === "en" ? "View" : "Visiter"}</a>
+          <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur} aria-label="Visiter la ligne du temps {ligne.fields.titre}">{languageTag() === "en" ? "View" : "Visiter"}</a>
         </div>
         <hr>
       </li>
