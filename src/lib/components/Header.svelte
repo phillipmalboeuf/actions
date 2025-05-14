@@ -12,9 +12,10 @@
   import Search from './Search.svelte'
   import NoScroll from './NoScroll.svelte'
   import CommentairesPage from '../../routes/commentaires/+page.svelte'
-  import { up } from '$lib/stores'
+  import { loop, up } from '$lib/stores'
+
   import { languageTag } from '$lib/paraglide/runtime'
-  import { i18n } from '$lib/i18n';
+  import { i18n } from '$lib/i18n'
   
   export let header: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
   let searching = false
@@ -26,12 +27,21 @@
   let menuScrollY = 0
   let menuCurrentScroll = 0
 
+  let menuButton: HTMLButtonElement
+  let searchButton: HTMLButtonElement
+
   onMount(() => {
     document.body.querySelectorAll("a[href='/commentaires']").forEach(a => a.addEventListener("click", (e) => {
       e.preventDefault()
       menu = true
       commentaires = true
     }))
+
+    document.getElementById('main').addEventListener('focusin', () => {
+      if (searching || menu) {
+        searchButton.focus()
+      }
+    })
   })
 
   const click = (e) => {
@@ -59,6 +69,14 @@
       currentScroll = scrollY
     }
   }
+
+  $: {
+    if (searching || menu) {
+      loop.set(true)
+    } else {
+      loop.set(false)
+    }
+  }
 </script>
 
 <svelte:window bind:scrollY on:scroll={() => scroll()} on:keydown={e => {
@@ -77,13 +95,15 @@
   <a href="/" class="h2"><Icon i="home" label="Accueil" /></a>
   {/if}
 
-  <input type="checkbox" name="search" id="search" bind:checked={searching} on:input={(e) => {
+  <button bind:this={searchButton} class="button--none button--search" aria-expanded={searching ? "true" : undefined} aria-controls="search" on:click={(e) => {
     e.currentTarget.blur()
+    searching = !searching
     menu = false
-  }} />
-  <label for="search"><Icon i="search" label="Recherche" /></label>
+  }}>
+    <Icon i="search" label="Recherche" />
+  </button>
 
-  <nav class="search" on:scroll={e => {
+  <nav class="search" class:visible={searching} id="search" on:scroll={e => {
     menuScrollY = e.currentTarget.scrollTop
     scroll(true)
   }}>
@@ -102,13 +122,15 @@
     }}><Icon i="back" label="Fermer" /> {languageTag() === "en" ? "Close the window" : "Fermer la fenêtre"}</button>
   </nav>
 
-  <input type="checkbox" name="menu" id="menu" bind:checked={menu} on:input={(e) => {
+  <button bind:this={menuButton} class="button--none" aria-expanded={menu ? "true" : undefined} aria-controls="menu" on:click={(e) => {
     e.currentTarget.blur()
+    menu = !menu
     searching = false
-  }} />
-  <label for="menu"><Icon i={menu ? "menu-close" : "menu"} label="Menu" /></label>
+  }}>
+    <Icon i={menu ? "menu-close" : "menu"} label="Menu" />
+  </button>
 
-  <nav class="flex" on:scroll={e => {
+  <nav class="flex" class:visible={menu} id="menu" on:scroll={e => {
     menuScrollY = e.currentTarget.scrollTop
     scroll(true)
   }}>
@@ -188,23 +210,23 @@
     }
 
     > a,
-    > label {
+    > button {
       transition: transform 666ms, color 666ms;
       transform: translateY(-100px);
     }
 
-    a, label, input, nav {
+    a, button, nav {
       pointer-events: all;
     }
 
     &.up {
       > a,
-      > label {
+      > button {
         transform: translateY(0%);
       }
     }
 
-    label[for="search"] {
+    > .button--search {
       position: relative;
       margin-left: auto;
     }
@@ -225,7 +247,7 @@
       gap: 0;
       align-items: stretch;
       
-      > label {
+      > button {
         background-color: fade-out($black, 0.33);
         display: flex;
         align-items: center;
@@ -263,13 +285,18 @@
       padding: $gap;
       box-shadow: 0px 0px 6px fade-out($color: $black, $amount: 0.85);
 
-      transition: transform 666ms;
+      transition: transform 666ms, visibility 0s linear 666ms;
       will-change: transform;
       transform: translateX(100%);
+      visibility: hidden;
 
       justify-content: space-between;
 
-      
+      &.visible {
+        transform: translateX(0%);
+        visibility: visible;
+        transition: transform 666ms, visibility 0s;
+      }
 
       @media (max-width: $mobile) {
         // width: 100vw;
@@ -459,24 +486,6 @@
         }
       }
     }
-
-    input[type="checkbox"] {
-      display: none;
-
-      + label {
-        cursor: pointer;
-      }
-
-      &:checked  {
-        + label + nav {
-          transform: translateX(0%);
-        }
-      }
-    }
-  }
-
-  nav:global(:has(*:focus)) {
-    transform: translateX(0%) !important;
   }
 
   .back {

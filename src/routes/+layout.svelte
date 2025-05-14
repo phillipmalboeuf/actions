@@ -7,6 +7,7 @@
   import '$lib/content.scss'
 
   import { page } from '$app/stores'
+  import { loop } from '$lib/stores'
   import type { PointerEventHandler } from 'svelte/elements'
 
   import Header from '$lib/components/Header.svelte'

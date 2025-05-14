@@ -10,6 +10,7 @@
   export let format: string = undefined
 
   let selected: string
+  let visible: boolean = false
   let input: HTMLInputElement
 
   $: {
@@ -17,11 +18,13 @@
   }
 </script>
 
-<form style:--current={current} style:--length={lignes.length}>
-  <label class="button" for={id} role="presentation">
+<form style:--current={current} style:--length={lignes.length} id="lignes" class:visible>
+  <button type="button" on:click={(e) => {
+    e.currentTarget.blur()
+    visible = !visible
+  }} aria-expanded={visible ? "true" : undefined} aria-controls="lignes">
     Exposition <Icon i="down" label="Sélection" />
-    <input type="checkbox" class="exposition" id={id} bind:this={input}>
-  </label>
+  </button>
 
   {#each lignes as ligne, i}
   <a href="/lignes/{ligne.fields.id}{format ? `?format=${format}` : ""}" aria-current={selected === ligne.fields.id ? "true" : undefined} on:click={() => input.checked = false} data-id={ligne.fields.id} on:mouseenter on:mouseleave>
@@ -55,7 +58,7 @@
     @media (min-width: $mobile) {
       gap: $base * 0.5;
 
-      label.button {
+      button {
         display: none;
       }
 
@@ -90,16 +93,12 @@
     }
 
     @media (max-width: $mobile) {
-      input.exposition {
-        display: none;
-      }
-
       a,
       :global(svg) {
         display: none;
       }
 
-      &:has(input.exposition:checked) {
+      &.visible {
         background-color: $beige-dark;
         padding: $mobile_base;
         border-radius: $base;
@@ -107,9 +106,12 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
+        width: 100% !important;
 
-        .button {
+        button {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
           border: none;
           padding: 0;
           padding-bottom: $mobile_base;
@@ -132,39 +134,4 @@
       }
     }
   }
-  // ul {
-  //   position: relative;
-  //   list-style: none;
-  //   padding-left: $gap * 1.25;
-
-  //   &:before {
-  //     content: "";
-  //     position: absolute;
-  //     left: 0;
-  //     top: ($base * -0.2);
-  //     height: 100%;
-  //     width: $base;
-  //     border: 1.5px solid;
-  //     border-radius: $base * 0.75;
-  //   }
-
-  //   li {
-  //     position: relative;
-
-  //     &.current {
-  //       &:before {
-  //         content: "";
-  //         background-color: var(--current-color);
-  //         border-radius: 50%;
-  //         width: $base - 4px;
-  //         height: $base - 4px;
-  //         // margin: $base * 0.3;
-  //         position: absolute;
-  //         right: calc(100% + ($gap * 0.5) - ($gap * 0.15 / 3));
-  //         top: 0;
-  //       }
-  //     }
-  //   }
-    
-  // }
 </style>
