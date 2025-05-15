@@ -11,7 +11,7 @@
   import Tableau from './Tableau.svelte'
   import Icon from './Icon.svelte'
   import { capitalize } from '$lib/formatters'
-  import { languageTag } from '$lib/paraglide/runtime';
+  import { languageTag } from '$lib/paraglide/runtime'
 
   export let visible = false
 
@@ -96,7 +96,7 @@
 
   <hr class="col col--12of12">
 
-  <fieldset class="col col--8of12 col--landscape--9of12 col--tablet--12of12">
+  <div class="col col--8of12 col--landscape--9of12 col--tablet--12of12 fields">
     <div class="flex flex--gapped">
       {#if artists}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Artiste'}>
@@ -245,7 +245,7 @@
         </ul>
       </div>
     </div>
-  </fieldset>
+  </div>
 
   <!-- <button class="button--inverse" type="submit">{#if waiting}Un instant...{:else}Rechercher{/if}</button> -->
   <button class="button--inverse" type="reset" on:click|preventDefault={async () => {
@@ -324,7 +324,7 @@
       }
     }
 
-    > fieldset {
+    .fields {
       margin-bottom: $gap * 2;
 
       @media (max-width: $tablet_portrait) {
