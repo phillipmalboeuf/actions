@@ -25,7 +25,7 @@
     <td class="description">
       <a class="flex flex--thick_gapped flex--middle" href="/oeuvres/{oeuvre.fields.id}" on:click>
         <h2>{oeuvre.fields.anneeEvenement}</h2>
-        <p>{@html oeuvre.fields.description || '-'}</p>
+        <p>{@html oeuvre.fields.description || '-'}{#if lignes}<br>({oeuvre.ligne?.fields.titre}){/if}</p>
       </a>
     </td>
     <td class="artist">
