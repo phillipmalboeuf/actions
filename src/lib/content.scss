@@ -276,14 +276,15 @@
       background-color: var(--background);
       padding: ($gap * 6) $gap;
 
-      @media (max-width: $mobile) {
-        padding: ($mobile_gap * 4) $mobile_gap;
-      }
-
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: $gap + 2px;
+
+      @media (max-width: $mobile) {
+        padding: ($mobile_gap * 4) $mobile_gap;
+        width: 100%;
+      }
 
       > *:not(table) {
         width: 50vw;
@@ -334,7 +335,7 @@
         @media (max-width: $mobile) {
           position: relative;
           transform: none;
-          width: 100%;
+          // width: 100%;
           margin-left: 0;
         }
 

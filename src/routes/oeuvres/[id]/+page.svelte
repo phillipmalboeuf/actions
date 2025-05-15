@@ -300,6 +300,10 @@
         margin-top: ($gap * 10);
       }
 
+      @media (max-width: $mobile) {
+        margin: 0;
+      }
+
       h4,
       aside {
         max-width: 400px;

@@ -126,6 +126,10 @@
       @media (min-width: $tablet_landscape) {
         margin-top: ($gap * 10);
       }
+
+      @media (max-width: $mobile) {
+        margin: 0;
+      }
     }
   }
 
