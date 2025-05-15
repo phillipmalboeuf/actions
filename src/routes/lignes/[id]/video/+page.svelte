@@ -32,7 +32,7 @@
   }}><Icon i="close" label="Fermer" /></a>
   <Transcription body={data.ligne.fields.transcriptionVideo} />
   <div>
-    <iframe src="https://www.youtube.com/embed/nbWzqumlcK0?si=_BXSld-HTxc565iJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe src={data.ligne.fields.lienVimeo ? data.ligne.fields.lienVimeo : "https://www.youtube.com/embed/nbWzqumlcK0?si=_BXSld-HTxc565iJ"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   </div>
 </dialog>
 
