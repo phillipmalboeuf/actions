@@ -141,6 +141,10 @@
               img,
               video {
                 object-position: center;
+
+                @media (min-width: $tablet_landscape) {
+                  margin-top: 110px;
+                }
               }
             }
 
