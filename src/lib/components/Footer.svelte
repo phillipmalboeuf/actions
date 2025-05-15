@@ -1,12 +1,46 @@
 <script lang="ts">
-  import Icon from './Icon.svelte';
-  import Logo from './Logo.svelte'
-
   import type { TypeNavigationSkeleton } from '$lib/clients/content_types'
   import type { Entry } from 'contentful'
-  import { languageTag } from '$lib/paraglide/runtime';
+  import { languageTag } from '$lib/paraglide/runtime'
+  import Icon from './Icon.svelte'
+  import Logo from './Logo.svelte'
   
   export let footer: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
+
+  let form: HTMLFormElement;
+  let isSubmitting = false;
+  let isSuccess = false;
+  let error: string | null = null;
+
+  async function handleSubmit(e: SubmitEvent) {
+    e.preventDefault();
+    if (!form) return;
+
+    isSubmitting = true;
+    error = null;
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors' // Required for Mailchimp
+      });
+
+      console.log(response);
+
+      // Since we're using no-cors, we can't check the response status
+      // Mailchimp will redirect to a success page if everything is ok
+      isSuccess = true;
+      form.reset();
+    } catch (err) {
+      error = languageTag() === "en" 
+        ? "An error occurred. Please try again." 
+        : "Une erreur est survenue. Veuillez réessayer.";
+    } finally {
+      isSubmitting = false;
+    }
+  }
 </script>
 
 <footer class="flex flex--gapped flex--spaced">
@@ -40,17 +74,66 @@
       <li><a href="https://www.museesnumeriques.ca" target="_blank" rel="external"><Icon i="mnc" label="Lien vers le Musées numériques Canada" /></a></li>
     </ul>
     <nav class="flex flex--gapped flex--bottom">
-      <form action="https://museejoliette.us7.list-manage.com/subscribe/post?locale=fr" method="post" target="_blank">
+      <form 
+        bind:this={form}
+        action="https://museejoliette.us7.list-manage.com/subscribe/post?locale=fr" 
+        method="post" 
+        target="_blank"
+        class:is-submitting={isSubmitting}
+        class:is-success={isSuccess}
+        class:has-error={!!error}
+        on:submit={handleSubmit}
+      >
         <input type="hidden" name="u" value="0e4b3fa9c3ebd26a49760574a">
         <input type="hidden" name="id" value="8529eaf024">
         <strong>{@html languageTag() === "en" ? 'Newsletter' : 'Infolettre'}&nbsp;MAJ</strong>
-        <input type="text" name="MERGE1" autocomplete="name" placeholder="Nom" aria-label="Nom" title="Nom">
-        <input type="email" name="MERGE0" autocomplete="email" placeholder="Courriel" aria-label="Courriel" title="Courriel">
-        <button class="button--inverse" type="submit" aria-label="Soumettre"><svg width="22" height="22" viewBox="0 0 30 30"><path d="M16.582 0C16.5822 3.37758 17.7411 6.65286 19.8652 9.27892C21.9893 11.905 24.9501 13.7229 28.253 14.429V15.073C24.9504 15.7791 21.9899 17.5967 19.8659 20.2223C17.7418 22.848 16.5827 26.1228 16.582 29.5" stroke="currentColor" stroke-width="1.75" stroke-miterlimit="10"/><path d="M28.547 14.751H0" stroke="currentColor" stroke-width="1.75"/></svg></button>
+        
+        {#if isSuccess}
+          <div class="success-message" role="alert">
+            {languageTag() === "en" 
+              ? "Thank you for subscribing!" 
+              : "Merci pour votre inscription !"}
+          </div>
+        {:else}
+          <input 
+            type="text" 
+            name="MERGE1" 
+            autocomplete="name" 
+            placeholder="Nom" 
+            aria-label="Nom" 
+            title="Nom"
+            disabled={isSubmitting}
+            required
+          >
+          <input 
+            type="email" 
+            name="MERGE0" 
+            autocomplete="email" 
+            placeholder="Courriel" 
+            aria-label="Courriel" 
+            title="Courriel"
+            disabled={isSubmitting}
+            required
+          >
+          <button 
+            class="button--inverse" 
+            type="submit" 
+            aria-label="Soumettre"
+            disabled={isSubmitting}
+          >
+            <svg width="22" height="22" viewBox="0 0 30 30">
+              <path d="M16.582 0C16.5822 3.37758 17.7411 6.65286 19.8652 9.27892C21.9893 11.905 24.9501 13.7229 28.253 14.429V15.073C24.9504 15.7791 21.9899 17.5967 19.8659 20.2223C17.7418 22.848 16.5827 26.1228 16.582 29.5" stroke="currentColor" stroke-width="1.75" stroke-miterlimit="10"/>
+              <path d="M28.547 14.751H0" stroke="currentColor" stroke-width="1.75"/>
+            </svg>
+          </button>
+          {#if error}
+            <div class="error-message" role="alert">{error}</div>
+          {/if}
+        {/if}
       </form>
       
       <small><a href="{footer.fields.liens[footer.fields.liens.length - 1].fields.route}">{footer.fields.liens[footer.fields.liens.length - 1].fields.titre}</a></small>
-      <small>©{new Date().getFullYear()} Musée d’art de Joliette</small>
+      <small>©{new Date().getFullYear()} Musée d'art de Joliette</small>
     </nav>
   </div>
 </footer>
@@ -214,6 +297,32 @@
               fill: none;
               stroke: var(--alt-background);
             }
+          }
+        }
+
+        &.is-submitting {
+          opacity: 0.7;
+          pointer-events: none;
+        }
+
+        &.has-error {
+          .error-message {
+          }
+        }
+
+        .success-message {
+          // color: var(--success-color, #059669);
+          // text-align: center;
+          // padding: $base;
+          // background-color: var(--success-bg, rgba(5, 150, 105, 0.1));
+          // border-radius: $base * 1.25;
+          // margin: $base 0;
+        }
+
+
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
           }
         }
       }
