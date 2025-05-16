@@ -42,12 +42,14 @@
   let ready = true
 
   onNavigate(async () => {
-    ready = false
-    setTimeout(() => {
-      slider.scrollTo(clickIndex + 1 || active, true)
-      // slider.emit("scroll")
-      ready = true
-    }, 666)
+    if (data.format !== "index") {
+      ready = false
+      setTimeout(() => {
+        slider.scrollTo(clickIndex + 1 || active, true)
+        // slider.emit("scroll")
+        ready = true
+      }, 666)
+    }
   })
 
   $: {

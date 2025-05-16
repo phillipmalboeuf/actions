@@ -1,14 +1,24 @@
 <script lang="ts">
   import type { TypeLigneSkeleton, TypeOeuvreSkeleton } from '$lib/clients/content_types'
   import type { Entry } from 'contentful'
+
+  import { onMount } from 'svelte'
+  import { browser } from '$app/environment'
+
   import { intlNumber } from '$lib/formatters' 
   import Media from './Media.svelte'
-  import { languageTag } from '$lib/paraglide/runtime';
+  import { languageTag } from '$lib/paraglide/runtime'
 
   export let oeuvres: (Entry<TypeOeuvreSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> & { ligne?: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> })[]
   export let ligne: Entry<TypeLigneSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> = undefined
   export let lignes: { [id: string]: boolean } = undefined
   export let thumbnails: boolean = false
+
+  onMount(() => {
+    if (browser && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+      thumbnails = true
+    }
+  })
 </script>
 
 {#if oeuvres.filter(o => (lignes) ? lignes[o.ligne?.fields.id] : true).length > 0}
