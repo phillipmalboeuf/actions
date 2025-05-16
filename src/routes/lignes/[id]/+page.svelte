@@ -112,7 +112,7 @@
         </li>
         {#each data.ligne.fields.oeuvres as oeuvre, i}
         <li class="slide {oeuvre.fields.format}" class:left={(active < i + 1)} class:right={(active > i + 1) && i !== data.ligne.fields.oeuvres.length - 1} class:hover>
-          <a href="/oeuvres/{oeuvre.fields.id}" role="button" on:click|preventDefault={e => {
+          <a href="/oeuvres/{oeuvre.fields.id}" role="button" tabindex="0" on:click|preventDefault={e => {
             if (i !== active - 1) {
               slider.scrollTo(i + 1)
             } else {
@@ -195,11 +195,11 @@
       on:mouseleave={() => hover = undefined} />
 
     {#if data.format === "index"}
-    <a href="/lignes/{data.ligne.fields.id}?format=gallerie" role="button" class="button" style:--color={data.ligne.fields.couleur}>{languageTag() === "en" ? "Gallery" : "Galerie"}</a>
+    <a href="/lignes/{data.ligne.fields.id}?format=gallerie" role="button" tabindex="0" class="button" style:--color={data.ligne.fields.couleur}>{languageTag() === "en" ? "Gallery" : "Galerie"}</a>
     {:else}
-    <a href="/lignes/{data.ligne.fields.id}?format=index" on:click={() => active = 0} role="button" class="button" style:--color={data.ligne.fields.couleur}>{languageTag() === "en" ? "List" : "Liste"}</a>
+    <a href="/lignes/{data.ligne.fields.id}?format=index" on:click={() => active = 0} role="button" tabindex="0" class="button" style:--color={data.ligne.fields.couleur}>{languageTag() === "en" ? "List" : "Liste"}</a>
     {/if}
-    <a href="/lignes/{data.ligne.fields.id}/contexte" on:click={openDialog} role="button" class="button" style:--color={data.ligne.fields.couleur}>{languageTag() === "en" ? "Context" : "Contexte"}</a>
+    <a href="/lignes/{data.ligne.fields.id}/contexte" on:click={openDialog} role="button" tabindex="0" class="button" style:--color={data.ligne.fields.couleur}>{languageTag() === "en" ? "Context" : "Contexte"}</a>
   </nav>
 </section>
 {/key}
