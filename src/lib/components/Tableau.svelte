@@ -28,7 +28,7 @@
     <th><p>{languageTag() === "en" ? "Event" : "Événement"}</p></th>
     <th><p>{languageTag() === "en" ? "Artist" : "Artiste"}</p></th>
     <th><p>{languageTag() === "en" ? "Work" : "Œuvre"}</p></th>
-    <th class:thumbnails></th>
+    <th class:thumbnails aria-label={languageTag() === "en" ? "Thumbnail" : "Vignette"}></th>
   </tr>
   {#each oeuvres.filter(o => (lignes) ? lignes[o.ligne?.fields.id] : true) as oeuvre (oeuvre.fields.id)}
   <tr class="oeuvre" style:--couleur={ligne?.fields.couleur || oeuvre.ligne?.fields.couleur || oeuvre.fields.couleur}>
