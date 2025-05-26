@@ -127,7 +127,6 @@
 </script>
 
 <svelte:window on:keydown={e => {
-  console.log(e.key)
   if (e.key === '=') {
     zoomIn()
   }
@@ -190,7 +189,7 @@
       {#if oeuvre}
       <Credit {oeuvre} full />
       {:else if asset}
-      {asset.fields.description}
+      {@html asset.fields.description}
       {/if}
     </p>
   </aside>
