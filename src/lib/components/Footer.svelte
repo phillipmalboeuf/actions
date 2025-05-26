@@ -99,9 +99,9 @@
             type="text" 
             name="MERGE1" 
             autocomplete="name" 
-            placeholder="Nom" 
-            aria-label="Nom" 
-            title="Nom"
+            placeholder={languageTag() === "en" ? "Name" : "Nom"}
+            aria-label={languageTag() === "en" ? "Name" : "Nom"}
+            title={languageTag() === "en" ? "Name" : "Nom"}
             disabled={isSubmitting}
             required
           >
@@ -109,9 +109,9 @@
             type="email" 
             name="MERGE0" 
             autocomplete="email" 
-            placeholder="Courriel" 
-            aria-label="Courriel" 
-            title="Courriel"
+            placeholder={languageTag() === "en" ? "Email" : "Courriel"}
+            aria-label={languageTag() === "en" ? "Email" : "Courriel"}
+            title={languageTag() === "en" ? "Email" : "Courriel"}
             disabled={isSubmitting}
             required
           >
