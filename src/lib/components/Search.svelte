@@ -75,10 +75,10 @@
   }
 </script>
 
-<svelte:head>
+<!-- <svelte:head>
   {#if results && results.length < 82}
   {#if results.length === 0}<title>Aucun résultat</title>{:else}<title>Recherche à {results.length} résultats</title>{/if}{/if}
-</svelte:head>
+</svelte:head> -->
 
 <form class="flex flex--gapped" bind:this={form} action="/search" method="get" on:submit|preventDefault={submit}>
   <!-- <label for="query">Inscrire les termes recherchés</label> -->
