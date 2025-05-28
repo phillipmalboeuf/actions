@@ -147,7 +147,7 @@
       <tr>
         <td colspan="2">
           <h6>{@html languageTag() === "en" ? 'Dimensions' : 'Dimensions'}</h6>
-          {#if data.oeuvre.fields.dimensions}{data.oeuvre.fields.dimensions}{:else}{intlNumber(data.oeuvre.fields.largeur)} cm x {intlNumber(data.oeuvre.fields.hauteur)} cm {#if data.oeuvre.fields.profondeur}x {intlNumber(data.oeuvre.fields.profondeur)} cm{/if}{/if}
+          {#if data.oeuvre.fields.dimensions}{data.oeuvre.fields.dimensions}{:else}{intlNumber(data.oeuvre.fields.largeur)} x {intlNumber(data.oeuvre.fields.hauteur)} {#if data.oeuvre.fields.profondeur}x {intlNumber(data.oeuvre.fields.profondeur)} cm{:else}cm{/if}{/if}
         </td>
       </tr>
       {/if}

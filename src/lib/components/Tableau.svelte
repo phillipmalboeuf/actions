@@ -56,7 +56,7 @@
           {oeuvre.fields.medium}
           {#if oeuvre.fields.largeur}
           <br />
-          {#if oeuvre.fields.dimensions}{oeuvre.fields.dimensions}{:else}{intlNumber(oeuvre.fields.largeur)} cm x {intlNumber(oeuvre.fields.hauteur)} cm {#if oeuvre.fields.profondeur}x {intlNumber(oeuvre.fields.profondeur)} cm{/if}{/if}{/if}
+          {#if oeuvre.fields.dimensions}{oeuvre.fields.dimensions}{:else}{intlNumber(oeuvre.fields.largeur)} x {intlNumber(oeuvre.fields.hauteur)} {#if oeuvre.fields.profondeur}x {intlNumber(oeuvre.fields.profondeur)} cm{:else}cm{/if}{/if}{/if}
         </p>
       </a>
     </td>

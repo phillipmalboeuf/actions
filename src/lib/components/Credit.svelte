@@ -14,5 +14,5 @@
 {#if full}
 <div>{oeuvre.fields.anneeDeRealisation || oeuvre.fields.annee}</div>
 <div>{oeuvre.fields.medium}</div>
-<div>{#if oeuvre.fields.dimensions}{oeuvre.fields.dimensions}{:else}{intlNumber(oeuvre.fields.largeur)} cm x {intlNumber(oeuvre.fields.hauteur)} cm {#if oeuvre.fields.profondeur}x {intlNumber(oeuvre.fields.profondeur)} cm{/if}{/if}</div>
+<div>{#if oeuvre.fields.dimensions}{oeuvre.fields.dimensions}{:else}{intlNumber(oeuvre.fields.largeur)} x {intlNumber(oeuvre.fields.hauteur)} {#if oeuvre.fields.profondeur}x {intlNumber(oeuvre.fields.profondeur)} cm{:else}cm{/if}{/if}</div>
 {/if}
