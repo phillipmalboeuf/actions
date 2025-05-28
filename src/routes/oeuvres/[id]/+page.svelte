@@ -7,16 +7,15 @@
   import ZoomPage from './zoom/+page.svelte'
   import Slider from '$lib/components/Slider.svelte'
   import Credit from '$lib/components/Credit.svelte'
+  import Audio from '$lib/components/Audio.svelte'
+  import { languageTag } from '$lib/paraglide/runtime'
 
   import { imigx, year, intlNumber } from '$lib/formatters'
   import { openDialog } from '$lib/helpers'
-  import { pushState } from '$app/navigation'
 
   import { page } from '$app/stores'
 
   import type { PageData } from './$types' 
-  import Audio from '$lib/components/Audio.svelte'
-  import { languageTag } from '$lib/paraglide/runtime';
   export let data: PageData
   export let dialog = false
   

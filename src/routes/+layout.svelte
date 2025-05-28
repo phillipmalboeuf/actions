@@ -16,6 +16,7 @@
   import Cookies from '$lib/components/Cookies.svelte'
 
   import type { LayoutData } from './$types'
+  import Analytics from '$lib/components/Analytics.svelte';
 	export let data: LayoutData
 
   const down: PointerEventHandler<Document> = (e) => {
@@ -64,7 +65,10 @@
 <Footer footer={data.footer} />
 
 <Cookies />
+<Analytics id="G-G6EGFV8XK5" />
 </ParaglideJS>
+
+
 
 <style lang="scss">
   main {

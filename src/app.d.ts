@@ -20,6 +20,11 @@ declare global {
 		}
 		// interface Platform {}
 	}
+
+	interface Window {
+		dataLayer: any[];
+		gtag: (...args: any[]) => void;
+	}
 }
 
 export {};

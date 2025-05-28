@@ -11,6 +11,8 @@ export const openDialog: MouseEventHandler<HTMLAnchorElement> = async (e) => {
 
   if (result.type === 'loaded' && result.status === 200) {
     pushState(href, href.includes('/archives') ? { zoomArchive: result.data } : href.includes('/zoom') ? { zoom: result.data } : href.includes('/video') ? href.includes('oeuvres') ? { oeuvreVideo: result.data } : { video: result.data } : { type: href.includes('oeuvres') ? "oeuvre" : href.includes('contexte') ? "contexte" : "page", open: result.data })
+
+    window.gtag && window.gtag("config", "G-G6EGFV8XK5", { page_path: href })
   } else {
     goto(href)
   }

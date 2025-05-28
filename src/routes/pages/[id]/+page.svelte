@@ -6,7 +6,6 @@
 
   import { year } from '$lib/formatters'
   import { openDialog } from '$lib/helpers'
-  import { pushState } from '$app/navigation'
 
   import Content from '$lib/components/Content.svelte'
 
