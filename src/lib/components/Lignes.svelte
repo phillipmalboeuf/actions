@@ -26,20 +26,29 @@
     Exposition <Icon i="down" label={undefined} />
   </button>
 
+  <ol class="list--nostyle" aria-label="Liste des expositions">
   {#each lignes as ligne, i}
-  <a href="/lignes/{ligne.fields.id}{format ? `?format=${format}` : ""}" aria-current={selected === ligne.fields.id ? "true" : undefined} on:click={() => input.checked = false} data-id={ligne.fields.id} on:mouseenter on:mouseleave>
-    <label for={ligne.fields.id} role="presentation">
-      {ligne.fields.titre}
-      <input type="radio" bind:group={selected} value={ligne.fields.id} style:--color={ligne.fields.couleur}>
-    </label>
-  </a>
+    <li>
+      <a href="/lignes/{ligne.fields.id}{format ? `?format=${format}` : ""}" aria-current={selected === ligne.fields.id ? "true" : undefined} on:click={() => input.checked = false} data-id={ligne.fields.id} on:mouseenter on:mouseleave>
+        <label for={ligne.fields.id} role="presentation">
+          {ligne.fields.titre}
+          <input type="radio" bind:group={selected} value={ligne.fields.id} style:--color={ligne.fields.couleur}>
+        </label>
+      </a>
+    </li>
   {/each}
+  </ol>
 </form>
 
 <style lang="scss">
   form {
     display: flex;
     flex-direction: column;
+
+    ol {
+      display: flex;
+      flex-direction: column;
+    }
 
     label {
       display: flex;
@@ -56,7 +65,9 @@
     }
 
     @media (min-width: $mobile) {
-      gap: $base * 0.5;
+      ol {
+        gap: $base * 0.5;
+      }
 
       button {
         display: none;

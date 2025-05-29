@@ -176,7 +176,7 @@
   </h1>
   {/if}
 
-  <nav class="col selector">
+  <nav class="col selector" aria-label="Sélectionner une exposition">
     <Lignes id="exposition-desktop" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} {active} format={data.format}
       on:mouseenter={(e) => {
         // @ts-ignore
@@ -188,7 +188,7 @@
       }}
       on:mouseleave={() => hover = undefined} />
   </nav>
-  <nav class="col col--mobile--12of12 formats" style:--current-color={data.ligne.fields.couleur}>
+  <nav class="col col--mobile--12of12 formats" aria-label="Sélectionner une exposition" style:--current-color={data.ligne.fields.couleur}>
     <Lignes id="exposition-mobile" current={data.lignes.findIndex(ligne => ligne.fields.id === data.ligne.fields.id)} lignes={data.lignes} format={data.format}
       on:mouseenter={(e) => {
         // @ts-ignore
