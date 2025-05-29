@@ -94,85 +94,89 @@
   <a href="/" class="h2"><Icon i="home" label="Accueil" /></a>
   {/if}
 
-  <button bind:this={searchButton} class="button--none button--search" aria-expanded={searching ? "true" : "false"} aria-controls="search" on:click={(e) => {
-    searching = !searching
-    menu = false
-  }}>
-    <Icon i="search" label="Recherche" />
-  </button>
-
-  <search class="search" class:visible={searching} role="search" id="search" aria-label="Fenêtre de recherche" on:scroll={e => {
+  <search aria-label="Outils de recherche" on:scroll={e => {
     menuScrollY = e.currentTarget.scrollTop
     scroll(true)
   }}>
-    <button class="button--none" on:click={(e) => {
-      searching = false
-    }}><Icon i="back" label="Fermer" /></button>
-    <Search visible={searching} on:click={(e) => {
-      searching = false
-    }} />
+    <button bind:this={searchButton} class="button--none button--search" aria-expanded={searching ? "true" : "false"} aria-controls="search" on:click={(e) => {
+      searching = !searching
+      menu = false
+    }}>
+      <Icon i="search" label="Recherche" />
+    </button>
 
-    <button class="button--none" on:click={(e) => {
-      searching = false
-    }}><Icon i="back" label="Fermer" /> {languageTag() === "en" ? "Close the window" : "Fermer la fenêtre"}</button>
+    <div class="modal modal--search" class:visible={searching} role="dialog" aria-modal="true" aria-label="Fenêtre de recherche" id="search">
+      <button class="button--none" on:click={(e) => {
+        searching = false
+      }}><Icon i="back" label="Fermer" /></button>
+      <Search visible={searching} on:click={(e) => {
+        searching = false
+      }} />
+
+      <button class="button--none" on:click={(e) => {
+        searching = false
+      }}><Icon i="back" label="Fermer" /> {languageTag() === "en" ? "Close the window" : "Fermer la fenêtre"}</button>
+    </div>
   </search>
 
-  <button bind:this={menuButton} class="button--none" aria-expanded={menu ? "true" : "false"} aria-controls="menu" on:click={(e) => {
-    menu = !menu
-    searching = false
-  }}>
-    <Icon i={menu ? "menu-close" : "menu"} label="Menu" />
-  </button>
-
-  <nav class="flex" class:visible={menu} id="menu" aria-label="Fenêtre du menu de navigation" on:scroll={e => {
+  <nav aria-label="Menu de navigation" on:scroll={e => {
     menuScrollY = e.currentTarget.scrollTop
     scroll(true)
   }}>
-    <figure class="col col--6of12 col--tablet--12of12"><a href="/" on:click={click}><Logo /></a></figure>
-    <ol class="list--nostyle col col--4of12 col--tablet--12of12">
-      {#if header}
-      {#each header.fields.liens as lien}
-      <li>
-        <a on:click={click} href="{lien.fields.route}" on:click={(e) => {
-          if (lien.fields.route === "/commentaires") {
-            e.preventDefault()
-            e.stopImmediatePropagation()
-            menu = true
-            commentaires = !commentaires
-          } else {
-            commentaires = false
-          }
-        }}><Icon i="back" label="Naviguer vers" /> {lien.fields.titre} {#if lien.fields.route !== "/" && $page.url.pathname === lien.fields.route}<small>{languageTag() === "en" ? "(you are here)" : "(vous êtes ici)"}</small>{/if}</a>
+    <button bind:this={menuButton} class="button--none" aria-expanded={menu ? "true" : "false"} aria-controls="menu" on:click={(e) => {
+      menu = !menu
+      searching = false
+    }}>
+      <Icon i={menu ? "menu-close" : "menu"} label="Menu" />
+    </button>
 
-        {#if lien.fields.sousLiens}
-        <ol class="list--nostyle">
-          {#each lien.fields.sousLiens as souslien}
-          <li>
-            <a on:click={click} href="{souslien.fields.route}"><Icon i="back" label="Naviguer vers" /> {souslien.fields.titre} {#if $page.url.pathname === souslien.fields.route}<small>{languageTag() === "en" ? "(you are here)" : "(vous êtes ici)"}</small>{/if}</a>
-          </li>
-          {/each}
-        </ol>
+    <div class="modal flex" class:visible={menu} role="dialog" aria-modal="true" aria-label="Fenêtre du menu de navigation" id="menu">
+      <figure class="col col--6of12 col--tablet--12of12"><a href="/" on:click={click}><Logo /></a></figure>
+      <ol class="list--nostyle col col--4of12 col--tablet--12of12">
+        {#if header}
+        {#each header.fields.liens as lien}
+        <li>
+          <a on:click={click} href="{lien.fields.route}" on:click={(e) => {
+            if (lien.fields.route === "/commentaires") {
+              e.preventDefault()
+              e.stopImmediatePropagation()
+              menu = true
+              commentaires = !commentaires
+            } else {
+              commentaires = false
+            }
+          }}><Icon i="back" label="Naviguer vers" /> {lien.fields.titre} {#if lien.fields.route !== "/" && $page.url.pathname === lien.fields.route}<small>{languageTag() === "en" ? "(you are here)" : "(vous êtes ici)"}</small>{/if}</a>
+
+          {#if lien.fields.sousLiens}
+          <ol class="list--nostyle">
+            {#each lien.fields.sousLiens as souslien}
+            <li>
+              <a on:click={click} href="{souslien.fields.route}"><Icon i="back" label="Naviguer vers" /> {souslien.fields.titre} {#if $page.url.pathname === souslien.fields.route}<small>{languageTag() === "en" ? "(you are here)" : "(vous êtes ici)"}</small>{/if}</a>
+            </li>
+            {/each}
+          </ol>
+          {/if}
+        </li>
+        {#if lien.fields.route === "/commentaires" && commentaires}
+        <li transition:fly={{ y: 100 }}><CommentairesPage /></li>
         {/if}
-      </li>
-      {#if lien.fields.route === "/commentaires" && commentaires}
-      <li transition:fly={{ y: 100 }}><CommentairesPage /></li>
-      {/if}
-      {/each}
-      {/if}
+        {/each}
+        {/if}
 
-      <li class="buttons">
-        <aside>
-          <a href={i18n.route($page.url.pathname)}
-            data-sveltekit-reload
-            hreflang={'fr'}
-            aria-current={languageTag() === 'fr' ? "page" : undefined} class="button">Français</a>
-          <a href={i18n.route($page.url.pathname)}
-            data-sveltekit-reload
-            hreflang={'en'}
-            aria-current={languageTag() === 'en' ? "page" : undefined} class="button">English</a>
-        </aside>
-      </li>
-    </ol>
+        <li class="buttons">
+          <aside>
+            <a href={i18n.route($page.url.pathname)}
+              data-sveltekit-reload
+              hreflang={'fr'}
+              aria-current={languageTag() === 'fr' ? "page" : undefined} class="button">Français</a>
+            <a href={i18n.route($page.url.pathname)}
+              data-sveltekit-reload
+              hreflang={'en'}
+              aria-current={languageTag() === 'en' ? "page" : undefined} class="button">English</a>
+          </aside>
+        </li>
+      </ol>
+    </div>
   </nav>
 </header>
 
@@ -204,24 +208,28 @@
     }
 
     > a,
-    > button {
+    > nav button,
+    > search button {
       transition: transform 666ms, color 666ms;
-      transform: translateY(-100px);
+
+      &:not(:focus-visible) {
+        transform: translateY(-100px);
+      }
     }
 
-    a, button, nav, search {
+    a, button, .modal {
       pointer-events: all;
     }
 
     &.up {
       > a,
-      > button {
+      > nav button,
+      > search button {
         transform: translateY(0%);
       }
     }
 
-    > .button--search {
-      position: relative;
+    search {
       margin-left: auto;
     }
 
@@ -241,7 +249,8 @@
       gap: 0;
       align-items: stretch;
       
-      > button {
+      > nav > button,
+      > search > button {
         background-color: fade-out($black, 0.33);
         display: flex;
         align-items: center;
@@ -262,7 +271,7 @@
       }
     }
 
-    nav, search {
+    .modal {
       position: absolute;
       top: 0;
       right: 0;
@@ -299,7 +308,7 @@
       }
     }
 
-    nav {
+    .modal:not(.modal--search) {
       figure {
         padding: $gap;
 
@@ -442,7 +451,7 @@
     }
 
     search {
-      &.search {
+      .modal {
         background-color: $beige;
         width: 90vw;
         padding-top: $gap * 6;
