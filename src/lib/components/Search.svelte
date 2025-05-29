@@ -183,8 +183,8 @@
         <div>
           <div>
             <label for="from">{languageTag() === "en" ? "From the year" : "À partir de l'année"}</label>
-            <input type="number" id="from" class:default={Number(from) === 1920} bind:value={from}>
-            <input type="range" name="from" aria-hidden="true" bind:value={from} min={1920} max={2022} on:input={(e) => {
+            <input type="number" aria-hidden="true"  class:default={Number(from) === 1920} bind:value={from}>
+            <input type="range" name="from" id="from" bind:value={from} min={1920} max={2022} on:input={(e) => {
               clearTimeout(timeout)
               timeout = setTimeout(() => {
                 form.requestSubmit()
@@ -194,8 +194,8 @@
           </div>
           <div>
             <label for="to">{languageTag() === "en" ? "To the year" : "Jusqu’à l'année"}</label>
-            <input type="number" id="to" class:default={Number(to) === 2022} bind:value={to}>
-            <input type="range" name="to" aria-hidden="true" bind:value={to} min={1920} max={2022} on:input={(e) => {
+            <input type="number" aria-hidden="true" class:default={Number(to) === 2022} bind:value={to}>
+            <input type="range" id="to" name="to" bind:value={to} min={1920} max={2022} on:input={(e) => {
               clearTimeout(timeout)
               timeout = setTimeout(() => {
                 form.requestSubmit()
@@ -484,6 +484,9 @@
 
               input[type="range"] {
                 &::-webkit-slider-thumb {
+                  background-color: $grey-ish;
+                }
+                &::-moz-range-thumb {
                   background-color: $grey-ish;
                 }
               }
