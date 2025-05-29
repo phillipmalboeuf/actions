@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Block, Inline, Text } from '@contentful/rich-text-types'
   export let mark: Block | Inline | Text
+  export let tabled: boolean = false
 </script>
 
 {#if mark.nodeType === 'text'}
@@ -12,9 +13,9 @@
   {:else if mark.marks[0].type === 'subscript'}
   <sub><svelte:self mark={{ ...mark, marks: mark.marks.slice(1) }} /></sub>
   {:else if mark.marks[0].type === 'bold'}
-  <strong><svelte:self mark={{ ...mark, marks: mark.marks.slice(1) }} /></strong>
+  <strong role={tabled ? "heading" : undefined} aria-level={tabled ? 2 : undefined}><svelte:self mark={{ ...mark, marks: mark.marks.slice(1) }} /></strong>
   {:else if mark.marks[0].type === 'underline'}
-  <u><svelte:self mark={{ ...mark, marks: mark.marks.slice(1) }} /></u>
+  <u role={tabled ? "heading" : undefined} aria-level={tabled ? 3 : undefined}><svelte:self mark={{ ...mark, marks: mark.marks.slice(1) }} /></u>
   {:else if mark.marks[0].type === 'code'}
   {@html mark.value}
   {/if}

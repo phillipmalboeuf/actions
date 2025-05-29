@@ -9,7 +9,7 @@
   export let body: ContentfulDocument
 </script>
 
-<button class="button--transcription" aria-expanded={visible ? "true" : undefined} aria-controls="transcription" on:click={(e) => {
+<button class="button--transcription" aria-expanded={visible ? "true" : "false"} aria-controls="transcription" on:click={(e) => {
   e.currentTarget.blur()
   visible = !visible
 }} aria-label="Lire la transcription">transcription</button>

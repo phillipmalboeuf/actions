@@ -22,7 +22,7 @@
   <button type="button" on:click={(e) => {
     e.currentTarget.blur()
     visible = !visible
-  }} aria-expanded={visible ? "true" : undefined} aria-controls="lignes" aria-label="Visionner les expositions">
+  }} aria-expanded={visible ? "true" : "false"} aria-controls="lignes" aria-label="Visionner les expositions">
     Exposition <Icon i="down" label={undefined} />
   </button>
 

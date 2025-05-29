@@ -73,7 +73,7 @@
       <li><a href="https://www.museejoliette.org/fr/" target="_blank" rel="external"><Icon i="maj" label="Lien vers le Musée d'art de Joliette" /></a></li>
       <li><a href="https://www.museesnumeriques.ca" target="_blank" rel="external"><Icon i="mnc" label="Lien vers le Musées numériques Canada" /></a></li>
     </ul>
-    <nav class="flex flex--gapped flex--bottom">
+    <div class="flex flex--gapped flex--bottom">
       <form 
         bind:this={form}
         action="https://museejoliette.us7.list-manage.com/subscribe/post?locale=fr" 
@@ -134,7 +134,7 @@
       
       <small><a href="{footer.fields.liens[footer.fields.liens.length - 1].fields.route}">{footer.fields.liens[footer.fields.liens.length - 1].fields.titre}</a></small>
       <small>©{new Date().getFullYear()} Musée d'art de Joliette</small>
-    </nav>
+    </div>
   </div>
 </footer>
 
@@ -176,7 +176,7 @@
       background-color: var(--alt-background);
     }
 
-    div {
+    div:not(.flex--bottom) {
       display: flex;
       flex-direction: column;
     }
@@ -210,7 +210,7 @@
       }
     }
 
-    nav {
+    .flex--bottom {
       margin-top: auto;
       justify-content: flex-end;
       // gap: $gap * 2;

@@ -10,6 +10,7 @@
 
   import type { TopLevelBlock } from '@contentful/rich-text-types'
   export let node: TopLevelBlock
+  export let tabled: boolean = false
 
   let img: HTMLImageElement
   let offset = 0
@@ -32,7 +33,7 @@
 {:else if node.nodeType === 'heading-6'}
   <h6>{#each node.content as mark}<Mark mark={mark} />{/each}</h6>
 {:else if node.nodeType === 'paragraph'}
-  <p>{#each node.content as mark}<Mark mark={mark} />{/each}</p>
+  <p>{#each node.content as mark}<Mark mark={mark} tabled />{/each}</p>
 {:else if node.nodeType === 'hr'}
   <hr />
 
@@ -49,13 +50,13 @@
 {:else if node.nodeType === 'table'}
   <table role="presentation">
     <tbody>
-      {#each node.content as item}<tr>{#each item.content as node}<svelte:self node={node} />{/each}</tr>{/each}
+      {#each node.content as item}<tr>{#each item.content as node}<svelte:self node={node} tabled />{/each}</tr>{/each}
     </tbody>
   </table>
 {:else if node.nodeType === 'table-header-cell'}
-  <th data-content="{node.content[0]?.content[0]?.value}">{#each node.content as item}<svelte:self node={item} />{/each}</th>
+  <th data-content="{node.content[0]?.content[0]?.value}">{#each node.content as item}<svelte:self node={item} tabled />{/each}</th>
 {:else if node.nodeType === 'table-cell'}
-  <td>{#each node.content as item}<svelte:self node={item} />{/each}</td>
+  <td>{#each node.content as item}<svelte:self node={item} tabled />{/each}</td>
 
 {:else if node.nodeType === 'blockquote'}
   <blockquote>{#each node.content as code}<svelte:self node={code} />{/each}</blockquote>

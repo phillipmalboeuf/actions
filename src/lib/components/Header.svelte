@@ -95,7 +95,7 @@
   <a href="/" class="h2"><Icon i="home" label="Accueil" /></a>
   {/if}
 
-  <button bind:this={searchButton} class="button--none button--search" aria-expanded={searching ? "true" : undefined} aria-controls="search" on:click={(e) => {
+  <button bind:this={searchButton} class="button--none button--search" aria-expanded={searching ? "true" : "false"} aria-controls="search" on:click={(e) => {
     e.currentTarget.blur()
     searching = !searching
     menu = false
@@ -103,7 +103,7 @@
     <Icon i="search" label="Recherche" />
   </button>
 
-  <nav class="search" class:visible={searching} id="search" on:scroll={e => {
+  <search class="search" class:visible={searching} role="search" id="search" on:scroll={e => {
     menuScrollY = e.currentTarget.scrollTop
     scroll(true)
   }}>
@@ -120,9 +120,9 @@
       e.currentTarget.blur()
       searching = false
     }}><Icon i="back" label="Fermer" /> {languageTag() === "en" ? "Close the window" : "Fermer la fenêtre"}</button>
-  </nav>
+  </search>
 
-  <button bind:this={menuButton} class="button--none" aria-expanded={menu ? "true" : undefined} aria-controls="menu" on:click={(e) => {
+  <button bind:this={menuButton} class="button--none" aria-expanded={menu ? "true" : "false"} aria-controls="menu" on:click={(e) => {
     e.currentTarget.blur()
     menu = !menu
     searching = false
@@ -215,7 +215,7 @@
       transform: translateY(-100px);
     }
 
-    a, button, nav {
+    a, button, nav, search {
       pointer-events: all;
     }
 
@@ -268,7 +268,7 @@
       }
     }
 
-    nav {
+    nav, search {
       position: absolute;
       top: 0;
       right: 0;
@@ -303,49 +303,9 @@
         border-radius: 0;
         padding: $mobile_gap;
       }
+    }
 
-      &.search {
-        background-color: $beige;
-        width: 90vw;
-        padding-top: $gap * 6;
-        // z-index: 3;
-
-        @media (max-width: $tablet_landscape) {
-          width: 95vw;
-        }
-
-        @media (max-width: $tablet_portrait) {
-          padding-top: $mobile_gap * 4;
-          width: 99vw;
-        }
-
-        > .button--none {
-
-          &:first-child {
-            position: absolute;
-            top: $gap;
-            left: $gap;
-          }
-
-          &:last-child {
-            display: flex;
-            align-items: center;
-            gap: $mobile_gap * 0.5;
-            margin-top: $mobile_gap;
-            margin-bottom: $mobile_gap;
-
-            @media (min-width: $tablet_portrait) {
-              margin-left: $gap;
-            }
-
-            :global(svg) {
-              height: 15px;
-              width: 24px;
-            }
-          }
-        }
-      }
-
+    nav {
       figure {
         padding: $gap;
 
@@ -481,6 +441,50 @@
             &:has(a:focus) {
               height: auto;
               padding: ($base * $scale) 0;
+            }
+          }
+        }
+      }
+    }
+
+    search {
+      &.search {
+        background-color: $beige;
+        width: 90vw;
+        padding-top: $gap * 6;
+        // z-index: 3;
+
+        @media (max-width: $tablet_landscape) {
+          width: 95vw;
+        }
+
+        @media (max-width: $tablet_portrait) {
+          padding-top: $mobile_gap * 4;
+          width: 99vw;
+        }
+
+        > .button--none {
+
+          &:first-child {
+            position: absolute;
+            top: $gap;
+            left: $gap;
+          }
+
+          &:last-child {
+            display: flex;
+            align-items: center;
+            gap: $mobile_gap * 0.5;
+            margin-top: $mobile_gap;
+            margin-bottom: $mobile_gap;
+
+            @media (min-width: $tablet_portrait) {
+              margin-left: $gap;
+            }
+
+            :global(svg) {
+              height: 15px;
+              width: 24px;
             }
           }
         }
