@@ -99,7 +99,7 @@
   <div class="col col--8of12 col--landscape--9of12 col--tablet--12of12 fields">
     <div class="flex flex--gapped">
       {#if artists}
-      <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Artiste'}>
+      <div class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Artiste'}>
         <button type="button" class="button--none" aria-label={languageTag() === "en" ? "Filter by artist" : "Filtrer par artiste"} on:click={() => down = down === 'Artiste' ? undefined : 'Artiste'}>{languageTag() === "en" ? "Artist" : "Artiste"} <Icon i="down" label={undefined} /></button>
         <ol class="list--nostyle flex flex--tight_gapped" aria-label="Afficher de façon alphabétique">
           {#each ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].filter(l => artists.items.filter(a => a?.fields?.nomFamille).find(a => a.fields.nomFamille[0] === l)) as l}
@@ -139,11 +139,11 @@
           <option value={artist.fields.id}>{artist.fields.nom}</option>
           {/each}
         </select> -->
-      </fieldset>
+      </div>
       {/if}
 
       {#if mediums}
-      <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Type'}>
+      <div class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Type'}>
         <button type="button" class="button--none" aria-label={languageTag() === "en" ? "Filter by medium" : "Filtrer par type d’oeuvre"} on:click={() => down = down === 'Type' ? undefined : 'Type'}>{languageTag() === "en" ? "Type" : "Type d’oeuvre"} <Icon i="down" label={undefined} /></button>
         <ol aria-hidden="true"></ol>
         <div>
@@ -174,11 +174,11 @@
           {/each}
         </select> -->
         <!-- <Icon i="down" label="Select" /> -->
-      </fieldset>
+      </div>
       {/if}
 
       {#if annees}
-      <fieldset class="col col--4of12 col--mobile--12of12 dropdown dropdown--wide" class:down={down === 'Année'}>
+      <div class="col col--4of12 col--mobile--12of12 dropdown dropdown--wide" class:down={down === 'Année'}>
         <button type="button" class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'} aria-label={languageTag() === "en" ? "Filter by period of production" : "Filtrer par période de réalisation"} >{languageTag() === "en" ? "Period of production" : "Période de réalisation"} <Icon i="down" label={undefined} /></button>
         <div>
           <div>
@@ -211,11 +211,11 @@
           {/each}
         </select>
         <Icon i="down" label="Select" /> -->
-      </fieldset>
+      </div>
       {/if}
 
       {#each $page.data.lignes as ligne}
-      <fieldset class="col col--4of12 col--mobile--12of12" style:--couleur={ligne.fields.couleur}>
+      <div class="col col--4of12 col--mobile--12of12" style:--couleur={ligne.fields.couleur}>
         <label class="ligne">
           {ligne.fields.titre}
           <input type="checkbox" name="{ligne.fields.id}" checked={lignes[ligne.fields.id]} on:input={(e) => {
@@ -223,7 +223,7 @@
             form.requestSubmit()
           }}>
         </label>
-      </fieldset>
+      </div>
       {/each}
 
       <div class="col">
