@@ -103,7 +103,7 @@
     <Icon i="search" label="Recherche" />
   </button>
 
-  <search class="search" class:visible={searching} role="search" id="search" on:scroll={e => {
+  <search class="search" class:visible={searching} role="search" id="search" aria-label="Fenêtre de recherche" on:scroll={e => {
     menuScrollY = e.currentTarget.scrollTop
     scroll(true)
   }}>
@@ -130,7 +130,7 @@
     <Icon i={menu ? "menu-close" : "menu"} label="Menu" />
   </button>
 
-  <nav class="flex" class:visible={menu} id="menu" on:scroll={e => {
+  <nav class="flex" class:visible={menu} id="menu" aria-label="Fenêtre du menu de navigation" on:scroll={e => {
     menuScrollY = e.currentTarget.scrollTop
     scroll(true)
   }}>

@@ -101,15 +101,17 @@
       {#if artists}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Artiste'}>
         <button type="button" class="button--none" aria-label={languageTag() === "en" ? "Filter by artist" : "Filtrer par artiste"} on:click={() => down = down === 'Artiste' ? undefined : 'Artiste'}>{languageTag() === "en" ? "Artist" : "Artiste"} <Icon i="down" label={undefined} /></button>
-        <nav class="flex flex--tight_gapped">
+        <ol class="list--nostyle flex flex--tight_gapped" aria-label="Afficher de façon alphabétique">
           {#each ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].filter(l => artists.items.filter(a => a?.fields?.nomFamille).find(a => a.fields.nomFamille[0] === l)) as l}
-          <button type="button" class="button--none" on:click={() => {
-            const label = document.querySelector(`label[data-letter=${l}]`)
-            // @ts-ignore
-            label.parentElement.scrollTo({ top: label.offsetTop, behavior: 'smooth' })
-          }} aria-label="Scroll to {l}">{l}</button>
+          <li>
+            <button type="button" class="button--none" on:click={() => {
+              const label = document.querySelector(`label[data-letter=${l}]`)
+              // @ts-ignore
+              label.parentElement.scrollTo({ top: label.offsetTop, behavior: 'smooth' })
+            }} aria-label="Scroll to {l}">{l}</button>
+          </li>
           {/each}
-        </nav>
+        </ol>
         <div>
           {#each artists.items.filter(a => a?.fields?.nomFamille) as a}
           <label for="artist-{a.fields.id}" data-letter={a.fields.nomFamille[0]}>
@@ -143,6 +145,7 @@
       {#if mediums}
       <fieldset class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Type'}>
         <button type="button" class="button--none" aria-label={languageTag() === "en" ? "Filter by medium" : "Filtrer par type d’oeuvre"} on:click={() => down = down === 'Type' ? undefined : 'Type'}>{languageTag() === "en" ? "Type" : "Type d’oeuvre"} <Icon i="down" label={undefined} /></button>
+        <ol aria-hidden="true"></ol>
         <div>
           {#each mediums as m}
           <label for="medium-{m}">
@@ -179,9 +182,9 @@
         <button type="button" class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'} aria-label={languageTag() === "en" ? "Filter by period of production" : "Filtrer par période de réalisation"} >{languageTag() === "en" ? "Period of production" : "Période de réalisation"} <Icon i="down" label={undefined} /></button>
         <div>
           <div>
-            <label for="from">{languageTag() === "en" ? "From" : "À partir de"}</label>
-            <input type="number" class:default={Number(from) === 1920} bind:value={from}>
-            <input type="range" name="from" id="from" bind:value={from} min={1920} max={2022} on:input={(e) => {
+            <label for="from">{languageTag() === "en" ? "From the year" : "À partir de l'année"}</label>
+            <input type="number" id="from" class:default={Number(from) === 1920} bind:value={from}>
+            <input type="range" name="from" aria-hidden="true" bind:value={from} min={1920} max={2022} on:input={(e) => {
               clearTimeout(timeout)
               timeout = setTimeout(() => {
                 form.requestSubmit()
@@ -190,9 +193,9 @@
             <span style:--left={`${(from - 1915) / (2027 - 1915) * 100}%`}>{from}</span>
           </div>
           <div>
-            <label for="from">{languageTag() === "en" ? "To" : "Jusqu’à"}</label>
-            <input type="number" class:default={Number(to) === 2022} bind:value={to}>
-            <input type="range" name="to" id="to" bind:value={to} min={1920} max={2022} on:input={(e) => {
+            <label for="to">{languageTag() === "en" ? "To the year" : "Jusqu’à l'année"}</label>
+            <input type="number" id="to" class:default={Number(to) === 2022} bind:value={to}>
+            <input type="range" name="to" aria-hidden="true" bind:value={to} min={1920} max={2022} on:input={(e) => {
               clearTimeout(timeout)
               timeout = setTimeout(() => {
                 form.requestSubmit()
@@ -355,7 +358,7 @@
           }
         }
 
-        nav {
+        ol {
           position: relative;
           z-index: 2;
           display: none;
@@ -411,7 +414,7 @@
               }
             }
 
-            nav {
+            ol {
               display: flex;
               background-color: $beige-dark;
             }
@@ -440,7 +443,7 @@
               }
             }
 
-            nav {
+            ol {
               display: flex;
               background-color: $beige-dark;
             }
@@ -495,7 +498,7 @@
                 font-size: $base - 2px;
                 text-align: center;
 
-                &.default {
+                &.default:not(:focus) {
                   color: transparent;
                 }
 
