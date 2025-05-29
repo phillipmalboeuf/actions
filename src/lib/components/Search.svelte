@@ -216,9 +216,9 @@
 
       {#each $page.data.lignes as ligne}
       <div class="col col--4of12 col--mobile--12of12" style:--couleur={ligne.fields.couleur}>
-        <label class="ligne">
+        <label class="ligne" for="ligne-{ligne.fields.id}">
           {ligne.fields.titre}
-          <input type="checkbox" name="{ligne.fields.id}" checked={lignes[ligne.fields.id]} on:input={(e) => {
+          <input type="checkbox" name="{ligne.fields.id}" id="ligne-{ligne.fields.id}" checked={lignes[ligne.fields.id]} on:input={(e) => {
             lignes[ligne.fields.id] = e.currentTarget.checked
             form.requestSubmit()
           }}>
