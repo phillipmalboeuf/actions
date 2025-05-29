@@ -261,8 +261,8 @@
       }
 
       &:hover,
-      &:focus,
-      &:first-of-type:not(:has(~ a:hover)):not(:has(~ a:focus)) {
+      &:focus-visible,
+      &:first-of-type:not(:has(~ a:hover)):not(:has(~ a:focus-visible)) {
         
         h2 {
           background-color: var(--couleur);

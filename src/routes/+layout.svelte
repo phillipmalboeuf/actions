@@ -19,25 +19,25 @@
   import Analytics from '$lib/components/Analytics.svelte';
 	export let data: LayoutData
 
-  const down: PointerEventHandler<Document> = (e) => {
-    const target = (e.target as HTMLButtonElement)
+  // const down: PointerEventHandler<Document> = (e) => {
+  //   const target = (e.target as HTMLButtonElement)
 
-    if (['BUTTON', 'A'].includes(target.nodeName)) {
-      setTimeout(() => target.blur(), 0)
-    }
+  //   if (['BUTTON', 'A'].includes(target.nodeName)) {
+  //     setTimeout(() => target.blur(), 0)
+  //   }
 
-    if (['BUTTON', 'A'].includes(target.parentElement.nodeName)) {
-      setTimeout(() => target.parentElement.blur(), 0)
-    }
+  //   if (['BUTTON', 'A'].includes(target.parentElement.nodeName)) {
+  //     setTimeout(() => target.parentElement.blur(), 0)
+  //   }
 
-    if (['BUTTON', 'A'].includes(target.parentElement.parentElement.nodeName)) {
-      setTimeout(() => target.parentElement.parentElement.blur(), 0)
-    }
+  //   if (['BUTTON', 'A'].includes(target.parentElement.parentElement.nodeName)) {
+  //     setTimeout(() => target.parentElement.parentElement.blur(), 0)
+  //   }
 
-    if (['BUTTON', 'A'].includes(target.parentElement.parentElement.parentElement.nodeName)) {
-      setTimeout(() => target.parentElement.parentElement.parentElement.blur(), 0)
-    }
-  }
+  //   if (['BUTTON', 'A'].includes(target.parentElement.parentElement.parentElement.nodeName)) {
+  //     setTimeout(() => target.parentElement.parentElement.parentElement.blur(), 0)
+  //   }
+  // }
 </script>
 
 <svelte:head>
@@ -49,7 +49,7 @@
   {/if}
 </svelte:head>
 
-<svelte:document on:pointerdown={down} />
+<!-- <svelte:document on:pointerdown={down} /> -->
 
 
 <ParaglideJS {i18n}>
@@ -86,7 +86,7 @@
     display: flex;
     z-index: 10;
 
-    &:focus {
+    &:focus-visible {
       // right: auto;
       left: 0;
     }

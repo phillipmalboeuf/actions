@@ -522,7 +522,7 @@
             }
 
             &:hover,
-            &:focus {
+            &:focus-visible {
               aside button {
                 gap: $base * 0.5;
                 small {
@@ -651,7 +651,7 @@
 
           &:not(.left):not(.right) {
             a:hover,
-            a:focus {
+            a:focus-visible {
               div {
                 :global(svg) {
                   opacity: 1;

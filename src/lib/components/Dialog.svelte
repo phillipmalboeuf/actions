@@ -112,7 +112,7 @@
     border-top-left-radius: $gap;
     border-bottom-left-radius: $gap;
 
-    &:focus {
+    &:focus-visible {
       outline: none;
     }
 
@@ -185,7 +185,7 @@
     // }
 
     &:hover,
-    &:focus {
+    &:focus-visible {
       transform: translateX(20%);
 
       &.vertical {

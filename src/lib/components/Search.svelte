@@ -498,7 +498,7 @@
                 font-size: $base - 2px;
                 text-align: center;
 
-                &.default:not(:focus) {
+                &.default:not(:focus-visible) {
                   color: transparent;
                 }
 

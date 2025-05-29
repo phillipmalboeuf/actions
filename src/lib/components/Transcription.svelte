@@ -10,7 +10,6 @@
 </script>
 
 <button class="button--transcription" aria-expanded={visible ? "true" : "false"} aria-controls="transcription" on:click={(e) => {
-  e.currentTarget.blur()
   visible = !visible
 }} aria-label="Lire la transcription">transcription</button>
 

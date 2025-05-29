@@ -20,7 +20,6 @@
 
 <form style:--current={current} style:--length={lignes.length} id="lignes" class:visible>
   <button type="button" on:click={(e) => {
-    e.currentTarget.blur()
     visible = !visible
   }} aria-expanded={visible ? "true" : "false"} aria-controls="lignes" aria-label="Visionner les expositions">
     Exposition <Icon i="down" label={undefined} />
@@ -95,7 +94,7 @@
         }
 
         &:hover,
-        &:has(input:focus) {
+        &:has(input:focus-visible) {
           input[type="radio"] {
             background-color: var(--color, currentColor) !important;
           }

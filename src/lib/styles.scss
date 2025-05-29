@@ -17,7 +17,7 @@
 
 	transition: outline 333ms;
 
-	&:focus {
+	&:focus-visible {
 		outline: 1px solid currentColor;
 		// outline: none;
 	}
@@ -139,14 +139,6 @@ input,
 button {
 	font-size: inherit;
 	font-family: inherit;
-	
-	&:focus {
-		// outline: 2px solid currentColor;
-	}
-}
-
-button:focus:not(:focus-visible) {
-	// outline: none;
 }
 
 button,
@@ -169,7 +161,7 @@ button,
 	}
 
 	&:hover,
-	&:focus {
+	&:focus-visible {
 		background-color: var(--color, $grey);
 		border-color: transparent;
 	}
@@ -180,7 +172,7 @@ button,
 		border-radius: 0;
 
 		&:hover,
-		&:focus {
+		&:focus-visible {
 			// color: var(--color, $grey);
 			background-color: transparent;
 		}
@@ -216,7 +208,7 @@ button,
 		}
 
 		&:hover,
-		&:focus {
+		&:focus-visible {
 			background-color: $grey;
 
 			svg {
@@ -351,7 +343,7 @@ form {
 		padding: $base;
 		border-radius: $base - 2px;
 
-		&:focus {
+		&:focus-visible {
 			outline: none
 		}
 
@@ -380,7 +372,7 @@ form {
 		justify-content: space-between;
 		align-items: center;
 
-		input:focus + label {
+		input:focus-visible + label {
 			// outline: 2px solid currentColor;
 		}
 	}
@@ -444,7 +436,7 @@ form {
 		appearance: none;
 		margin: ($base * 0.5) 0 ($base * 0.75);
 
-		&:focus {
+		&:focus-visible {
 			outline: none
 		}
 

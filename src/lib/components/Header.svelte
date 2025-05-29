@@ -45,7 +45,6 @@
   })
 
   const click = (e) => {
-    e.currentTarget?.blur()
     searching = false
     menu = false
   }
@@ -96,7 +95,6 @@
   {/if}
 
   <button bind:this={searchButton} class="button--none button--search" aria-expanded={searching ? "true" : "false"} aria-controls="search" on:click={(e) => {
-    e.currentTarget.blur()
     searching = !searching
     menu = false
   }}>
@@ -108,22 +106,18 @@
     scroll(true)
   }}>
     <button class="button--none" on:click={(e) => {
-      e.currentTarget.blur()
       searching = false
     }}><Icon i="back" label="Fermer" /></button>
     <Search visible={searching} on:click={(e) => {
-      // e.currentTarget.blur()
       searching = false
     }} />
 
     <button class="button--none" on:click={(e) => {
-      e.currentTarget.blur()
       searching = false
     }}><Icon i="back" label="Fermer" /> {languageTag() === "en" ? "Close the window" : "Fermer la fenêtre"}</button>
   </search>
 
   <button bind:this={menuButton} class="button--none" aria-expanded={menu ? "true" : "false"} aria-controls="menu" on:click={(e) => {
-    e.currentTarget.blur()
     menu = !menu
     searching = false
   }}>
@@ -373,7 +367,7 @@
 
             .button {
               &:hover,
-              &:focus {
+              &:focus-visible {
                 color: $yellow;
                 background-color: $brown;
               }
@@ -406,7 +400,7 @@
           }
 
           a:hover,
-          a:focus {
+          a:focus-visible {
             :global(svg) {
               opacity: 1;
               margin-left: 0;
@@ -438,7 +432,7 @@
             }
 
             &:hover,
-            &:has(a:focus) {
+            &:has(a:focus-visible) {
               height: auto;
               padding: ($base * $scale) 0;
             }

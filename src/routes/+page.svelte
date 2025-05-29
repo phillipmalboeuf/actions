@@ -255,7 +255,7 @@
             }
 
             &:hover,
-            &:focus {
+            &:focus-visible {
               :global(picture + video),
               :global(picture + picture) {
                 opacity: 1;
