@@ -35,7 +35,7 @@
 
   $: {
     if (browser && !artists && visible) {
-      preloadData(`/search`).then(result => {
+      preloadData(`${languageTag() === "en" ? "/en" : ""}/search`).then(result => {
         if (result.type === 'loaded' && result.status === 200) {
           artists = result.data.artists
           annees = result.data.annees
