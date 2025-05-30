@@ -55,7 +55,7 @@
 
     waiting = true
       
-    const path = `/search?query=${e.currentTarget['query'].value}&artist=${artist.join(',')}&from=${e.currentTarget['from'].value}&to=${e.currentTarget['to'].value}&medium=${medium.join(',')}&lignes=${Object.entries(lignes).filter((([id, value]) => !!value)).map(([id, value]) => id)}`
+    const path = (`${languageTag() === "en" ? "/en" : ""}/search?query=${e.currentTarget['query'].value}&artist=${artist.join(',')}&from=${e.currentTarget['from'].value}&to=${e.currentTarget['to'].value}&medium=${medium.join(',')}&lignes=${Object.entries(lignes).filter((([id, value]) => !!value)).map(([id, value]) => id)}`)
     const result = await preloadData(path)
 
     if (result.type === 'loaded' && result.status === 200) {
