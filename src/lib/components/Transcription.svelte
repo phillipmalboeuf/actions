@@ -15,7 +15,7 @@
 
 {#if visible}
 <aside transition:fly={{ opacity: 1, x: '100%', duration: 666 }} id="transcription" class:visible={visible}>
-  <button class="button--none" on:click={() => visible = false} aria-hidden="true"><Icon i="back" label="Fermer la transcription" /></button>
+  <button class="button--none" on:click={() => visible = false}><Icon i="back" label="Fermer la transcription" /></button>
   {#if body}
   <Document body={body} />
   {:else}
