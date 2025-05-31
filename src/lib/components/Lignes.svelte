@@ -2,6 +2,7 @@
   import type { TypeLigneSkeleton, TypeOeuvreSkeleton } from '$lib/clients/content_types'
   import type { Entry } from 'contentful'
   import Icon from './Icon.svelte'
+  import { languageTag } from '$lib/paraglide/runtime';
 
   export let id: string
   export let current: number
@@ -21,11 +22,11 @@
 <form style:--current={current} style:--length={lignes.length} id="lignes" class:visible>
   <button type="button" on:click={(e) => {
     visible = !visible
-  }} aria-expanded={visible ? "true" : "false"} aria-controls="lignes" aria-label="Visionner les expositions">
+  }} aria-expanded={visible ? "true" : "false"} aria-controls="lignes" aria-label={languageTag() === "en" ? "View exhibitions" : "Visionner les expositions"}>
     Exposition <Icon i="down" label={undefined} />
   </button>
 
-  <ol class="list--nostyle" aria-label="Liste des expositions">
+  <ol class="list--nostyle" aria-label={languageTag() === "en" ? "List of exhibitions" : "Liste des expositions"}>
   {#each lignes as ligne, i}
     <li>
       <a href="/lignes/{ligne.fields.id}{format ? `?format=${format}` : ""}" aria-current={selected === ligne.fields.id ? "true" : undefined} on:click={() => input.checked = false} data-id={ligne.fields.id} on:mouseenter on:mouseleave>

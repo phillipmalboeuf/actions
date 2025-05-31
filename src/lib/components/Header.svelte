@@ -94,7 +94,7 @@
   <a href="/" class="h2"><Icon i="home" label="Accueil" /></a>
   {/if}
 
-  <search aria-label="Outils de recherche" on:scroll={e => {
+  <search aria-label={languageTag() === "en" ? "Search tools" : "Outils de recherche"} on:scroll={e => {
     menuScrollY = e.currentTarget.scrollTop
     scroll(true)
   }}>
@@ -102,24 +102,24 @@
       searching = !searching
       menu = false
     }}>
-      <Icon i="search" label="Recherche" />
+      <Icon i="search" label={languageTag() === "en" ? "Search" : "Recherche"} />
     </button>
 
-    <div class="modal modal--search" class:visible={searching} role="dialog" aria-modal="true" aria-label="Fenêtre de recherche" id="search">
+    <div class="modal modal--search" class:visible={searching} role="dialog" aria-modal="true" aria-label={languageTag() === "en" ? "Search window" : "Fenêtre de recherche"} id="search">
       <button class="button--none" on:click={(e) => {
         searching = false
-      }}><Icon i="back" label="Fermer" /></button>
+      }}><Icon i="back" label={languageTag() === "en" ? "Close" : "Fermer"} /></button>
       <Search visible={searching} on:click={(e) => {
         searching = false
       }} />
 
       <button class="button--none" on:click={(e) => {
         searching = false
-      }}><Icon i="back" label="Fermer" /> {languageTag() === "en" ? "Close the window" : "Fermer la fenêtre"}</button>
+      }}><Icon i="back" label={languageTag() === "en" ? "Close" : "Fermer"} /> {languageTag() === "en" ? "Close the window" : "Fermer la fenêtre"}</button>
     </div>
   </search>
 
-  <nav aria-label="Menu de navigation" on:scroll={e => {
+  <nav aria-label={languageTag() === "en" ? "Navigation menu" : "Menu de navigation"} on:scroll={e => {
     menuScrollY = e.currentTarget.scrollTop
     scroll(true)
   }}>
@@ -130,7 +130,7 @@
       <Icon i={menu ? "menu-close" : "menu"} label="Menu" />
     </button>
 
-    <div class="modal flex" class:visible={menu} role="dialog" aria-modal="true" aria-label="Fenêtre du menu de navigation" id="menu">
+    <div class="modal flex" class:visible={menu} role="dialog" aria-modal="true" aria-label={languageTag() === "en" ? "Navigation window" : "Fenêtre du menu de navigation"} id="menu">
       <figure class="col col--6of12 col--tablet--12of12"><a href="/" on:click={click}><Logo /></a></figure>
       <ol class="list--nostyle col col--4of12 col--tablet--12of12">
         {#if header}
@@ -145,13 +145,13 @@
             } else {
               commentaires = false
             }
-          }}><Icon i="back" label="Naviguer vers" /> {lien.fields.titre} {#if lien.fields.route !== "/" && $page.url.pathname === lien.fields.route}<small>{languageTag() === "en" ? "(you are here)" : "(vous êtes ici)"}</small>{/if}</a>
+          }}><Icon i="back" label={languageTag() === "en" ? "Navigate to" : "Naviguer vers"} /> {lien.fields.titre} {#if lien.fields.route !== "/" && $page.url.pathname === lien.fields.route}<small>{languageTag() === "en" ? "(you are here)" : "(vous êtes ici)"}</small>{/if}</a>
 
           {#if lien.fields.sousLiens}
           <ol class="list--nostyle">
             {#each lien.fields.sousLiens as souslien}
             <li>
-              <a on:click={click} href="{souslien.fields.route}"><Icon i="back" label="Naviguer vers" /> {souslien.fields.titre} {#if $page.url.pathname === souslien.fields.route}<small>{languageTag() === "en" ? "(you are here)" : "(vous êtes ici)"}</small>{/if}</a>
+              <a on:click={click} href="{souslien.fields.route}"><Icon i="back" label={languageTag() === "en" ? "Navigate to" : "Naviguer vers"} /> {souslien.fields.titre} {#if $page.url.pathname === souslien.fields.route}<small>{languageTag() === "en" ? "(you are here)" : "(vous êtes ici)"}</small>{/if}</a>
             </li>
             {/each}
           </ol>
@@ -181,7 +181,7 @@
 </header>
 
 {#if menu || searching}
-<button class="back" transition:fade={{ duration: 666 }} on:click={click} aria-label="Fermer">
+<button class="back" transition:fade={{ duration: 666 }} on:click={click} aria-label={languageTag() === "en" ? "Close" : "Fermer"}>
 </button>
 {/if}
 

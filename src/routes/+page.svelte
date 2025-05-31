@@ -31,7 +31,7 @@
           {/if}
         </a>
         <div class="col col--4of12">
-          <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur} aria-label="Visiter la ligne du temps {ligne.fields.titre}">{languageTag() === "en" ? "View" : "Visiter"}</a>
+          <a class="button" href="/lignes/{ligne.fields.id}" style:--color={ligne.fields.couleur} aria-label={languageTag() === "en" ? `Visit the timeline ${ligne.fields.titre}` : `Visiter la ligne du temps ${ligne.fields.titre}`}>{languageTag() === "en" ? "View" : "Visiter"}</a>
         </div>
         <hr>
       </li>

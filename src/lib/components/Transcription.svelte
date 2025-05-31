@@ -4,6 +4,7 @@
   
   import Icon from './Icon.svelte'
   import Document from '$lib/components/document/index.svelte'
+  import { languageTag } from '$lib/paraglide/runtime'
 
   export let visible: boolean = false
   export let body: ContentfulDocument
@@ -11,15 +12,15 @@
 
 <button class="button--transcription" aria-expanded={visible ? "true" : "false"} aria-controls="transcription" on:click={(e) => {
   visible = !visible
-}} aria-label="Lire la transcription">transcription</button>
+}} aria-label={languageTag() === "en" ? "Read the transcription" : "Lire la transcription"}>transcription</button>
 
 {#if visible}
 <aside transition:fly={{ opacity: 1, x: '100%', duration: 666 }} id="transcription" class:visible={visible}>
-  <button class="button--none" on:click={() => visible = false}><Icon i="back" label="Fermer la transcription" /></button>
+  <button class="button--none" on:click={() => visible = false}><Icon i="back" label={languageTag() === "en" ? "Close the transcription" : "Fermer la transcription"}/></button>
   {#if body}
   <Document body={body} />
   {:else}
-  <p>Aucune transcription disponible pour cette vidéo.</p>
+  <p>{languageTag() === "en" ? "No transcription available for this video." : "Aucune transcription disponible pour cette vidéo."}</p>
   {/if}
 </aside>
 {/if}

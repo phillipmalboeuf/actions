@@ -47,7 +47,7 @@
   <figure class="col col--3of12 col--mobile--12of12"><a href="/"><Logo label="Accueil – Actions collectives. Regards féministes sur la collection." /></a></figure>
 
   <div class="col col--9of12 col--tablet--8of12 col--mobile--12of12">
-    <ul class="list--nostyle flex flex--gapped" aria-label="Liens de navigation">
+    <ul class="list--nostyle flex flex--gapped" aria-label={languageTag() === "en" ? "Navigation links" : "Liens de navigation"}>
       {#if footer}
       {#each footer.fields.liens as lien, i}
       {#if i < footer.fields.liens.length - 1}
@@ -55,7 +55,7 @@
         <a href="{lien.fields.route}">{lien.fields.titre}</a>
 
         {#if lien.fields.sousLiens}
-        <ul aria-label="Sous-liens {lien.fields.titre}">
+        <ul aria-label={languageTag() === "en" ? `Sub-links ${lien.fields.titre}` : `Sous-liens ${lien.fields.titre}`}>
           {#each lien.fields.sousLiens as souslien}
           <li>
             <a href="{souslien.fields.route}">{souslien.fields.titre}</a>
@@ -118,7 +118,7 @@
           <button 
             class="button--inverse" 
             type="submit" 
-            aria-label="Soumettre"
+            aria-label={languageTag() === "en" ? "Submit" : "Soumettre"}
             disabled={isSubmitting}
           >
             <svg width="22" height="22" viewBox="0 0 30 30">

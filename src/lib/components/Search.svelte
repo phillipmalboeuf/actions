@@ -101,14 +101,14 @@
       {#if artists}
       <div class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Artiste'}>
         <button type="button" class="button--none" aria-label={languageTag() === "en" ? "Filter by artist" : "Filtrer par artiste"} on:click={() => down = down === 'Artiste' ? undefined : 'Artiste'}>{languageTag() === "en" ? "Artist" : "Artiste"} <Icon i="down" label={undefined} /></button>
-        <ol class="list--nostyle flex flex--tight_gapped" aria-label="Afficher de façon alphabétique">
+        <ol class="list--nostyle flex flex--tight_gapped" aria-label={languageTag() === "en" ? "Display alphabetically" : "Afficher de façon alphabétique"}>
           {#each ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].filter(l => artists.items.filter(a => a?.fields?.nomFamille).find(a => a.fields.nomFamille[0] === l)) as l}
           <li>
             <button type="button" class="button--none" on:click={() => {
               const label = document.querySelector(`label[data-letter=${l}]`)
               // @ts-ignore
               label.parentElement.scrollTo({ top: label.offsetTop, behavior: 'smooth' })
-            }} aria-label="Scroll to {l}">{l}</button>
+            }} aria-label={languageTag() === "en" ? `Scroll to ${l}` : `Faire défiler jusqu'à ${l}`}>{l}</button>
           </li>
           {/each}
         </ol>
@@ -233,7 +233,7 @@
             <button type="button" class="button--tight" on:click={() => {
               //@ts-ignore
               document.querySelector(`input[type=checkbox][value="${f}"]`).click()
-            }}><span aria-label="Retirer le filtre">X</span> {artists.items.find(a => a.fields.id === f).fields.nomFamille}, {artists.items.find(a => a.fields.id === f).fields.prenom}</button>
+            }}><span aria-label={languageTag() === "en" ? "Remove the filter" : "Retirer le filtre"}>X</span> {artists.items.find(a => a.fields.id === f).fields.nomFamille}, {artists.items.find(a => a.fields.id === f).fields.prenom}</button>
           </li>
           {/each}
           {#each medium as f}
@@ -241,7 +241,7 @@
             <button type="button" class="button--tight" on:click={() => {
               //@ts-ignore
               document.querySelector(`input[type=checkbox][value="${f}"]`).click()
-            }}><span aria-label="Retirer le filtre">X</span> {capitalize(f)}</button>
+            }}><span aria-label={languageTag() === "en" ? "Remove the filter" : "Retirer le filtre"}>X</span> {capitalize(f)}</button>
           </li>
           {/each}
         </ul>
