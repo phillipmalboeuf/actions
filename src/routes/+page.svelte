@@ -25,9 +25,9 @@
         <a href="/lignes/{ligne.fields.id}" class="col col--4of12" aria-hidden="true"><Media media={ligne.fields.logotype} /></a>
         <a href="/lignes/{ligne.fields.id}/video" on:click={openDialog} role="button" class="video col col--4of12 col--mobile--12of12">
           <Icon i="play" label={languageTag() === "en" ? "Watch video" : "Visionner la vidéo"} />
-          <Media media={ligne.fields.vignette} small />
+          <Media media={ligne.fields.vignette} small noAlt />
           {#if ligne.fields.vignetteVideo}
-          <Media media={ligne.fields.vignetteVideo} eager small />
+          <Media media={ligne.fields.vignetteVideo} eager small noAlt />
           {/if}
         </a>
         <div class="col col--4of12">
