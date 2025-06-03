@@ -7,7 +7,7 @@ export const actions = {
 
     return await email.sendEmailWithTemplate({
         From: 'phil@phils.computer',
-        To: 'phil@phils.computer',
+        To: 'collections@museejoliette.org',
         MessageStream: 'broadcast',
         ReplyTo: data.email as string,
         TemplateAlias: 'base',
