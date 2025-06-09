@@ -1,6 +1,6 @@
 import contentful from 'contentful'
 
-const preview = true
+const preview = false
 export const content = contentful.createClient({
   space: 'nbfcd3ddu3u4',
   host: preview ? 'preview.contentful.com' : 'cdn.contentful.com',
