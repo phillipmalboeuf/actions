@@ -812,6 +812,7 @@
               border-top-left-radius: $base * 0.5;
               width: 120px;
               font-size: $base - 2px;
+              pointer-events: auto !important;
 
               :global(svg) {
                 display: block;
