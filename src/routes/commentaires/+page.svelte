@@ -133,6 +133,10 @@
       background-origin: border-box;
       background-clip: content-box, border-box;
 
+      :global(svg path) {
+        fill: none;
+      }
+
       &.submitting {
         color: $brown;
         background-image: linear-gradient(white, white), 
