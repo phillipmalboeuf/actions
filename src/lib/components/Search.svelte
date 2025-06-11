@@ -14,6 +14,7 @@
   import { languageTag } from '$lib/paraglide/runtime'
 
   export let visible = false
+  export let main = false
 
   export let query: string = undefined
   export let artist: string[] = []
@@ -32,6 +33,7 @@
 
   let timeout: NodeJS.Timeout
   let down: string = undefined
+  let currentRequestId = 0
 
   $: {
     if (browser && !artists && visible) {
@@ -53,25 +55,46 @@
   const submit: EventHandler<SubmitEvent, HTMLFormElement> = async (e) => {
       // if (e.metaKey) return;
 
+    // Increment request ID to mark this as the latest request
+    const requestId = ++currentRequestId
     waiting = true
       
     const path = (`${languageTag() === "en" ? "/en" : ""}/search?query=${e.currentTarget['query'].value}&artist=${artist.join(',')}&from=${e.currentTarget['from'].value}&to=${e.currentTarget['to'].value}&medium=${medium.join(',')}&lignes=${Object.entries(lignes).filter((([id, value]) => !!value)).map(([id, value]) => id)}`)
-    const result = await preloadData(path)
+    
+    try {
+      const result = await preloadData(path)
 
-    if (result.type === 'loaded' && result.status === 200) {
-      // query = result.data.query
-      artist = result.data.artist || []
-      from = result.data.from
-      to = result.data.to
-      medium = result.data.medium || []
-      results = result.data.results
+      // Only process the result if this is still the latest request
+      if (requestId === currentRequestId) {
+        if (result.type === 'loaded' && result.status === 200) {
+          // query = result.data.query
+          artist = result.data.artist || []
+          from = result.data.from
+          to = result.data.to
+          medium = result.data.medium || []
+          results = result.data.results
 
-      pushState(path, { search: result.data })
-
-      waiting = false
-    } else {
-      goto(path)
+          pushState(path, { search: result.data })
+        } else {
+          goto(path)
+        }
+      }
+    } finally {
+      // Only update waiting state if this is still the latest request
+      if (requestId === currentRequestId) {
+        waiting = false
+      }
     }
+  }
+
+  const input: EventHandler<InputEvent, HTMLInputElement> = (e) => {
+    // Increment request ID to mark any pending request as outdated
+    currentRequestId++
+    
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      form.requestSubmit()
+    }, 333)
   }
 </script>
 
@@ -82,12 +105,7 @@
 
 <form class="flex flex--gapped" bind:this={form} action="/search" method="get" on:submit|preventDefault={submit}>
   <!-- <label for="query">Inscrire les termes recherchés</label> -->
-  <input type="search" name="query" id="query" placeholder={languageTag() === "en" ? "Search" : "Rechercher"} aria-label={languageTag() === "en" ? "Search" : "Rechercher"} title={languageTag() === "en" ? "Search" : "Rechercher"} bind:value={query} on:input={(e) => {
-    clearTimeout(timeout)
-    timeout = setTimeout(() => {
-      form.requestSubmit()
-    }, 100)
-  }}>
+  <input type="search" name="query" id="query" placeholder={languageTag() === "en" ? "Search" : "Rechercher"} aria-label={languageTag() === "en" ? "Search" : "Rechercher"} title={languageTag() === "en" ? "Search" : "Rechercher"} bind:value={query} on:input={input}>
 
   <aside class="col">
     <label for="artist">{languageTag() === "en" ? "Filters" : "Filtres"}</label>
@@ -114,66 +132,29 @@
         </ol>
         <div>
           {#each artists.items.filter(a => a?.fields?.nomFamille) as a}
-          <label for="artist-{a.fields.id}" data-letter={a.fields.nomFamille[0]}>
+          <label for="{main ? 'main' : 'dialog'}-artist-{a.fields.id}" data-letter={a.fields.nomFamille[0]}>
             {@html (a.fields.prenom ? `${a.fields.nomFamille}, ${a.fields.prenom}` : a.fields.nom)}
-            <input type="checkbox" bind:group={artist} id="artist-{a.fields.id}" value="{a.fields.id}"
-              on:click={async (e) => {
-                // if (a.fields.id === artist) {
-                //   artist = undefined
-                //   await tick()
-                //   form.requestSubmit()
-                // }
-              }}
-              on:input={(e) => {
-                clearTimeout(timeout)
-                timeout = setTimeout(() => {
-                  form.requestSubmit()
-                }, 333)
-              }}>
+            <input type="checkbox" bind:group={artist} id="{main ? 'main' : 'dialog'}-artist-{a.fields.id}" value="{a.fields.id}"
+              on:input={input}>
           </label>
           {/each}
         </div>
-        <!-- <select id="artist" name="artist" value={artist || ""} on:input={(e) => { form.requestSubmit() }}>
-          <option value={""}>Artiste</option>
-          {#each artists.items as artist}
-          <option value={artist.fields.id}>{artist.fields.nom}</option>
-          {/each}
-        </select> -->
       </div>
       {/if}
 
       {#if mediums}
       <div class="col col--4of12 col--mobile--12of12 dropdown" class:down={down === 'Type'}>
-        <button type="button" class="button--none" aria-label={languageTag() === "en" ? "Filter by medium" : "Filtrer par type d’oeuvre"} on:click={() => down = down === 'Type' ? undefined : 'Type'}>{languageTag() === "en" ? "Type" : "Type d’oeuvre"} <Icon i="down" label={undefined} /></button>
+        <button type="button" class="button--none" aria-label={languageTag() === "en" ? "Filter by medium" : "Filtrer par type d'oeuvre"} on:click={() => down = down === 'Type' ? undefined : 'Type'}>{languageTag() === "en" ? "Type" : "Type d'oeuvre"} <Icon i="down" label={undefined} /></button>
         <ol aria-hidden="true"></ol>
         <div>
           {#each mediums as m}
-          <label for="medium-{m}">
+          <label for="{main ? 'main' : 'dialog'}-medium-{m}">
             {capitalize(m)}
-            <input type="checkbox" bind:group={medium} id="medium-{m}" value="{m}"
-              on:click={async (e) => {
-                // if (m === medium) {
-                //   medium = undefined
-                //   await tick()
-                //   form.requestSubmit()
-                // }
-              }}
-              on:input={(e) => {
-                clearTimeout(timeout)
-                timeout = setTimeout(() => {
-                  form.requestSubmit()
-                }, 333)
-              }}>
+            <input type="checkbox" bind:group={medium} id="{main ? 'main' : 'dialog'}-medium-{m}" value="{m}"
+              on:input={input}>
           </label>
           {/each}
         </div>
-        <!-- <select name="medium" value={medium || ""} on:input={(e) => { form.requestSubmit() }}>
-          <option value={""}>Type d'oeuvre</option>
-          {#each mediums as medium}
-          <option value={medium}>{capitalize(medium)}</option>
-          {/each}
-        </select> -->
-        <!-- <Icon i="down" label="Select" /> -->
       </div>
       {/if}
 
@@ -182,45 +163,27 @@
         <button type="button" class="button--none" on:click={() => down = down === 'Année' ? undefined : 'Année'} aria-label={languageTag() === "en" ? "Filter by period of production" : "Filtrer par période de réalisation"} >{languageTag() === "en" ? "Period of production" : "Période de réalisation"} <Icon i="down" label={undefined} /></button>
         <div>
           <div>
-            <label for="from">{languageTag() === "en" ? "From the year" : "À partir de l'année"}</label>
+            <label for="{main ? 'main' : 'dialog'}-from">{languageTag() === "en" ? "From the year" : "À partir de l'année"}</label>
             <input type="number" aria-hidden="true"  class:default={Number(from) === 1920} bind:value={from}>
-            <input type="range" name="from" id="from" bind:value={from} min={1920} max={2022} on:input={(e) => {
-              clearTimeout(timeout)
-              timeout = setTimeout(() => {
-                form.requestSubmit()
-              }, 333)
-            }}>
+            <input type="range" name="from" id="{main ? 'main' : 'dialog'}-from" bind:value={from} min={1920} max={2022} on:input={input}>
             <span style:--left={`${(from - 1915) / (2027 - 1915) * 100}%`}>{from}</span>
           </div>
           <div>
-            <label for="to">{languageTag() === "en" ? "To the year" : "Jusqu’à l'année"}</label>
+            <label for="{main ? 'main' : 'dialog'}-to">{languageTag() === "en" ? "To the year" : "Jusqu'à l'année"}</label>
             <input type="number" aria-hidden="true" class:default={Number(to) === 2022} bind:value={to}>
-            <input type="range" id="to" name="to" bind:value={to} min={1920} max={2022} on:input={(e) => {
-              clearTimeout(timeout)
-              timeout = setTimeout(() => {
-                form.requestSubmit()
-              }, 666)
-            }}>
+            <input type="range" id="{main ? 'main' : 'dialog'}-to" name="to" bind:value={to} min={1920} max={2022} on:input={input}>
             <span style:--left={`${(to - 1925) / (2025 - 1925) * 100}%`}>{to}</span>
           </div>
         </div>
-        <!-- <select name="annee" value={annee || ""} on:input={(e) => { form.requestSubmit() }}>
-          <option value={""}>Année de production</option>
-          {#each annees.filter(a => a) as annee}
-          <option value={annee.toString()}>{annee}</option>
-          {/each}
-        </select>
-        <Icon i="down" label="Select" /> -->
       </div>
       {/if}
 
       {#each $page.data.lignes as ligne}
       <div class="col col--4of12 col--mobile--12of12" style:--couleur={ligne.fields.couleur}>
-        <label class="ligne" for="ligne-{ligne.fields.id}">
+        <label class="ligne" for="{main ? 'main' : 'dialog'}-ligne-{ligne.fields.id}">
           {ligne.fields.titre}
-          <input type="checkbox" name="{ligne.fields.id}" id="ligne-{ligne.fields.id}" checked={lignes[ligne.fields.id]} on:input={(e) => {
+          <input type="checkbox" name="{ligne.fields.id}" id="{main ? 'main' : 'dialog'}-ligne-{ligne.fields.id}" checked={lignes[ligne.fields.id]} on:input={(e) => {
             lignes[ligne.fields.id] = e.currentTarget.checked
-            form.requestSubmit()
           }}>
         </label>
       </div>
@@ -428,7 +391,7 @@
 
         @media (hover: hover) and (pointer: fine) {
           &:hover,
-          &:has(input[focus]),
+          &:has(input:focus-visible),
           &.down {
             background-color: $beige-dark;
             border-color: $beige-dark;
