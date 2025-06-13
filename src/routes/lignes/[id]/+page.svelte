@@ -112,7 +112,7 @@
           </figure>
           <button class="next button--none" on:click={() => slider.scrollNext()}><Icon i="back" label="Prochain" /></button>
         </li>
-        {#each data.ligne.fields.oeuvres.slice(0,2) as oeuvre, i}
+        {#each data.ligne.fields.oeuvres as oeuvre, i}
         <li class="slide {oeuvre.fields.format}" class:left={(active < i + 1)} class:right={(active > i + 1) && i !== data.ligne.fields.oeuvres.length - 1} class:hover>
           <a href="/oeuvres/{oeuvre.fields.id}" role="button" tabindex="0" on:click|preventDefault={e => {
             if (i !== active - 1) {
