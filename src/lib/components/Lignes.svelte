@@ -138,9 +138,9 @@
           border-top: 1px solid;
           padding: ($mobile_base * 0.5) 0;
 
-          &:last-child {
-            border-bottom: 1px solid;
-          }
+          // &:last-child {
+          //   border-bottom: 1px solid;
+          // }
         }
       }
     }
