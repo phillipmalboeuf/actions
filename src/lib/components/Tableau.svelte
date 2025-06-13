@@ -212,6 +212,20 @@
           flex: 1;
           width: auto;
         }
+
+        @media (max-width: $tablet_landscape) {
+          .flex {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+        }
+
+        @media (max-width: $mobile) {
+          .flex {
+            flex-direction: row;
+            // align-items: flex-start;
+          }
+        }
       }
 
       @media (max-width: $mobile) {
@@ -281,7 +295,7 @@
     }
 
     &:not(.lignes) {
-      @media (max-width: $mobile) {
+      @media (max-width: $tablet_landscape) {
         h2 {
           display: block;
           padding: 0;
