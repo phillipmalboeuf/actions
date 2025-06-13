@@ -413,6 +413,7 @@
 
           > p {
             margin-bottom: $base;
+            word-break: break-word;
 
             &:has(+ p > em:first-child),
             &:has(+ p > a) {
