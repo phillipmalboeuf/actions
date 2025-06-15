@@ -364,7 +364,7 @@
           }
         }
 
-        @media (hover: none) and (pointer: coarse) {
+        @media (hover: none) {
           &.down {
             background-color: $beige-dark;
             border-color: $beige-dark;
