@@ -213,6 +213,12 @@
           width: auto;
         }
 
+        @media (min-width: $tablet_landscape) {
+          .flex {
+            flex-wrap: nowrap;
+          }
+        }
+
         @media (max-width: $tablet_landscape) {
           .flex {
             flex-direction: column;
