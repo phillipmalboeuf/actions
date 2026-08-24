@@ -14,7 +14,7 @@
 		"@inlang/paraglide-js": "1.11.8",
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^7.0.1",
-		"@sveltejs/kit": "^2.5.27",
+		"@sveltejs/kit": "^2.70.3",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
