@@ -13,7 +13,7 @@
 	"devDependencies": {
 		"@inlang/paraglide-js": "1.11.8",
 		"@playwright/test": "^1.28.1",
-		"@sveltejs/adapter-auto": "^3.2.2",
+		"@sveltejs/adapter-auto": "^7.0.1",
 		"@sveltejs/kit": "^2.5.27",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"svelte": "^5.0.0",
