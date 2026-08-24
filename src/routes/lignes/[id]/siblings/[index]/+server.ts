@@ -2,12 +2,12 @@ import { json, text } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 import { stringify } from 'devalue'
 import { DateTime } from 'luxon'
-import { content } from '$lib/clients/contentful'
+import { cachedEntries } from '$lib/clients/contentful'
 import type { TypeLigneSkeleton } from '$lib/clients/content_types'
 
 export const GET: RequestHandler = async ({ request, params, url }) => {
 	const [lignes] = await Promise.all([
-    content.getEntries<TypeLigneSkeleton>({ content_type: "ligne", include: 2, "fields.id": params.id, limit: 1 }),
+    cachedEntries<TypeLigneSkeleton>({ content_type: "ligne", include: 2, "fields.id": params.id, limit: 1 }),
   ])
 
 	const ligne = lignes.items[0]

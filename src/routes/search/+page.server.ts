@@ -1,15 +1,15 @@
 // import { error } from '@sveltejs/kit'
 
 import type { TypeArtisteSkeleton, TypeLigneSkeleton, TypeOeuvreSkeleton } from '$lib/clients/content_types'
-import { content } from '$lib/clients/contentful'
+import { cachedEntries } from '$lib/clients/contentful'
 import type { Entry } from 'contentful'
 import { languageTag } from '$lib/paraglide/runtime.js'
 
 export const load = (async ({ locals, url, params, parent }) => {
   const [artists, oeuvres, lignes] = await Promise.all([
-    content.getEntries<TypeArtisteSkeleton>({ "content_type": "artiste", order: ["fields.nomFamille", "fields.nom"], select: ["fields.prenom", "fields.nomFamille", "fields.nom", "fields.id", "sys.id"], locale: { 'en': 'en-CA' }[languageTag()] || 'fr-CA' }),
-    content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre", select: ["fields.annee", "fields.medium", "fields.typologie"], locale: { 'en': 'en-CA' }[languageTag()] || 'fr-CA' }),
-    content.getEntries<TypeLigneSkeleton>({ "content_type": "ligne", select: ["fields.oeuvres", "fields.id", "fields.couleur", "fields.titre"], locale: { 'en': 'en-CA' }[languageTag()] || 'fr-CA' }),
+    cachedEntries<TypeArtisteSkeleton>({ "content_type": "artiste", order: ["fields.nomFamille", "fields.nom"], select: ["fields.prenom", "fields.nomFamille", "fields.nom", "fields.id", "sys.id"], locale: { 'en': 'en-CA' }[languageTag()] || 'fr-CA' }),
+    cachedEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre", select: ["fields.annee", "fields.medium", "fields.typologie"], locale: { 'en': 'en-CA' }[languageTag()] || 'fr-CA' }),
+    cachedEntries<TypeLigneSkeleton>({ "content_type": "ligne", select: ["fields.oeuvres", "fields.id", "fields.couleur", "fields.titre"], locale: { 'en': 'en-CA' }[languageTag()] || 'fr-CA' }),
   ])
 
   const annees = [...new Set(oeuvres.items.filter(oeuvre => oeuvre.fields?.annee).map(oeuvre => oeuvre.fields.annee))].sort()
@@ -27,7 +27,7 @@ export const load = (async ({ locals, url, params, parent }) => {
       artists,
       mediums,
       annees,
-      results: (await content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre", limit: 200, include: 3, order: ["fields.anneeEvenement"], locale: { 'en': 'en-CA' }[languageTag()] || 'fr-CA' })).items.map(oeuvre => ({
+      results: (await cachedEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre", limit: 200, include: 3, order: ["fields.anneeEvenement"], locale: { 'en': 'en-CA' }[languageTag()] || 'fr-CA' })).items.map(oeuvre => ({
         ...oeuvre,
         ligne: lignes.items.find(l => l.fields.oeuvres.find(o => oeuvre.sys.id === o.sys.id))
       }))
@@ -35,7 +35,7 @@ export const load = (async ({ locals, url, params, parent }) => {
   }
 
   const [results, artistQuery] = await Promise.all([
-    content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre",
+    cachedEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre",
       "query": query,
       ...from ? { "fields.annee[gte]": parseInt(from) } : undefined,
       ...to ? { "fields.annee[lte]": parseInt(to) } : undefined,
@@ -45,7 +45,7 @@ export const load = (async ({ locals, url, params, parent }) => {
         'fields.artiste.fields.id[in]': artist
       } : {},
       include: 3, order: ["fields.anneeEvenement"], locale: { 'en': 'en-CA' }[languageTag()] || 'fr-CA' }),
-    content.getEntries<TypeArtisteSkeleton>({ "content_type": "artiste",
+    cachedEntries<TypeArtisteSkeleton>({ "content_type": "artiste",
       "query": query,
     })
   ])
@@ -53,7 +53,7 @@ export const load = (async ({ locals, url, params, parent }) => {
   const more = artistQuery.items?.length
     ? artistQuery.items.length > 80
       ? []
-      : (await content.getEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre",
+      : (await cachedEntries<TypeOeuvreSkeleton>({ "content_type": "oeuvre",
           links_to_entry: artistQuery.items[0].sys.id,
           ...from ? { "fields.annee[gte]": parseInt(from) } : undefined,
           ...to ? { "fields.annee[lte]": parseInt(to) } : undefined,
